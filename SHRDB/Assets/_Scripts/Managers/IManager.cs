@@ -7,6 +7,7 @@ namespace Managers
     public interface IManager
     {
         public void StartManager();
+        public void OnStartGame();
         public void LoadData();
         public void SaveData();
         public void OnEndGame();

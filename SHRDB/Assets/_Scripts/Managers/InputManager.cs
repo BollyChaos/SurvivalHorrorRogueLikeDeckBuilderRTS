@@ -29,6 +29,10 @@ public class InputManager : ASingleton<InputManager>, IManager
         throw new System.NotImplementedException();
     }
 
+    public void OnStartGame()
+    {
+    }
+
     public void SaveData()
     {
         throw new System.NotImplementedException();

@@ -42,6 +42,7 @@ namespace Managers
                     break;
                 case (int)SceneIds.GAMESCENE: 
                     gameState = GameState.INGAME;
+                    OnStartGame();
                     break;
             }
         }
@@ -93,6 +94,15 @@ namespace Managers
                 manager.StartManager();
             }
             LoadData();
+        }
+
+        public void OnStartGame()
+        {
+            Debug.Log($"[{name}]Empezando juego");
+            foreach(var manager in managersList)
+            {
+                manager.OnStartGame();
+            }
         }
     }
 }

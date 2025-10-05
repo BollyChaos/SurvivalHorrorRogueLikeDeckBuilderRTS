@@ -66,7 +66,8 @@ namespace Managers
             throw new System.NotImplementedException();
         }
 
-
-
+        public void OnStartGame()
+        {
+        }
     }
 }

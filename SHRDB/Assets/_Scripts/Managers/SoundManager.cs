@@ -51,5 +51,9 @@ namespace Managers
         {
             SaveData();
         }
+
+        public void OnStartGame()
+        {
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace Character.Controls
         public Vector2 inputDir { get; }
 
 
-        public bool IsMoving { get; }
+        public bool IsMoving { get; } 
 
        
     }
