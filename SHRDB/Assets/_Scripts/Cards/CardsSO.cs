@@ -3,7 +3,6 @@ public enum CardType { Attack, Defense, Utility }
 public enum CardRarity { Common, Rare, Special }
 
 [CreateAssetMenu(fileName = "CardsSO", menuName = "ScriptableObjects/CardsSO")]
-
 public class CardsSO : ScriptableObject
 {
     [SerializeField]
