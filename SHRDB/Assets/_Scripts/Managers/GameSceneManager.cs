@@ -17,7 +17,8 @@ namespace Managers
         }
         public void LoadMenuScene()
         {
-            LoadSceneAsyncID((int)StartingScene);
+            SceneManager.LoadScene((int)StartingScene, LoadSceneMode.Single);
+            //LoadSceneAsyncID((int)StartingScene);
         }
         public void LoadSceneAsyncID(int id)
         {

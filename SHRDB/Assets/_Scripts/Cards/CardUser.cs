@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -6,7 +5,7 @@ using UnityEngine.InputSystem;
 public class CardUser : MonoBehaviour
 {
     [SerializeField]
-    List<CardObject> playerCards=new List<CardObject>();
+    List<CardObject> playerCards=new List<CardObject>();//referencia a las cartas de la interfaz
     [SerializeField]
     private bool[] cardPressed = new bool[3]; 
 

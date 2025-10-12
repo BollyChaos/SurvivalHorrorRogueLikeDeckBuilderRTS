@@ -20,19 +20,27 @@ namespace Managers
         public GameState CurrentState {  get { return gameState; } }
         void Start()
         {
-            SceneManager.sceneLoaded += OnChangeScene;
             if (managersList == null)
             {
                 managersList = new List<IManager>();
                 var allManagers = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None)
                              .OfType<IManager>()
-                             .Where(m => !(m is GameManager)); // excluye GameManager
+                             .Where(m => !(m is GameManager)); // excluir GameManager
 
                 managersList.AddRange(allManagers);
+                StartManager();
             }
-            StartManager();
+            
+        }
+        void OnEnable()
+        {
+            SceneManager.sceneLoaded += OnChangeScene;
         }
 
+        void OnDisable()
+        {
+            SceneManager.sceneLoaded -= OnChangeScene;
+        }
         private void OnChangeScene(Scene scene, LoadSceneMode mode)
         {
             switch (scene.buildIndex)
@@ -49,12 +57,12 @@ namespace Managers
         public void PauseGame()
         {
             gameState=GameState.INPAUSE;
-            onPause.Invoke(true);
+            onPause?.Invoke(true);
         }
         public void UnPauseGame()
         {
             gameState = GameState.INGAME;
-            onPause.Invoke(false);
+            onPause?.Invoke(false);
         }
 
        
@@ -84,12 +92,17 @@ namespace Managers
         {
             throw new System.NotImplementedException();
         }
-
+        private IEnumerator DelayedStartGame(Scene scene)
+        {
+            yield return new WaitForEndOfFrame();
+            StartManager();
+        }
         public void StartManager()
         {
             Debug.Log($"[{name}]:Iniciando...");
+            managersList = managersList.Where(m => m != null).ToList();
 
-            foreach (var manager in managersList)
+            foreach (var manager in managersList.Where(m => m != null))
             {
                 manager.StartManager();
             }

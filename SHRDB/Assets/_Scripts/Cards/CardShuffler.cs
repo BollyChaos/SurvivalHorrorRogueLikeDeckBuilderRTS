@@ -9,55 +9,64 @@ public class CardShuffler : MonoBehaviour
     [SerializeField]
     string cardsFolderName = "CardsInformation";
     [SerializeField]
-    List<CardsSO> allCards;
+    List<CardsSO> allCardsFromFolder = new List<CardsSO>();
 
     [SerializeField]
-    List<CardsSO> unlockedCards;
+    List<CardsSO> unlockedCardsAvailable = new List<CardsSO>();
 
     [SerializeField]
-    List<CardsSO> givenCards;
+    List<CardsSO> givenCardsToPlayer = new List<CardsSO>();
 
     [SerializeField]
-    float[] cardTypesWeights;
+    List<float> cardTypeWeight = new List<float>();
     [SerializeField]
-    float cardTypesDecayFactor;
+    float cardTypeDecayFactor;
 
     [SerializeField]
-    float[] cardRarityWeights;
+    List<float> cardRaritiesWeights = new List<float>();
     [SerializeField]
-    float[] cardRarityDecayFactor;
+    List<float> cardRaritiesDecayFactor = new List<float>();
     [SerializeField]
     int nCardsToGive = 10;
     private bool resetPool;
+
+    public void Awake()
+    {
+        allCardsFromFolder = new List<CardsSO>(Resources.LoadAll<CardsSO>(cardsFolderName));
+        foreach (var card in allCardsFromFolder)
+        {
+            card.cardId = CardHasher.GetUniqueID();
+
+        }
+    }
     public void Start()
     {
-        allCards = new List<CardsSO>(Resources.LoadAll<CardsSO>(cardsFolderName));
-        foreach (var card in allCards)
+        foreach (var card in allCardsFromFolder)
         {
-            if (card.unlocked)
-            {
-                unlockedCards.Add(card);//si la carta esta desbloqueada añadir
-            }
+            if (card.cardId != -1)//la gracia esta en que haya una carta empty, entonces esa no necesitamos un id unico
+                if (card.unlocked)
+                {
+                    unlockedCardsAvailable.Add(card);//si la carta esta desbloqueada añadir
+                }
         }
     }
 
-    [ContextMenu("ShuffleCards")]
     public List<CardsSO> ShuffleCards()
     {
         List<CardsSO> cardsToReturn = new List<CardsSO>();
 
         //Primero averiguar el tipo de cartas que van a salir
         //como los tipos de cartas son equiprobables poner siempre el mismo peso
-        for (int i = 0; i < cardTypesWeights.Length; i++)
+        for (int i = 0; i < cardTypeWeight.Count; i++)
         {
-            cardTypesWeights[i] = 1;
+            cardTypeWeight[i] = 1;
         }
-        DynamicProbability.SetWeights(cardTypesWeights, cardTypesDecayFactor);
+        DynamicProbability.SetWeights(cardTypeWeight.ToArray(), cardTypeDecayFactor);
         int[] cardTypes = DynamicProbability.RollNTimes(nCardsToGive);
 
 
         //Luego averiguar la rareza de las cartas por tipo
-        DynamicProbability.SetWeights(cardRarityWeights, cardRarityDecayFactor);
+        DynamicProbability.SetWeights(cardRaritiesWeights.ToArray(), cardRaritiesDecayFactor.ToArray());
         int[] cardRarities = DynamicProbability.RollNTimesNEP(nCardsToGive);
 
         for (int i = 0; i < nCardsToGive; i++)
@@ -74,16 +83,16 @@ public class CardShuffler : MonoBehaviour
         if (resetPool) ResetPool();
         List<CardsSO> cardsToReturn = new List<CardsSO>();
         //Primero es restar los conjuntos de cartas desbloqueadas y las cartas dadas, asi tenemos las disponibles
-        List<CardsSO> availableCards = unlockedCards.Except(givenCards).ToList();
+        List<CardsSO> availableCards = unlockedCardsAvailable.Except(givenCardsToPlayer).ToList();
         //Casos posibles:
         //1.Encontrar el tipo y la rareza
         //2.Encontrar el tipo pero no la rareza->dar otra rareza
-        //3.No encontrar el tipo y si la rareza-> dar otro tipo
+        //3.No encontrar el tipo y si la rareza-> dar otr o tipo
         //4.No encontrar nada(no hay mas cartas o no hay de esa clase)-> volver a llenar la pool
         for (int i = 0; i < nCardsToGive; i++)
         {
             var sameTypeSameRarity = availableCards//mismo tipo y rareza
-                .Where(c => (int)c.cardType == cardTypes[i] && (int)c.cardRarity == cardRarities[i]&&c.cardId!=-1)
+                .Where(c => (int)c.cardType == cardTypes[i] && (int)c.cardRarity == cardRarities[i] && c.cardId != -1)
                 .ToList();
 
             var sameType = availableCards//solo mismo tipo
@@ -110,16 +119,16 @@ public class CardShuffler : MonoBehaviour
             }
             else
             {
-                availableCards = unlockedCards.Except(cardsToReturn).ToList();
+                availableCards = unlockedCardsAvailable.Except(cardsToReturn).ToList();
                 resetPool = true;
-                
+
                 if (availableCards.Count > 0)
                     chosen = availableCards[0]; // Caso 4
             }
 
             if (chosen != null)
             {
-                givenCards.Add(chosen);
+                givenCardsToPlayer.Add(chosen);
                 cardsToReturn.Add(chosen);
                 availableCards.Remove(chosen);
             }
@@ -129,13 +138,13 @@ public class CardShuffler : MonoBehaviour
 
     private void ResetPool()
     {
-        givenCards.Clear();
-        unlockedCards.Clear();
-        foreach (var card in allCards)
+        givenCardsToPlayer=null;
+        unlockedCardsAvailable=null;
+        foreach (var card in allCardsFromFolder)
         {
             if (card.unlocked)
             {
-                unlockedCards.Add(card);//si la carta esta desbloqueada añadir
+                unlockedCardsAvailable.Add(card);//si la carta esta desbloqueada añadir
             }
         }
         resetPool = false;
@@ -170,5 +179,12 @@ public class CardShuffler : MonoBehaviour
                 break;
         }
         Debug.Log($"Carta de tipo: {cardType}. Rareza:{cardRarity}");
+    }
+    public void OnDestroy()
+    {
+        //Limpiar las listas porque unity se ralla
+        allCardsFromFolder = null;
+        unlockedCardsAvailable = null;
+        givenCardsToPlayer = null;
     }
 }

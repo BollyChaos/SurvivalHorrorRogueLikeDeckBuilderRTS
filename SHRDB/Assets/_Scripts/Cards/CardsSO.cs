@@ -9,10 +9,13 @@ public class CardsSO : ScriptableObject
     public int cardId;//(o usar enum)
     
     [SerializeField]
-    public string CardName;
+    private string cardName;
+    public string CardName { get { return cardName; } }//get necesario para evitar que se corrompa la cache
     
     [SerializeField]
-    public string Description;
+    private string description;
+
+    public string Description { get { return description; } }//get necesario por el mismo motivo
 
     [SerializeField]
     public int nUses = 1;

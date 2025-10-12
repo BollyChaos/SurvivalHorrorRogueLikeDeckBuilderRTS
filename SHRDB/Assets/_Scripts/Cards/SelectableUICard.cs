@@ -1,38 +1,71 @@
+﻿using System;
+using System.Xml.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class SelectableUICard : Button
+public class SelectableUICard : Toggle
 {
     [SerializeField] private Image image;
     [SerializeField] private Color selectedColor = Color.yellow;
     [SerializeField] private Color normalColor = Color.white;
 
-    private bool isSelected = false;
-
+    public bool lockTogle = false;
     void Awake()
     {
-        if (!image) image = GetComponent<Image>();
+        base.Awake();
+        if (image==null) image = GetComponent<Image>();
+    }
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        LookForUIManager();
+
+    }
+    private void LookForUIManager()
+    {
+
+        UIManager manager=UIManager.Instance;
+        if (manager != null)
+        {
+            var card = GetComponent<CardObject>();
+
+            manager.AddCard(card);
+        }
     }
 
-    public void OnSelect(BaseEventData eventData)
+    private void OnToggleChanged(bool isOn)
     {
-        isSelected = true;
-        image.color = selectedColor;
-        Debug.Log($"Seleccionado: {name}");
+        image.color = isOn ? selectedColor : normalColor;
     }
 
-    // Cuando el objeto se deselecciona
-    public void OnDeselect(BaseEventData eventData)
+    public override void OnSelect(BaseEventData eventData)
     {
-        isSelected = false;
-        image.color = normalColor;
-        Debug.Log($"Deseleccionado: {name}");
+        base.OnSelect(eventData);
+        Debug.Log($"{name} seleccionado (navegación)");
     }
 
-    // Cuando se hace clic con el rat�n o toque t�ctil
-    public void OnPointerClick(PointerEventData eventData)
+    public override void OnDeselect(BaseEventData eventData)
     {
+        base.OnDeselect(eventData);
+        Debug.Log($"{name} deseleccionado (navegación)");
+    }
+
+    public override void OnPointerClick(PointerEventData eventData)
+    {
+        if (lockTogle) return;//si ya esta hecha la seleccion volver
+
+        base.OnPointerClick(eventData);
+        Debug.Log($"{name} {(isOn ? "Seleccionado" : "Deseleccionado")}");
+
         EventSystem.current.SetSelectedGameObject(gameObject);
+
+        //si el toggle es on avisar a cardmanager, cuando card manager llegue a las tres cartas necesarias se activa el evento para darselas al jugador
+        CardManager.Instance.SelectCards(isOn);
+        if (isOn)
+        {
+            // Calcula la nueva posición sumando offsetY
+            
+        }
     }
 }

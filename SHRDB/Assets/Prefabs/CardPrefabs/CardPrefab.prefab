@@ -273,7 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c326a995243c7f84a9dc824cdb226912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: 2c68beb39c0fb6b4580d1014a486b74c, type: 2}
+  card: {fileID: 0}
   AttackColor: {r: 0.401, g: 0.17604877, b: 0.17604877, a: 1}
   DefenseColor: {r: 0.21807691, g: 0.26653844, b: 0.42, a: 1}
   UtilityColor: {r: 0.368, g: 0.35505527, b: 0.11465326, a: 1}
