@@ -107,7 +107,7 @@ public class CardUser : MonoBehaviour
             }
         }
 
-        Debug.Log($"Índice actual: {cardIndex}");
+       // Debug.Log($"Índice actual: {cardIndex}");
     }
     private void ReadInputCard(InputAction.CallbackContext context)
     {
@@ -132,7 +132,8 @@ public class CardUser : MonoBehaviour
     {
         if (cardPressed)
         {
-            playerCards[cardIndex].UseCard();
+            if(playerCards.Count>0)
+                playerCards[cardIndex].UseCard();
         }
     }
 

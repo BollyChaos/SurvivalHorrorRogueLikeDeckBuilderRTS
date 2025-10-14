@@ -129,6 +129,8 @@ public class UIManager : ASingleton<UIManager>, IManager
         CardManager.Instance.GiveCardToPlayer(FindLastCard("CardsDisplay/LeftCard"));
         CardManager.Instance.GiveCardToPlayer(FindLastCard("CardsDisplay/CenterCard"));
         CardManager.Instance.GiveCardToPlayer(FindLastCard("CardsDisplay/RightCard"));
+        //ceder el control del jugador 
+        InputManager.Instance.SwitchMapToPlayer();
     }
 
     void EmparentCard(string objectName, GameObject objectToMove)

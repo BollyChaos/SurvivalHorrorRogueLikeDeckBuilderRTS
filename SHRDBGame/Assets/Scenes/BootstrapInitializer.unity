@@ -390,7 +390,7 @@ MonoBehaviour:
   DebugGame: 1
   ChangeInitalScene: 1
   startingDebugScene: 2
-  SkipPhase: 0
+  SkipPhase: 1
   SkipCardSelectionPhase: 1
 --- !u!4 &277794896
 Transform:
@@ -1413,8 +1413,8 @@ MonoBehaviour:
     m_ActionName: Player/UseCard[/Keyboard/space]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: d8f6dcc4-0bbe-45c9-826f-e25c697a4d55
-    m_ActionName: Player/MoveCard
+    m_ActionId: ba117663-a4fe-486f-b842-ae8514a35b2f
+    m_ActionName: Player/NavigateCards[/Mouse/scroll/up,/Mouse/scroll/down]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

@@ -10,6 +10,7 @@ public class LookAtMouseOrGamepad : MonoBehaviour
     private Camera mainCamera;
     private Vector2 lookInput; // se rellena desde PlayerInput
 
+   
     private void Start()
     {
         mainCamera = Camera.main;
@@ -17,6 +18,7 @@ public class LookAtMouseOrGamepad : MonoBehaviour
         {
             LookForInput();
         }
+
     }
 
     private void LookForInput()
@@ -30,6 +32,7 @@ public class LookAtMouseOrGamepad : MonoBehaviour
             input.actions["Look"].performed += OnLook;
 
         }
+
     }
 
     void FixedUpdate()

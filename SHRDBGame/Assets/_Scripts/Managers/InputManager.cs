@@ -39,10 +39,19 @@ public class InputManager : ASingleton<InputManager>, IManager
     {
         throw new System.NotImplementedException();
     }
+    public void SwitchMapToPlayer()
+    {
+        playerInput.SwitchCurrentActionMap("Player");
 
+    }
+    public void SwitchMapToUI()
+    {
+        playerInput.SwitchCurrentActionMap("UI");
+
+    }
     public void StartManager()
     {
          Debug.Log($"[{name}]:Iniciando...");
-
+        SwitchMapToUI();
     }
 }
