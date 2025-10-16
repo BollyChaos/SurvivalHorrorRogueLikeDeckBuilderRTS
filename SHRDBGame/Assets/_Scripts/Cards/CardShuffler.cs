@@ -47,7 +47,7 @@ public class CardShuffler : MonoBehaviour
             if (card.cardId != -1)//la gracia esta en que haya una carta empty, entonces esa no necesitamos un id unico
                 if (card.unlocked)
                 {
-                    unlockedCardsAvailable.Add(card);//si la carta esta desbloqueada añadir
+                    unlockedCardsAvailable.Add(card);//si la carta esta desbloqueada aï¿½adir
                 }
         }
     }
@@ -108,15 +108,15 @@ public class CardShuffler : MonoBehaviour
 
             if (sameTypeSameRarity.Count > 0)
             {
-                chosen = sameTypeSameRarity[0]; // Caso 1}
+                chosen = sameTypeSameRarity[UnityEngine.Random.Range(0,sameTypeSameRarity.Count)]; // Caso 1}
             }
             else if (sameType.Count > 0)
             {
-                chosen = sameType[0]; // Caso 2
+                chosen = sameType[UnityEngine.Random.Range(0,sameType.Count)]; // Caso 2
             }
             else if (sameRarity.Count > 0)
             {
-                chosen = sameRarity[0]; // Caso 3
+                chosen = sameRarity[UnityEngine.Random.Range(0,sameRarity.Count)]; // Caso 3
             }
             else
             {
@@ -145,7 +145,7 @@ public class CardShuffler : MonoBehaviour
         {
             if (card.unlocked)
             {
-                unlockedCardsAvailable.Add(card);//si la carta esta desbloqueada añadir
+                unlockedCardsAvailable.Add(card);//si la carta esta desbloqueada aï¿½adir
             }
         }
         resetPool = false;

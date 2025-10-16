@@ -21,10 +21,18 @@ public class CardLogicHandler : MonoBehaviour
         
     }
 
-    internal void UseCard(string cardName)
+    internal void UseCard(CardObject cardObj)
     {
-        //buscar la carta en el diccionario, si no está usar default
-        //gestionar lógica de usar una carta(duración, si es la misma no interrumpir, el manejo de los usos de la carta, descartarla
+        //buscar la carta en el diccionario, si no estï¿½ usar default
+        //gestionar lï¿½gica de usar una carta(duraciï¿½n, si es la misma no interrumpir, el manejo de los usos de la carta, descartarla
+        Debug.Log($"[CardLogicHandler]Me ha llegado la carta {cardObj.card.CardName}");
+        StartCoroutine(DefaultCardBehaviour(cardObj));
+        
     }
-
+    IEnumerator DefaultCardBehaviour(CardObject cardObj)
+    {
+        yield return new WaitForSeconds(3f);
+        
+        cardObj.UsingCard = false;
+    }
 }

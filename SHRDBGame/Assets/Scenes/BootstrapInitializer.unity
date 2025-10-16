@@ -390,7 +390,7 @@ MonoBehaviour:
   DebugGame: 1
   ChangeInitalScene: 1
   startingDebugScene: 2
-  SkipPhase: 1
+  SkipPhase: 0
   SkipCardSelectionPhase: 1
 --- !u!4 &277794896
 Transform:
@@ -917,10 +917,19 @@ MonoBehaviour:
   allCardsFromFolder: []
   unlockedCardsAvailable: []
   givenCardsToPlayer: []
-  cardTypeWeight: []
-  cardTypeDecayFactor: 0
-  cardRaritiesWeights: []
-  cardRaritiesDecayFactor: []
+  cardTypeWeight:
+  - 1
+  - 1
+  - 1
+  cardTypeDecayFactor: 0.6
+  cardRaritiesWeights:
+  - 10
+  - 1
+  - 0
+  cardRaritiesDecayFactor:
+  - 0.01
+  - 0.1
+  - 1
   nCardsToGive: 8
 --- !u!114 &1077143936
 MonoBehaviour:

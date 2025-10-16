@@ -16,13 +16,22 @@ public class CardObject : MonoBehaviour
     Color DefenseColor;
     [SerializeField]
     Color UtilityColor;
-    //Aqui se pueden añadir materiales distintos para lueog las rarezas
+    private int cardNUses;//va a ser la copia del numero de usos de la carta
+    private bool usingCard = false;
+    public bool discard = false;
+    public bool UsingCard{
+        get{return usingCard;}
+        set{ usingCard = value; }
+          }
+    
+    //Aqui se pueden aï¿½adir materiales distintos para luego las rarezas
 
     [ContextMenu("BuildCard")]
     public void BuildCard()
     {
 
-
+        cardNUses = card.nUses;
+        
         // StartCoroutine(BuildCardCoroutine());
 
         Image cardSprite = null;
@@ -104,12 +113,21 @@ public class CardObject : MonoBehaviour
     }
     public void UseCard()
     {
+        if (usingCard) return;
         Debug.Log($"Usando la carta:{card.CardName}");
         //llamar a cardlogichandler y decir su nombre
-        CardManager.Instance.GetComponent<CardLogicHandler>().UseCard(card.CardName);
+        CardManager.Instance.GetComponent<CardLogicHandler>().UseCard(this);
+        --cardNUses;
+        if (cardNUses <= 0)
+        {
+            discard = true;
+            Discard();
+        }
+        usingCard = true;
     }
-    private void Discard()
+    public void Discard()
     {
-
+        Debug.Log("Descartando carta");
+        gameObject.SetActive(false);
     }
 }
