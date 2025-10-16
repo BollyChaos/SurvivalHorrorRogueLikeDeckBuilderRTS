@@ -141,7 +141,7 @@ GameObject:
   - component: {fileID: 21850017}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -305,8 +305,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ba588e0276f25947a0aa58a43e705a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCards: []
+  cardCooldown: 3
+  AttackCard: {fileID: 0}
+  DefenseCard: {fileID: 0}
+  UtilityCard: {fileID: 0}
   cardPressed: 0
+  canUseCard: 1
   cardIndex: 0
 --- !u!114 &21850017
 MonoBehaviour:
@@ -320,7 +324,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a18f9c736c9dd21468f103e7ba5bc415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCards: []
 --- !u!1 &269150347
 GameObject:
   m_ObjectHideFlags: 3
@@ -675,7 +678,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208

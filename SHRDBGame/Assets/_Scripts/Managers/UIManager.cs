@@ -52,7 +52,7 @@ public class UIManager : ASingleton<UIManager>, IManager
     {
         yield return new WaitUntil(() => obj.activeInHierarchy);
 
-        Debug.Log($"{obj.name} ya está activo!");
+        Debug.Log($"{obj.name} ya estï¿½ activo!");
     }
     public void LockSelectionCards()
     {
@@ -129,6 +129,9 @@ public class UIManager : ASingleton<UIManager>, IManager
         CardManager.Instance.GiveCardToPlayer(FindLastCard("CardsDisplay/LeftCard"));
         CardManager.Instance.GiveCardToPlayer(FindLastCard("CardsDisplay/CenterCard"));
         CardManager.Instance.GiveCardToPlayer(FindLastCard("CardsDisplay/RightCard"));
+        //
+        CardManager.Instance.GiveCardsToPlayer(UICards);
+
         //ceder el control del jugador 
         InputManager.Instance.SwitchMapToPlayer();
     }
@@ -139,11 +142,11 @@ public class UIManager : ASingleton<UIManager>, IManager
 
         if (leftCard != null && objectToMove != null)
         {
-            objectToMove.transform.SetParent(leftCard, true); // false = adopta la posición local del nuevo padre
+            objectToMove.transform.SetParent(leftCard, true); // false = adopta la posiciï¿½n local del nuevo padre
         }
         else
         {
-            Debug.LogWarning($"No se encontró '{objectName}' o 'objectToMove' no está asignado");
+            Debug.LogWarning($"No se encontrï¿½ '{objectName}' o 'objectToMove' no estï¿½ asignado");
         }
     }
     CardObject FindLastCard(string objectName)
@@ -152,7 +155,7 @@ public class UIManager : ASingleton<UIManager>, IManager
         if (parent.childCount > 0)
         {
             Transform ultimoHijo = parent.GetChild(parent.childCount - 1);
-            Debug.Log("El último hijo es: " + ultimoHijo.name);
+            Debug.Log("El ï¿½ltimo hijo es: " + ultimoHijo.name);
             return ultimoHijo.GetComponent<CardObject>();   
         }
         return null;

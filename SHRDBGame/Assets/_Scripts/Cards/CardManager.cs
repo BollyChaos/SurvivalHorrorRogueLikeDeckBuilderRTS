@@ -80,7 +80,11 @@ public class CardManager : ASingleton<CardManager>,IManager
     }
     public void GiveCardToPlayer(CardObject card)
     {
-        FindAnyObjectByType<CardUser>().ReceiveCard(card);
+        FindAnyObjectByType<CardInventory>().AddCard(card);
+    }
+    public void GiveCardsToPlayer(List<CardObject> cards)
+    {
+        FindAnyObjectByType<CardInventory>().AddCards(cards);
     }
     public void SaveData()
     {
