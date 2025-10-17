@@ -162,6 +162,30 @@ public class UIManager : ASingleton<UIManager>, IManager
     }
     #endregion
 
+    #region UIShop
+    public GameObject textoInteraccion;
+    public GameObject panelTienda;
+    public Button BotonSalirTienda;
+    internal void AbrirPanel()
+    {
+            if (panelTienda != null)
+                panelTienda.SetActive(true);
+
+            if (textoInteraccion != null)
+                textoInteraccion.SetActive(false);
+    }
+
+    internal void CerrarPanel()
+    {
+        if (panelTienda != null)
+            panelTienda.SetActive(false);
+
+        if (textoInteraccion != null)
+            textoInteraccion.SetActive(true);
+    }
+
+    #endregion
+
     public void LoadData()
     {
         throw new System.NotImplementedException();
@@ -196,6 +220,7 @@ public class UIManager : ASingleton<UIManager>, IManager
         DontDestroyOnLoad(PlayerHUD);//quiero que se mantenga la player HUD 
         PlayerHUD.SetActive(false);
         ContinueButton.onClick.AddListener(onEndSelection);
+        BotonSalirTienda.onClick.AddListener(CerrarPanel);
     }
 
 
@@ -216,6 +241,4 @@ public class UIManager : ASingleton<UIManager>, IManager
     {
 
     }
-
-
 }

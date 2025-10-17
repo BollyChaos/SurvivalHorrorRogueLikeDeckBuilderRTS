@@ -19,15 +19,6 @@ public class TiendaTrigger : MonoBehaviour
 
     void Update()
     {
-        if (jugadorEnRango && Input.GetKeyDown(KeyCode.E))
-        {
-            AbrirTienda();
-        }
-
-        if (panelTienda != null && panelTienda.activeSelf && Input.GetKeyDown(KeyCode.Escape))
-        {
-            CerrarTienda();
-        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -40,6 +31,17 @@ public class TiendaTrigger : MonoBehaviour
 
             if (textoInteraccion != null)
                 textoInteraccion.SetActive(true);
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.transform.GetComponent<Interactor>() != null)
+        {
+            if (other.transform.GetComponent<Interactor>().isInteracting)
+            {
+                UIManager.Instance.AbrirPanel();
+            }
         }
     }
 
@@ -57,24 +59,6 @@ public class TiendaTrigger : MonoBehaviour
             if (panelTienda != null)
                 panelTienda.SetActive(false);
         }
-    }
-
-    void AbrirTienda()
-    {
-        if (panelTienda != null)
-            panelTienda.SetActive(true);
-
-        if (textoInteraccion != null)
-            textoInteraccion.SetActive(false);
-    }
-
-    public void CerrarTienda()
-    {
-        if (panelTienda != null)
-            panelTienda.SetActive(false);
-
-        if (jugadorEnRango && textoInteraccion != null)
-            textoInteraccion.SetActive(true);
     }
 
     void OnDrawGizmosSelected()
