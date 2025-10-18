@@ -20,6 +20,7 @@ public class Interactor : MonoBehaviour
         PlayerInput input = InputManager.Instance.Input;
         if (input != null)
         {
+            input.actions["Interact"].started += OnInteract;
             input.actions["Interact"].performed += OnInteract;
             input.actions["Interact"].canceled += OnInteract;
 

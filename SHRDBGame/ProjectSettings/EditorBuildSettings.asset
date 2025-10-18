@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PruebaEnemigos.unity
     guid: 000b9867d8385da6191ebef5f37d1ad9
+  - enabled: 1
+    path: Assets/Scenes/GameScene Edu (Tienda).unity
+    guid: 2497698ecb003734192b214ba95a3978
   m_configObjects: {}

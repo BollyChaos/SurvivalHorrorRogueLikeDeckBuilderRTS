@@ -156,32 +156,46 @@ public class UIManager : ASingleton<UIManager>, IManager
         {
             Transform ultimoHijo = parent.GetChild(parent.childCount - 1);
             Debug.Log("El �ltimo hijo es: " + ultimoHijo.name);
-            return ultimoHijo.GetComponent<CardObject>();   
+            return ultimoHijo.GetComponent<CardObject>();
         }
         return null;
     }
     #endregion
 
     #region UIShop
-    public GameObject textoInteraccion;
-    public GameObject panelTienda;
-    public Button BotonSalirTienda;
-    internal void AbrirPanel()
-    {
-            if (panelTienda != null)
-                panelTienda.SetActive(true);
+    [Header("UIShop")]
+    public GameObject ShopUI;
 
-            if (textoInteraccion != null)
-                textoInteraccion.SetActive(false);
+    public Button ExitShopButton;
+    internal void ShowShopText()
+    {
+            ShopUI.transform.Find("ShopText").gameObject.SetActive(true);
+        
+    }
+    internal void HideShopText()
+    {
+            ShopUI.transform.Find("ShopText").gameObject.SetActive(false);
+        
+    }
+    internal void OpenPanel()
+    {
+        if (ShopUI != null)
+        {
+            InputManager.Instance.SwitchMapToUI();
+            ShopUI.transform.Find("ShopPanel").gameObject.SetActive(true);
+            HideShopText();
+        }
+            
     }
 
-    internal void CerrarPanel()
+    internal void ClosePanel()
     {
-        if (panelTienda != null)
-            panelTienda.SetActive(false);
-
-        if (textoInteraccion != null)
-            textoInteraccion.SetActive(true);
+         if (ShopUI != null)
+        {
+            InputManager.Instance.SwitchMapToPlayer();
+            ShopUI.transform.Find("ShopPanel").gameObject.SetActive(false);
+            ShowShopText();
+        }
     }
 
     #endregion
@@ -205,7 +219,9 @@ public class UIManager : ASingleton<UIManager>, IManager
     {
         //1.Al empezar juego se activa la hud del player
         Debug.Log($"[{name}]Empezando juego");
-        PlayerHUD.SetActive(true);
+        PlayerHUD?.SetActive(true);
+        ClosePanel();
+        HideShopText();
     }
 
     public void SaveData()
@@ -217,10 +233,22 @@ public class UIManager : ASingleton<UIManager>, IManager
     {
         GameManager.onPause += OnPauseUI;
 
-        DontDestroyOnLoad(PlayerHUD);//quiero que se mantenga la player HUD 
-        PlayerHUD.SetActive(false);
-        ContinueButton.onClick.AddListener(onEndSelection);
-        BotonSalirTienda.onClick.AddListener(CerrarPanel);
+        //Player
+        if (PlayerHUD != null)
+        {
+            DontDestroyOnLoad(PlayerHUD);//quiero que se mantenga la player HUD 
+            PlayerHUD.SetActive(false);
+            ContinueButton?.onClick.AddListener(onEndSelection);
+        }
+        //Shop
+        if (ShopUI != null)
+        {
+            DontDestroyOnLoad(ShopUI);//solo va a existir dentro del juego pero quiero mantenerlo tambien por sea caso
+            ShopUI.SetActive(true);
+            ClosePanel();
+            HideShopText();
+            ExitShopButton.onClick.AddListener(ClosePanel);
+        }
     }
 
 
@@ -228,17 +256,6 @@ public class UIManager : ASingleton<UIManager>, IManager
     public void OnPauseUI(bool pause)
     {
         //TODO logica de pausa
-
-    }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
 
     }
 }

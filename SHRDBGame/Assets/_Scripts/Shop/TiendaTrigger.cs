@@ -2,20 +2,8 @@ using UnityEngine;
 
 public class TiendaTrigger : MonoBehaviour
 {
-    [Header("Referencias UI")]
-    public GameObject textoInteraccion;
-    public GameObject panelTienda;
 
-    private bool jugadorEnRango = false;
-
-    void Start()
-    {
-        if (textoInteraccion != null)
-            textoInteraccion.SetActive(false);
-
-        if (panelTienda != null)
-            panelTienda.SetActive(false);
-    }
+    
 
     void Update()
     {
@@ -27,10 +15,7 @@ public class TiendaTrigger : MonoBehaviour
 
         if (root.CompareTag("Player"))
         {
-            jugadorEnRango = true;
-
-            if (textoInteraccion != null)
-                textoInteraccion.SetActive(true);
+            UIManager.Instance.ShowShopText();
         }
     }
 
@@ -40,7 +25,7 @@ public class TiendaTrigger : MonoBehaviour
         {
             if (other.transform.GetComponent<Interactor>().isInteracting)
             {
-                UIManager.Instance.AbrirPanel();
+                UIManager.Instance.OpenPanel();
             }
         }
     }
@@ -51,13 +36,8 @@ public class TiendaTrigger : MonoBehaviour
 
         if (root.CompareTag("Player"))
         {
-            jugadorEnRango = false;
 
-            if (textoInteraccion != null)
-                textoInteraccion.SetActive(false);
-
-            if (panelTienda != null)
-                panelTienda.SetActive(false);
+            UIManager.Instance.HideShopText();
         }
     }
 

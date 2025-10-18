@@ -33,12 +33,14 @@ public class InputManager : ASingleton<InputManager>, IManager
 
     public void OnStartGame()
     {
+        
     }
 
     public void SaveData()
     {
         throw new System.NotImplementedException();
     }
+    [ContextMenu("Cambiar a mapa de accion Player")]
     public void SwitchMapToPlayer()
     {
         playerInput.SwitchCurrentActionMap("Player");

@@ -20,6 +20,7 @@ public class SimplePlayerController : MonoBehaviour
         PlayerInput input = InputManager.Instance.Input;
         if (input != null)
         {
+            input.actions["Move"].started += OnMove;
             input.actions["Move"].performed += OnMove;
             input.actions["Move"].canceled += OnMove;
 
