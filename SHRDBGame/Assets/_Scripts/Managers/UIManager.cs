@@ -24,7 +24,7 @@ public class UIManager : ASingleton<UIManager>, IManager
     [SerializeField]
     private Button ContinueButton;
 
-
+    //Muy basico se podria hacer de forma dinamica creando y destruyendo cartas
     public void AddCard(CardObject card)
     {
         if (!UICards.Contains(card))
@@ -199,7 +199,7 @@ public class UIManager : ASingleton<UIManager>, IManager
     }
 
     #endregion
-
+    #region ManagerLogic
     public void LoadData()
     {
         throw new System.NotImplementedException();
@@ -258,4 +258,5 @@ public class UIManager : ASingleton<UIManager>, IManager
         //TODO logica de pausa
 
     }
+    #endregion
 }

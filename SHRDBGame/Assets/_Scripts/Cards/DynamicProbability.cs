@@ -7,7 +7,7 @@ public static class DynamicProbability
 
     private static System.Random rand = new System.Random();
     [SerializeField]
-    private static float[] decayFactor = { 0.6f,0.1f,0.1f }; // cuánto disminuye el peso del elegido (0.5 = 50%)
+    private static float[] decayFactor = { 0.6f,0.1f,0.1f }; // cuï¿½nto disminuye el peso del elegido (0.5 = 50%)
   
 
    
@@ -25,7 +25,7 @@ public static class DynamicProbability
             decayFactor[i] = dFactor;
         }
     }
-    public static int  GetRandomIndex()//sucesos equiprobables, generalmente salen todos los tipos
+    public static int GetRandomIndex()//sucesos equiprobables, generalmente salen todos los tipos
     {
         float totalWeight = 0f;
         foreach (var w in weights) totalWeight += w;
@@ -43,7 +43,45 @@ public static class DynamicProbability
             }
         }
 
-        return weights.Length - 1; 
+        return weights.Length - 1;
+    }
+    public static int GetRandomIndexArgs(float[] wgts, float dFactor)
+    {
+        float totalWeight = 0f;
+        foreach (var w in wgts) totalWeight += w;
+
+        float r = (float)(rand.NextDouble() * totalWeight);
+        float sum = 0f;
+
+        for (int i = 0; i < wgts.Length; i++)
+        {
+            sum += wgts[i];
+            if (r <= sum)
+            {
+                UpdateWeightsArgs(i, wgts, dFactor);
+                return i;
+            }
+        }
+
+        return wgts.Length - 1;
+    }
+     private static void UpdateWeightsArgs(int selectedIndex,float[]wgts,float dFactor)
+    {
+        Debug.Log("Evento"+selectedIndex);
+        if (selectedIndex >= wgts.Length||selectedIndex<0) return;
+        float oldWeight = wgts[selectedIndex];
+        float reducedWeight = oldWeight * dFactor;
+        float diff = oldWeight - reducedWeight;
+
+        wgts[selectedIndex] = reducedWeight;
+
+        // Repartir la diferencia entre los demï¿½s tipos
+        float increment = diff / (wgts.Length - 1);
+        for (int i = 0; i < wgts.Length; i++)
+        {
+            if (i != selectedIndex)
+                wgts[i] += increment;
+        }
     }
     public static int[] RollNTimes(int nTimes)
     {
@@ -85,13 +123,14 @@ public static class DynamicProbability
     }
     private static void UpdateWeights(int selectedIndex)
     {
+        if (selectedIndex >= weights.Length||selectedIndex<0) return;
         float oldWeight = weights[selectedIndex];
         float reducedWeight = oldWeight * decayFactor[selectedIndex];
         float diff = oldWeight - reducedWeight;
 
         weights[selectedIndex] = reducedWeight;
 
-        // Repartir la diferencia entre los demás tipos
+        // Repartir la diferencia entre los demï¿½s tipos
         float increment = diff / (weights.Length - 1);
         for (int i = 0; i < weights.Length; i++)
         {
@@ -107,7 +146,7 @@ public static class DynamicProbability
 
         weights[selectedIndex] = diff; //el antiguo peso es la diferencia
 
-        // Repartir la diferencia entre los demás tipos
+        // Repartir la diferencia entre los demï¿½s tipos
         float increment = reducedWeight / (weights.Length - 1);
         for (int i = 0; i < weights.Length; i++)
         {

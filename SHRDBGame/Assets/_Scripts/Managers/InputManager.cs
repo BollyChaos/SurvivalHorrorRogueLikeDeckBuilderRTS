@@ -33,7 +33,7 @@ public class InputManager : ASingleton<InputManager>, IManager
 
     public void OnStartGame()
     {
-        
+         SwitchMapToUI();
     }
 
     public void SaveData()

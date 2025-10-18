@@ -45,21 +45,22 @@ namespace Managers
                 {
                     GameSceneManager.Instance.StartingScene = startingDebugScene;
                 }
-                
+
             }
-                if (managersList == null)
-                {
-                    managersList = new List<IManager>();
-                    var allManagers = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None)
-                                 .OfType<IManager>()
-                                 .Where(m => !(m is GameManager)&&(m!=null)); // excluir GameManager
+            if (managersList == null)
+            {
+                managersList = new List<IManager>();
+                var allManagers = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None)
+                             .OfType<IManager>()
+                             .Where(m => !(m is GameManager) && (m != null)); // excluir GameManager
 
-                    managersList.AddRange(allManagers);
-                    StartManager();
-                }
+                managersList.AddRange(allManagers);
+                StartManager();
+            }
 
-            
+
         }
+        
         void OnEnable()
         {
             SceneManager.sceneLoaded += OnChangeScene;
