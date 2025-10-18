@@ -170,12 +170,10 @@ public class UIManager : ASingleton<UIManager>, IManager
     internal void ShowShopText()
     {
             ShopUI.transform.Find("ShopText").gameObject.SetActive(true);
-        
     }
     internal void HideShopText()
     {
             ShopUI.transform.Find("ShopText").gameObject.SetActive(false);
-        
     }
     internal void OpenPanel()
     {
@@ -199,6 +197,16 @@ public class UIManager : ASingleton<UIManager>, IManager
     }
 
     #endregion
+
+    #region MainMenu
+    [Header("MainMenu")]
+
+    public Button PlayButton;
+
+    
+
+    #endregion
+
     #region ManagerLogic
     public void LoadData()
     {
@@ -251,12 +259,27 @@ public class UIManager : ASingleton<UIManager>, IManager
         }
     }
 
-
-
     public void OnPauseUI(bool pause)
     {
         //TODO logica de pausa
 
+    }
+
+    void OnPlayPressed()
+    {
+        GameSceneManager.Instance.LoadSceneById((int)GameSceneManager.SceneIds.GAMESCENE);
+    }
+
+    internal void LookForMainMenuCanvas()
+    {
+        PlayButton = GameObject.Find("CanvasMainMenu/PanelMainMenu/PlayButton").GetComponent<Button>();
+
+        Debug.Log(PlayButton == null);
+
+        if (PlayButton != null)
+        {
+            PlayButton.onClick.AddListener(OnPlayPressed);
+        }
     }
     #endregion
 }

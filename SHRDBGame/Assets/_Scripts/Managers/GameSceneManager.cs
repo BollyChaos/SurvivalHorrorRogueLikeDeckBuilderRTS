@@ -24,6 +24,12 @@ namespace Managers
             SceneManager.LoadScene((int)StartingScene, LoadSceneMode.Single);
             //LoadSceneAsyncID((int)StartingScene);
         }
+
+        public void LoadSceneById(int id)
+        {
+            SceneManager.LoadScene(id, LoadSceneMode.Single);
+        }
+
         public void LoadSceneAsyncID(int id)
         {
             StartCoroutine(LoadSceneAsyncIDRoutine(id));

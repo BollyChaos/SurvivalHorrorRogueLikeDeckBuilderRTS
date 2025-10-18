@@ -76,6 +76,7 @@ namespace Managers
             {
                 case (int)SceneIds.MAINMENUSCENE:
                     gameState=GameState.INMAINMENU;
+                    UIManager.Instance.LookForMainMenuCanvas();
                     break;
                 case (int)SceneIds.GAMESCENE: 
                     gameState = GameState.INGAME;
