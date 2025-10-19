@@ -210,8 +210,8 @@ public class UIManager : ASingleton<UIManager>, IManager
 
     internal void LookForMainMenuCanvas()
     {
-        PlayButton = GameObject.Find("CanvasMainMenu/PanelMainMenu/PlayButton").GetComponent<Button>();
-        GameObject.Find("CanvasMainMenu/PanelMainMenu/ExitButton").GetComponent<Button>().onClick.AddListener(QuitApplication);
+        PlayButton = GameObject.Find("CanvasMainMenu/PanelMainMenu/Buttons/PlayButton").GetComponent<Button>();
+        GameObject.Find("CanvasMainMenu/PanelMainMenu/Buttons/ExitButton").GetComponent<Button>().onClick.AddListener(QuitApplication);
 
         Debug.Log(PlayButton == null);
 
