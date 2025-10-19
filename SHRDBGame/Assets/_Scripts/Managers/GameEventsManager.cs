@@ -40,7 +40,7 @@ public class GameEventsManager : ASingleton<GameEventsManager>,IManager
 
     public void OnEnd()
     {
-        throw new System.NotImplementedException();
+         Debug.Log($"[{name} cerrando...]");
     }
 
     public void OnEndGame()
@@ -51,6 +51,9 @@ public class GameEventsManager : ASingleton<GameEventsManager>,IManager
     public void OnStartGame()
     {
         Debug.Log($"[{name}]:Empezando juego");
+         timeToWait = UnityEngine.Random.Range(TimeBetweenEvents - randomRange, TimeBetweenEvents + randomRange);
+        Debug.Log($"[{name}]EVENTO EN {timeToWait} SEGUNDOS");
+        CanDoEvents = true;
     }
 
     public void SaveData()
@@ -66,9 +69,7 @@ public class GameEventsManager : ASingleton<GameEventsManager>,IManager
         {
             eventProbs[i] = 1f;
         }
-        timeToWait = UnityEngine.Random.Range(TimeBetweenEvents - randomRange, TimeBetweenEvents + randomRange);
-        Debug.Log($"[{name}]EVENTO EN {timeToWait} SEGUNDOS");
-        CanDoEvents = true;
+       
     }
     #endregion
     // IEnumerator CreateEvents()

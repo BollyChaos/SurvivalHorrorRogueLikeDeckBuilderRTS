@@ -64,7 +64,7 @@ namespace Managers
 
         public void OnEnd()
         {
-            throw new System.NotImplementedException();
+             Debug.Log($"[{name} cerrando...]");
         }
 
         public void OnEndGame()

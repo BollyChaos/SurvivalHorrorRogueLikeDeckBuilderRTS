@@ -1,8 +1,11 @@
 using Managers;
 using Patterns.Singleton;
+using System;
 using System.IO;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 
 
 public class InputManager : ASingleton<InputManager>, IManager
@@ -23,7 +26,7 @@ public class InputManager : ASingleton<InputManager>, IManager
 
     public void OnEnd()
     {
-        throw new System.NotImplementedException();
+         Debug.Log($"[{name} cerrando...]");
     }
 
     public void OnEndGame()
@@ -46,6 +49,7 @@ public class InputManager : ASingleton<InputManager>, IManager
         playerInput.SwitchCurrentActionMap("Player");
 
     }
+    [ContextMenu("Cambiar a mapa de accion UI")]
     public void SwitchMapToUI()
     {
         playerInput.SwitchCurrentActionMap("UI");
@@ -55,5 +59,12 @@ public class InputManager : ASingleton<InputManager>, IManager
     {
          Debug.Log($"[{name}]:Iniciando...");
         SwitchMapToUI();
+    }
+
+    public void ResetUIInPutModule(GameObject Button)
+    {
+        GetComponent<InputSystemUIInputModule>().enabled = false;
+        GetComponent<InputSystemUIInputModule>().enabled = true;
+        EventSystem.current.SetSelectedGameObject(Button);
     }
 }

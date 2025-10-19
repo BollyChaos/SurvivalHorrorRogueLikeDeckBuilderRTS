@@ -108,6 +108,11 @@ namespace Managers
             {
                 manager.OnEnd();
             }
+             #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
         }
 
         public void OnEndGame()
@@ -116,6 +121,7 @@ namespace Managers
             {
                 manager.OnEndGame();
             }
+           
         }
 
         public void SaveData()
@@ -143,6 +149,8 @@ namespace Managers
         {
             Debug.Log($"[{name}]Empezando juego");
             //hay varios tipos de arranque de manager(unos dependen de otros) por defecto empiezan en normal
+            managersList = managersList.Where(m => m != null).ToList();
+
 
             foreach (var manager in managersList.FindAll(m => m.StartMode == IManager.GameStartMode.EARLY))
             {

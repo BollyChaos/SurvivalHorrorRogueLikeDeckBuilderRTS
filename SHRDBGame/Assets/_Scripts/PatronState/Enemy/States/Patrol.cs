@@ -44,7 +44,8 @@ public class Patrol : AEnemyState
         }
        else
         {
-            Debug.Log("distancia en el update:"+(_destination - _currentTransform.position).magnitude);
+            //lo comento porque peta un poco : )
+            //Debug.Log("distancia en el update:"+(_destination - _currentTransform.position).magnitude);
             //Comportamiento de patrulla
             if(!_hasDestination||(_destination - _currentTransform.position).magnitude < 0.5f)
             {

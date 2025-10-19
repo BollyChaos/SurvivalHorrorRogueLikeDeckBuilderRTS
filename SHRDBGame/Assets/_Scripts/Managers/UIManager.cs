@@ -203,7 +203,29 @@ public class UIManager : ASingleton<UIManager>, IManager
 
     public Button PlayButton;
 
-    
+    void OnPlayPressed()
+    {
+        GameSceneManager.Instance.LoadSceneById((int)GameSceneManager.SceneIds.GAMESCENE);
+    }
+
+    internal void LookForMainMenuCanvas()
+    {
+        PlayButton = GameObject.Find("CanvasMainMenu/PanelMainMenu/PlayButton").GetComponent<Button>();
+        GameObject.Find("CanvasMainMenu/PanelMainMenu/ExitButton").GetComponent<Button>().onClick.AddListener(QuitApplication);
+
+        Debug.Log(PlayButton == null);
+
+        if (PlayButton != null)
+        {
+            PlayButton.onClick.AddListener(OnPlayPressed);
+            //Resetear uiinputmodule por si se ralla
+            InputManager.Instance.ResetUIInPutModule(PlayButton.gameObject);
+        }
+    }
+    public void QuitApplication()
+    {
+        GameManager.Instance.OnEnd(); 
+    }
 
     #endregion
 
@@ -215,12 +237,12 @@ public class UIManager : ASingleton<UIManager>, IManager
 
     public void OnEnd()
     {
-        throw new System.NotImplementedException();
+        Debug.Log($"[{name} cerrando...]");
     }
 
     public void OnEndGame()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public void OnStartGame()
@@ -265,21 +287,6 @@ public class UIManager : ASingleton<UIManager>, IManager
 
     }
 
-    void OnPlayPressed()
-    {
-        GameSceneManager.Instance.LoadSceneById((int)GameSceneManager.SceneIds.GAMESCENE);
-    }
-
-    internal void LookForMainMenuCanvas()
-    {
-        PlayButton = GameObject.Find("CanvasMainMenu/PanelMainMenu/PlayButton").GetComponent<Button>();
-
-        Debug.Log(PlayButton == null);
-
-        if (PlayButton != null)
-        {
-            PlayButton.onClick.AddListener(OnPlayPressed);
-        }
-    }
+    
     #endregion
 }

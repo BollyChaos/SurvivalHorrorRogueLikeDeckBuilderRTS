@@ -53,6 +53,7 @@ namespace Managers
         public void OnEnd()
         {
             SaveData();
+            Debug.Log($"[{name} cerrando...]");
         }
 
         public void OnStartGame()
