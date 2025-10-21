@@ -213,7 +213,7 @@ public class UIManager : ASingleton<UIManager>, IManager
         PlayButton = GameObject.Find("CanvasMainMenu/PanelMainMenu/Buttons/PlayButton").GetComponent<Button>();
         GameObject.Find("CanvasMainMenu/PanelMainMenu/Buttons/ExitButton").GetComponent<Button>().onClick.AddListener(QuitApplication);
 
-        Debug.Log(PlayButton == null);
+      //  Debug.Log(PlayButton == null);
 
         if (PlayButton != null)
         {

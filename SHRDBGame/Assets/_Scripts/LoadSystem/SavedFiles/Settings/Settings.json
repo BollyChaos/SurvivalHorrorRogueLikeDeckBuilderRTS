@@ -1,0 +1,263 @@
+{
+    "fields": [
+        {
+            "fieldName": "Controls",
+            "entries": [
+                {
+                    "name": "UseButtons",
+                    "type": 0,
+                    "value": {
+                        "rid": 1000
+                    }
+                }
+            ]
+        },
+        {
+            "fieldName": "ViewPort",
+            "entries": [
+                {
+                    "name": "Brightness",
+                    "type": 1,
+                    "value": {
+                        "rid": 1001
+                    }
+                },
+                {
+                    "name": "Contrast",
+                    "type": 1,
+                    "value": {
+                        "rid": 1002
+                    }
+                },
+                {
+                    "name": "LightIntensity",
+                    "type": 1,
+                    "value": {
+                        "rid": 1003
+                    }
+                },
+                {
+                    "name": "FlashLightIntensity",
+                    "type": 1,
+                    "value": {
+                        "rid": 1004
+                    }
+                }
+            ]
+        },
+        {
+            "fieldName": "Sound",
+            "entries": [
+                {
+                    "name": "MasterVolume",
+                    "type": 1,
+                    "value": {
+                        "rid": 1005
+                    }
+                },
+                {
+                    "name": "MusicVolume",
+                    "type": 1,
+                    "value": {
+                        "rid": 1006
+                    }
+                },
+                {
+                    "name": "SFXVolume",
+                    "type": 1,
+                    "value": {
+                        "rid": 1007
+                    }
+                },
+                {
+                    "name": "InterfaceVolume",
+                    "type": 1,
+                    "value": {
+                        "rid": 1008
+                    }
+                }
+            ]
+        },
+        {
+            "fieldName": "Sound",
+            "entries": [
+                {
+                    "name": "Brightness",
+                    "type": 1,
+                    "value": {
+                        "rid": 1009
+                    }
+                },
+                {
+                    "name": "Contrast",
+                    "type": 1,
+                    "value": {
+                        "rid": 1010
+                    }
+                },
+                {
+                    "name": "LightIntensity",
+                    "type": 1,
+                    "value": {
+                        "rid": 1011
+                    }
+                },
+                {
+                    "name": "FlashLightIntensity",
+                    "type": 1,
+                    "value": {
+                        "rid": 1012
+                    }
+                }
+            ]
+        }
+    ],
+    "references": {
+        "version": 2,
+        "RefIds": [
+            {
+                "rid": 1000,
+                "type": {
+                    "class": "BoolSettingValue",
+                    "ns": "",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "value": false
+                }
+            },
+            {
+                "rid": 1001,
+                "type": {
+                    "class": "FloatSettingValue",
+                    "ns": "",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "value": 0.4699999988079071
+                }
+            },
+            {
+                "rid": 1002,
+                "type": {
+                    "class": "FloatSettingValue",
+                    "ns": "",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "value": 1.5
+                }
+            },
+            {
+                "rid": 1003,
+                "type": {
+                    "class": "FloatSettingValue",
+                    "ns": "",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "value": 1.0
+                }
+            },
+            {
+                "rid": 1004,
+                "type": {
+                    "class": "FloatSettingValue",
+                    "ns": "",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "value": 1.0
+                }
+            },
+            {
+                "rid": 1005,
+                "type": {
+                    "class": "FloatSettingValue",
+                    "ns": "",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "value": 1.0
+                }
+            },
+            {
+                "rid": 1006,
+                "type": {
+                    "class": "FloatSettingValue",
+                    "ns": "",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "value": 0.6299999952316284
+                }
+            },
+            {
+                "rid": 1007,
+                "type": {
+                    "class": "FloatSettingValue",
+                    "ns": "",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "value": 0.7599999904632568
+                }
+            },
+            {
+                "rid": 1008,
+                "type": {
+                    "class": "FloatSettingValue",
+                    "ns": "",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "value": 0.4699999988079071
+                }
+            },
+            {
+                "rid": 1009,
+                "type": {
+                    "class": "FloatSettingValue",
+                    "ns": "",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "value": 2.950000047683716
+                }
+            },
+            {
+                "rid": 1010,
+                "type": {
+                    "class": "FloatSettingValue",
+                    "ns": "",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "value": 2.950000047683716
+                }
+            },
+            {
+                "rid": 1011,
+                "type": {
+                    "class": "FloatSettingValue",
+                    "ns": "",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "value": 2.950000047683716
+                }
+            },
+            {
+                "rid": 1012,
+                "type": {
+                    "class": "FloatSettingValue",
+                    "ns": "",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "value": 2.950000047683716
+                }
+            }
+        ]
+    }
+}

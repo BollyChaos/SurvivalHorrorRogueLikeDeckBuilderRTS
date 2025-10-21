@@ -5,8 +5,7 @@ using Character.Settings;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
-[CreateAssetMenu(menuName = "Settings/GenericSettings")]
-[MovedFrom(true, null, null, "GroupSettings")]
+[CreateAssetMenu(menuName = "ScriptableObject/GenericValues")]
 public class GroupValues : ScriptableObject
 {
     public List<SettingField> fields = new();
@@ -70,7 +69,7 @@ public class GroupValues : ScriptableObject
             }
         }
 
-        Debug.LogWarning($"[GroupSettings] No se encontr� la entrada '{newEntry.name}' para actualizar.");
+        Debug.LogWarning($"[GroupValues] No se encontr� la entrada '{newEntry.name}' para actualizar.");
     }
     public void SetEntryValue(int fieldIndex, int entryIndex, object newValue)
     {
@@ -81,7 +80,7 @@ public class GroupValues : ScriptableObject
         }
         else
         {
-            Debug.LogWarning("[GroupSettings] �ndices fuera de rango al hacer SetEntryValue.");
+            Debug.LogWarning("[GroupValues] �ndices fuera de rango al hacer SetEntryValue.");
         }
     }
 
@@ -104,6 +103,46 @@ public class GroupValues : ScriptableObject
             fields.Add(field.Clone());
         }
     }
+    public bool IsTheSame(GroupValues other)
+{
+    if (other == null) return false;
+
+    // Si tienen diferente cantidad de fields, ya no son iguales
+    if (fields.Count != other.fields.Count)
+        return false;
+
+    for (int i = 0; i < fields.Count; i++)
+    {
+        var fieldA = fields[i];
+        var fieldB = other.fields.Find(f => f.fieldName == fieldA.fieldName);
+
+        // Si no existe el mismo campo en el otro objeto
+        if (fieldB == null)
+            return false;
+
+        // Comparar cantidad de entries dentro del campo
+        if (fieldA.entries.Count != fieldB.entries.Count)
+            return false;
+
+        // Comparar cada entry por nombre, tipo y valor
+        foreach (var entryA in fieldA.entries)
+        {
+            var entryB = fieldB.entries.Find(e => e.name == entryA.name);
+            if (entryB == null)
+                return false;
+
+            if (entryA.type != entryB.type)
+                return false;
+
+            // Comparamos valores mediante el método Equals() ya definido en SettingValue
+            if (!entryA.value.Equals(entryB.value))
+                return false;
+        }
+    }
+
+    return true;
+}
+
 }
 #region INDIVIDUALELEMENT
 [Serializable]
@@ -118,11 +157,16 @@ public abstract class SettingValue
 [Serializable]
 public class BoolSettingValue : SettingValue
 {
+    [SerializeField]
     public bool value;
 
     public override object GetValue() => value;
     public override void SetValue(object val) => value = Convert.ToBoolean(val);
     public override VALUE_TYPE GetValueType() => VALUE_TYPE.BOOL;
+    public BoolSettingValue()
+    {
+        value = false;
+    }
     public override SettingValue Clone()
     {
         return new BoolSettingValue { value = this.value };
@@ -137,11 +181,16 @@ public class BoolSettingValue : SettingValue
 [Serializable]
 public class FloatSettingValue : SettingValue
 {
+    [SerializeField]
     public float value;
 
     public override object GetValue() => value;
     public override void SetValue(object val) => value = Convert.ToSingle(val);
     public override VALUE_TYPE GetValueType() => VALUE_TYPE.FLOAT;
+    public FloatSettingValue()
+    {
+        value = 0f;
+    }
     public override SettingValue Clone()
     {
         return new FloatSettingValue { value = this.value };
@@ -156,11 +205,16 @@ public class FloatSettingValue : SettingValue
 [Serializable]
 public class StringSettingValue : SettingValue
 {
+    [SerializeField]
     public string value;
 
     public override object GetValue() => value;
     public override void SetValue(object val) => value = val?.ToString();
     public override VALUE_TYPE GetValueType() => VALUE_TYPE.STRING;
+    public StringSettingValue()
+    {
+        value = "";
+    }
     public override SettingValue Clone()
     {
         return new StringSettingValue { value = this.value };
@@ -212,7 +266,7 @@ public class SettingField
         newField.entries = new List<SettingEntry>();
         foreach (var entry in entries)
         {
-            newField.entries.Add(entry.Clone());
+            newField.entries.Add(entry?.Clone());
         }
         return newField;
     }

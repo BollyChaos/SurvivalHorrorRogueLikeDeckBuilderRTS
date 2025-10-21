@@ -11,7 +11,8 @@ using UnityEngine.InputSystem.UI;
 public class InputManager : ASingleton<InputManager>, IManager
 {
     [SerializeField] private PlayerInput playerInput;
-
+    public enum InputMap{PLAYER,UI}
+    public InputMap inputMap = InputMap.PLAYER;
     public PlayerInput Input
     {
         get { return playerInput; }
@@ -46,12 +47,14 @@ public class InputManager : ASingleton<InputManager>, IManager
     [ContextMenu("Cambiar a mapa de accion Player")]
     public void SwitchMapToPlayer()
     {
+        inputMap = InputMap.PLAYER;
         playerInput.SwitchCurrentActionMap("Player");
 
     }
     [ContextMenu("Cambiar a mapa de accion UI")]
     public void SwitchMapToUI()
     {
+        inputMap = InputMap.UI;
         playerInput.SwitchCurrentActionMap("UI");
 
     }
