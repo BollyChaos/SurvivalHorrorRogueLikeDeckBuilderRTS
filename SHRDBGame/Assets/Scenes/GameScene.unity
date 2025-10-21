@@ -679,7 +679,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -1349,7 +1349,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -1748,25 +1748,25 @@ MeshRenderer:
   - {fileID: -8977571460832130721, guid: cfd2e55661f5ec347841317b706a2ab8, type: 3}
   - {fileID: 263977237770219625, guid: cfd2e55661f5ec347841317b706a2ab8, type: 3}
   - {fileID: -2753467507872649249, guid: cfd2e55661f5ec347841317b706a2ab8, type: 3}
-  - {fileID: -6639123095976790456, guid: cfd2e55661f5ec347841317b706a2ab8, type: 3}
+  - {fileID: 2100000, guid: 2373d3c7f61345643adeebe692dfcb66, type: 2}
   - {fileID: 8349180431282762554, guid: cfd2e55661f5ec347841317b706a2ab8, type: 3}
   - {fileID: 6197201865146328505, guid: cfd2e55661f5ec347841317b706a2ab8, type: 3}
   - {fileID: -4528860358794324408, guid: cfd2e55661f5ec347841317b706a2ab8, type: 3}
   - {fileID: -1434526806537043437, guid: cfd2e55661f5ec347841317b706a2ab8, type: 3}
   - {fileID: -202220576605108034, guid: cfd2e55661f5ec347841317b706a2ab8, type: 3}
   - {fileID: -6374950468540938212, guid: cfd2e55661f5ec347841317b706a2ab8, type: 3}
-  - {fileID: -3100692679475000566, guid: cfd2e55661f5ec347841317b706a2ab8, type: 3}
+  - {fileID: 2100000, guid: 8fd6d3bf042f8b9488fc27c97ea83743, type: 2}
   - {fileID: -7187237602675073030, guid: cfd2e55661f5ec347841317b706a2ab8, type: 3}
-  - {fileID: 7211224061213288944, guid: cfd2e55661f5ec347841317b706a2ab8, type: 3}
+  - {fileID: 2100000, guid: e802d5b0b2fc52d4a856b312375af0cb, type: 2}
   - {fileID: -7355027230862402828, guid: cfd2e55661f5ec347841317b706a2ab8, type: 3}
   - {fileID: 7401175645266904724, guid: cfd2e55661f5ec347841317b706a2ab8, type: 3}
   - {fileID: 9042356805855626822, guid: cfd2e55661f5ec347841317b706a2ab8, type: 3}
-  - {fileID: 8020336321684307339, guid: cfd2e55661f5ec347841317b706a2ab8, type: 3}
+  - {fileID: 2100000, guid: dd118e262476afa419ade6207fd6b491, type: 2}
   - {fileID: 6138905221166072390, guid: cfd2e55661f5ec347841317b706a2ab8, type: 3}
   - {fileID: -7371848585575803400, guid: cfd2e55661f5ec347841317b706a2ab8, type: 3}
   - {fileID: -2760063205213300101, guid: cfd2e55661f5ec347841317b706a2ab8, type: 3}
-  - {fileID: -6195474516639749038, guid: cfd2e55661f5ec347841317b706a2ab8, type: 3}
-  - {fileID: 5890790163788230649, guid: cfd2e55661f5ec347841317b706a2ab8, type: 3}
+  - {fileID: 2100000, guid: cc5d34aebf80b1a44abb311d11b380de, type: 2}
+  - {fileID: 2100000, guid: 3965ef3eb92e12e4ea0df91ef2efdb3c, type: 2}
   - {fileID: 4418572348006011840, guid: cfd2e55661f5ec347841317b706a2ab8, type: 3}
   - {fileID: -640421345888577198, guid: cfd2e55661f5ec347841317b706a2ab8, type: 3}
   m_StaticBatchInfo:
