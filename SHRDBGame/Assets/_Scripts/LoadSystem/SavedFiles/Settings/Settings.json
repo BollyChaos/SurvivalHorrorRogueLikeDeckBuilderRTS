@@ -79,34 +79,88 @@
             ]
         },
         {
-            "fieldName": "Sound",
+            "fieldName": "Game",
             "entries": [
                 {
-                    "name": "Brightness",
+                    "name": "PlayerHealth",
                     "type": 1,
                     "value": {
                         "rid": 1009
                     }
                 },
                 {
-                    "name": "Contrast",
+                    "name": "PlayerSpeed",
                     "type": 1,
                     "value": {
                         "rid": 1010
                     }
                 },
                 {
-                    "name": "LightIntensity",
+                    "name": "EnemyAgresivity",
                     "type": 1,
                     "value": {
                         "rid": 1011
                     }
                 },
                 {
-                    "name": "FlashLightIntensity",
+                    "name": "StartingCards",
                     "type": 1,
                     "value": {
                         "rid": 1012
+                    }
+                },
+                {
+                    "name": "Invincible",
+                    "type": 0,
+                    "value": {
+                        "rid": 1013
+                    }
+                },
+                {
+                    "name": "UnlimitedMoney",
+                    "type": 0,
+                    "value": {
+                        "rid": 1014
+                    }
+                },
+                {
+                    "name": "UnlimitedDamage",
+                    "type": 0,
+                    "value": {
+                        "rid": 1015
+                    }
+                },
+                {
+                    "name": "GiveRandomCard",
+                    "type": 0,
+                    "value": {
+                        "rid": 1016
+                    }
+                }
+            ]
+        },
+        {
+            "fieldName": "Accesibility",
+            "entries": [
+                {
+                    "name": "CameraShake",
+                    "type": 0,
+                    "value": {
+                        "rid": 1017
+                    }
+                },
+                {
+                    "name": "InterfaceSize",
+                    "type": 1,
+                    "value": {
+                        "rid": 1018
+                    }
+                },
+                {
+                    "name": "DialogSize",
+                    "type": 1,
+                    "value": {
+                        "rid": 1019
                     }
                 }
             ]
@@ -222,7 +276,7 @@
                     "asm": "Assembly-CSharp"
                 },
                 "data": {
-                    "value": 2.950000047683716
+                    "value": 1.5
                 }
             },
             {
@@ -233,7 +287,7 @@
                     "asm": "Assembly-CSharp"
                 },
                 "data": {
-                    "value": 2.950000047683716
+                    "value": 1.0
                 }
             },
             {
@@ -244,7 +298,7 @@
                     "asm": "Assembly-CSharp"
                 },
                 "data": {
-                    "value": 2.950000047683716
+                    "value": 0.07999999821186066
                 }
             },
             {
@@ -255,7 +309,84 @@
                     "asm": "Assembly-CSharp"
                 },
                 "data": {
-                    "value": 2.950000047683716
+                    "value": 4.0
+                }
+            },
+            {
+                "rid": 1013,
+                "type": {
+                    "class": "BoolSettingValue",
+                    "ns": "",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "value": false
+                }
+            },
+            {
+                "rid": 1014,
+                "type": {
+                    "class": "BoolSettingValue",
+                    "ns": "",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "value": false
+                }
+            },
+            {
+                "rid": 1015,
+                "type": {
+                    "class": "BoolSettingValue",
+                    "ns": "",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "value": false
+                }
+            },
+            {
+                "rid": 1016,
+                "type": {
+                    "class": "BoolSettingValue",
+                    "ns": "",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "value": false
+                }
+            },
+            {
+                "rid": 1017,
+                "type": {
+                    "class": "BoolSettingValue",
+                    "ns": "",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "value": true
+                }
+            },
+            {
+                "rid": 1018,
+                "type": {
+                    "class": "FloatSettingValue",
+                    "ns": "",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "value": 1.0
+                }
+            },
+            {
+                "rid": 1019,
+                "type": {
+                    "class": "FloatSettingValue",
+                    "ns": "",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "value": 1.0
                 }
             }
         ]

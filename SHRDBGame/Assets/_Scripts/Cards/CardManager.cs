@@ -23,7 +23,7 @@ public class CardManager : ASingleton<CardManager>,IManager
 
     public void OnEndGame()
     {
-        throw new System.NotImplementedException();
+      //  throw new System.NotImplementedException();
     }
 
     public void OnStartGame()

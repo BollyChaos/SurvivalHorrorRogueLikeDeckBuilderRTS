@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static Managers.GameSceneManager;
 using static Managers.IManager;
 public class UIManager : ASingleton<UIManager>, IManager
 {
@@ -13,8 +14,10 @@ public class UIManager : ASingleton<UIManager>, IManager
     public GameStartMode StartMode => GameStartMode.EARLY;
 
     [SerializeField] InGameStates inGameStates;
+    [Header("Player")]
     [SerializeField]
     GameObject PlayerHUD;
+   
 
     #region UICards
 
@@ -80,6 +83,7 @@ public class UIManager : ASingleton<UIManager>, IManager
         //bloquear interfaz(desactivar el componente)
 
         ContinueButton.gameObject.SetActive(false);
+        inGameStates = InGameStates.INGAME;
         //mover el resto cartas al inventario, emparentar, ver el orden y ordenar
         foreach (var card in UICards)
         {
@@ -228,7 +232,49 @@ public class UIManager : ASingleton<UIManager>, IManager
     }
 
     #endregion
+ #region PauseMenu
+    [Header("Pause")]
+    [SerializeField]
+    public GameObject PauseMenu;
+    public void OnPauseUI(bool isPaused)
+    {
+        if (inGameStates == InGameStates.SELECTINGCARDS)
+        {
+            GameManager.Instance.BlockPause();
+            return;//selectingcards es crucial y bloquea la pausa
+        }
+        inGameStates = isPaused ? InGameStates.INPAUSE : InGameStates.INGAME;
+        PauseMenu.SetActive(isPaused);
+        //si en pausa:
+        //sacar seleccion de tres
+        //enseñar cartas(dejar para mas tarde)
+        if (isPaused)
+        {
+            InputManager.Instance.SwitchMapToUI();
+            ShowSelectionCanvas();
+        }
+        else
+        {
+            InputManager.Instance.SwitchMapToPlayer();
+        }
+       
 
+    }
+    public void ShowSelectionCanvas()
+    {
+        PauseMenu.transform.Find("SelectionCanvas").gameObject.SetActive(true);
+        PauseMenu.transform.Find("TabCanvas").gameObject.SetActive(false);
+    }
+    public void ShowTabCanvas()
+    {
+        PauseMenu.transform.Find("SelectionCanvas").gameObject.SetActive(false);
+        PauseMenu.transform.Find("TabCanvas").gameObject.SetActive(true);
+    }
+    public void GoBackToMainMenu()
+    {
+        GameManager.Instance.GoBackToMainMenu();
+    }
+    #endregion
     #region ManagerLogic
     public void LoadData()
     {
@@ -242,13 +288,15 @@ public class UIManager : ASingleton<UIManager>, IManager
 
     public void OnEndGame()
     {
-        
+        //TODO eliminar cartas de player hud(o quizas guardarlas para la proxima partida?->otro metodo para guardar preguntar si se quiere guardar partida antes de salir)
+        //quitar cartas de player HUD
     }
 
     public void OnStartGame()
     {
         //1.Al empezar juego se activa la hud del player
         Debug.Log($"[{name}]Empezando juego");
+        PauseMenu?.SetActive(false);
         PlayerHUD?.SetActive(true);
         ClosePanel();
         HideShopText();
@@ -262,7 +310,17 @@ public class UIManager : ASingleton<UIManager>, IManager
     public void StartManager()
     {
         GameManager.onPause += OnPauseUI;
+        //Pause
+        if (PauseMenu != null)
+        {
+            DontDestroyOnLoad(PauseMenu);
+            PauseMenu.SetActive(false);
+            //Asignar funciones a los botones del menu de pausa(selectionCanvas)
+            PauseMenu.transform.Find("SelectionCanvas/Continue").GetComponent<Button>().onClick.AddListener(GameManager.Instance.UnPauseGame);
+            PauseMenu.transform.Find("SelectionCanvas/Settings").GetComponent<Button>().onClick.AddListener(ShowTabCanvas);
+            PauseMenu.transform.Find("SelectionCanvas/Quit").GetComponent<Button>().onClick.AddListener(GoBackToMainMenu);
 
+        }
         //Player
         if (PlayerHUD != null)
         {
@@ -281,11 +339,7 @@ public class UIManager : ASingleton<UIManager>, IManager
         }
     }
 
-    public void OnPauseUI(bool pause)
-    {
-        //TODO logica de pausa
-
-    }
+   
 
     
     #endregion

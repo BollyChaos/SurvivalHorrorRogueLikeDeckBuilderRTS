@@ -24,6 +24,7 @@ public class ALoader : MonoBehaviour
     protected string jsonFileName="GameAssets.json";
 
     [SerializeField]
+    [Tooltip("SO que almacena los datos, se inicializa al cargar los datos")]
     protected GroupValues values;
 
     [ContextMenu("Cargar Datos")]

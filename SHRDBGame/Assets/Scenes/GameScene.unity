@@ -1433,6 +1433,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInput: {fileID: 0}
+  inputMap: 0
 --- !u!4 &1992220827
 Transform:
   m_ObjectHideFlags: 0
