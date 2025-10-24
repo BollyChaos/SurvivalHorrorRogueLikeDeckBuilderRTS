@@ -12,7 +12,14 @@ public class CardLogicHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+<<<<<<< Updated upstream
         
+=======
+        //se añade el nombre de la carta y el comportamiento(la funcion que dispara la corrutina)
+        cardEffects.Add("hola", DefaultCardBehaviourFunction);
+
+        cardEffects.Add("Damage+", DamagePowerUpFunction);
+>>>>>>> Stashed changes
     }
 
     // Update is called once per frame
@@ -35,4 +42,23 @@ public class CardLogicHandler : MonoBehaviour
         
         cardObj.UsingCard = false;
     }
+<<<<<<< Updated upstream
+=======
+
+    IEnumerator DamagePowerUp(CardObject cardObj)
+    {
+
+        yield return new WaitForSeconds(5f);
+
+        cardObj.UsingCard = false;
+        //GameObject.Find("Player").GetComponent<PlayerStats>()
+    }
+    void DamagePowerUpFunction(CardObject cardObject)
+    {
+        StartCoroutine(DamagePowerUp(cardObject));
+
+    }
+
+
+>>>>>>> Stashed changes
 }
