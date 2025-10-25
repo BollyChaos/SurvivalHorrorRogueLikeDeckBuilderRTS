@@ -63,11 +63,7 @@ namespace Managers
 
             canvasGroup.alpha = 1f;
         }
-        public void SetAlpha(float val)
-        {
-            Color color = fadeToBlackScreen.GetComponentInChildren<Image>().color;
-            color.a = val;
-        }
+       
 
         public void LoadSceneById(int id)
         {

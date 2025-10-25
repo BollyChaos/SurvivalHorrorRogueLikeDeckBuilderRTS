@@ -6,9 +6,11 @@ using UnityEngine;
 
 public class CardManager : ASingleton<CardManager>,IManager
 {
+    //contador de cartas seleccionadas al principio de una partida
     int playerCards = 3;
     int playerCardsCounter= 0;
-
+    [SerializeField]
+    public int startingCards = 8;
     public IManager.GameStartMode StartMode => IManager.GameStartMode.NORMAL;
 
     public void LoadData()//sacar los ids de las cartas desbloqueadas
@@ -23,7 +25,8 @@ public class CardManager : ASingleton<CardManager>,IManager
 
     public void OnEndGame()
     {
-      //  throw new System.NotImplementedException();
+        FindAnyObjectByType<CardInventory>().OnEndGame();
+        GetComponent<CardShuffler>().ResetPool();
     }
 
     public void OnStartGame()
@@ -31,7 +34,7 @@ public class CardManager : ASingleton<CardManager>,IManager
         Debug.Log($"[{name}]:Empezando juego");
         playerCardsCounter = 0;
 
-        
+
 
 
 
@@ -45,8 +48,14 @@ public class CardManager : ASingleton<CardManager>,IManager
         //}
         ////FindAnyObjectByType<CardUser>().ReceiveCards(cardsToGivePlayer);
     }
+    //Metodo para la tienda o para cualquier cosa que necesite cartas
+    public void GiveNCards(int nCards)
+    {
+        
+    }
     public void OnStartCardSelection()
     {
+        GetComponent<CardShuffler>().nCardsToGive = startingCards;
         List<CardsSO> cardsReceived = GetComponent<CardShuffler>().ShuffleCards();
 
         UIManager.Instance?.BuildCards(cardsReceived);

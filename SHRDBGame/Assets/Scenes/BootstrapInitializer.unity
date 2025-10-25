@@ -182,7 +182,7 @@ GameObject:
   m_Component:
   - component: {fileID: 24368475}
   m_Layer: 5
-  m_Name: Card (2)
+  m_Name: Card(2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -585,7 +585,7 @@ GameObject:
   m_Component:
   - component: {fileID: 126133432}
   m_Layer: 5
-  m_Name: Card (7)
+  m_Name: Card(7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -848,6 +848,10 @@ PrefabInstance:
     - target: {fileID: 9150616657987557661, guid: a69101c32481abf4eaadcaa42b4f860e, type: 3}
       propertyPath: m_Name
       value: UICardPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 9150616657987557661, guid: a69101c32481abf4eaadcaa42b4f860e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4085,7 +4089,7 @@ GameObject:
   m_Component:
   - component: {fileID: 709636612}
   m_Layer: 5
-  m_Name: Card (8)
+  m_Name: Card(8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4602,6 +4606,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UICardPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 9150616657987557661, guid: a69101c32481abf4eaadcaa42b4f860e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4873,7 +4881,7 @@ GameObject:
   m_Component:
   - component: {fileID: 812032447}
   m_Layer: 5
-  m_Name: Card (3)
+  m_Name: Card(3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5963,7 +5971,7 @@ GameObject:
   m_Component:
   - component: {fileID: 984361261}
   m_Layer: 5
-  m_Name: Card (4)
+  m_Name: Card(4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6503,6 +6511,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39b28291bf64aea4ba01c2bdc5e17840, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startingCards: 8
 --- !u!4 &1077143937
 Transform:
   m_ObjectHideFlags: 0
@@ -6669,6 +6678,10 @@ PrefabInstance:
     - target: {fileID: 9150616657987557661, guid: a69101c32481abf4eaadcaa42b4f860e, type: 3}
       propertyPath: m_Name
       value: UICardPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 9150616657987557661, guid: a69101c32481abf4eaadcaa42b4f860e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7906,7 +7919,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1257114143}
   m_Layer: 5
-  m_Name: Card (5)
+  m_Name: Card(5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8562,6 +8575,10 @@ PrefabInstance:
     - target: {fileID: 9150616657987557661, guid: a69101c32481abf4eaadcaa42b4f860e, type: 3}
       propertyPath: m_Name
       value: UICardPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 9150616657987557661, guid: a69101c32481abf4eaadcaa42b4f860e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9222,7 +9239,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1449816225}
   m_Layer: 5
-  m_Name: Card (6)
+  m_Name: Card(6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9279,6 +9296,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inGameStates: 0
   PlayerHUD: {fileID: 1725973893}
+  CardPrefab: {fileID: 9150616657987557661, guid: a69101c32481abf4eaadcaa42b4f860e, type: 3}
   UICards: []
   ContinueButton: {fileID: 1187974092}
   ShopUI: {fileID: 751261069}
@@ -9855,6 +9873,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UICardPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 9150616657987557661, guid: a69101c32481abf4eaadcaa42b4f860e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10344,7 +10366,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1794595324}
   m_Layer: 5
-  m_Name: Card (1)
+  m_Name: Card(1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11718,6 +11740,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UICardPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 9150616657987557661, guid: a69101c32481abf4eaadcaa42b4f860e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11913,7 +11939,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!1 &2038928449
+--- !u!1 &2023417322
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -11921,9 +11947,10 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2038928452}
-  - component: {fileID: 2038928451}
-  - component: {fileID: 2038928450}
+  - component: {fileID: 2023417326}
+  - component: {fileID: 2023417325}
+  - component: {fileID: 2023417324}
+  - component: {fileID: 2023417323}
   m_Layer: 0
   m_Name: SoundManager
   m_TagString: Untagged
@@ -11931,13 +11958,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!82 &2038928450
+--- !u!81 &2023417323
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2023417322}
+  m_Enabled: 1
+--- !u!82 &2023417324
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2038928449}
+  m_GameObject: {fileID: 2023417322}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
@@ -12027,27 +12062,29 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &2038928451
+--- !u!114 &2023417325
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2038928449}
+  m_GameObject: {fileID: 2023417322}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2a4ef30f90e5be4aa4407071adaeb64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicSource: {fileID: 2038928450}
+  musicSource: {fileID: 2023417324}
   sfxSource: {fileID: 0}
---- !u!4 &2038928452
+  audioClips:
+  - {fileID: 8300000, guid: f4a20f6c993667f48bebe5b8bcc7fb87, type: 3}
+--- !u!4 &2023417326
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2038928449}
+  m_GameObject: {fileID: 2023417322}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -12242,6 +12279,10 @@ PrefabInstance:
     - target: {fileID: 9150616657987557661, guid: a69101c32481abf4eaadcaa42b4f860e, type: 3}
       propertyPath: m_Name
       value: UICardPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 9150616657987557661, guid: a69101c32481abf4eaadcaa42b4f860e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -12720,6 +12761,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UICardPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 9150616657987557661, guid: a69101c32481abf4eaadcaa42b4f860e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12732,11 +12777,11 @@ SceneRoots:
   - {fileID: 978450924}
   - {fileID: 277794896}
   - {fileID: 1038115672}
-  - {fileID: 2038928452}
   - {fileID: 1248238852}
   - {fileID: 2129016504}
   - {fileID: 1077143937}
   - {fileID: 1458407710}
+  - {fileID: 2023417326}
   - {fileID: 1294631259}
   - {fileID: 1336401728}
   - {fileID: 1725973897}

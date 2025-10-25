@@ -17,11 +17,13 @@ public class UIManager : ASingleton<UIManager>, IManager
     [Header("Player")]
     [SerializeField]
     GameObject PlayerHUD;
-   
+
 
     #region UICards
 
     [Header("UICards")]
+    [SerializeField]
+    private GameObject CardPrefab;
     [SerializeField]
     private List<CardObject> UICards;
     [SerializeField]
@@ -126,7 +128,7 @@ public class UIManager : ASingleton<UIManager>, IManager
             }
             card.GetComponent<SelectableUICard>().MoveToCurve(card.transform.parent.position);
             card.GetComponent<SelectableUICard>().Scale(2f);
-           
+
 
         }
         //decirle al CardManager que cartas va a usar el jugador, una de cada tipo
@@ -173,11 +175,11 @@ public class UIManager : ASingleton<UIManager>, IManager
     public Button ExitShopButton;
     internal void ShowShopText()
     {
-            ShopUI.transform.Find("ShopText").gameObject.SetActive(true);
+        ShopUI.transform.Find("ShopText").gameObject.SetActive(true);
     }
     internal void HideShopText()
     {
-            ShopUI.transform.Find("ShopText").gameObject.SetActive(false);
+        ShopUI.transform.Find("ShopText").gameObject.SetActive(false);
     }
     internal void OpenPanel()
     {
@@ -187,12 +189,12 @@ public class UIManager : ASingleton<UIManager>, IManager
             ShopUI.transform.Find("ShopPanel").gameObject.SetActive(true);
             HideShopText();
         }
-            
+
     }
 
     internal void ClosePanel()
     {
-         if (ShopUI != null)
+        if (ShopUI != null)
         {
             InputManager.Instance.SwitchMapToPlayer();
             ShopUI.transform.Find("ShopPanel").gameObject.SetActive(false);
@@ -217,7 +219,7 @@ public class UIManager : ASingleton<UIManager>, IManager
         PlayButton = GameObject.Find("CanvasMainMenu/PanelMainMenu/Buttons/PlayButton").GetComponent<Button>();
         GameObject.Find("CanvasMainMenu/PanelMainMenu/Buttons/ExitButton").GetComponent<Button>().onClick.AddListener(QuitApplication);
 
-      //  Debug.Log(PlayButton == null);
+        //  Debug.Log(PlayButton == null);
 
         if (PlayButton != null)
         {
@@ -228,11 +230,11 @@ public class UIManager : ASingleton<UIManager>, IManager
     }
     public void QuitApplication()
     {
-        GameManager.Instance.OnEnd(); 
+        GameManager.Instance.OnEnd();
     }
 
     #endregion
- #region PauseMenu
+    #region PauseMenu
     [Header("Pause")]
     [SerializeField]
     public GameObject PauseMenu;
@@ -257,7 +259,7 @@ public class UIManager : ASingleton<UIManager>, IManager
         {
             InputManager.Instance.SwitchMapToPlayer();
         }
-       
+
 
     }
     public void ShowSelectionCanvas()
@@ -290,6 +292,29 @@ public class UIManager : ASingleton<UIManager>, IManager
     {
         //TODO eliminar cartas de player hud(o quizas guardarlas para la proxima partida?->otro metodo para guardar preguntar si se quiere guardar partida antes de salir)
         //quitar cartas de player HUD
+        foreach (var card in UICards)
+        {
+            Destroy(card);
+        }
+
+        UICards.Clear();
+        //tambien eliminar en el playerhud CardsDisplay/LeftCard
+        string cardPath = "CardsDisplay/LeftCard";
+        foreach (Transform child in PlayerHUD.transform.Find(cardPath))
+        {
+            Destroy(child.gameObject);
+        }
+        cardPath = "CardsDisplay/CenterCard";
+        foreach (Transform child in PlayerHUD.transform.Find(cardPath))
+        {
+            Destroy(child.gameObject);
+        }
+        cardPath = "CardsDisplay/RightCard";
+        foreach (Transform child in PlayerHUD.transform.Find(cardPath))
+        {
+            Destroy(child.gameObject);
+        }
+       
     }
 
     public void OnStartGame()
@@ -300,6 +325,20 @@ public class UIManager : ASingleton<UIManager>, IManager
         PlayerHUD?.SetActive(true);
         ClosePanel();
         HideShopText();
+        //2.UI Cards
+        //Ahora queremos instanciar las cartas y manejarlo de forma dinamica para poder tener bien el estado 0 del juego
+        for (int i = 0; i < CardManager.Instance.startingCards; i++)
+        {
+            GameObject uiCard = GameObject.Instantiate(CardPrefab);
+
+            string parent = $"CardsSelector/Card({i + 1})";
+            PlayerHUD.transform.Find(parent);
+            EmparentCard(parent, uiCard);
+            uiCard.GetComponent<RectTransform>().localPosition = Vector3.zero;
+            uiCard.GetComponent<RectTransform>().localScale = new Vector3(3, 3);
+
+            //no hay que hacer nada mas porque al crearse y activarse buscaran al uimanager
+        }
     }
 
     public void SaveData()
@@ -310,6 +349,7 @@ public class UIManager : ASingleton<UIManager>, IManager
     public void StartManager()
     {
         GameManager.onPause += OnPauseUI;
+
         //Pause
         if (PauseMenu != null)
         {
@@ -327,6 +367,7 @@ public class UIManager : ASingleton<UIManager>, IManager
             DontDestroyOnLoad(PlayerHUD);//quiero que se mantenga la player HUD 
             PlayerHUD.SetActive(false);
             ContinueButton?.onClick.AddListener(onEndSelection);
+
         }
         //Shop
         if (ShopUI != null)
@@ -339,8 +380,8 @@ public class UIManager : ASingleton<UIManager>, IManager
         }
     }
 
-   
 
-    
+
+
     #endregion
 }

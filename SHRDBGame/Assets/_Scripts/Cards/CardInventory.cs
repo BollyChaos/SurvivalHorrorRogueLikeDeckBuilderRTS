@@ -9,8 +9,8 @@ public class CardInventory : MonoBehaviour
     public Stack<CardObject> attackCards = new Stack<CardObject>();
     [SerializeField]
     public Stack<CardObject> defenseCards = new Stack<CardObject>();
-     [SerializeField]
-    public Stack<CardObject> utilityCards=new Stack<CardObject>();
+    [SerializeField]
+    public Stack<CardObject> utilityCards = new Stack<CardObject>();
     [ContextMenu("Say Cards")]
     public void DebugLogCards()
     {
@@ -55,7 +55,7 @@ public class CardInventory : MonoBehaviour
     }
     public void AddCards(List<CardObject> pCards)
     {
-        foreach(var card in pCards)
+        foreach (var card in pCards)
         {
             AddCard(card);
         }
@@ -66,24 +66,42 @@ public class CardInventory : MonoBehaviour
         switch (cardType)
         {
             case CardType.Attack:
-                if(attackCards.Count>0)
-                return attackCards.Pop();
+                if (attackCards.Count > 0)
+                    return attackCards.Pop();
 
 
                 break;
             case CardType.Defense:
-                if(defenseCards.Count>0)
-                return defenseCards.Pop();
+                if (defenseCards.Count > 0)
+                    return defenseCards.Pop();
 
                 break;
             case CardType.Utility:
-                if(utilityCards.Count>0)
-                return utilityCards.Pop();
+                if (utilityCards.Count > 0)
+                    return utilityCards.Pop();
 
                 break;
         }
         return null;
     }
+    public void OnEndGame()
+    {
+        foreach (var obj in attackCards)
+        {
+            Destroy(obj);
+        }
+        foreach (var obj in defenseCards)
+        {
+            Destroy(obj);
+        }
+        foreach (var obj in utilityCards)
+        {
+            Destroy(obj);
+        }
+        attackCards.Clear();
+        defenseCards.Clear();
+        utilityCards.Clear();
 
-    
+    }
+
 }
