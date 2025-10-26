@@ -117,7 +117,7 @@ MonoBehaviour:
     - rid: 3947258337241858230
       type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
       data:
-        value: 1.5
+        value: 1
     - rid: 3947258337241858231
       type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
       data:
@@ -133,7 +133,7 @@ MonoBehaviour:
     - rid: 3947258337241858234
       type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
       data:
-        value: 0.63
+        value: 0.6
     - rid: 3947258337241858235
       type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
       data:
@@ -157,7 +157,7 @@ MonoBehaviour:
     - rid: 3947258337241858240
       type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
       data:
-        value: 8
+        value: 1
     - rid: 3947258337241858241
       type: {class: BoolSettingValue, ns: , asm: Assembly-CSharp}
       data:
@@ -185,4 +185,4 @@ MonoBehaviour:
     - rid: 3947258337241858288
       type: {class: BoolSettingValue, ns: , asm: Assembly-CSharp}
       data:
-        value: 0
+        value: 1

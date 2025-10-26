@@ -219,6 +219,7 @@ public class UIManager : ASingleton<UIManager>, IManager
     internal void LookForMainMenuCanvas()
     {
         PlayButton = GameObject.Find("CanvasMainMenu/PanelMainMenu/Buttons/PlayButton").GetComponent<Button>();
+        GameObject.Find("CanvasMainMenu/PanelMainMenu/Buttons/OptionsButton").GetComponent<Button>().onClick.AddListener(ShowTabCanvasInMainMenu);
         GameObject.Find("CanvasMainMenu/PanelMainMenu/Buttons/ExitButton").GetComponent<Button>().onClick.AddListener(QuitApplication);
 
         //  Debug.Log(PlayButton == null);
@@ -280,18 +281,26 @@ public class UIManager : ASingleton<UIManager>, IManager
     public void ChangeTemporalData<T>(string uiName, T value)
     {
         //var dataValue= FindAnyObjectByType<Character.Settings.Settings>().GetValue<T>(uiName);
-        Debug.Log("[UIManager]Cambiando el valor en " + uiName + " : " + value);
+        //Debug.Log("[UIManager]Cambiando el valor en " + uiName + " : " + value);//ya sabemos que funciona
         //Decir a settings que cambie valor y aplique(pero de momento no guarda)
+        PauseMenu.transform.Find("TabCanvas/SaveText/SaveImage").GetComponent<Image>().color = Color.red;
         SettingsManager.Instance.SetValue<T>(uiName, value);
         isSettingsCanvasDirty = true;
     }
-    public void SaveTemporalData()
-    {//TODO:Guardar los cambios (avisar a settingsmanager)
 
+    public void SaveTemporalData()
+    {//Guardar los cambios (avisar a settingsmanager)
+        if (!isSettingsCanvasDirty) return;
+        SettingsManager.Instance.SaveData();
+        PauseMenu.transform.Find("TabCanvas/SaveText/SaveImage").GetComponent<Image>().color = Color.green;
+
+        isSettingsCanvasDirty = false;
     }
     public void DiscardTemporalData()
-    {//TODO:Descartar los cambios(que settingsmanager haga un load de lo viejo en ALoader y avise de los cambios realizados)
-        
+    {//Descartar los cambios(que settingsmanager haga un load de lo viejo en ALoader y avise de los cambios realizados)
+        if (!isSettingsCanvasDirty) return;
+        SettingsManager.Instance.LoadData();
+        isSettingsCanvasDirty = false;
     }
     public void OnPauseUI(bool isPaused)
     {
@@ -319,13 +328,26 @@ public class UIManager : ASingleton<UIManager>, IManager
     }
     public void ShowSelectionCanvas()
     {
+        isSettingsCanvasDirty = false;
         PauseMenu.transform.Find("SelectionCanvas").gameObject.SetActive(true);
         PauseMenu.transform.Find("TabCanvas").gameObject.SetActive(false);
     }
+    public void ShowTabCanvasInMainMenu()
+    {
+        PauseMenu.SetActive(true);
+        ShowTabCanvas();
+    }
+    public void HideTabCanvasInMainMenu()
+    {
+        PauseMenu.SetActive(false);
+    }
     public void ShowTabCanvas()
     {
+        isSettingsCanvasDirty = false;//empieza en true porque carga los cambios
         PauseMenu.transform.Find("SelectionCanvas").gameObject.SetActive(false);
         PauseMenu.transform.Find("TabCanvas").gameObject.SetActive(true);
+        PauseMenu.transform.Find("TabCanvas/SaveText/SaveImage").GetComponent<Image>().color = Color.green;
+
     }
     public void GoBackToMainMenu()
     {

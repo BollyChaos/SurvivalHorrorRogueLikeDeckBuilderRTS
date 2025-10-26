@@ -10,7 +10,7 @@ namespace Managers
         [SerializeField] private AudioSource sfxSource;
         [SerializeField] private List<AudioClip> audioClips;
 
-        public IManager.GameStartMode StartMode => IManager.GameStartMode.NORMAL;
+        public IManager.GameStartMode StartMode => IManager.GameStartMode.LATE;
 
         public void PlaySFX(AudioClip clip)
         {
@@ -38,7 +38,7 @@ namespace Managers
 
         public void LoadData()
         {
-
+            GetComponent<SoundSettingsApplier>().Init();
         }
 
         public void SaveData()

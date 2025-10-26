@@ -8,7 +8,7 @@ using UnityEngine.Events;
 
 public class SettingsManager : ASingleton<SettingsManager>, IManager, ILoaderUser
 {
-    public IManager.GameStartMode StartMode => IManager.GameStartMode.NORMAL;
+    public IManager.GameStartMode StartMode => IManager.GameStartMode.FIRST;
     [SerializeField, ExposedScriptableObject]
     GroupValues settingsValues;
     public UnityEvent onSettingsChange;
@@ -20,10 +20,11 @@ public class SettingsManager : ASingleton<SettingsManager>, IManager, ILoaderUse
     }
     public void  SetValue<T>(string name,T value)//cambia de valor y aplica(pero no se guarda)
     {
+        if (settingsValues == null) return;
         settingsValues.SetValue<T>(name, value);
         OnValuesChange();
     }
-public T GetValue<T>(string name)
+    public T GetValue<T>(string name)
     {
         return settingsValues.GetValue<T>(name);
     }
@@ -39,6 +40,7 @@ public T GetValue<T>(string name)
     public void LoadData()
     {
         settingsValues = GetComponent<ALoader>().LoadValues();
+        OnValuesChange();
     }
     [ContextMenu("Guardar archivos")]
     public void SaveData()

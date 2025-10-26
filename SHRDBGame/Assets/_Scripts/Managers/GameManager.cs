@@ -156,6 +156,10 @@ namespace Managers
             managersList = managersList.Where(m => m != null).ToList();
 
 
+            foreach (var manager in managersList.FindAll(m => m.StartMode == IManager.GameStartMode.FIRST))
+            {
+                manager.OnStartGame();
+            }
             foreach (var manager in managersList.FindAll(m => m.StartMode == IManager.GameStartMode.EARLY))
             {
                 manager.OnStartGame();
