@@ -1,8 +1,10 @@
+using Character.Settings;
 using Managers;
 using Patterns.Singleton;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using static Managers.GameSceneManager;
@@ -237,7 +239,60 @@ public class UIManager : ASingleton<UIManager>, IManager
     #region PauseMenu
     [Header("Pause")]
     [SerializeField]
-    public GameObject PauseMenu;
+    public GameObject PauseMenu;//padre
+    [SerializeField]
+    List<UISettingsElement> uiElements = new List<UISettingsElement>();//hijos
+    [SerializeField]
+    bool isSettingsCanvasDirty = false;
+    public void InitPauseMenu()
+    {
+        if (PauseMenu != null)
+        {
+            DontDestroyOnLoad(PauseMenu);
+            PauseMenu.SetActive(false);
+            //Asignar funciones a los botones del menu de pausa(selectionCanvas)
+            PauseMenu.transform.Find("SelectionCanvas/Continue").GetComponent<Button>().onClick.AddListener(GameManager.Instance.UnPauseGame);
+            PauseMenu.transform.Find("SelectionCanvas/Settings").GetComponent<Button>().onClick.AddListener(ShowTabCanvas);
+            PauseMenu.transform.Find("SelectionCanvas/Quit").GetComponent<Button>().onClick.AddListener(GoBackToMainMenu);
+            uiElements.AddRange(PauseMenu.transform.GetComponentsInChildren<UISettingsElement>(true));
+            foreach (var element in uiElements)
+            {
+                element.Init();
+                switch (element.DataType)
+                {
+                    case VALUE_TYPE.BOOL:
+                        element.Subscribe<bool>(ChangeTemporalData);
+                        break;
+                    case VALUE_TYPE.FLOAT:
+                        element.Subscribe<float>(ChangeTemporalData);
+                        break;
+                    case VALUE_TYPE.STRING:
+                        element.Subscribe<string>(ChangeTemporalData);
+                        break;
+                }
+            }
+        }
+    }
+    public void ChangeBoolTemporalData(string uiName, bool value)
+    {
+        ChangeTemporalData<bool>(uiName, value);
+    }
+    public void ChangeTemporalData<T>(string uiName, T value)
+    {
+        //var dataValue= FindAnyObjectByType<Character.Settings.Settings>().GetValue<T>(uiName);
+        Debug.Log("[UIManager]Cambiando el valor en " + uiName + " : " + value);
+        //Decir a settings que cambie valor y aplique(pero de momento no guarda)
+        SettingsManager.Instance.SetValue<T>(uiName, value);
+        isSettingsCanvasDirty = true;
+    }
+    public void SaveTemporalData()
+    {//TODO:Guardar los cambios (avisar a settingsmanager)
+
+    }
+    public void DiscardTemporalData()
+    {//TODO:Descartar los cambios(que settingsmanager haga un load de lo viejo en ALoader y avise de los cambios realizados)
+        
+    }
     public void OnPauseUI(bool isPaused)
     {
         if (inGameStates == InGameStates.SELECTINGCARDS)
@@ -280,7 +335,36 @@ public class UIManager : ASingleton<UIManager>, IManager
     #region ManagerLogic
     public void LoadData()
     {
-        throw new System.NotImplementedException();
+        //Buscar al settingsManager para que me de lo que necesito en los uiElements
+        foreach (var element in uiElements)
+        {
+            switch (element.GetComponent<UISettingsElement>().DataType)
+            {
+                case VALUE_TYPE.BOOL:
+                    //Debug.Log("[CanvasManager] Poniendo valor de "+element.name+" a "+settingsValues.GetValue<bool>(element.name));
+                    element.GetComponent<Toggle>().isOn=SettingsManager.Instance.GetValue<bool>(element.name);
+                    break;
+                case VALUE_TYPE.FLOAT:
+                    element.GetComponent<Slider>().value = SettingsManager.Instance.GetValue<float>(element.name);
+                    break;
+                case VALUE_TYPE.STRING:
+
+                    // string[] parts = settingsValues.GetValue<string>(element.name).Split("::");
+                    // string[] actionName=null;
+                    
+                    // if(parts.Length>=3)
+                    //     actionName = parts[2].Split("/");//parts 2 es el binding path<Keyboard>/W por ejemplo
+
+                    // string actionValue = null;
+
+                    // if (actionName.Length > 0)                                         
+                    //     actionValue= actionName[1];
+                    // if(actionValue!=null)
+                    //     element.GetComponent<RebindActionUI>().bindingText.text = actionValue;
+
+                    break;
+            }
+        }
     }
 
     public void OnEnd()
@@ -314,7 +398,7 @@ public class UIManager : ASingleton<UIManager>, IManager
         {
             Destroy(child.gameObject);
         }
-       
+
     }
 
     public void OnStartGame()
@@ -351,16 +435,7 @@ public class UIManager : ASingleton<UIManager>, IManager
         GameManager.onPause += OnPauseUI;
 
         //Pause
-        if (PauseMenu != null)
-        {
-            DontDestroyOnLoad(PauseMenu);
-            PauseMenu.SetActive(false);
-            //Asignar funciones a los botones del menu de pausa(selectionCanvas)
-            PauseMenu.transform.Find("SelectionCanvas/Continue").GetComponent<Button>().onClick.AddListener(GameManager.Instance.UnPauseGame);
-            PauseMenu.transform.Find("SelectionCanvas/Settings").GetComponent<Button>().onClick.AddListener(ShowTabCanvas);
-            PauseMenu.transform.Find("SelectionCanvas/Quit").GetComponent<Button>().onClick.AddListener(GoBackToMainMenu);
-
-        }
+        InitPauseMenu();
         //Player
         if (PlayerHUD != null)
         {
@@ -378,7 +453,9 @@ public class UIManager : ASingleton<UIManager>, IManager
             HideShopText();
             ExitShopButton.onClick.AddListener(ClosePanel);
         }
+        LoadData();
     }
+
 
 
 

@@ -49,31 +49,38 @@
             "fieldName": "Sound",
             "entries": [
                 {
-                    "name": "MasterVolume",
-                    "type": 1,
+                    "name": "Mute",
+                    "type": 0,
                     "value": {
                         "rid": 1005
                     }
                 },
                 {
-                    "name": "MusicVolume",
+                    "name": "MasterVolume",
                     "type": 1,
                     "value": {
                         "rid": 1006
                     }
                 },
                 {
-                    "name": "SFXVolume",
+                    "name": "MusicVolume",
                     "type": 1,
                     "value": {
                         "rid": 1007
                     }
                 },
                 {
-                    "name": "InterfaceVolume",
+                    "name": "SFXVolume",
                     "type": 1,
                     "value": {
                         "rid": 1008
+                    }
+                },
+                {
+                    "name": "InterfaceVolume",
+                    "type": 1,
+                    "value": {
+                        "rid": 1009
                     }
                 }
             ]
@@ -82,57 +89,50 @@
             "fieldName": "Game",
             "entries": [
                 {
-                    "name": "PlayerHealth",
-                    "type": 1,
-                    "value": {
-                        "rid": 1009
-                    }
-                },
-                {
-                    "name": "PlayerSpeed",
-                    "type": 1,
-                    "value": {
-                        "rid": 1010
-                    }
-                },
-                {
-                    "name": "EnemyAgresivity",
-                    "type": 1,
-                    "value": {
-                        "rid": 1011
-                    }
-                },
-                {
-                    "name": "StartingCards",
-                    "type": 1,
-                    "value": {
-                        "rid": 1012
-                    }
-                },
-                {
                     "name": "Invincible",
                     "type": 0,
                     "value": {
-                        "rid": 1013
+                        "rid": 1010
                     }
                 },
                 {
                     "name": "UnlimitedMoney",
                     "type": 0,
                     "value": {
-                        "rid": 1014
+                        "rid": 1011
                     }
                 },
                 {
                     "name": "UnlimitedDamage",
                     "type": 0,
                     "value": {
+                        "rid": 1012
+                    }
+                },
+                {
+                    "name": "PlayerHealth",
+                    "type": 1,
+                    "value": {
+                        "rid": 1013
+                    }
+                },
+                {
+                    "name": "PlayerSpeed",
+                    "type": 1,
+                    "value": {
+                        "rid": 1014
+                    }
+                },
+                {
+                    "name": "EnemyAgresivity",
+                    "type": 1,
+                    "value": {
                         "rid": 1015
                     }
                 },
                 {
-                    "name": "GiveRandomCard",
-                    "type": 0,
+                    "name": "StartingCards",
+                    "type": 1,
                     "value": {
                         "rid": 1016
                     }
@@ -199,7 +199,7 @@
                     "asm": "Assembly-CSharp"
                 },
                 "data": {
-                    "value": 1.5
+                    "value": 1.0
                 }
             },
             {
@@ -227,12 +227,12 @@
             {
                 "rid": 1005,
                 "type": {
-                    "class": "FloatSettingValue",
+                    "class": "BoolSettingValue",
                     "ns": "",
                     "asm": "Assembly-CSharp"
                 },
                 "data": {
-                    "value": 1.0
+                    "value": false
                 }
             },
             {
@@ -243,7 +243,7 @@
                     "asm": "Assembly-CSharp"
                 },
                 "data": {
-                    "value": 0.6299999952316284
+                    "value": 1.0
                 }
             },
             {
@@ -254,7 +254,7 @@
                     "asm": "Assembly-CSharp"
                 },
                 "data": {
-                    "value": 0.7599999904632568
+                    "value": 0.6299999952316284
                 }
             },
             {
@@ -265,7 +265,7 @@
                     "asm": "Assembly-CSharp"
                 },
                 "data": {
-                    "value": 0.4699999988079071
+                    "value": 0.7599999904632568
                 }
             },
             {
@@ -276,11 +276,44 @@
                     "asm": "Assembly-CSharp"
                 },
                 "data": {
-                    "value": 1.5
+                    "value": 0.4699999988079071
                 }
             },
             {
                 "rid": 1010,
+                "type": {
+                    "class": "BoolSettingValue",
+                    "ns": "",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "value": false
+                }
+            },
+            {
+                "rid": 1011,
+                "type": {
+                    "class": "BoolSettingValue",
+                    "ns": "",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "value": false
+                }
+            },
+            {
+                "rid": 1012,
+                "type": {
+                    "class": "BoolSettingValue",
+                    "ns": "",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "value": false
+                }
+            },
+            {
+                "rid": 1013,
                 "type": {
                     "class": "FloatSettingValue",
                     "ns": "",
@@ -291,69 +324,36 @@
                 }
             },
             {
-                "rid": 1011,
-                "type": {
-                    "class": "FloatSettingValue",
-                    "ns": "",
-                    "asm": "Assembly-CSharp"
-                },
-                "data": {
-                    "value": 0.07999999821186066
-                }
-            },
-            {
-                "rid": 1012,
-                "type": {
-                    "class": "FloatSettingValue",
-                    "ns": "",
-                    "asm": "Assembly-CSharp"
-                },
-                "data": {
-                    "value": 4.0
-                }
-            },
-            {
-                "rid": 1013,
-                "type": {
-                    "class": "BoolSettingValue",
-                    "ns": "",
-                    "asm": "Assembly-CSharp"
-                },
-                "data": {
-                    "value": false
-                }
-            },
-            {
                 "rid": 1014,
                 "type": {
-                    "class": "BoolSettingValue",
+                    "class": "FloatSettingValue",
                     "ns": "",
                     "asm": "Assembly-CSharp"
                 },
                 "data": {
-                    "value": false
+                    "value": 1.0
                 }
             },
             {
                 "rid": 1015,
                 "type": {
-                    "class": "BoolSettingValue",
+                    "class": "FloatSettingValue",
                     "ns": "",
                     "asm": "Assembly-CSharp"
                 },
                 "data": {
-                    "value": false
+                    "value": 1.0
                 }
             },
             {
                 "rid": 1016,
                 "type": {
-                    "class": "BoolSettingValue",
+                    "class": "FloatSettingValue",
                     "ns": "",
                     "asm": "Assembly-CSharp"
                 },
                 "data": {
-                    "value": false
+                    "value": 1.0
                 }
             },
             {

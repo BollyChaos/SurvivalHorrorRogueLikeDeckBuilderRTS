@@ -43,7 +43,7 @@ namespace Character.Settings
                     // stringEvent.UIname = name;
                     // eventWrapper = stringEvent;
                     // var rebindUI = GetComponent<RebindActionUI>();
-                    // rebindUI.updateBindingUIEvent.AddListener(stringEvent.InvokeEvent); //unity hijo de puta hazlo mas facil
+                    // rebindUI.updateBindingUIEvent.AddListener(stringEvent.InvokeEvent); 
 
                     break;
             }
@@ -68,7 +68,6 @@ namespace Character.Settings
             }
             if (eventWrapper is SettingsElementEvent<T> typedEvent)
             {
-               // if (dataType == VALUE_TYPE.STRING) Debug.Log("Joooooooooooder");
                 Debug.Log($"[Subscribe]Event subscribed of type: "+typeof(T));
                 typedEvent.Subscribe(callback);
             }
