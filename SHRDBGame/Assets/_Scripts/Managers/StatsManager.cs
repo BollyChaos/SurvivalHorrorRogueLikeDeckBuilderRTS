@@ -19,11 +19,11 @@ public class StatsManager : MonoBehaviour
     public int currentHealth;
 
 
-    private void Awake()
+  /*  private void Awake()
     {
         if (Instance == null)
             Instance = this;
         else
             Destroy(gameObject);
-    }
+    }*/
 }
