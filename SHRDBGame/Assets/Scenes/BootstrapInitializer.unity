@@ -9757,6 +9757,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f93af67f101c5a24b808bf1ce46249ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardsEffects:
+  - {fileID: 4911294855137566856, guid: 687165a10d473d343896e2e102ed08e6, type: 3}
 --- !u!1001 &1098063823
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11693,6 +11695,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 38c034eb-a182-4fbc-b15b-0adbf33bcef8
     m_ActionName: UI/Escape[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8abf85d2-eab1-42d1-adf0-2647df343f78
+    m_ActionName: UI/SaveChanges[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
