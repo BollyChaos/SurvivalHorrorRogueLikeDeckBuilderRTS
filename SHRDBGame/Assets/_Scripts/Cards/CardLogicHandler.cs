@@ -8,9 +8,16 @@ public class CardLogicHandler : MonoBehaviour
     //Usar un diccionario donde hay un string nombre de la carta, y una referencia a la funcion que hace, ha de ser puesto a mano
     //Un diccionario no sale en el inspector
     //Dictionary<string,>
+<<<<<<< Updated upstream
    
     // Start is called before the first frame update
     void Start()
+=======
+    [SerializeField]
+    Dictionary<string, Action<CardObject>> cardEffects=new Dictionary<string, Action<CardObject>>();
+
+    void Awake()
+>>>>>>> Stashed changes
     {
 <<<<<<< Updated upstream
         
