@@ -25,7 +25,14 @@ namespace Character.Controls
         protected Vector3 _input=Vector3.zero;
 
 
-
+        /*private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.GetComponent<EnemyController>())
+            {
+                Debug.Log("Hola");
+                gameObject.GetComponent<PlayerHealth>().ChangeHealth(-25);
+            }
+        }*/
 
         //public Vector3 MoveDirection { No funciona si la camara esta en cenital, forward es atravesar el suelo
         //    get { return (new Vector3(cameraTransform.forward.x, 0,cameraTransform.forward.z) * _input.z + new Vector3(cameraTransform.right.x,0, cameraTransform.right.z) * _input.x).normalized; }
