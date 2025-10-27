@@ -8,8 +8,9 @@ namespace Managers
     {
         [SerializeField] private AudioSource musicSource;
         [SerializeField] private AudioSource sfxSource;
+        [SerializeField] private List<AudioClip> audioClips;
 
-        public IManager.GameStartMode StartMode => IManager.GameStartMode.NORMAL;
+        public IManager.GameStartMode StartMode => IManager.GameStartMode.LATE;
 
         public void PlaySFX(AudioClip clip)
         {
@@ -31,12 +32,13 @@ namespace Managers
         public void StartManager()
         {
             Debug.Log($"[{name}]:Iniciando...");
+            PlayMusic(audioClips[0]);//voy a poner uno para que el recolector de basura no lo borre por no hacer nada
             LoadData();
         }
 
         public void LoadData()
         {
-
+            GetComponent<SoundSettingsApplier>().Init();
         }
 
         public void SaveData()
@@ -47,7 +49,6 @@ namespace Managers
         public void OnEndGame()
         {
             OnEnd();
-            Destroy(gameObject);
         }
 
         public void OnEnd()
@@ -59,5 +60,9 @@ namespace Managers
         public void OnStartGame()
         {
         }
+        private void OnDestroy()
+        {
+        }
+
     }
 }

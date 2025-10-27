@@ -1,10 +1,13 @@
+using Character.Settings;
 using Managers;
 using Patterns.Singleton;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using static Managers.GameSceneManager;
 using static Managers.IManager;
 public class UIManager : ASingleton<UIManager>, IManager
 {
@@ -13,12 +16,16 @@ public class UIManager : ASingleton<UIManager>, IManager
     public GameStartMode StartMode => GameStartMode.EARLY;
 
     [SerializeField] InGameStates inGameStates;
+    [Header("Player")]
     [SerializeField]
     GameObject PlayerHUD;
+
 
     #region UICards
 
     [Header("UICards")]
+    [SerializeField]
+    private GameObject CardPrefab;
     [SerializeField]
     private List<CardObject> UICards;
     [SerializeField]
@@ -80,6 +87,7 @@ public class UIManager : ASingleton<UIManager>, IManager
         //bloquear interfaz(desactivar el componente)
 
         ContinueButton.gameObject.SetActive(false);
+        inGameStates = InGameStates.INGAME;
         //mover el resto cartas al inventario, emparentar, ver el orden y ordenar
         foreach (var card in UICards)
         {
@@ -122,7 +130,7 @@ public class UIManager : ASingleton<UIManager>, IManager
             }
             card.GetComponent<SelectableUICard>().MoveToCurve(card.transform.parent.position);
             card.GetComponent<SelectableUICard>().Scale(2f);
-           
+
 
         }
         //decirle al CardManager que cartas va a usar el jugador, una de cada tipo
@@ -169,11 +177,11 @@ public class UIManager : ASingleton<UIManager>, IManager
     public Button ExitShopButton;
     internal void ShowShopText()
     {
-            ShopUI.transform.Find("ShopText").gameObject.SetActive(true);
+        ShopUI.transform.Find("ShopText").gameObject.SetActive(true);
     }
     internal void HideShopText()
     {
-            ShopUI.transform.Find("ShopText").gameObject.SetActive(false);
+        ShopUI.transform.Find("ShopText").gameObject.SetActive(false);
     }
     internal void OpenPanel()
     {
@@ -183,12 +191,12 @@ public class UIManager : ASingleton<UIManager>, IManager
             ShopUI.transform.Find("ShopPanel").gameObject.SetActive(true);
             HideShopText();
         }
-            
+
     }
 
     internal void ClosePanel()
     {
-         if (ShopUI != null)
+        if (ShopUI != null)
         {
             InputManager.Instance.SwitchMapToPlayer();
             ShopUI.transform.Find("ShopPanel").gameObject.SetActive(false);
@@ -211,9 +219,10 @@ public class UIManager : ASingleton<UIManager>, IManager
     internal void LookForMainMenuCanvas()
     {
         PlayButton = GameObject.Find("CanvasMainMenu/PanelMainMenu/Buttons/PlayButton").GetComponent<Button>();
+        GameObject.Find("CanvasMainMenu/PanelMainMenu/Buttons/OptionsButton").GetComponent<Button>().onClick.AddListener(ShowTabCanvasInMainMenu);
         GameObject.Find("CanvasMainMenu/PanelMainMenu/Buttons/ExitButton").GetComponent<Button>().onClick.AddListener(QuitApplication);
 
-        Debug.Log(PlayButton == null);
+        //  Debug.Log(PlayButton == null);
 
         if (PlayButton != null)
         {
@@ -224,15 +233,160 @@ public class UIManager : ASingleton<UIManager>, IManager
     }
     public void QuitApplication()
     {
-        GameManager.Instance.OnEnd(); 
+        GameManager.Instance.OnEnd();
     }
 
     #endregion
+    #region PauseMenu
+    [Header("Pause")]
+    [SerializeField]
+    public GameObject PauseMenu;//padre
+    [SerializeField]
+    List<UISettingsElement> uiElements = new List<UISettingsElement>();//hijos
+    [SerializeField]
+    bool isSettingsCanvasDirty = false;
+    public void InitPauseMenu()
+    {
+        if (PauseMenu != null)
+        {
+            DontDestroyOnLoad(PauseMenu);
+            PauseMenu.SetActive(false);
+            //Asignar funciones a los botones del menu de pausa(selectionCanvas)
+            PauseMenu.transform.Find("SelectionCanvas/Continue").GetComponent<Button>().onClick.AddListener(GameManager.Instance.UnPauseGame);
+            PauseMenu.transform.Find("SelectionCanvas/Settings").GetComponent<Button>().onClick.AddListener(ShowTabCanvas);
+            PauseMenu.transform.Find("SelectionCanvas/Quit").GetComponent<Button>().onClick.AddListener(GoBackToMainMenu);
+            uiElements.AddRange(PauseMenu.transform.GetComponentsInChildren<UISettingsElement>(true));
+            foreach (var element in uiElements)
+            {
+                element.Init();
+                switch (element.DataType)
+                {
+                    case VALUE_TYPE.BOOL:
+                        element.Subscribe<bool>(ChangeTemporalData);
+                        break;
+                    case VALUE_TYPE.FLOAT:
+                        element.Subscribe<float>(ChangeTemporalData);
+                        break;
+                    case VALUE_TYPE.STRING:
+                        element.Subscribe<string>(ChangeTemporalData);
+                        break;
+                }
+            }
+        }
+    }
+    public void ChangeBoolTemporalData(string uiName, bool value)
+    {
+        ChangeTemporalData<bool>(uiName, value);
+    }
+    public void ChangeTemporalData<T>(string uiName, T value)
+    {
+        //var dataValue= FindAnyObjectByType<Character.Settings.Settings>().GetValue<T>(uiName);
+        //Debug.Log("[UIManager]Cambiando el valor en " + uiName + " : " + value);//ya sabemos que funciona
+        //Decir a settings que cambie valor y aplique(pero de momento no guarda)
+        PauseMenu.transform.Find("TabCanvas/SaveText/SaveImage").GetComponent<Image>().color = Color.red;
+        SettingsManager.Instance.SetValue<T>(uiName, value);
+        isSettingsCanvasDirty = true;
+    }
 
+    public void SaveTemporalData()
+    {//Guardar los cambios (avisar a settingsmanager)
+        if (!isSettingsCanvasDirty) return;
+        SettingsManager.Instance.SaveData();
+        PauseMenu.transform.Find("TabCanvas/SaveText/SaveImage").GetComponent<Image>().color = Color.green;
+
+        isSettingsCanvasDirty = false;
+    }
+    public void DiscardTemporalData()
+    {//Descartar los cambios(que settingsmanager haga un load de lo viejo en ALoader y avise de los cambios realizados)
+        if (!isSettingsCanvasDirty) return;
+        SettingsManager.Instance.LoadData();
+        isSettingsCanvasDirty = false;
+    }
+    public void OnPauseUI(bool isPaused)
+    {
+        if (inGameStates == InGameStates.SELECTINGCARDS)
+        {
+            GameManager.Instance.BlockPause();
+            return;//selectingcards es crucial y bloquea la pausa
+        }
+        inGameStates = isPaused ? InGameStates.INPAUSE : InGameStates.INGAME;
+        PauseMenu.SetActive(isPaused);
+        //si en pausa:
+        //sacar seleccion de tres
+        //enseñar cartas(dejar para mas tarde)
+        if (isPaused)
+        {
+            InputManager.Instance.SwitchMapToUI();
+            ShowSelectionCanvas();
+        }
+        else
+        {
+            InputManager.Instance.SwitchMapToPlayer();
+        }
+
+
+    }
+    public void ShowSelectionCanvas()
+    {
+        isSettingsCanvasDirty = false;
+        PauseMenu.transform.Find("SelectionCanvas").gameObject.SetActive(true);
+        PauseMenu.transform.Find("TabCanvas").gameObject.SetActive(false);
+    }
+    public void ShowTabCanvasInMainMenu()
+    {
+        PauseMenu.SetActive(true);
+        ShowTabCanvas();
+    }
+    public void HideTabCanvasInMainMenu()
+    {
+        PauseMenu.SetActive(false);
+    }
+    public void ShowTabCanvas()
+    {
+        isSettingsCanvasDirty = false;//empieza en true porque carga los cambios
+        PauseMenu.transform.Find("SelectionCanvas").gameObject.SetActive(false);
+        PauseMenu.transform.Find("TabCanvas").gameObject.SetActive(true);
+        PauseMenu.transform.Find("TabCanvas/SaveText/SaveImage").GetComponent<Image>().color = Color.green;
+
+    }
+    public void GoBackToMainMenu()
+    {
+        GameManager.Instance.GoBackToMainMenu();
+    }
+    #endregion
     #region ManagerLogic
     public void LoadData()
     {
-        throw new System.NotImplementedException();
+        //Buscar al settingsManager para que me de lo que necesito en los uiElements
+        foreach (var element in uiElements)
+        {
+            switch (element.GetComponent<UISettingsElement>().DataType)
+            {
+                case VALUE_TYPE.BOOL:
+                    //Debug.Log("[CanvasManager] Poniendo valor de "+element.name+" a "+settingsValues.GetValue<bool>(element.name));
+                    element.GetComponent<Toggle>().isOn=SettingsManager.Instance.GetValue<bool>(element.name);
+                    break;
+                case VALUE_TYPE.FLOAT:
+                    element.GetComponent<Slider>().value = SettingsManager.Instance.GetValue<float>(element.name);
+                    break;
+                case VALUE_TYPE.STRING:
+
+                    // string[] parts = settingsValues.GetValue<string>(element.name).Split("::");
+                    // string[] actionName=null;
+                    
+                    // if(parts.Length>=3)
+                    //     actionName = parts[2].Split("/");//parts 2 es el binding path<Keyboard>/W por ejemplo
+
+                    // string actionValue = null;
+
+                    // if (actionName.Length > 0)                                         
+                    //     actionValue= actionName[1];
+                    // if(actionValue!=null)
+                    //     element.GetComponent<RebindActionUI>().bindingText.text = actionValue;
+
+                    break;
+            }
+        }
     }
 
     public void OnEnd()
@@ -242,16 +396,55 @@ public class UIManager : ASingleton<UIManager>, IManager
 
     public void OnEndGame()
     {
-        
+        //TODO eliminar cartas de player hud(o quizas guardarlas para la proxima partida?->otro metodo para guardar preguntar si se quiere guardar partida antes de salir)
+        //quitar cartas de player HUD
+        foreach (var card in UICards)
+        {
+            Destroy(card);
+        }
+
+        UICards.Clear();
+        //tambien eliminar en el playerhud CardsDisplay/LeftCard
+        string cardPath = "CardsDisplay/LeftCard";
+        foreach (Transform child in PlayerHUD.transform.Find(cardPath))
+        {
+            Destroy(child.gameObject);
+        }
+        cardPath = "CardsDisplay/CenterCard";
+        foreach (Transform child in PlayerHUD.transform.Find(cardPath))
+        {
+            Destroy(child.gameObject);
+        }
+        cardPath = "CardsDisplay/RightCard";
+        foreach (Transform child in PlayerHUD.transform.Find(cardPath))
+        {
+            Destroy(child.gameObject);
+        }
+
     }
 
     public void OnStartGame()
     {
         //1.Al empezar juego se activa la hud del player
         Debug.Log($"[{name}]Empezando juego");
+        PauseMenu?.SetActive(false);
         PlayerHUD?.SetActive(true);
         ClosePanel();
         HideShopText();
+        //2.UI Cards
+        //Ahora queremos instanciar las cartas y manejarlo de forma dinamica para poder tener bien el estado 0 del juego
+        for (int i = 0; i < CardManager.Instance.startingCards; i++)
+        {
+            GameObject uiCard = GameObject.Instantiate(CardPrefab);
+
+            string parent = $"CardsSelector/Card({i + 1})";
+            PlayerHUD.transform.Find(parent);
+            EmparentCard(parent, uiCard);
+            uiCard.GetComponent<RectTransform>().localPosition = Vector3.zero;
+            uiCard.GetComponent<RectTransform>().localScale = new Vector3(3, 3);
+
+            //no hay que hacer nada mas porque al crearse y activarse buscaran al uimanager
+        }
     }
 
     public void SaveData()
@@ -263,12 +456,15 @@ public class UIManager : ASingleton<UIManager>, IManager
     {
         GameManager.onPause += OnPauseUI;
 
+        //Pause
+        InitPauseMenu();
         //Player
         if (PlayerHUD != null)
         {
             DontDestroyOnLoad(PlayerHUD);//quiero que se mantenga la player HUD 
             PlayerHUD.SetActive(false);
             ContinueButton?.onClick.AddListener(onEndSelection);
+
         }
         //Shop
         if (ShopUI != null)
@@ -279,14 +475,12 @@ public class UIManager : ASingleton<UIManager>, IManager
             HideShopText();
             ExitShopButton.onClick.AddListener(ClosePanel);
         }
+        LoadData();
     }
 
-    public void OnPauseUI(bool pause)
-    {
-        //TODO logica de pausa
 
-    }
 
-    
+
+
     #endregion
 }

@@ -27,7 +27,7 @@ public class CardShuffler : MonoBehaviour
     [SerializeField]
     List<float> cardRaritiesDecayFactor = new List<float>();
     [SerializeField]
-    int nCardsToGive = 10;
+    public int nCardsToGive = 8;
     private bool resetPool;
 
     public void Awake()
@@ -137,10 +137,12 @@ public class CardShuffler : MonoBehaviour
         return cardsToReturn;
     }
 
-    private void ResetPool()
+    public void ResetPool()
     {
         givenCardsToPlayer=null;
-        unlockedCardsAvailable=null;
+        unlockedCardsAvailable = null;
+        givenCardsToPlayer = new List<CardsSO>();
+        unlockedCardsAvailable = new List<CardsSO>();
         foreach (var card in allCardsFromFolder)
         {
             if (card.unlocked)

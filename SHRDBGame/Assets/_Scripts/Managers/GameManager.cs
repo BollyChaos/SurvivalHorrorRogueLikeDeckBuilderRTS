@@ -75,15 +75,16 @@ namespace Managers
             switch (scene.buildIndex)
             {
                 case (int)SceneIds.MAINMENUSCENE:
-                    gameState=GameState.INMAINMENU;
+                    gameState = GameState.INMAINMENU;
                     UIManager.Instance.LookForMainMenuCanvas();
                     break;
-                case (int)SceneIds.GAMESCENE: 
+                case (int)SceneIds.GAMESCENE:
                     gameState = GameState.INGAME;
                     OnStartGame();
                     break;
             }
         }
+        
         public void PauseGame()
         {
             gameState=GameState.INPAUSE;
@@ -94,7 +95,10 @@ namespace Managers
             gameState = GameState.INGAME;
             onPause?.Invoke(false);
         }
-
+        public void BlockPause()//caso excepcional para cuando se seleccionen las cartas se bloquea la pausa
+        {
+            gameState = GameState.INGAME;
+        }
        
         
         public void LoadData()
@@ -115,7 +119,7 @@ namespace Managers
 #endif
         }
 
-        public void OnEndGame()
+        public void OnEndGame()//necesitamos resetear todo y volver al estado inicial de juego con este metodo
         {
             foreach (var manager in managersList)
             {
@@ -152,6 +156,10 @@ namespace Managers
             managersList = managersList.Where(m => m != null).ToList();
 
 
+            foreach (var manager in managersList.FindAll(m => m.StartMode == IManager.GameStartMode.FIRST))
+            {
+                manager.OnStartGame();
+            }
             foreach (var manager in managersList.FindAll(m => m.StartMode == IManager.GameStartMode.EARLY))
             {
                 manager.OnStartGame();
@@ -180,6 +188,12 @@ namespace Managers
         public void OnDestroy()
         {
             managersList.Clear();
+        }
+        public void GoBackToMainMenu()//cuando se llame a esta funcion es porque se ha salido a traves del menu de pausa
+        {
+            GameSceneManager.Instance.LoadSceneById((int)SceneIds.MAINMENUSCENE);
+            UnPauseGame();
+            OnEndGame();
         }
     }
 }

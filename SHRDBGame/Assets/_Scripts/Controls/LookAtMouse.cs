@@ -41,7 +41,7 @@ public class LookAtMouseOrGamepad : MonoBehaviour
         {
             HandleGamepadLook();
         }
-        else if(Gamepad.current==null)// fallback al ratón
+        else if(Gamepad.current==null)// fallback al ratï¿½n
         {
             HandleMouseLook();
         }
@@ -49,6 +49,7 @@ public class LookAtMouseOrGamepad : MonoBehaviour
 
     private void HandleMouseLook()
     {
+        if (InputManager.Instance.inputMap == InputManager.InputMap.UI) return;
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit, 100f, floorLayer))
         {
