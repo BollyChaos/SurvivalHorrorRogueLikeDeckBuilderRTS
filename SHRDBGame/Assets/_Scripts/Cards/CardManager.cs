@@ -8,6 +8,7 @@ public class CardManager : ASingleton<CardManager>,IManager
 {
     //contador de cartas seleccionadas al principio de una partida
     int playerCards = 3;
+    //contador de las cartas seleccionadas de la interfaz
     int playerCardsCounter= 0;
     [SerializeField]
     public int startingCards = 8;
@@ -15,7 +16,8 @@ public class CardManager : ASingleton<CardManager>,IManager
 
     public void LoadData()//sacar los ids de las cartas desbloqueadas
     {
-        throw new System.NotImplementedException();
+        GetComponent<CardShuffler>().CreateCardList();
+        GetComponent<CardShuffler>().GetUnlockedCards();
     }
 
     public void OnEnd()
@@ -103,6 +105,7 @@ public class CardManager : ASingleton<CardManager>,IManager
     public void StartManager()
     {
         Debug.Log($"[{name}]:Iniciando...");
+        LoadData();
     }
 
     

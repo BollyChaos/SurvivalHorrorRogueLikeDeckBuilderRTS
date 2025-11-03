@@ -30,19 +30,20 @@ public class CardShuffler : MonoBehaviour
     public int nCardsToGive = 8;
     private bool resetPool;
 
-    public void Awake()
+    
+    public void CreateCardList()
     {
         allCardsFromFolder = new List<CardsSO>(Resources.LoadAll<CardsSO>(cardsFolderName));
         foreach (var card in allCardsFromFolder)
         {
-            if(card.cardId!=-1)
-            card.cardId = CardHasher.GetUniqueID();
+            if (card.cardId != -1)
+                card.cardId = CardHasher.GetUniqueID();
 
         }
     }
-    public void Start()
+    public void GetUnlockedCards()
     {
-        foreach (var card in allCardsFromFolder)
+         foreach (var card in allCardsFromFolder)
         {
             if (card.cardId != -1)//la gracia esta en que haya una carta empty, entonces esa no necesitamos un id unico
                 if (card.unlocked)
@@ -51,7 +52,6 @@ public class CardShuffler : MonoBehaviour
                 }
         }
     }
-
     public List<CardsSO> ShuffleCards()
     {
         List<CardsSO> cardsToReturn = new List<CardsSO>();
