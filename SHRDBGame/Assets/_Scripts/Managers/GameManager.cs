@@ -9,15 +9,15 @@ using static Managers.GameSceneManager;
 
 namespace Managers
 {
-    public enum GameState { STARTING,INMAINMENU,INGAME,INPAUSE,ENDGAME}
-    
+    public enum GameState { STARTING, INMAINMENU, INGAME, INPAUSE, ENDGAME }
+
     public class GameManager : ASingleton<GameManager>, IManager
     {
 
         public List<IManager> managersList;
-        private GameState gameState=GameState.STARTING;
+        private GameState gameState = GameState.STARTING;
         public static Action<bool> onPause;
-        public GameState CurrentState {  get { return gameState; } }
+        public GameState CurrentState { get { return gameState; } }
 
         public IManager.GameStartMode StartMode => IManager.GameStartMode.NORMAL;
         #region DEBUGGING
@@ -26,13 +26,13 @@ namespace Managers
         [ShowIf("DebugGame")]
         //Saltar alguna escena
         public bool ChangeInitalScene = true;
-        [ShowIf("ChangeInitalScene","DebugGame")]
+        [ShowIf("ChangeInitalScene", "DebugGame")]
         public SceneIds startingDebugScene = SceneIds.GAMESCENE;
         //Saltar fase
         [ShowIf("DebugGame")]
         public bool SkipPhase = true;
-        [ShowIf("SkipPhase","DebugGame")]
-        public bool SkipCardSelectionPhase=true;
+        [ShowIf("SkipPhase", "DebugGame")]
+        public bool SkipCardSelectionPhase = true;
 
         #endregion
 
@@ -47,6 +47,7 @@ namespace Managers
                 }
 
             }
+
             if (managersList == null)
             {
                 managersList = new List<IManager>();
@@ -60,7 +61,7 @@ namespace Managers
 
 
         }
-        
+
         void OnEnable()
         {
             SceneManager.sceneLoaded += OnChangeScene;
@@ -84,10 +85,10 @@ namespace Managers
                     break;
             }
         }
-        
+
         public void PauseGame()
         {
-            gameState=GameState.INPAUSE;
+            gameState = GameState.INPAUSE;
             onPause?.Invoke(true);
         }
         public void UnPauseGame()
@@ -99,8 +100,8 @@ namespace Managers
         {
             gameState = GameState.INGAME;
         }
-       
-        
+
+
         public void LoadData()
         {
 
@@ -112,8 +113,8 @@ namespace Managers
             {
                 manager.OnEnd();
             }
-             #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
 #else
         Application.Quit();
 #endif
@@ -125,7 +126,7 @@ namespace Managers
             {
                 manager.OnEndGame();
             }
-           
+
         }
 
         public void SaveData()
@@ -173,16 +174,29 @@ namespace Managers
                 manager.OnStartGame();
             }
 
+
+            //buscar los trigger del juego y asignarles su funcion
+            GameObject.Find("TutorialTrigger").GetComponent<TriggerEvent>().onTriggerEnterEvent.AddListener(() =>
+            {
+                Debug.Log("Trigger tutorial activado");
+            });
+            
             //Logica de empezar el juego ya del gamemanager, que ocurre primero, de momento se empieza con la seleccion de cartas
             if (!(DebugGame && SkipPhase && SkipCardSelectionPhase))
             {
+                GameObject.Find("CardSelectionTrigger").GetComponent<TriggerEvent>().onTriggerEnterEvent.AddListener(() =>
+            {
                 CardManager.Instance.OnStartCardSelection();
+
+            });
             }
             else //asignar de forma random
             {
+                 GameObject.Find("CardSelectionTrigger").GetComponent<TriggerEvent>().onTriggerEnterEvent.AddListener(() =>
+            {
                 CardManager.Instance.DebugStartCardSelection();
+            }); 
             }
-
 
         }
         public void OnDestroy()

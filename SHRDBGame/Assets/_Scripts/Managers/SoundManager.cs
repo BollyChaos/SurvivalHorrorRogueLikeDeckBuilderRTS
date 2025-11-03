@@ -6,6 +6,7 @@ namespace Managers
 {
     public class SoundManager : ASingleton<SoundManager>, IManager
     {
+        private enum SoundTrack { MENU, INTRO, DAY, NIGHT }
         [SerializeField] private AudioSource musicSource;
         [SerializeField] private AudioSource sfxSource;
         [SerializeField] private List<AudioClip> audioClips;
@@ -32,7 +33,7 @@ namespace Managers
         public void StartManager()
         {
             Debug.Log($"[{name}]:Iniciando...");
-            PlayMusic(audioClips[0]);//voy a poner uno para que el recolector de basura no lo borre por no hacer nada
+            PlayMusic(audioClips[(int)SoundTrack.MENU]);//voy a poner uno para que el recolector de basura no lo borre por no hacer nada
             LoadData();
         }
 
@@ -59,7 +60,22 @@ namespace Managers
 
         public void OnStartGame()
         {
+            PlayMusic(audioClips[1]);
+            LevelManager.Instance.onNightStateChanged.AddListener(OnNightChange);
         }
+        public void OnNightChange(bool isNight)
+        {
+            
+                if (isNight)
+                {
+                    PlayMusic(audioClips[(int)SoundTrack.NIGHT]);
+                }
+                else
+                {
+                    PlayMusic(audioClips[(int)SoundTrack.DAY]);
+                }
+            
+        }   
         private void OnDestroy()
         {
         }

@@ -42,6 +42,7 @@ public class UIManager : ASingleton<UIManager>, IManager
 
     public void BuildCards(List<CardsSO> cards)
     {
+        InputManager.Instance.SwitchMapToUI();
         inGameStates = InGameStates.SELECTINGCARDS;
 
         StartCoroutine(WaitForObject(PlayerHUD));
@@ -49,6 +50,7 @@ public class UIManager : ASingleton<UIManager>, IManager
         for (int i = 0; i < UICards.Count; i++)
         {
             Debug.Log("Construyendo Cartas");
+            UICards[i].gameObject.SetActive(true);
             UICards[i].card = cards[i];
             StartCoroutine(WaitForObject(UICards[i].gameObject));//va demasiado rapido y el objeto a lo mejor no esta activo
             UICards[i].BuildCard();
@@ -142,6 +144,9 @@ public class UIManager : ASingleton<UIManager>, IManager
 
         //ceder el control del jugador 
         InputManager.Instance.SwitchMapToPlayer();
+
+        //y comienza la noche >:)
+        LevelManager.Instance.StartNight();
     }
 
     void EmparentCard(string objectName, GameObject objectToMove)
@@ -442,7 +447,7 @@ public class UIManager : ASingleton<UIManager>, IManager
             EmparentCard(parent, uiCard);
             uiCard.GetComponent<RectTransform>().localPosition = Vector3.zero;
             uiCard.GetComponent<RectTransform>().localScale = new Vector3(3, 3);
-
+            uiCard.SetActive(false);
             //no hay que hacer nada mas porque al crearse y activarse buscaran al uimanager
         }
     }

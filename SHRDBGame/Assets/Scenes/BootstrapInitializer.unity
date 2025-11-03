@@ -25,7 +25,7 @@ RenderSettings:
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 3
-  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
+  m_SubtractiveShadowColor: {r: 0.65054774, g: 0.6924895, b: 0.7987421, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
@@ -96,8 +96,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 20201, guid: 0000000000000000f000000000000000, type: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000002, guid: 65b584fc23504754a8edb9183a220349, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 7e71c8a00e34d3a49b51e62fb23488da, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2454,9 +2454,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DebugGame: 1
-  ChangeInitalScene: 0
+  ChangeInitalScene: 1
   startingDebugScene: 2
-  SkipPhase: 1
+  SkipPhase: 0
   SkipCardSelectionPhase: 1
 --- !u!4 &277794896
 Transform:
@@ -9328,6 +9328,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1038115672}
+  - component: {fileID: 1038115673}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -9350,6 +9351,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1038115673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1038115671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cc81d42367400f47ac31535e515fe23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nNights: 5
+  currentNight: 1
+  nightDuration: 20
+  isNightActive: 0
+  onNightStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1038368172
 GameObject:
   m_ObjectHideFlags: 0
@@ -18078,6 +18098,9 @@ MonoBehaviour:
   sfxSource: {fileID: 0}
   audioClips:
   - {fileID: 8300000, guid: f4a20f6c993667f48bebe5b8bcc7fb87, type: 3}
+  - {fileID: 8300000, guid: 917155e5b0a77e34faaab28c2d70b251, type: 3}
+  - {fileID: 8300000, guid: d9fa9dad561ce824bbe6310d6a702b3c, type: 3}
+  - {fileID: 8300000, guid: d8df3b84f1013b14ca9ac76a2a1b2000, type: 3}
 --- !u!4 &2023417326
 Transform:
   m_ObjectHideFlags: 0

@@ -52,11 +52,23 @@ public class GameEventsManager : ASingleton<GameEventsManager>,IManager
     public void OnStartGame()
     {
         Debug.Log($"[{name}]:Empezando juego");
-         timeToWait = UnityEngine.Random.Range(TimeBetweenEvents - randomRange, TimeBetweenEvents + randomRange);
-        Debug.Log($"[{name}]EVENTO EN {timeToWait} SEGUNDOS");
-        CanDoEvents = true;
+       LevelManager.Instance.onNightStateChanged.AddListener(OnNightStateChanged);
+       
     }
+    public void OnNightStateChanged(bool isNight)
 
+    {
+        if (isNight)
+        {
+            timeToWait = UnityEngine.Random.Range(TimeBetweenEvents - randomRange, TimeBetweenEvents + randomRange);
+            Debug.Log($"[{name}]EVENTO EN {timeToWait} SEGUNDOS");
+            CanDoEvents = true;
+        }
+        else
+        {
+            CanDoEvents = false;
+        }
+    }
     public void SaveData()
     {
         throw new System.NotImplementedException();
