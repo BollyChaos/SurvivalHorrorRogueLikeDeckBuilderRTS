@@ -6,7 +6,7 @@ namespace Managers
 {
     public interface IManager
     {
-        public enum GameStartMode { FIRST,EARLY, NORMAL, LATE }//se va a necesitar first para tema de dependecia de datos
+        public enum GameStartMode { EARLY, NORMAL, LATE }
         public GameStartMode StartMode{ get; }
         public void StartManager();
         public void OnStartGame();

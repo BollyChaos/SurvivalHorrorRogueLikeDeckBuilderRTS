@@ -46,7 +46,6 @@ public class GameEventsManager : ASingleton<GameEventsManager>,IManager
     public void OnEndGame()
     {
         StopAllCoroutines();//por sea caso que no se ralle el manager
-        CanDoEvents = false;
     }
 
     public void OnStartGame()

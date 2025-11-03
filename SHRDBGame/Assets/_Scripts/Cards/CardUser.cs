@@ -46,7 +46,6 @@ public class CardUser : MonoBehaviour
     void Start()
     {
         cardToUse = AttackCard;
-        AnimateCard();
         LookForInput();
     }
     public void LookForInput()
@@ -247,21 +246,6 @@ public class CardUser : MonoBehaviour
         yield return new WaitForSeconds(cardCooldown);
         canUseCard = true;
     }
-    public void OnEndGame()
-    {
-        if (AttackCard != null)
-        {
-            Destroy(AttackCard);
-        }
-        if (DefenseCard != null)
-        {
-            Destroy(AttackCard);
-        }
-        if (UtilityCard != null)
-        {
-            Destroy(AttackCard);
-        }
-        cardToUse = null;
-    }
+    
 
 }
