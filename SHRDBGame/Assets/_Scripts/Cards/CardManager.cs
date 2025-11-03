@@ -95,8 +95,9 @@ public class CardManager : ASingleton<CardManager>,IManager
 
     public void StartManager()
     {
-        Debug.Log($"[{name}]:Iniciando...");
         LoadData();
+
+        Debug.Log($"[{name}]:Iniciando...");
     }
 
     

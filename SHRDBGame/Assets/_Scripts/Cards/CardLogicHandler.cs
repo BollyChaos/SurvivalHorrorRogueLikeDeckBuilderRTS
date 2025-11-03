@@ -11,6 +11,21 @@ public class CardLogicHandler : MonoBehaviour
     //Dictionary<string,>
 [SerializeField]    List<GameObject> cardsEffects = new List<GameObject>();
    
+   
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+        //se añade el nombre de la carta y el comportamiento(la funcion que dispara la corrutina)
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
     internal void UseCard(CardObject cardObj)
     {
         //buscar la carta en el diccionario, si no est� usar default
