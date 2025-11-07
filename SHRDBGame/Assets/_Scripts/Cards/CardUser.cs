@@ -19,11 +19,11 @@ public class CardUser : MonoBehaviour
     private bool cardPressed = false;
     [SerializeField]
     private bool canUseCard = true;
-    [SerializeField]
+
     int cardIndex = 0;
     [SerializeField]
-    CardType currentCardType;
-    private CardObject cardToUse;
+    CardType currentCardType = CardType.Attack;
+    CardType previousCardType = CardType.Attack;
     public bool HasAttackCards
     {
         get
@@ -47,7 +47,6 @@ public class CardUser : MonoBehaviour
     }
     void Start()
     {
-        cardToUse = AttackCard;
         AnimateCard();
         LookForInput();
     }
@@ -94,17 +93,19 @@ public class CardUser : MonoBehaviour
 
 
         AttackCard = card;
-
+        AnimateCard();
 
     }
     public void ReceiveDefenseCard(CardObject card)
     {
         DefenseCard = card;
+        AnimateCard();
     }
 
     public void ReceiveUtilityCard(CardObject card)
     {
         UtilityCard = card;
+        AnimateCard();
     }
 
     // public void GetNewCard(CardType cardType)
@@ -136,19 +137,7 @@ public class CardUser : MonoBehaviour
             cardIndex = (cardIndex - 1 < 0) ? 3 - 1 : cardIndex - 1;
         currentCardType = (CardType)cardIndex;
         //Animacion
-        switch (currentCardType)
-        {
-            case CardType.Attack:
-                cardToUse = AttackCard;
-                break;
-            case CardType.Defense:
-                cardToUse = DefenseCard;
-                break;
-            case CardType.Utility:
-                cardToUse = UtilityCard;
-                break;
-        }
-        AnimateCard();
+
 
         // Debug.Log($"�ndice actual: {cardIndex}");
     }
@@ -156,11 +145,32 @@ public class CardUser : MonoBehaviour
     {
         //Primero resetear todas por sea caso
 
-        if (cardToUse == null) return;
-        AttackCard?.GetComponent<SelectableUICard>().StopIdle();
-        DefenseCard?.GetComponent<SelectableUICard>().StopIdle();
-        UtilityCard?.GetComponent<SelectableUICard>().StopIdle();
-        cardToUse?.GetComponent<SelectableUICard>().StartIdle();
+
+        if (AttackCard != null)
+            AttackCard?.GetComponent<CardAnimation>().CancelAnimations(AttackCard?.GetComponent<RectTransform>());
+        if (DefenseCard != null)
+            DefenseCard?.GetComponent<CardAnimation>().CancelAnimations(DefenseCard?.GetComponent<RectTransform>());
+        if (UtilityCard != null)
+            UtilityCard?.GetComponent<CardAnimation>().CancelAnimations(UtilityCard?.GetComponent<RectTransform>());
+        switch (currentCardType)
+        {
+            case CardType.Attack:
+                if (AttackCard != null)
+                    AttackCard?.GetComponent<CardAnimation>().ScaleAndRotateZValue(AttackCard?.GetComponent<RectTransform>(), 2f, 3f, 5f);
+
+
+                break;
+
+            case CardType.Defense:
+                if (DefenseCard != null)
+                    DefenseCard?.GetComponent<CardAnimation>().ScaleAndRotateZValue(DefenseCard?.GetComponent<RectTransform>(), 2f, 3f, 5f);
+                break;
+
+            case CardType.Utility:
+                if (UtilityCard != null)
+                    UtilityCard?.GetComponent<CardAnimation>().ScaleAndRotateZValue(UtilityCard?.GetComponent<RectTransform>(), 2f, 3f, 5f);
+                break;
+        }
         // if (cardToUse.GetComponent<SelectableUICard>().wiggleTween == null)
         // {
 
@@ -207,41 +217,64 @@ public class CardUser : MonoBehaviour
         //    }
         //}
         HandleCardPressed();
+        if (previousCardType != currentCardType)
+        {
+            AnimateCard();
+            previousCardType = currentCardType;
+        }
     }
     void HandleCardPressed()
     {
         if (cardPressed)
         {
 
-            if (cardToUse != null)
+
+            if (canUseCard)
             {
-                if (canUseCard)
+
+
+                switch (currentCardType)
                 {
-                    cardToUse.UseCard();
-                    StartCoroutine(ActivateCardCooldown());
-                    if (!cardToUse.gameObject.activeInHierarchy)//si se descarta la carta pedir otra
-                    {
-                        switch (cardToUse.card.cardType)
+                    case CardType.Attack:
+                        if (AttackCard == null || AttackCard.discard)
                         {
-                            case CardType.Attack:
-                                AttackCard = GetComponent<CardInventory>().GiveCard(CardType.Attack);
-                                cardToUse = AttackCard;
-
-                                break;
-                            case CardType.Defense:
-
-                                DefenseCard = GetComponent<CardInventory>().GiveCard(CardType.Defense);
-                                cardToUse = DefenseCard;
-                                break;
-                            case CardType.Utility:
-                                UtilityCard = GetComponent<CardInventory>().GiveCard(CardType.Utility);
-                                cardToUse = DefenseCard;
-                                break;
+                            AttackCard = GetComponent<CardInventory>().GiveCard(CardType.Attack);
+                            AnimateCard();
                         }
 
-                    }
+                        AttackCard?.UseCard();
+
+
+                        break;
+
+                    case CardType.Defense:
+                        if (DefenseCard == null)
+                            DefenseCard = GetComponent<CardInventory>().GiveCard(CardType.Defense);
+                        {
+                            DefenseCard?.UseCard();
+                            AnimateCard();
+                        }
+
+
+                        break;
+
+                    case CardType.Utility:
+                        if (UtilityCard == null)
+                        {
+                            UtilityCard = GetComponent<CardInventory>().GiveCard(CardType.Utility);
+                            AnimateCard();
+                        }
+                        UtilityCard?.UseCard();
+
+                        break;
                 }
+
+                StartCoroutine(ActivateCardCooldown());
+
+
+
             }
+
         }
     }
     private IEnumerator ActivateCardCooldown()
@@ -264,7 +297,6 @@ public class CardUser : MonoBehaviour
         {
             Destroy(AttackCard);
         }
-        cardToUse = null;
     }
 
 }

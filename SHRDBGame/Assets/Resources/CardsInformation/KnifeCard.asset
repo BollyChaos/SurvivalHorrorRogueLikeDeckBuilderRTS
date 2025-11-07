@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d4318f981197974aab869ef415c76c7, type: 3}
   m_Name: KnifeCard
   m_EditorClassIdentifier: 
-  cardId: 1
+  cardId: 8
   cardName: Cuchillo
   description: 
-  nUses: 1
+  nUses: 2
   unlocked: 1
   cardType: 0
   cardRarity: 1

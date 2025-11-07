@@ -7,6 +7,11 @@ public class CardAnimation : MonoBehaviour
     [Header("Curve Movement Settings")]
     [SerializeField] private float duration = 1f;
     [SerializeField] private float curveAmplitude = 50f;
+    private Vector3 initialScale;
+    private Vector3 initialRotation;    
+    private LTDescr scaleTweenId;
+private LTDescr rotateTweenId ;
+
     public void MoveToCurve(RectTransform rectTransform, Vector3 targetPosition)
     {
         // Posición inicial
@@ -29,7 +34,7 @@ public class CardAnimation : MonoBehaviour
     }
     public void Scale(RectTransform rectTransform, float scale)
     {
-        LeanTween.scale(rectTransform.gameObject, new Vector3(scale, scale), duration)
+        scaleTweenId=LeanTween.scale(rectTransform.gameObject, new Vector3(scale, scale), duration)
                  .setEase(LeanTweenType.easeOutBack);
     }
     public void RotateXValue(RectTransform rectTransform, float degrees)
@@ -37,6 +42,39 @@ public class CardAnimation : MonoBehaviour
         LeanTween.rotateX(rectTransform.gameObject, degrees, duration)
                  .setEase(LeanTweenType.easeInOutCubic);
         rectTransform.localRotation = Quaternion.Euler(0f, rectTransform.localEulerAngles.y, rectTransform.localEulerAngles.z);
+
+    }
+    public void ScaleAndRotateZValue(RectTransform rectTransform,float initScale, float scale, float degrees)
+    {
+        initialRotation = rectTransform.localEulerAngles;
+        initialScale = new Vector3(initScale, initScale, initScale); 
+
+        scaleTweenId = LeanTween.scale(rectTransform.gameObject, new Vector3(scale, scale), duration)
+                 .setEase(LeanTweenType.easeOutBack).setLoopPingPong();
+        rotateTweenId = LeanTween.rotateZ(rectTransform.gameObject, degrees, duration)
+                 .setEase(LeanTweenType.easeInOutCubic).setLoopPingPong();
+              
+    }
+    public void CancelAnimations(RectTransform rectTransform)
+    {
+        if (scaleTweenId != null)
+        {
+            LeanTween.cancel(scaleTweenId.id);
+            scaleTweenId=null;
+        }
+        if (rotateTweenId != null)
+        {
+            LeanTween.cancel(rotateTweenId.id);
+            rotateTweenId = null;
+        }
+        if (initialRotation != null)
+        {
+            rectTransform.localEulerAngles = initialRotation;
+        }
+        if (initialScale != null)
+        {
+            rectTransform.localScale = initialScale;
+        }
 
     }
     

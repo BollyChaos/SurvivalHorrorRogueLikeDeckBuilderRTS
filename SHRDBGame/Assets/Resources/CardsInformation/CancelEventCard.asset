@@ -15,7 +15,7 @@ MonoBehaviour:
   cardId: 2
   cardName: Cancelar Evento
   description: 
-  nUses: 1
+  nUses: 3
   unlocked: 1
   cardType: 2
   cardRarity: 1

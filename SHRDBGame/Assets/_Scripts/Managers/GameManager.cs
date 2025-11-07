@@ -202,10 +202,11 @@ namespace Managers
 
             }
             //noches mas cortas para level manager
-            if(DebugGame && MakeNightsShorter)
+            if (DebugGame && MakeNightsShorter)
             {
                 LevelManager.Instance.nightDuration = 1f;//1 segundos de noche
             }
+            CardManager.Instance.GetComponent<CardLogicHandler>().SetPlayerTransform(FindAnyObjectByType<SimplePlayerController>().transform);
 
         }
         public void OnDestroy()

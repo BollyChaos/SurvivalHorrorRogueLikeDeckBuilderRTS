@@ -367,6 +367,7 @@ GameObject:
   - component: {fileID: 8185454470466940713}
   - component: {fileID: 5671119928536779219}
   - component: {fileID: 442654149150855568}
+  - component: {fileID: -1340994357255324344}
   m_Layer: 5
   m_Name: UICardPrefab
   m_TagString: Untagged
@@ -420,6 +421,8 @@ MonoBehaviour:
   AttackColor: {r: 0.401, g: 0.17604877, b: 0.17604877, a: 1}
   DefenseColor: {r: 0.21807691, g: 0.26653844, b: 0.42, a: 1}
   UtilityColor: {r: 0.368, g: 0.35505527, b: 0.11465326, a: 1}
+  cardNUses: 0
+  usingCard: 0
   discard: 0
 --- !u!114 &5671119928536779219
 MonoBehaviour:
@@ -509,3 +512,17 @@ MonoBehaviour:
   wiggleSpeed: 0.2
   moveDownDuration: 0.3
   lockTogle: 0
+--- !u!114 &-1340994357255324344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9150616657987557661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c60b9b8ede893f246866a79cdb90057b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 1
+  curveAmplitude: 50

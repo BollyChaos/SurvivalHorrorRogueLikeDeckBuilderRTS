@@ -16,7 +16,8 @@ public class CardObject : MonoBehaviour
     Color DefenseColor;
     [SerializeField]
     Color UtilityColor;
-[SerializeField]    private int cardNUses;//va a ser la copia del numero de usos de la carta
+    [SerializeField] private int cardNUses;//va a ser la copia del numero de usos de la carta
+[SerializeField]
     private bool usingCard = false;
     public bool discard = false;
     public bool UsingCard{
@@ -115,19 +116,29 @@ public class CardObject : MonoBehaviour
     {
         if (usingCard) return;
         Debug.Log($"Usando la carta:{card.CardName}");
+        usingCard = true;
         //llamar a cardlogichandler y decir su nombre
         CardManager.Instance.GetComponent<CardLogicHandler>().UseCard(this);
         --cardNUses;
         if (cardNUses <= 0)
         {
             discard = true;
-            Discard();
+            try
+            {
+                Discard();
+            }
+            catch (System.Exception e)
+            {
+                Debug.Log($"Error al descartar la carta: {e.Message}");
+            }
         }
-        usingCard = true;
+        
     }
     public void Discard()
     {
         Debug.Log("Descartando carta");
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
+        if(gameObject!=null)
+            Destroy(gameObject);
     }
 }

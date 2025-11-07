@@ -15,7 +15,7 @@ MonoBehaviour:
   cardId: 8
   cardName: Invencible
   description: 
-  nUses: 1
+  nUses: 3
   unlocked: 1
   cardType: 1
   cardRarity: 2
