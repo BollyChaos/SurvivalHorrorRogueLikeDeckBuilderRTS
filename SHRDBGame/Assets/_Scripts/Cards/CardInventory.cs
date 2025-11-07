@@ -11,10 +11,29 @@ public class CardInventory : MonoBehaviour
     public Stack<CardObject> defenseCards = new Stack<CardObject>();
     [SerializeField]
     public Stack<CardObject> utilityCards = new Stack<CardObject>();
-    [ContextMenu("Say Cards")]
+    [ContextMenu("Say N Cards")]
     public void DebugLogCards()
     {
         Debug.Log($"Tengo {attackCards.Count} cartas de ataque, {defenseCards.Count} cartas de defensa y {utilityCards.Count} de utilidad.");
+    }
+    [ContextMenu("Log All Cards")]
+    public void DebugLogAllCards()
+    {
+        Debug.Log("Cartas de ataque:");
+        foreach (var card in attackCards)
+        {
+            Debug.Log(card.card.CardName);
+        }
+        Debug.Log("Cartas de defensa:");
+        foreach (var card in defenseCards)
+        {
+            Debug.Log(card.card.CardName);
+        }
+        Debug.Log("Cartas de utilidad:");
+        foreach (var card in utilityCards)
+        {
+            Debug.Log(card.card.CardName);
+        }
     }
     public void AddCard(CardObject pCard)
     {

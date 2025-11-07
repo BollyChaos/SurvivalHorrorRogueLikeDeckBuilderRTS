@@ -4,13 +4,23 @@ using UnityEngine;
 
 public class Economy : MonoBehaviour
 {
-    void Start()
-    {
-        
-    }
+    [SerializeField]private int coins = 0;
 
-    void Update()
+    public void AddCoins(int amount)
     {
-        
+        coins += amount;
+    }
+    public bool SpendCoins(int amount)
+    {
+        if (amount <= coins)
+        {
+            coins -= amount;
+            return true;
+        }
+        else
+        {
+            Debug.Log("Not enough coins!");
+            return false;
+        }
     }
 }

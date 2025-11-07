@@ -51,7 +51,11 @@ public class CardManager : ASingleton<CardManager>,IManager
     //Metodo para la tienda o para cualquier cosa que necesite cartas
     public void GiveNCards(int nCards)
     {
-        
+
+    }
+    public CardsSO GiveRandomCard()
+    {
+        return GetComponent<CardShuffler>().GetRandomCard();
     }
     public void OnStartCardSelection()
     {

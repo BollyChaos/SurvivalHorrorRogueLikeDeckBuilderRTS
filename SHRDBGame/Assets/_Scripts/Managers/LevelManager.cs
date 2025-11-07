@@ -12,7 +12,7 @@ public class LevelManager : ASingleton<LevelManager>,IManager
     [SerializeField] private int nNights = 5;
     [SerializeField] private int currentNight = 1;
     [Tooltip("Duration of the night in seconds")]
-    [SerializeField] private float nightDuration = 10f;
+    [SerializeField] public float nightDuration = 10f;
     public float NightDuration { get { return nightDuration; } }
     private float nightTimer = 0f;
     [SerializeField] private bool isNightActive = false;

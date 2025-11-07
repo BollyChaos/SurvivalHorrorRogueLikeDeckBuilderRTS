@@ -148,7 +148,37 @@ public class UIManager : ASingleton<UIManager>, IManager
         //y comienza la noche >:)
         LevelManager.Instance.StartNight();
     }
-
+    //recibir el canvas padre world space y pasar la pos al canvas screen space de player
+    public void PassWorldPosToUI(GameObject uiWorld,Canvas WorldCanvas)//el canvas screen space es el de player hud
+    {
+        MoveUIBetweenCanvases mover = GetComponent<MoveUIBetweenCanvases>();
+        mover.rectTransform = uiWorld.GetComponent<RectTransform>();
+        if (mover.worldCamera == null)
+        {
+            mover.worldCamera = Camera.main;
+        }
+        mover.worldCanvas = WorldCanvas;
+        mover.screenCanvas = PlayerHUD.GetComponent<Canvas>();
+        mover.MoveToScreenCanvas();
+        //emparentar y mover
+        CardObject card = uiWorld.GetComponent<CardObject>();
+        switch (card.card.cardType) //primero emparentar los seccionados
+        {
+            case CardType.Attack:
+                EmparentCard("CardsDisplay/LeftCard", card.gameObject);
+                break;
+            case CardType.Defense:
+                EmparentCard("CardsDisplay/CenterCard", card.gameObject);
+                break;
+            case CardType.Utility:
+                EmparentCard("CardsDisplay/RightCard", card.gameObject);
+                break;
+        }
+        card.transform.SetAsFirstSibling();
+        card.GetComponent<CardAnimation>().MoveToCurve(card.GetComponent<RectTransform>(), card.transform.parent.position);
+        card.GetComponent<CardAnimation>().Scale(card.GetComponent<RectTransform>(), 2f);
+        card.GetComponent<CardAnimation>().RotateXValue(card.GetComponent<RectTransform>(), 0f);
+    }
     void EmparentCard(string objectName, GameObject objectToMove)
     {
         Transform leftCard = PlayerHUD.transform.Find(objectName);

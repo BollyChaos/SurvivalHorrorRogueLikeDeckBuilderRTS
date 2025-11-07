@@ -21,6 +21,8 @@ public class CardUser : MonoBehaviour
     private bool canUseCard = true;
     [SerializeField]
     int cardIndex = 0;
+    [SerializeField]
+    CardType currentCardType;
     private CardObject cardToUse;
     public bool HasAttackCards
     {
@@ -132,16 +134,17 @@ public class CardUser : MonoBehaviour
             cardIndex = (cardIndex + 1) % 3;//solo hay tres tipos de cartas
         else if (scroll < 0)
             cardIndex = (cardIndex - 1 < 0) ? 3 - 1 : cardIndex - 1;
+        currentCardType = (CardType)cardIndex;
         //Animacion
-        switch (cardIndex)
+        switch (currentCardType)
         {
-            case (int)CardType.Attack:
+            case CardType.Attack:
                 cardToUse = AttackCard;
                 break;
-            case (int)CardType.Defense:
+            case CardType.Defense:
                 cardToUse = DefenseCard;
                 break;
-            case (int)CardType.Utility:
+            case CardType.Utility:
                 cardToUse = UtilityCard;
                 break;
         }

@@ -2456,8 +2456,9 @@ MonoBehaviour:
   DebugGame: 1
   ChangeInitalScene: 1
   startingDebugScene: 2
-  SkipPhase: 0
+  SkipPhase: 1
   SkipCardSelectionPhase: 1
+  MakeNightsShorter: 1
 --- !u!4 &277794896
 Transform:
   m_ObjectHideFlags: 0
@@ -9365,7 +9366,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nNights: 5
   currentNight: 1
-  nightDuration: 20
+  nightDuration: 10
   isNightActive: 0
   onNightStateChanged:
     m_PersistentCalls:
@@ -13319,6 +13320,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1458407710}
   - component: {fileID: 1458407709}
+  - component: {fileID: 1458407711}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -13364,6 +13366,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1458407711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1458407708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b67fa228d5aa2274fa533878c78bd487, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  worldCanvas: {fileID: 0}
+  screenCanvas: {fileID: 1725973896}
+  rectTransform: {fileID: 0}
+  worldCamera: {fileID: 0}
 --- !u!1 &1462739147
 GameObject:
   m_ObjectHideFlags: 0

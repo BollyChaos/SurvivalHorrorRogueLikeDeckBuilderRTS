@@ -16,7 +16,7 @@ public class CardObject : MonoBehaviour
     Color DefenseColor;
     [SerializeField]
     Color UtilityColor;
-    private int cardNUses;//va a ser la copia del numero de usos de la carta
+[SerializeField]    private int cardNUses;//va a ser la copia del numero de usos de la carta
     private bool usingCard = false;
     public bool discard = false;
     public bool UsingCard{

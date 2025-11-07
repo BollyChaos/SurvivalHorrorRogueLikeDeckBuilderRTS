@@ -30,6 +30,7 @@ public class SelectableUICard : Toggle
     }
     protected override void OnEnable()
     {
+        if(!interactable) return;
         base.OnEnable();
         LookForUIManager();
 

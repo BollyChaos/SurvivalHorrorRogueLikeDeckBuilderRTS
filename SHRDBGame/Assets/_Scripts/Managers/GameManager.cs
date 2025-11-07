@@ -33,6 +33,9 @@ namespace Managers
         public bool SkipPhase = true;
         [ShowIf("SkipPhase", "DebugGame")]
         public bool SkipCardSelectionPhase = true;
+        [ShowIf("DebugGame")]
+        public bool MakeNightsShorter = true;
+
 
         #endregion
 
@@ -180,7 +183,7 @@ namespace Managers
             {
                 Debug.Log("Trigger tutorial activado");
             });
-            
+
             //Logica de empezar el juego ya del gamemanager, que ocurre primero, de momento se empieza con la seleccion de cartas
             if (!(DebugGame && SkipPhase && SkipCardSelectionPhase))
             {
@@ -192,10 +195,16 @@ namespace Managers
             }
             else //asignar de forma random
             {
-                 GameObject.Find("CardSelectionTrigger").GetComponent<TriggerEvent>().onTriggerEnterEvent.AddListener(() =>
+                GameObject.Find("CardSelectionTrigger").GetComponent<TriggerEvent>().onTriggerEnterEvent.AddListener(() =>
+           {
+               CardManager.Instance.DebugStartCardSelection();
+           });
+
+            }
+            //noches mas cortas para level manager
+            if(DebugGame && MakeNightsShorter)
             {
-                CardManager.Instance.DebugStartCardSelection();
-            }); 
+                LevelManager.Instance.nightDuration = 1f;//1 segundos de noche
             }
 
         }
