@@ -95,6 +95,10 @@ public class CardManager : ASingleton<CardManager>,IManager
     {
         FindAnyObjectByType<CardInventory>().AddCard(card);
     }
+    public void GiveLateCardToPlayer(CardObject card)//poner la primera del stack
+    {
+        FindAnyObjectByType<CardInventory>().AddLateCard(card);
+    }
     public void GiveCardsToPlayer(List<CardObject> cards)
     {
         FindAnyObjectByType<CardInventory>().AddCards(cards);

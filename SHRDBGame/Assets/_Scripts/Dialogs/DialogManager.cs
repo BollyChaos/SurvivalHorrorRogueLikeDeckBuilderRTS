@@ -102,6 +102,8 @@ public class DialogManager : ASingleton<DialogManager>, IManager
         RunningDialog = null;
         dialogCanvas.EndOfDialog();
         InputManager.Instance.SwitchMapToPlayer();
+        UIManager.Instance.CloseDialog();
+
 
 
     }

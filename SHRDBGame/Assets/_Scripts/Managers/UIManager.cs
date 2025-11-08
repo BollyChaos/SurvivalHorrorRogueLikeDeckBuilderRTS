@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using static Managers.GameSceneManager;
 using static Managers.IManager;
@@ -359,6 +360,10 @@ public class UIManager : ASingleton<UIManager>, IManager
         }
         //aqui entra en juego el estado previo
         PauseMenu.SetActive(isPaused);
+        if (isPaused)
+        {
+            EventSystem.current.SetSelectedGameObject(PauseMenu.transform.Find("SelectionCanvas/Continue").gameObject);
+        }
         //si en pausa:
         //sacar seleccion de tres
         //enseñar cartas(dejar para mas tarde)

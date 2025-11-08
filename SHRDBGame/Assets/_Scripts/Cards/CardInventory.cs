@@ -79,6 +79,63 @@ public class CardInventory : MonoBehaviour
             AddCard(card);
         }
     }
+    public void AddLateCard(CardObject lCard)
+    {
+        Stack<CardObject> targetStack = null;
+
+        // 1️⃣ Seleccionar la pila correspondiente según el tipo de carta
+        switch (lCard.card.cardType)
+        {
+            case CardType.Attack:
+                targetStack = attackCards;
+                break;
+            case CardType.Defense:
+                targetStack = defenseCards;
+                break;
+            case CardType.Utility:
+                targetStack = utilityCards;
+                break;
+        }
+
+        if (targetStack == null)
+            return;
+
+        // 2️⃣ Evitar duplicados
+        if (targetStack.Contains(lCard))
+            return;
+
+        // 3️⃣ Usar una pila auxiliar para insertar al fondo
+        Stack<CardObject> aux = new Stack<CardObject>();
+
+        while (targetStack.Count > 0)
+            aux.Push(targetStack.Pop());
+
+        // Insertar la nueva carta
+        targetStack.Push(lCard);
+
+        // Devolver el resto
+        while (aux.Count > 0)
+            targetStack.Push(aux.Pop());
+
+        // 4️⃣ (Opcional) Si el jugador no tiene carta de ese tipo, darle una
+        var cardUser = GetComponent<CardUser>();
+        switch (lCard.card.cardType)
+        {
+            case CardType.Attack:
+                if (!cardUser.HasAttackCards)
+                    cardUser.ReceiveAttackCard(GiveCard(CardType.Attack));
+                break;
+            case CardType.Defense:
+                if (!cardUser.HasDefenseCards)
+                    cardUser.ReceiveDefenseCard(GiveCard(CardType.Defense));
+                break;
+            case CardType.Utility:
+                if (!cardUser.HasUtilityCards)
+                    cardUser.ReceiveUtilityCard(GiveCard(CardType.Utility));
+                break;
+        }
+    }
+
     public CardObject GiveCard(CardType cardType)
     {
         //quitar una carta y añadir otra si hay

@@ -65,7 +65,7 @@ public class ShopCard : MonoBehaviour,IInteractable
 
             //dar la carta al jugador
             if(cardObject!=null )
-            CardManager.Instance.GiveCardToPlayer(cardObject);
+            CardManager.Instance.GiveLateCardToPlayer(cardObject);
         }
         else
         {
