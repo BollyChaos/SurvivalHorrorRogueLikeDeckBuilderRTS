@@ -157,6 +157,8 @@ namespace Managers
         {
             Debug.Log($"[{name}]Empezando juego");
             //hay varios tipos de arranque de manager(unos dependen de otros) por defecto empiezan en normal
+            //ArgumentNullException: Value cannot be null.
+            //No entiendo como arreglar este error debajo de esta linea, no se que está tomando para que sea null
             managersList = managersList.Where(m => m != null).ToList();
 
 
@@ -178,11 +180,17 @@ namespace Managers
             }
 
 
+            //Posteriormente se pueden guardar en un array de strings y hacer esto con un bucle
             //buscar los trigger del juego y asignarles su funcion
             GameObject.Find("TutorialTrigger").GetComponent<TriggerEvent>().onTriggerEnterEvent.AddListener(() =>
             {
                 Debug.Log("Trigger tutorial activado");
             });
+            GameObject.Find("StartingDialog").GetComponent<TriggerEvent>().onTriggerEnterEvent.AddListener(() =>
+{
+    DialogManager.Instance.PlayDialogRequest("EnteringMansion");
+}
+            );
 
             //Logica de empezar el juego ya del gamemanager, que ocurre primero, de momento se empieza con la seleccion de cartas
             if (!(DebugGame && SkipPhase && SkipCardSelectionPhase))

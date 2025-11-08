@@ -26,6 +26,7 @@ public class InputManager : ASingleton<InputManager>, IManager
     //si esta ingame:
     //ver si esta en pausa: donde del menu de pausa especificamente
     //si esta jugando->llevar al menu de pausa
+    //si esta en mitad de un dialogo, volver al dialogo
     public void OnEscape(InputAction.CallbackContext ctx)
     {
         //TODO LOGICA DE LA PAUSA  
@@ -45,6 +46,15 @@ public class InputManager : ASingleton<InputManager>, IManager
     public void OnSaveChanges(InputAction.CallbackContext ctx)
     {
         UIManager.Instance.SaveTemporalData();
+    }
+    public void ReadDialogInput(InputAction.CallbackContext context)
+    {
+        if (context.started)
+            DialogManager.Instance.ReadInputValue(context.ReadValue<float>() > 0);
+        if(context.canceled)
+            DialogManager.Instance.ReadInputValue(false);
+        
+        
     }
     #endregion
 
@@ -114,7 +124,11 @@ public class InputManager : ASingleton<InputManager>, IManager
         playerInput.actions.FindActionMap("Player").FindAction("Escape").started+=OnEscape;
         playerInput.actions.FindActionMap("Player").FindAction("Escape").performed+=OnEscape;
         playerInput.actions.FindActionMap("UI").FindAction("Escape").started+=OnEscape;
-        playerInput.actions.FindActionMap("UI").FindAction("Escape").performed+=OnEscape;
+        playerInput.actions.FindActionMap("UI").FindAction("Escape").performed += OnEscape;
+        //el input de dialogos
+
+        playerInput.actions.FindActionMap("UI").FindAction("Submit").started += ReadDialogInput;
+        playerInput.actions.FindActionMap("UI").FindAction("Submit").canceled += ReadDialogInput;        
     }
 
     public void ResetUIInPutModule(GameObject Button=null)

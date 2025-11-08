@@ -11,6 +11,7 @@ public class IdleFloatAndRotate : MonoBehaviour
     [SerializeField]public bool activateOnEnable = true;
 
     private Vector3 startPosition;
+    private Vector3 initialRotation;
     private LTDescr floatTween;
     private LTDescr rotateTween;
     public void OnEnable()
@@ -27,7 +28,7 @@ public class IdleFloatAndRotate : MonoBehaviour
     public void ActivateAnimation()
     {
         startPosition = transform.position;
-
+        initialRotation = transform.localEulerAngles;
         // Rotación continua en eje Y
         rotateTween = LeanTween.rotateAround(gameObject, Vector3.up, 360f, 360f / rotationSpeed)
             .setLoopClamp(); // rotación infinita
@@ -41,8 +42,17 @@ public class IdleFloatAndRotate : MonoBehaviour
     public void DeActivateAnimation()
     {
         // Cancelar animaciones al desactivar el objeto
-        LeanTween.cancel(gameObject);
-        transform.position = startPosition; // opcional: resetear posición
-        transform.rotation = Quaternion.identity; // opcional: resetear rotación
+        if (floatTween != null)
+        {
+            LeanTween.cancel(floatTween.id);
+        }
+        if (rotateTween != null)
+        {
+            LeanTween.cancel(rotateTween.id);
+        }
+        if (startPosition != null)
+            transform.position = startPosition; // opcional: resetear posición
+        if(initialRotation!=null)
+            transform.localEulerAngles = initialRotation; // opcional: resetear rotación
     }
 }

@@ -196,6 +196,7 @@ public class CardUser : MonoBehaviour
     }
     private void ReadInputCard(InputAction.CallbackContext context)
     {
+        //Por que?-> Para que no lea durante el performed
         if (context.started)
             cardPressed = context.ReadValue<float>() > 0;
         else if (context.canceled)
@@ -216,12 +217,34 @@ public class CardUser : MonoBehaviour
 
         //    }
         //}
+        //Creo que lo mejor para evitar errores es pedir cartas si no hay durante update
+        if (!HasAttackCards)
+        {
+            AttackCard = GetComponent<CardInventory>().GiveCard(CardType.Attack);
+            if (AttackCard != null)
+                AnimateCard();
+
+        }
+        if (!HasDefenseCards)
+        {
+            DefenseCard = GetComponent<CardInventory>().GiveCard(CardType.Defense);
+            if (DefenseCard != null)
+                AnimateCard();
+        }
+        if (!HasUtilityCards)
+        {
+            UtilityCard = GetComponent<CardInventory>().GiveCard(CardType.Utility);
+            if (UtilityCard != null)
+                AnimateCard();
+        }
+        
         HandleCardPressed();
         if (previousCardType != currentCardType)
         {
             AnimateCard();
             previousCardType = currentCardType;
         }
+      
     }
     void HandleCardPressed()
     {
@@ -236,36 +259,24 @@ public class CardUser : MonoBehaviour
                 switch (currentCardType)
                 {
                     case CardType.Attack:
-                        if (AttackCard == null || AttackCard.discard)
-                        {
-                            AttackCard = GetComponent<CardInventory>().GiveCard(CardType.Attack);
-                            AnimateCard();
-                        }
-
-                        AttackCard?.UseCard();
+                       
+                        if(HasAttackCards)
+                            AttackCard?.UseCard();
 
 
                         break;
 
                     case CardType.Defense:
-                        if (DefenseCard == null)
-                            DefenseCard = GetComponent<CardInventory>().GiveCard(CardType.Defense);
-                        {
+                        if(HasDefenseCards)
                             DefenseCard?.UseCard();
-                            AnimateCard();
-                        }
+                       
 
 
                         break;
 
                     case CardType.Utility:
-                        if (UtilityCard == null)
-                        {
-                            UtilityCard = GetComponent<CardInventory>().GiveCard(CardType.Utility);
-                            AnimateCard();
-                        }
-                        UtilityCard?.UseCard();
-
+                        if(HasUtilityCards)
+                            UtilityCard?.UseCard();
                         break;
                 }
 

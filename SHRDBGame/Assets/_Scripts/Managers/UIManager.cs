@@ -12,10 +12,11 @@ using static Managers.IManager;
 public class UIManager : ASingleton<UIManager>, IManager
 {
     //GameManager tiene sus estados pero no le importa en que estado se esta dentro del juego, ahi es donde entra uiManager 
-    public enum InGameStates { INGAME, INPAUSE, SELECTINGCARDS, DAYTIME }//ya se que gamemanager tiene inpause y no creo que sea redundante ya que uimanager necesita saber si esta en pausa
+    public enum InGameStates { INGAME, INDIALOG, INPAUSE, SELECTINGCARDS, DAYTIME }//ya se que gamemanager tiene inpause y no creo que sea redundante ya que uimanager necesita saber si esta en pausa
     public GameStartMode StartMode => GameStartMode.EARLY;
-
+    [SerializeField] InGameStates previousInGameState;
     [SerializeField] InGameStates inGameStates;
+
     [Header("Player")]
     [SerializeField]
     GameObject PlayerHUD;
@@ -43,6 +44,7 @@ public class UIManager : ASingleton<UIManager>, IManager
     public void BuildCards(List<CardsSO> cards)
     {
         InputManager.Instance.SwitchMapToUI();
+        previousInGameState = inGameStates;
         inGameStates = InGameStates.SELECTINGCARDS;
 
         StartCoroutine(WaitForObject(PlayerHUD));
@@ -89,6 +91,7 @@ public class UIManager : ASingleton<UIManager>, IManager
         //bloquear interfaz(desactivar el componente)
 
         ContinueButton.gameObject.SetActive(false);
+        previousInGameState = inGameStates;
         inGameStates = InGameStates.INGAME;
         //mover el resto cartas al inventario, emparentar, ver el orden y ordenar
         foreach (var card in UICards)
@@ -149,7 +152,7 @@ public class UIManager : ASingleton<UIManager>, IManager
         LevelManager.Instance.StartNight();
     }
     //recibir el canvas padre world space y pasar la pos al canvas screen space de player
-    public void PassWorldPosToUI(GameObject uiWorld,Canvas WorldCanvas)//el canvas screen space es el de player hud
+    public void PassWorldPosToUI(GameObject uiWorld, Canvas WorldCanvas)//el canvas screen space es el de player hud
     {
         MoveUIBetweenCanvases mover = GetComponent<MoveUIBetweenCanvases>();
         mover.rectTransform = uiWorld.GetComponent<RectTransform>();
@@ -337,6 +340,16 @@ public class UIManager : ASingleton<UIManager>, IManager
         SettingsManager.Instance.LoadData();
         isSettingsCanvasDirty = false;
     }
+    public void SetDialog()
+    {
+        previousInGameState = inGameStates;
+        inGameStates = InGameStates.INDIALOG;
+    }
+    public void CloseDialog()
+    {
+        previousInGameState = inGameStates;
+        inGameStates = InGameStates.INGAME;
+    }
     public void OnPauseUI(bool isPaused)
     {
         if (inGameStates == InGameStates.SELECTINGCARDS)
@@ -344,20 +357,54 @@ public class UIManager : ASingleton<UIManager>, IManager
             GameManager.Instance.BlockPause();
             return;//selectingcards es crucial y bloquea la pausa
         }
-        inGameStates = isPaused ? InGameStates.INPAUSE : InGameStates.INGAME;
+        //aqui entra en juego el estado previo
         PauseMenu.SetActive(isPaused);
         //si en pausa:
         //sacar seleccion de tres
         //enseñar cartas(dejar para mas tarde)
-        if (isPaused)
+        //previous ingame se pone dentro de todos los if porque necesito saber que era antes, y luego actualizo
+        if (isPaused && inGameStates == InGameStates.INGAME)//si viene de ingame normal
         {
+            Debug.Log("Pausando desde ingame");
+
+            previousInGameState = inGameStates;
+
+            inGameStates = InGameStates.INPAUSE;
+
             InputManager.Instance.SwitchMapToUI();
             ShowSelectionCanvas();
         }
-        else
+        else if (isPaused && inGameStates == InGameStates.INDIALOG)//si viene del dialogo
         {
+            Debug.Log("Pausando desde dialogo");
+            previousInGameState = inGameStates;
+
+            inGameStates = InGameStates.INPAUSE;
+            ShowSelectionCanvas();
+        }
+        //si no en pausa:
+        else if (!isPaused && previousInGameState == InGameStates.INDIALOG)
+        {
+            //no cambiar al mapa de player porque seguimos en interfaz
+            Debug.Log("Volviendo a dialogo");
+            previousInGameState = inGameStates;
+
+            inGameStates = InGameStates.INDIALOG;
+        }
+        else if (!isPaused && previousInGameState == InGameStates.INGAME)
+        {
+            Debug.Log("Volviendo a ingame");
+            previousInGameState = inGameStates;
+
+            inGameStates = InGameStates.INGAME;
+
             InputManager.Instance.SwitchMapToPlayer();
         }
+        else
+        {
+            Debug.LogError("Estado no reconocido en pausa");    
+        }
+
 
 
     }
@@ -399,7 +446,7 @@ public class UIManager : ASingleton<UIManager>, IManager
             {
                 case VALUE_TYPE.BOOL:
                     //Debug.Log("[CanvasManager] Poniendo valor de "+element.name+" a "+settingsValues.GetValue<bool>(element.name));
-                    element.GetComponent<Toggle>().isOn=SettingsManager.Instance.GetValue<bool>(element.name);
+                    element.GetComponent<Toggle>().isOn = SettingsManager.Instance.GetValue<bool>(element.name);
                     break;
                 case VALUE_TYPE.FLOAT:
                     element.GetComponent<Slider>().value = SettingsManager.Instance.GetValue<float>(element.name);
@@ -408,7 +455,7 @@ public class UIManager : ASingleton<UIManager>, IManager
 
                     // string[] parts = settingsValues.GetValue<string>(element.name).Split("::");
                     // string[] actionName=null;
-                    
+
                     // if(parts.Length>=3)
                     //     actionName = parts[2].Split("/");//parts 2 es el binding path<Keyboard>/W por ejemplo
 
