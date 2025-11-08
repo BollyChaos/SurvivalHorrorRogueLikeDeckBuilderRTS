@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d63283b33eac6ba47922b948f02c4494, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5c8bb4cf6cdb0ec4a814bd3601dd071a, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -275,6 +275,7 @@ MonoBehaviour:
   AttackColor: {r: 0.401, g: 0.17604877, b: 0.17604877, a: 1}
   DefenseColor: {r: 0.21807691, g: 0.26653844, b: 0.42, a: 1}
   UtilityColor: {r: 0.368, g: 0.35505527, b: 0.11465326, a: 1}
+  cardNUses: 0
   discard: 0
 --- !u!114 &7740669622009908523
 MonoBehaviour:
