@@ -42,7 +42,7 @@ public class BulletCardAction : MonoBehaviour, ICardAction
             ps.Play();
             // Inicia la corrutina que destruye el sistema cuando acabe
 
-            Destroy(ps.gameObject, 5); // Destruye el objeto del proyectil después de 25 segundos como medida de seguridad
+            Destroy(ps.gameObject, 5); // Destruye el objeto del proyectil después de 5 segundos como medida de seguridad
         }
 
     }
@@ -53,7 +53,7 @@ public class BulletCardAction : MonoBehaviour, ICardAction
         ps.Play();
         // Inicia la corrutina que destruye el sistema cuando acabe
 
-        Destroy(ps.gameObject, 5); // Destruye el objeto del proyectil después de 25 segundos como medida de seguridad
+        Destroy(ps.gameObject, 5); // Destruye el objeto del proyectil después de 5 segundos como medida de seguridad
     }
 
 }
