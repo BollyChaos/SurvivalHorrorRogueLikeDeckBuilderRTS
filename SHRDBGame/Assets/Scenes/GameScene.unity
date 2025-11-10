@@ -393,9 +393,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats:
-    maxHealth: 100
     currentHealth: 100
+    invencibility: 0
     attack: 10
+    attackMultiplier: 1
+    speedMultiplier: 1
 --- !u!1 &108219761
 GameObject:
   m_ObjectHideFlags: 0
@@ -2262,9 +2264,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats:
-    maxHealth: 100
     currentHealth: 100
+    invencibility: 0
     attack: 10
+    attackMultiplier: 1
+    speedMultiplier: 1
   damageCooldown: 1
 --- !u!1 &824841253
 GameObject:
@@ -4981,6 +4985,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 824841259}
     m_Modifications:
+    - target: {fileID: 218928174809986143, guid: c8df1f3b1f121f84c9c3ff942678eb14, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 779336546737773969, guid: c8df1f3b1f121f84c9c3ff942678eb14, type: 3}
       propertyPath: m_Name
       value: pedestalCarta
@@ -5028,6 +5036,42 @@ PrefabInstance:
     - target: {fileID: 3890496267082580262, guid: c8df1f3b1f121f84c9c3ff942678eb14, type: 3}
       propertyPath: popupDuration
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4339761603794523702, guid: c8df1f3b1f121f84c9c3ff942678eb14, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4401681183725833939, guid: c8df1f3b1f121f84c9c3ff942678eb14, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4401681183725833939, guid: c8df1f3b1f121f84c9c3ff942678eb14, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4401681183725833939, guid: c8df1f3b1f121f84c9c3ff942678eb14, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4401681183725833939, guid: c8df1f3b1f121f84c9c3ff942678eb14, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 48.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4401681183725833939, guid: c8df1f3b1f121f84c9c3ff942678eb14, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 43.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4401681183725833939, guid: c8df1f3b1f121f84c9c3ff942678eb14, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6437469724178555445, guid: c8df1f3b1f121f84c9c3ff942678eb14, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7257144307840738138, guid: c8df1f3b1f121f84c9c3ff942678eb14, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

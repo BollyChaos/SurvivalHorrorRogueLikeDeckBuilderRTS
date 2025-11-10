@@ -15,7 +15,7 @@ public class CardLogicHandler : MonoBehaviour
     [Header("Debug")]
     [SerializeField] bool debug = true;
     [ShowIf("debug")]
-    [SerializeField] string cardToUseAlways="Hacha";
+    [SerializeField] string cardToUseAlways="Curacion";
     public void SetPlayerTransform(Transform playerTransform)
     {
         foreach (GameObject cardEffect in cardEffects)

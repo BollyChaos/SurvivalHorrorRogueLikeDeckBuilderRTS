@@ -69,6 +69,12 @@ public class CardObject : MonoBehaviour
             var comp = cardChild.GetComponent<TextMeshProUGUI>();
             comp.text = card.Description;
         }
+        cardChild = transform.Find("NCardUses");
+        if (cardChild != null)
+        {
+             var comp = cardChild.GetComponent<TextMeshProUGUI>();
+            comp.text = $"{card.nUses}";
+        }
     }
     private IEnumerator BuildCardCoroutine()
     {
@@ -118,8 +124,16 @@ public class CardObject : MonoBehaviour
         Debug.Log($"Usando la carta:{card.CardName}");
         usingCard = true;
         //llamar a cardlogichandler y decir su nombre
-        CardManager.Instance.GetComponent<CardLogicHandler>().UseCard(this);
         --cardNUses;
+
+          var cardChild = transform.Find("NCardUses");
+        if (cardChild != null)
+        {
+             var comp = cardChild.GetComponent<TextMeshProUGUI>();
+            comp.text = $"{cardNUses}";
+        }
+        CardManager.Instance.GetComponent<CardLogicHandler>().UseCard(this);
+
         if (cardNUses <= 0)
         {
             discard = true;
