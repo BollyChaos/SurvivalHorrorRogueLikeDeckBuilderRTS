@@ -6,12 +6,13 @@ public class PrefabDamage : MonoBehaviour
 {
     private float damage = 0f;
     private string targetTag = "Enemy";
-    private float lifetime = 0.5f; //Duracion del prefab
 
     private void Start()
     {
-        Destroy(gameObject, lifetime);
+      //lo voy a destruir como apaño en slashcardaction
+       // Destroy(gameObject, lifetime); por que???? ponlo en una funcion y controlas cuando se destruye no solo nada mas crearlo
     }
+
 
     public void Initialize(float dmg, string targetTag = "Enemy")
     {

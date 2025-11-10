@@ -6,13 +6,33 @@ using UnityEngine;
 public class Stats
 {
     [Header("Atributos Basicos")]
-    public float maxHealth = 100f;
-    public float currentHealth = 100f;
-    public float attack = 10f;
-
-    //Metodo para aplicar daño teniendo en cuenta la defensa
+    private float maxHealth = 100f;
+    [SerializeField]
+    public float MaxHealth { get => maxHealth; }//esto lo necesito, pero solo se lee
+    [SerializeField]
+    private float currentHealth = 100f;//a ver, hazlas privadas o quitas el proposito de tener funciones para quitar o tomar vida
+    public float CurrentHealth { get => currentHealth; set => currentHealth = value; }
+    [SerializeField]
+    private bool invencibility = false;
+    public bool Invencibility{ get => invencibility; set => invencibility = value; }
+    public bool IsInvincible { get => invencibility; }
+    [SerializeField]
+    private float attack = 10f;
+    [SerializeField]
+    public float baseAttack{ get => attack; set => attack = value; }
+    [SerializeField]
+    public float Attack{ get { return attack* attackMultiplier; } }
+    [SerializeField]
+    public float AttackMultiplier { get => attackMultiplier; set => attackMultiplier = value; }
+    [SerializeField]
+    private float attackMultiplier = 1f;
+    [SerializeField]
+    private float speedMultiplier = 1f;
+    public float SpeedMultiplier{ get => speedMultiplier; }
+    //Metodo para aplicar daï¿½o teniendo en cuenta la defensa
     public void TakeDamage(float amount)
     {
+        if (IsInvincible) return;
         currentHealth = currentHealth - amount;
     }
 
@@ -27,4 +47,9 @@ public class Stats
     {
         return currentHealth > 0;
     }
+    public void ChangeSpeedMultiplier(float sM)
+    {
+        speedMultiplier = sM;
+    }
+   
 }

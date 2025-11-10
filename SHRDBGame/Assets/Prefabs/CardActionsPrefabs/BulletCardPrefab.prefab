@@ -9805,6 +9805,7 @@ GameObject:
   - component: {fileID: 3969785271422823241}
   - component: {fileID: 8475847233549216544}
   - component: {fileID: 7900562329459943178}
+  - component: {fileID: 7811690933635609686}
   m_Layer: 0
   m_Name: BulletCardPrefab
   m_TagString: Untagged
@@ -9843,12 +9844,12 @@ ParticleSystem:
   serializedVersion: 8
   lengthInSec: 1
   simulationSpeed: 1
-  stopAction: 0
+  stopAction: 2
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 0
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -14709,6 +14710,18 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &7811690933635609686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3469342555321442635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26c4cb41c994eea4bb0faaf36a3931ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3798573762111731718
 GameObject:
   m_ObjectHideFlags: 0

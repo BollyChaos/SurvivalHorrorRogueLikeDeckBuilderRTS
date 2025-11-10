@@ -42,8 +42,8 @@ public class SimplePlayerController : MonoBehaviour
         inputDir,
         ref _movementInputSmoothVelocity,
         0.1f);
-
-        rb.velocity = new Vector3(_smoothedMovementInput.x * speed, rb.velocity.y, _smoothedMovementInput.y * speed);
+        float realSpeed = speed * GetComponent<PlayerCombat>().stats.SpeedMultiplier;
+        rb.velocity = new Vector3(_smoothedMovementInput.x * realSpeed, rb.velocity.y, _smoothedMovementInput.y * realSpeed);
 
         transform.rotation = Quaternion.LookRotation(new Vector3(inputLook.x, inputLook.y, 0));
     }

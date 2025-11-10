@@ -58,6 +58,8 @@ public class UIManager : ASingleton<UIManager>, IManager
             StartCoroutine(WaitForObject(UICards[i].gameObject));//va demasiado rapido y el objeto a lo mejor no esta activo
             UICards[i].BuildCard();
         }
+            //EventSystem.current.SetSelectedGameObject(UICards[0].gameObject); no se puede hacer porque se fastidia
+        
 
     }
     IEnumerator WaitForObject(GameObject obj)
@@ -530,6 +532,7 @@ public class UIManager : ASingleton<UIManager>, IManager
             uiCard.GetComponent<RectTransform>().localPosition = Vector3.zero;
             uiCard.GetComponent<RectTransform>().localScale = new Vector3(3, 3);
             uiCard.SetActive(false);
+
             //no hay que hacer nada mas porque al crearse y activarse buscaran al uimanager
         }
     }
@@ -550,7 +553,7 @@ public class UIManager : ASingleton<UIManager>, IManager
         {
             DontDestroyOnLoad(PlayerHUD);//quiero que se mantenga la player HUD 
             PlayerHUD.SetActive(false);
-            ContinueButton?.onClick.AddListener(onEndSelection);
+            ContinueButton.onClick.AddListener(onEndSelection);
 
         }
         //Shop

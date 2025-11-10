@@ -7,7 +7,7 @@ public class SlashCardAction : MonoBehaviour, ICardAction
     private enum TypeOfSlash { Axe, Knife }
     [SerializeField] GameObject slashPrefab;
 
-    [SerializeField] public Transform playerTransform;
+    [SerializeField] private Transform playerTransform;
     [SerializeField] private TypeOfSlash typeOfSlash;
 
     private PlayerCombat playerCombat;
@@ -21,13 +21,14 @@ public class SlashCardAction : MonoBehaviour, ICardAction
 
     private void Awake()
     {
-        playerCombat = playerTransform.GetComponent<PlayerCombat>();
+        //playerCombat = playerTransform.GetComponent<PlayerCombat>(); esto no funciona porque todavia no tiene el playertransform te lo muevo
     }
 
     public void ExecuteCardAction(CardObject cardObj)
     {
-        float baseDamage = playerCombat.stats.attack;
-        
+        playerCombat = playerTransform.GetComponent<PlayerCombat>();
+
+        float baseDamage = playerCombat.stats.Attack;
 
         switch (typeOfSlash)
         {
@@ -55,6 +56,7 @@ public class SlashCardAction : MonoBehaviour, ICardAction
         {
             slash.Initialize(damage, "Enemy");
         }
+        Destroy(sPrefab, 5f);
     }
     void KnifeAttack()
     {
@@ -67,5 +69,6 @@ public class SlashCardAction : MonoBehaviour, ICardAction
         {
             slash.Initialize(damage, "Enemy");
         }
+        Destroy(sPrefab, 5f);
     }
 }
