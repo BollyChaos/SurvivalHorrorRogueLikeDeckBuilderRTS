@@ -1,3 +1,4 @@
+using System.Collections;
 using State.Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
@@ -12,26 +13,18 @@ public class EnemyController : MonoBehaviour, IEnemy
     //atributos
     private IState currentState;
     private GameObject playerAtSight;
-    private Rigidbody _rigidbody;
     private int distanceToChase = 10;
     private int chaseSpeed = 5;
     private int patrolSpeed = 2;
     private NavMeshAgent _agent;
     [SerializeField] private GameObject vision;
-    [SerializeField] private Transform[] waypoints;
-    private int currentWaypointIndex = 0;
+
 
     //Metodos
-    private void Awake()
+    protected void Awake()
     {
-        Start();
-    }
-    protected void Start()
-    {
-        _rigidbody = GetComponent<Rigidbody>();
         _agent = GetComponent<NavMeshAgent>();
         SetState(new Patrol(this));
-
     }
     public GameObject GetGameObject()
     {
@@ -125,7 +118,7 @@ public class EnemyController : MonoBehaviour, IEnemy
         if (other.CompareTag("Player"))
         {
             playerAtSight = other.gameObject;
-            Debug.Log($"player entra; {playerAtSight}");
+            
         }
     }
 
@@ -134,7 +127,6 @@ public class EnemyController : MonoBehaviour, IEnemy
         if (other.CompareTag("Player"))
         {
             playerAtSight = other.gameObject;
-            Debug.Log($"player dentro; {playerAtSight}");
         }
     }
 
@@ -148,11 +140,6 @@ public class EnemyController : MonoBehaviour, IEnemy
     #endregion
 
     #region Movimiento
-    public void MoveTo(Vector3 dir, float speed)
-    {
-
-        _rigidbody.velocity = dir * speed;
-    }
     public void MoveToNavMesh(Vector3 destination,float speed)
     {
         _agent.SetDestination(destination);
@@ -169,15 +156,31 @@ public class EnemyController : MonoBehaviour, IEnemy
             GetComponent<Rigidbody>().MoveRotation(lookRotation);
         }
     }
+
+    public virtual Transform GetCurrentWaypoint()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public virtual int GetCurrentWaypointIndex()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public virtual void NextWaypoint()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public virtual void SetSalonAbierto(bool estado)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public virtual bool IsSalonAbierto()
+    {
+        throw new System.NotImplementedException();
+    }
     #endregion
 
-    #region Waypoints
-    public Transform GetCurrentWaypoint() { 
-        return waypoints[currentWaypointIndex];
-    }
-    public void NextWaypoint()
-    {
-        currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
-    }
-    #endregion
 }

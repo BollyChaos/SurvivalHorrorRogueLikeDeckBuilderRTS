@@ -49,7 +49,7 @@ public class WalkingToWaypoint : AEnemyState
         else
         {
             Vector3 direction = ((Vector3)_currentWaypoint.position - (Vector3)_currentTransform.position).normalized;
-            enemy.MoveTo(direction, _patrolSpeed);
+            enemy.MoveToNavMesh(direction, _patrolSpeed);
             enemy.LookAt(_currentWaypoint.position);
         }
     }
