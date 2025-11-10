@@ -12,13 +12,12 @@ public class Patrol : AEnemyState
     private bool _hasDestination = false;
     private float patrolSpeed;
     //Metodos
-    public Patrol(IEnemy enemy): base(enemy){Debug.Log("Patrol constructor called");}
+    public Patrol(IEnemy enemy): base(enemy){}
 
     public override void Enter()
     {
         _currentTransform = enemy.GetGameObject().transform;
         _destination = _currentTransform.position;
-        Debug.Log("distancia en el enter:"+(_destination - _currentTransform.position).magnitude);
 
         //Debug.Log("Entering Patrol State");
         _hasDestination = false;
@@ -53,7 +52,6 @@ public class Patrol : AEnemyState
                 bool found = RandomPoint(_currentTransform.position,10f,out point);
                 if(found)
                 {
-                    Debug.Log("Este es el punto"+ point);
                     _destination = point;
                     _hasDestination = true;
                 }
@@ -63,7 +61,6 @@ public class Patrol : AEnemyState
                 //Vector3 direction = (_destination - _currentTransform.position).normalized;
                 enemy.MoveToNavMesh(_destination, patrolSpeed);
                 enemy.LookAt(_destination);
-                Debug.Log("Moviendose hacia el punto"+ _destination);
             }
         }
     }

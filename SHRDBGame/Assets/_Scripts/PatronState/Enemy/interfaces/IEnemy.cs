@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace State.Interfaces
 {
@@ -13,13 +15,15 @@ namespace State.Interfaces
         public int GetPatrolSpeed();
         public void SetPatrolSpeed(int speed);
         public GameObject PlayerAtSight();
-        public void MoveTo(Vector3 direction, float speed);
         public void MoveToNavMesh(Vector3 direction, float speed);
         public void LookAt(Vector3 target);
-
-        public void NextWaypoint();
         public Transform GetCurrentWaypoint();
-        
+        public int GetCurrentWaypointIndex();
+        public void NextWaypoint();
+        public NavMeshAgent GetNavMeshAgent();
+        public void SetSalonAbierto(bool estado);
+        public bool IsSalonAbierto();
+
         //Poner de aqui en adelante fucniones que puedan realizar los enemigos, ej: Detectar jugador, moverse...
     }
 }
