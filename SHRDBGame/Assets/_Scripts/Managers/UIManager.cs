@@ -210,6 +210,12 @@ public class UIManager : ASingleton<UIManager>, IManager
         return null;
     }
     #endregion
+    #region PLAYERUI
+    public void SetPlayerHealthUI(float healthAmmount)
+    {
+        PlayerHUD.transform.Find("PlayerHealth").GetComponent<HealthBarSlider>().SetHealth(healthAmmount);
+    }
+    #endregion
 
     #region UIShop
     [Header("UIShop")]

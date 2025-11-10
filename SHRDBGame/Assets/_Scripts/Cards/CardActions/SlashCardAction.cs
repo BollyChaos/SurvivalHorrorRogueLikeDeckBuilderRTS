@@ -48,6 +48,7 @@ public class SlashCardAction : MonoBehaviour, ICardAction
     void AxeAttack()
     {
         GameObject sPrefab = Instantiate(slashPrefab, playerTransform.position + playerTransform.forward * 2, playerTransform.rotation);
+        sPrefab.SetActive(true);
         ParticleSystem ps = sPrefab.GetComponent<ParticleSystem>();
         ps.Play();
 
@@ -61,6 +62,7 @@ public class SlashCardAction : MonoBehaviour, ICardAction
     void KnifeAttack()
     {
         GameObject sPrefab = Instantiate(slashPrefab, playerTransform.position + playerTransform.forward * 2, playerTransform.rotation);
+        sPrefab.SetActive(true);
         ParticleSystem ps = sPrefab.GetComponent<ParticleSystem>();
         ps.Play();
 

@@ -5,7 +5,9 @@ using UnityEngine;
 public class PrefabDamage : MonoBehaviour
 {
     private float damage = 0f;
+    [SerializeField]
     private string targetTag = "Enemy";
+    public string Tag{ get => targetTag; }
 
     private void Start()
     {

@@ -38,6 +38,7 @@ public class BulletCardAction : MonoBehaviour, ICardAction
             float angle = -spreadAngle / 2 + (spreadAngle / (bulletsCount - 1)) * i;
             Quaternion rotation = Quaternion.Euler(playerTransform.eulerAngles + new Vector3(0, angle, 0));
             GameObject bPrefab = Instantiate(bulletPrefab, playerTransform.position + playerTransform.forward * 2, rotation);
+            bPrefab.SetActive(true);
             ParticleSystem ps = bPrefab.GetComponent<ParticleSystem>();
             ps.Play();
             // Inicia la corrutina que destruye el sistema cuando acabe
@@ -49,6 +50,7 @@ public class BulletCardAction : MonoBehaviour, ICardAction
     void ShootGun()
     {
         GameObject bPrefab = Instantiate(bulletPrefab, playerTransform.position + playerTransform.forward * 2, playerTransform.rotation);
+        bPrefab.SetActive(true);
         ParticleSystem ps = bPrefab.GetComponent<ParticleSystem>();
         ps.Play();
         // Inicia la corrutina que destruye el sistema cuando acabe

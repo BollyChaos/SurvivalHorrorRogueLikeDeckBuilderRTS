@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: TrapCard
   m_EditorClassIdentifier: 
   cardId: 12
-  cardName: Cepo
-  description: Pon un cepo en el suelo que atrape a los enemigos
-  nUses: 6
+  cardName: Trampa
+  description: "Pon una trampa en el suelo que da\xF1e a los enemigos"
+  nUses: 1
   unlocked: 1
   cardType: 1
   cardRarity: 1

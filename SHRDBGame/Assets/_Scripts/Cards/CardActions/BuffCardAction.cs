@@ -22,6 +22,7 @@ public class BuffCardAction : MonoBehaviour, ICardAction
         HasUsedBuff = true;
 
         GameObject bp = Instantiate(particles, playerTransform);
+        bp.SetActive(true);
         bp.GetComponent<ParticleSystem>().Play();
         switch (buffType)
         {
