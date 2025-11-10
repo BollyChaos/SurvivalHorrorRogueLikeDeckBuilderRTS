@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardId: 8
   cardName: Cuchillo
-  description: 
+  description: "Da\xF1o mel\xE9"
   nUses: 2
   unlocked: 1
   cardType: 0

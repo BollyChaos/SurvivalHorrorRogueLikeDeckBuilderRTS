@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardId: 6
   cardName: Curacion
-  description: 
+  description: Curate un porcentaje de la vida
   nUses: 4
   unlocked: 1
   cardType: 1

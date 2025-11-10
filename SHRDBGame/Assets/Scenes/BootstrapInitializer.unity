@@ -10284,7 +10284,7 @@ MonoBehaviour:
   - {fileID: 1752033861}
   - {fileID: 1899470101}
   - {fileID: 875180736}
-  debug: 1
+  debug: 0
   cardToUseAlways: Velocidad+
 --- !u!1001 &1098063823
 PrefabInstance:

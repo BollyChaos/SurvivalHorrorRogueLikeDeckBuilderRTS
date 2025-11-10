@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardId: 10
   cardName: Escopeta
-  description: 
+  description: Dispara varios proyectiles
   nUses: 4
   unlocked: 1
   cardType: 0

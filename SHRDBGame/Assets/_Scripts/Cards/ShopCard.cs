@@ -27,7 +27,7 @@ public class ShopCard : MonoBehaviour,IInteractable
         cardWorldUI.SetActive(false);
         instantiatedCardUI.transform.localPosition =new Vector3(0.049987793f,8.38000488f,0.230000004f);//no preguntar
         instantiatedCardUI.transform.localEulerAngles = new Vector3(75f, 0f, 0f);
-        instantiatedCardUI.transform.localScale = new Vector3(0.02f, 0.02f, 0.02f);
+        instantiatedCardUI.transform.localScale = new Vector3(0.04f, 0.04f, 0.04f);
         instantiatedCardUI.GetComponent<PopUp>().SetInitialTransform();
 
         cardObject = instantiatedCardUI.GetComponent<CardObject>();

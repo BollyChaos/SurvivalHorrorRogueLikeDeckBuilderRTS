@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardId: 12
   cardName: Cepo
-  description: 
+  description: Pon un cepo en el suelo que atrape a los enemigos
   nUses: 6
   unlocked: 1
   cardType: 1

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardId: 4
   cardName: Dash
-  description: 
+  description: "Dash en la direcci\xF3n a la que apuntes"
   nUses: 3
   unlocked: 1
   cardType: 1

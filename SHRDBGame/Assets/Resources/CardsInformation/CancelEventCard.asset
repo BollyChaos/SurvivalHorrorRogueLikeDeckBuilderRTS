@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardId: 2
   cardName: Cancelar Evento
-  description: 
+  description: Cancela el evento en curso
   nUses: 3
   unlocked: 1
   cardType: 2
