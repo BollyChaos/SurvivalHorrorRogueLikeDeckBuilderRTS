@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ed47826758172a541837b1c1f3f61262, type: 3}
-  m_Name: EnteringMansionDialog
+  m_Name: CorpseDaughterNot
   m_EditorClassIdentifier: 
-  ConvName: EnteringMansion
+  ConvName: 
   phrases:
-  - {fileID: 11400000, guid: 2baf28b042593b94c9e1b55971733a4a, type: 2}
-  - {fileID: 11400000, guid: 7f329723ab2d1b740b02c1a9d0afeeb2, type: 2}
-  - {fileID: 11400000, guid: e8896689760b97941bd299248da654b9, type: 2}
-  - {fileID: 11400000, guid: 2a9978d76524d68438a4b81ca1f4b4f1, type: 2}
+  - {fileID: 11400000, guid: 6f6582f66ca26864f971fc6f0d5a4b6a, type: 2}
+  - {fileID: 11400000, guid: 04da13a231909a84b88ac5391bdb78ec, type: 2}
+  - {fileID: 11400000, guid: e7dbbbd2a13dd9742baea172d32e3227, type: 2}
+  - {fileID: 11400000, guid: 605f6ba49e4b90b469034d337295b630, type: 2}

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0177bdbc8a56b2419a35c6521f4235a, type: 3}
-  m_Name: EnteringMansionPhrase1
+  m_Name: NextGirlRoom
   m_EditorClassIdentifier: 
   speaker: 0
-  text: "Con que aqu\xED es donde voy a vivir a partir de ahora, no s\xE9 si haberlo
-    dejado todo por esto realmente merece la pena."
+  text: "\xBFQu\xE9 es ese ruido? Es como si alguien estuviera llorando pero, no
+    creo, dudo que haya nadie m\xE1s aqu\xED."
   textDuration: 2.5

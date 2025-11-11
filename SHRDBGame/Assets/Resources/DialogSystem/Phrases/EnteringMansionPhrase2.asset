@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: EnteringMansionPhrase2
   m_EditorClassIdentifier: 
   speaker: 0
-  text: "Sin embargo, siento como si hubiera algo que me [slide(1,0,15,2)]absorviera[/slide]
-    hacia su interior. Es una sensaci\xF3n extra\xF1a... "
+  text: "Parece una vieja casa que necesita m\xE1s que una simple mano de chapa y
+    pintura."
   textDuration: 2.5
