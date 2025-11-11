@@ -6315,32 +6315,6 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!1 &1812729747 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 810799984191111178, guid: d4cb72a2c9fde014b9486598e41561ad, type: 3}
-  m_PrefabInstance: {fileID: 9184497059481731114}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1812729748 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6370999122358619912, guid: d4cb72a2c9fde014b9486598e41561ad, type: 3}
-  m_PrefabInstance: {fileID: 9184497059481731114}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1812729761
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1812729747}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ece18c26320b5854e9fc95c757b3ca69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 1812729748}
-  floorLayer:
-    serializedVersion: 2
-    m_Bits: 8
 --- !u!1 &1813675896
 GameObject:
   m_ObjectHideFlags: 0
@@ -7218,10 +7192,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 810799984191111178, guid: d4cb72a2c9fde014b9486598e41561ad, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1812729761}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4cb72a2c9fde014b9486598e41561ad, type: 3}
 --- !u!33 &9205652021089946141
 MeshFilter:

@@ -243,7 +243,7 @@ GameObject:
   - component: {fileID: 7801138737417021066}
   - component: {fileID: 1762384668466308072}
   - component: {fileID: 5513386154301896659}
-  - component: {fileID: 1767902209159982899}
+  - component: {fileID: 6679643119820346075}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -484,7 +484,7 @@ MonoBehaviour:
     attackMultiplier: 1
     speedMultiplier: 1
   ammounthealth: 1
---- !u!114 &1767902209159982899
+--- !u!114 &6679643119820346075
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
