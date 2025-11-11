@@ -2,6 +2,7 @@ using System.Collections;
 using State.Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Pool;
 
 //Controlador generico del cual heredar�, los controladores especificos de cada enemigo.
 
@@ -18,6 +19,13 @@ public class EnemyController : MonoBehaviour, IEnemy
     private int patrolSpeed = 2;
     private NavMeshAgent _agent;
     [SerializeField] private GameObject vision;
+
+    private IObjectPool<EnemyController> enemyPool;
+
+    public void SetPool(IObjectPool<EnemyController> pool)
+    {
+        enemyPool = pool;
+    }
 
 
     //Metodos

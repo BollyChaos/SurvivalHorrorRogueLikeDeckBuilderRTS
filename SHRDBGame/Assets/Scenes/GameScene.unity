@@ -5007,6 +5007,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 775414451}
   m_SourcePrefab: {fileID: 100100000, guid: ffc824be599836428ad740cee92a6b14, type: 3}
+--- !u!114 &1449870463 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6695235767530800826, guid: ffc824be599836428ad740cee92a6b14, type: 3}
+  m_PrefabInstance: {fileID: 1449870462}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 775414450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 859289a6e404b6947aadccffe56025cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1456256827
 GameObject:
   m_ObjectHideFlags: 0
@@ -5607,7 +5618,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 8719e73e87ce1f443b1c7e911f805f90, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6462,6 +6473,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1856540862}
+  - component: {fileID: 1856540863}
   m_Layer: 0
   m_Name: Spawner1
   m_TagString: Untagged
@@ -6488,6 +6500,25 @@ Transform:
   - {fileID: 544548583}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1856540863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1856540861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 110e72bd0d457b840bc68e9487b2e14c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPoints:
+  - {fileID: 620933068}
+  - {fileID: 252046319}
+  - {fileID: 725064929}
+  - {fileID: 544548583}
+  timeBetweenSpawns: 5
+  enemyPrefab: {fileID: 1449870463}
 --- !u!1 &1928583462
 GameObject:
   m_ObjectHideFlags: 0
