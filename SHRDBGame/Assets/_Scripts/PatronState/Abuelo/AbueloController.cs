@@ -11,6 +11,7 @@ public class AbueloController : EnemyController
     [SerializeField] private float hearingRange = 10f;
     private Vector3? lastHeardSoundPosition = null;
     private int currentWaypointIndex = 0;
+    private float _restDuration = 1.5f;
     //Metodos
     private void Awake()
     {
@@ -58,6 +59,13 @@ public class AbueloController : EnemyController
     public override bool IsSalonAbierto()
     {
         return _salonAbierto;
+    }
+    #endregion
+
+    #region rest
+    public override float GetRestDuration()
+    {
+        return _restDuration;
     }
     #endregion
 }
