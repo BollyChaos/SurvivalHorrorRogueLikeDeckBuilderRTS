@@ -1,0 +1,50 @@
+{
+    "fields": [
+        {
+            "fieldName": "jaja",
+            "entries": [
+                {
+                    "name": "hola",
+                    "type": 0,
+                    "value": {
+                        "rid": 1000
+                    }
+                },
+                {
+                    "name": "nuevo",
+                    "type": 1,
+                    "value": {
+                        "rid": 1001
+                    }
+                }
+            ]
+        }
+    ],
+    "references": {
+        "version": 2,
+        "RefIds": [
+            {
+                "rid": 1000,
+                "type": {
+                    "class": "BoolSettingValue",
+                    "ns": "",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "value": false
+                }
+            },
+            {
+                "rid": 1001,
+                "type": {
+                    "class": "FloatSettingValue",
+                    "ns": "",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "value": 0.0
+                }
+            }
+        ]
+    }
+}

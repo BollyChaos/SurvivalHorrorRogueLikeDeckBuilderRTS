@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed47826758172a541837b1c1f3f61262, type: 3}
+  m_Name: YesTeddy
+  m_EditorClassIdentifier: 
+  ConvName: 
+  phrases:
+  - {fileID: 11400000, guid: a0c000b92bb7e9e47ba0b94b17954355, type: 2}
+  - {fileID: 11400000, guid: b1557a5b208e18643b81cb1a9b025a08, type: 2}
+  - {fileID: 11400000, guid: fd3d177d164e8b54594fc8ef43c9dd18, type: 2}
+  - {fileID: 11400000, guid: 1ed3082e47f9efd4fb2f40f1eef4822e, type: 2}

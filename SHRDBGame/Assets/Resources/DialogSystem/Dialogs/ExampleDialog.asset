@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed47826758172a541837b1c1f3f61262, type: 3}
+  m_Name: ExampleDialog
+  m_EditorClassIdentifier: 
+  ConvName: Examples
+  phrases:
+  - {fileID: 11400000, guid: 4fa6ce40d025fd74cb0957bbae9b3b99, type: 2}
+  - {fileID: 11400000, guid: f27dadc7551950a4599f0e2681d10eec, type: 2}
+  - {fileID: 11400000, guid: 3653541b8b37b3e44b9a9ff92ea1893c, type: 2}

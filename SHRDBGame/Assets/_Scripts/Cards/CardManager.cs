@@ -6,9 +6,11 @@ using UnityEngine;
 
 public class CardManager : ASingleton<CardManager>,IManager
 {
+    //contador de cartas seleccionadas al principio de una partida
     int playerCards = 3;
     int playerCardsCounter= 0;
-
+    [SerializeField]
+    public int startingCards = 8;
     public IManager.GameStartMode StartMode => IManager.GameStartMode.NORMAL;
 
     public void LoadData()//sacar los ids de las cartas desbloqueadas
@@ -18,12 +20,13 @@ public class CardManager : ASingleton<CardManager>,IManager
 
     public void OnEnd()
     {
-        throw new System.NotImplementedException();
+         Debug.Log($"[{name} cerrando...]");
     }
 
     public void OnEndGame()
     {
-        throw new System.NotImplementedException();
+        FindAnyObjectByType<CardInventory>().OnEndGame();
+        GetComponent<CardShuffler>().ResetPool();
     }
 
     public void OnStartGame()
@@ -31,7 +34,7 @@ public class CardManager : ASingleton<CardManager>,IManager
         Debug.Log($"[{name}]:Empezando juego");
         playerCardsCounter = 0;
 
-        
+
 
 
 
@@ -45,8 +48,18 @@ public class CardManager : ASingleton<CardManager>,IManager
         //}
         ////FindAnyObjectByType<CardUser>().ReceiveCards(cardsToGivePlayer);
     }
+    //Metodo para la tienda o para cualquier cosa que necesite cartas
+    public void GiveNCards(int nCards)
+    {
+
+    }
+    public CardsSO GiveRandomCard()
+    {
+        return GetComponent<CardShuffler>().GetRandomCard();
+    }
     public void OnStartCardSelection()
     {
+        GetComponent<CardShuffler>().nCardsToGive = startingCards;
         List<CardsSO> cardsReceived = GetComponent<CardShuffler>().ShuffleCards();
 
         UIManager.Instance?.BuildCards(cardsReceived);
@@ -80,7 +93,15 @@ public class CardManager : ASingleton<CardManager>,IManager
     }
     public void GiveCardToPlayer(CardObject card)
     {
-        FindAnyObjectByType<CardUser>().ReceiveCard(card);
+        FindAnyObjectByType<CardInventory>().AddCard(card);
+    }
+    public void GiveLateCardToPlayer(CardObject card)//poner la primera del stack
+    {
+        FindAnyObjectByType<CardInventory>().AddLateCard(card);
+    }
+    public void GiveCardsToPlayer(List<CardObject> cards)
+    {
+        FindAnyObjectByType<CardInventory>().AddCards(cards);
     }
     public void SaveData()
     {

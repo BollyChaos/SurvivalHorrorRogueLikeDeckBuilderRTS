@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d4318f981197974aab869ef415c76c7, type: 3}
   m_Name: HealingCard
   m_EditorClassIdentifier: 
-  cardId: 7
+  cardId: 6
   cardName: Curacion
-  description: 
-  nUses: 1
+  description: Curate un porcentaje de la vida
+  nUses: 4
   unlocked: 1
   cardType: 1
   cardRarity: 0

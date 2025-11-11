@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0177bdbc8a56b2419a35c6521f4235a, type: 3}
+  m_Name: ExamplePhrase
+  m_EditorClassIdentifier: 
+  text: "Este es un <b>texto en negrita</b>,   este en <i>cursiva</i>,   y este es
+    <u>subrayado</u>.    Probemos <color=#ff0000>rojo</color>,   <color=#00ff00>verde</color>,  
+    y <color=#0000ff>azul</color>.    Tambi\xE9n puedes <size=150%>aumentar el tama\xF1o</size>  
+    o <size=75%>reducirlo</size>.    Y marcar texto con <mark=#ffff0040>resaltado
+    amarillo</mark>   o <mark=#00ffffff>resaltado azul claro</mark>.    \xA1Incluso
+    <b><i><color=purple>combinarlos todos</color></i></b>! "
+  textDuration: 2.5

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardId: 1
   cardName: Hacha
-  description: 
+  description: "Arma mel\xE9 que inflige gran da\xF1o"
   nUses: 10
   unlocked: 1
   cardType: 0

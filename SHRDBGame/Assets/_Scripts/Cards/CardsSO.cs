@@ -12,7 +12,7 @@ public class CardsSO : ScriptableObject
     private string cardName;
     public string CardName { get { return cardName; } }//get necesario para evitar que se corrompa la cache
     
-    [SerializeField]
+    [SerializeField][TextArea(2,8)]
     private string description;
 
     public string Description { get { return description; } }//get necesario por el mismo motivo

@@ -16,13 +16,23 @@ public class CardObject : MonoBehaviour
     Color DefenseColor;
     [SerializeField]
     Color UtilityColor;
-    //Aqui se pueden añadir materiales distintos para lueog las rarezas
+    [SerializeField] private int cardNUses;//va a ser la copia del numero de usos de la carta
+[SerializeField]
+    private bool usingCard = false;
+    public bool discard = false;
+    public bool UsingCard{
+        get{return usingCard;}
+        set{ usingCard = value; }
+          }
+    
+    //Aqui se pueden aï¿½adir materiales distintos para luego las rarezas
 
     [ContextMenu("BuildCard")]
     public void BuildCard()
     {
 
-
+        cardNUses = card.nUses;
+        
         // StartCoroutine(BuildCardCoroutine());
 
         Image cardSprite = null;
@@ -58,6 +68,12 @@ public class CardObject : MonoBehaviour
         {
             var comp = cardChild.GetComponent<TextMeshProUGUI>();
             comp.text = card.Description;
+        }
+        cardChild = transform.Find("NCardUses");
+        if (cardChild != null)
+        {
+             var comp = cardChild.GetComponent<TextMeshProUGUI>();
+            comp.text = $"{card.nUses}";
         }
     }
     private IEnumerator BuildCardCoroutine()
@@ -104,12 +120,39 @@ public class CardObject : MonoBehaviour
     }
     public void UseCard()
     {
+        if (usingCard) return;
         Debug.Log($"Usando la carta:{card.CardName}");
+        usingCard = true;
         //llamar a cardlogichandler y decir su nombre
-        CardManager.Instance.GetComponent<CardLogicHandler>().UseCard(card.CardName);
-    }
-    private void Discard()
-    {
+        --cardNUses;
 
+          var cardChild = transform.Find("NCardUses");
+        if (cardChild != null)
+        {
+             var comp = cardChild.GetComponent<TextMeshProUGUI>();
+            comp.text = $"{cardNUses}";
+        }
+        CardManager.Instance.GetComponent<CardLogicHandler>().UseCard(this);
+
+        if (cardNUses <= 0)
+        {
+            discard = true;
+            try
+            {
+                Discard();
+            }
+            catch (System.Exception e)
+            {
+                Debug.Log($"Error al descartar la carta: {e.Message}");
+            }
+        }
+        
+    }
+    public void Discard()
+    {
+        Debug.Log("Descartando carta");
+        //gameObject.SetActive(false);
+        if(gameObject!=null)
+            Destroy(gameObject);
     }
 }

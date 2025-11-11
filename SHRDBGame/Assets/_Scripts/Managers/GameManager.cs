@@ -9,15 +9,15 @@ using static Managers.GameSceneManager;
 
 namespace Managers
 {
-    public enum GameState { STARTING,INMAINMENU,INGAME,INPAUSE,ENDGAME}
-    
+    public enum GameState { STARTING, INMAINMENU, INGAME, INPAUSE, ENDGAME }
+
     public class GameManager : ASingleton<GameManager>, IManager
     {
 
         public List<IManager> managersList;
-        private GameState gameState=GameState.STARTING;
+        private GameState gameState = GameState.STARTING;
         public static Action<bool> onPause;
-        public GameState CurrentState {  get { return gameState; } }
+        public GameState CurrentState { get { return gameState; } }
 
         public IManager.GameStartMode StartMode => IManager.GameStartMode.NORMAL;
         #region DEBUGGING
@@ -26,13 +26,16 @@ namespace Managers
         [ShowIf("DebugGame")]
         //Saltar alguna escena
         public bool ChangeInitalScene = true;
-        [ShowIf("ChangeInitalScene","DebugGame")]
+        [ShowIf("ChangeInitalScene", "DebugGame")]
         public SceneIds startingDebugScene = SceneIds.GAMESCENE;
         //Saltar fase
         [ShowIf("DebugGame")]
         public bool SkipPhase = true;
-        [ShowIf("SkipPhase","DebugGame")]
-        public bool SkipCardSelectionPhase=true;
+        [ShowIf("SkipPhase", "DebugGame")]
+        public bool SkipCardSelectionPhase = true;
+        [ShowIf("DebugGame")]
+        public bool MakeNightsShorter = true;
+
 
         #endregion
 
@@ -45,21 +48,23 @@ namespace Managers
                 {
                     GameSceneManager.Instance.StartingScene = startingDebugScene;
                 }
-                
+
             }
-                if (managersList == null)
-                {
-                    managersList = new List<IManager>();
-                    var allManagers = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None)
-                                 .OfType<IManager>()
-                                 .Where(m => !(m is GameManager)&&(m!=null)); // excluir GameManager
 
-                    managersList.AddRange(allManagers);
-                    StartManager();
-                }
+            if (managersList == null)
+            {
+                managersList = new List<IManager>();
+                var allManagers = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None)
+                             .OfType<IManager>()
+                             .Where(m => !(m is GameManager) && (m != null)); // excluir GameManager
 
-            
+                managersList.AddRange(allManagers);
+                StartManager();
+            }
+
+
         }
+
         void OnEnable()
         {
             SceneManager.sceneLoaded += OnChangeScene;
@@ -74,17 +79,19 @@ namespace Managers
             switch (scene.buildIndex)
             {
                 case (int)SceneIds.MAINMENUSCENE:
-                    gameState=GameState.INMAINMENU;
+                    gameState = GameState.INMAINMENU;
+                    UIManager.Instance.LookForMainMenuCanvas();
                     break;
-                case (int)SceneIds.GAMESCENE: 
+                case (int)SceneIds.GAMESCENE:
                     gameState = GameState.INGAME;
                     OnStartGame();
                     break;
             }
         }
+
         public void PauseGame()
         {
-            gameState=GameState.INPAUSE;
+            gameState = GameState.INPAUSE;
             onPause?.Invoke(true);
         }
         public void UnPauseGame()
@@ -92,9 +99,12 @@ namespace Managers
             gameState = GameState.INGAME;
             onPause?.Invoke(false);
         }
+        public void BlockPause()//caso excepcional para cuando se seleccionen las cartas se bloquea la pausa
+        {
+            gameState = GameState.INGAME;
+        }
 
-       
-        
+
         public void LoadData()
         {
 
@@ -106,14 +116,20 @@ namespace Managers
             {
                 manager.OnEnd();
             }
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
         }
 
-        public void OnEndGame()
+        public void OnEndGame()//necesitamos resetear todo y volver al estado inicial de juego con este metodo
         {
             foreach (var manager in managersList)
             {
                 manager.OnEndGame();
             }
+
         }
 
         public void SaveData()
@@ -141,7 +157,15 @@ namespace Managers
         {
             Debug.Log($"[{name}]Empezando juego");
             //hay varios tipos de arranque de manager(unos dependen de otros) por defecto empiezan en normal
+            //ArgumentNullException: Value cannot be null.
+            //No entiendo como arreglar este error debajo de esta linea, no se que está tomando para que sea null
+            managersList = managersList.Where(m => m != null).ToList();
 
+
+            foreach (var manager in managersList.FindAll(m => m.StartMode == IManager.GameStartMode.FIRST))
+            {
+                manager.OnStartGame();
+            }
             foreach (var manager in managersList.FindAll(m => m.StartMode == IManager.GameStartMode.EARLY))
             {
                 manager.OnStartGame();
@@ -155,21 +179,53 @@ namespace Managers
                 manager.OnStartGame();
             }
 
+
+            //Posteriormente se pueden guardar en un array de strings y hacer esto con un bucle
+            //buscar los trigger del juego y asignarles su funcion
+            GameObject.Find("TutorialTrigger").GetComponent<TriggerEvent>().onTriggerEnterEvent.AddListener(() =>
+            {
+                Debug.Log("Trigger tutorial activado");
+            });
+            GameObject.Find("StartingDialog").GetComponent<TriggerEvent>().onTriggerEnterEvent.AddListener(() =>
+{
+    DialogManager.Instance.PlayDialogRequest("EnteringMansion");
+}
+            );
+
             //Logica de empezar el juego ya del gamemanager, que ocurre primero, de momento se empieza con la seleccion de cartas
             if (!(DebugGame && SkipPhase && SkipCardSelectionPhase))
             {
+                GameObject.Find("CardSelectionTrigger").GetComponent<TriggerEvent>().onTriggerEnterEvent.AddListener(() =>
+            {
                 CardManager.Instance.OnStartCardSelection();
+
+            });
             }
             else //asignar de forma random
             {
-                CardManager.Instance.DebugStartCardSelection();
-            }
+                GameObject.Find("CardSelectionTrigger").GetComponent<TriggerEvent>().onTriggerEnterEvent.AddListener(() =>
+           {
+               CardManager.Instance.DebugStartCardSelection();
+           });
 
+            }
+            //noches mas cortas para level manager
+            if (DebugGame && MakeNightsShorter)
+            {
+                LevelManager.Instance.nightDuration = 1f;//1 segundos de noche
+            }
+            CardManager.Instance.GetComponent<CardLogicHandler>().SetPlayerTransform(FindAnyObjectByType<SimplePlayerController>().transform);
 
         }
         public void OnDestroy()
         {
             managersList.Clear();
+        }
+        public void GoBackToMainMenu()//cuando se llame a esta funcion es porque se ha salido a traves del menu de pausa
+        {
+            GameSceneManager.Instance.LoadSceneById((int)SceneIds.MAINMENUSCENE);
+            UnPauseGame();
+            OnEndGame();
         }
     }
 }

@@ -27,7 +27,7 @@ public class CardShuffler : MonoBehaviour
     [SerializeField]
     List<float> cardRaritiesDecayFactor = new List<float>();
     [SerializeField]
-    int nCardsToGive = 10;
+    public int nCardsToGive = 8;
     private bool resetPool;
 
     public void Awake()
@@ -47,7 +47,7 @@ public class CardShuffler : MonoBehaviour
             if (card.cardId != -1)//la gracia esta en que haya una carta empty, entonces esa no necesitamos un id unico
                 if (card.unlocked)
                 {
-                    unlockedCardsAvailable.Add(card);//si la carta esta desbloqueada añadir
+                    unlockedCardsAvailable.Add(card);//si la carta esta desbloqueada aï¿½adir
                 }
         }
     }
@@ -108,15 +108,15 @@ public class CardShuffler : MonoBehaviour
 
             if (sameTypeSameRarity.Count > 0)
             {
-                chosen = sameTypeSameRarity[0]; // Caso 1}
+                chosen = sameTypeSameRarity[UnityEngine.Random.Range(0,sameTypeSameRarity.Count)]; // Caso 1}
             }
             else if (sameType.Count > 0)
             {
-                chosen = sameType[0]; // Caso 2
+                chosen = sameType[UnityEngine.Random.Range(0,sameType.Count)]; // Caso 2
             }
             else if (sameRarity.Count > 0)
             {
-                chosen = sameRarity[0]; // Caso 3
+                chosen = sameRarity[UnityEngine.Random.Range(0,sameRarity.Count)]; // Caso 3
             }
             else
             {
@@ -137,19 +137,87 @@ public class CardShuffler : MonoBehaviour
         return cardsToReturn;
     }
 
-    private void ResetPool()
+    public void ResetPool()
     {
-        givenCardsToPlayer=null;
-        unlockedCardsAvailable=null;
+        givenCardsToPlayer = null;
+        unlockedCardsAvailable = null;
+        givenCardsToPlayer = new List<CardsSO>();
+        unlockedCardsAvailable = new List<CardsSO>();
         foreach (var card in allCardsFromFolder)
         {
             if (card.unlocked)
             {
-                unlockedCardsAvailable.Add(card);//si la carta esta desbloqueada añadir
+                unlockedCardsAvailable.Add(card);//si la carta esta desbloqueada aï¿½adir
             }
         }
         resetPool = false;
     }
+    public CardsSO GetRandomCard()
+{
+    if (resetPool)
+        ResetPool();
+
+    // Obtener las cartas disponibles (desbloqueadas y no dadas)
+    List<CardsSO> availableCards = unlockedCardsAvailable.Except(givenCardsToPlayer).ToList();
+
+    // Si no quedan, reiniciamos la pool
+    if (availableCards.Count == 0)
+    {
+        ResetPool();
+        availableCards = unlockedCardsAvailable;
+    }
+
+    // Configurar pesos de tipo y rareza igual que antes
+    for (int i = 0; i < cardTypeWeight.Count; i++)
+        cardTypeWeight[i] = 1f;
+
+    DynamicProbability.SetWeights(cardTypeWeight.ToArray(), cardTypeDecayFactor);
+    int[] cardType = DynamicProbability.RollNTimes(1); // un solo tipo
+
+    DynamicProbability.SetWeights(cardRaritiesWeights.ToArray(), cardRaritiesDecayFactor.ToArray());
+        int[] cardRarity = DynamicProbability.RollNTimesNEP(1); // una sola rareza
+
+    // Buscar carta siguiendo tu misma jerarquÃ­a
+    //esto es un poco chapuza pero se que solo se devuelve una carta por lo que en el array estoy seguro que solo hay un elemento
+    var sameTypeSameRarity = availableCards
+        .Where(c => (int)c.cardType == cardType[0] && (int)c.cardRarity == cardRarity[0] && c.cardId != -1)
+        .ToList();
+
+    var sameType = availableCards
+        .Where(c => (int)c.cardType == cardType[0] && c.cardId != -1)
+        .ToList();
+
+    var sameRarity = availableCards
+        .Where(c => (int)c.cardRarity == cardRarity[0] && c.cardId != -1)
+        .ToList();
+
+    CardsSO chosen = null;
+
+    if (sameTypeSameRarity.Count > 0)
+        chosen = sameTypeSameRarity[UnityEngine.Random.Range(0, sameTypeSameRarity.Count)];
+    else if (sameType.Count > 0)
+        chosen = sameType[UnityEngine.Random.Range(0, sameType.Count)];
+    else if (sameRarity.Count > 0)
+        chosen = sameRarity[UnityEngine.Random.Range(0, sameRarity.Count)];
+    else
+    {
+        // fallback: resetea y toma la primera carta
+        ResetPool();
+        availableCards = unlockedCardsAvailable;
+        if (availableCards.Count > 0)
+            chosen = availableCards[UnityEngine.Random.Range(0, availableCards.Count)];
+    }
+
+    if (chosen != null)
+    {
+        givenCardsToPlayer.Add(chosen);
+        unlockedCardsAvailable.Remove(chosen);
+    }
+
+    //PrintCard(cardType, cardRarity);
+    return chosen;
+}
+
 
     void PrintCard(int CrdType, int CrdRarity)
     {
