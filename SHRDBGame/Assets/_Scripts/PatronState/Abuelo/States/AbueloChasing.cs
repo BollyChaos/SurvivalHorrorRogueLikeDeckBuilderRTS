@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using State.Interfaces;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class AbueloChasing : AEnemyState
 {
@@ -10,11 +9,7 @@ public class AbueloChasing : AEnemyState
     //atributos
     private Transform _currentTransform;
     private Vector3 _destination;
-    private NavMeshAgent _agent;
-    private bool _isResting = false;
-    private float _timeSinceLastRest = 0f;
-    private float _restDuration;
-    private float chaseSpeed;
+    [SerializeField] private float chaseSpeed;
     
 
 
@@ -27,14 +22,7 @@ public class AbueloChasing : AEnemyState
     public override void Enter()
     {
         _currentTransform = enemy.GetGameObject().transform;
-        _agent = enemy.GetNavMeshAgent();
-        _restDuration = enemy.GetRestDuration();
-        chaseSpeed = enemy.GetChaseSpeed();
         //Debug.Log("Entering Chasing Player State");
-
-        // Configurar agente
-        _agent.speed = chaseSpeed;
-        _agent.isStopped = false;
     }
 
     public override void Exit()
@@ -44,42 +32,20 @@ public class AbueloChasing : AEnemyState
 
     public override void FixedUpdate()
     {
-        if (_isResting) { return; }
-
         float distanceToSound = Vector3.Distance(_currentTransform.position, _destination);
         if (distanceToSound < 0.5f)
         {
-            enemy.SetState(new AbueloBattling(enemy));
             //Vector3 direction = ((Vector3)_player.transform.position - (Vector3)_currentTransform.position).normalized;
+            enemy.MoveToNavMesh(_destination, enemy.GetChaseSpeed());
         }
         else
         {
-            enemy.MoveToNavMesh(_destination, enemy.GetChaseSpeed());
-
-            // Control de tiempo entre descansos
-            _timeSinceLastRest += Time.fixedDeltaTime;
-            if (_timeSinceLastRest >= 2f) // cada 2 segundos descansa
-            {
-                enemy.GetGameObject().GetComponent<MonoBehaviour>().StartCoroutine(RestRoutine());
-            }
+            enemy.SetState(new AbueloPatrolling(enemy));
         }
     }
 
-    private IEnumerator RestRoutine()
-    {
-        _isResting = true;
-        _timeSinceLastRest = 0f;
-
-        _agent.isStopped = true;
-        yield return new WaitForSeconds(_restDuration);
-        _agent.isStopped = false;
-
-        enemy.MoveToNavMesh(_destination, enemy.GetChaseSpeed());
-        _isResting = false;
-    }
-    
     public override void Update()
     {
-
+        
     }
 }
