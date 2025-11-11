@@ -9547,7 +9547,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nNights: 5
   currentNight: 1
-  nightDuration: 10
+  nightDuration: 20
   isNightActive: 0
   onNightStateChanged:
     m_PersistentCalls:
@@ -11442,7 +11442,6 @@ MonoBehaviour:
   easeType: 6
   delaySpeed: 1.5
   initialDelay: 0.25
-  ammounthealth: 0.568
 --- !u!114 &1200018822
 MonoBehaviour:
   m_ObjectHideFlags: 0

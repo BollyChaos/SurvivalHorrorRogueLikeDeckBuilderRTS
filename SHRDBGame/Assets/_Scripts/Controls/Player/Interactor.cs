@@ -20,7 +20,7 @@ public class Interactor : MonoBehaviour
         LookForInput();
     }
     [ContextMenu("DecirInteractuables")]
-public void SayInteractables()
+    public void SayInteractables()
     {
         Debug.Log($"Interactuables en rango: {interactablesInRange.Count}");
     }
@@ -42,7 +42,7 @@ public void SayInteractables()
     {
         isInteracting = context.ReadValue<float>() > 0;
 
-      
+
     }
 
     void Update()
@@ -51,10 +51,10 @@ public void SayInteractables()
         if (interactablesInRange.Count > 0)
         {
             currentTarget = GetClosestInteractable();
-              if (isInteracting && currentTarget != null)
-        {
-            currentTarget.Interact();
-        }
+            if (isInteracting && currentTarget != null)
+            {
+                currentTarget.Interact();
+            }
         }
         else
         {
