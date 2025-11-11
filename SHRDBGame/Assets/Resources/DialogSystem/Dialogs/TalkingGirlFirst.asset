@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed47826758172a541837b1c1f3f61262, type: 3}
+  m_Name: TalkingGirlFirst
+  m_EditorClassIdentifier: 
+  ConvName: 
+  phrases:
+  - {fileID: 11400000, guid: 12f2202c2e102534a8bb2eda9bdb164a, type: 2}
+  - {fileID: 11400000, guid: 5d387635210ea9e4e865c2d830d6a2f5, type: 2}
+  - {fileID: 11400000, guid: 3fa33276460b4884591f20b56169fb56, type: 2}
+  - {fileID: 11400000, guid: 9024d0714ec08934fb257d00a6cae84f, type: 2}
+  - {fileID: 11400000, guid: e69e09dcf785d5143a2de11bfa6e213a, type: 2}
+  - {fileID: 11400000, guid: 9a0ffdc57ec8ad94c8270244bcedf355, type: 2}
+  - {fileID: 11400000, guid: 15516b1a0d07265428d06e15ae33b57a, type: 2}
+  - {fileID: 11400000, guid: 5c957b0c46acc4441a387c1ae0b3aca4, type: 2}
+  - {fileID: 11400000, guid: 6160b8353ec66a340a95dc68893b8b82, type: 2}
+  - {fileID: 11400000, guid: 0f77ed63da5123a4288cb5e3867dcd96, type: 2}
+  - {fileID: 11400000, guid: 169e352a6f098a443958e57fa3be6e2b, type: 2}
+  - {fileID: 11400000, guid: a8a896639e0b52641903c77b3ea70915, type: 2}
+  - {fileID: 11400000, guid: 655c21505e241464c9f13a6d30553f21, type: 2}
+  - {fileID: 11400000, guid: a23c53c43e56e71469646bb49863f7ac, type: 2}

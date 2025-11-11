@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: EnteringMansionPhrase3
   m_EditorClassIdentifier: 
   speaker: 0
-  text: "Creo que lo mejor ser\xE1 entrar adentro y dejar de pensar en supercher\xEDas
-    baratas. No creo que haya nada que temer de una vieja mansi\xF3n [shake]abandonada[/shake]."
+  text: "Pero, siento como si hubiera algo, algo que me absorbiera hacia su interior,
+    no s\xE9, es una sensaci\xF3n extra\xF1a..."
   textDuration: 2.5

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed47826758172a541837b1c1f3f61262, type: 3}
+  m_Name: CorpseDaughterOk
+  m_EditorClassIdentifier: 
+  ConvName: 
+  phrases:
+  - {fileID: 11400000, guid: 1cadf8572d2358d4fb30e2eb74e2f340, type: 2}
+  - {fileID: 11400000, guid: 8a2f9cb888a59ed4d9ffc16d7c700865, type: 2}
+  - {fileID: 11400000, guid: 943c0e33ecb26d647a881dfec69f479b, type: 2}
+  - {fileID: 11400000, guid: ae01a4614ac81d749bb870d8c86a5140, type: 2}
+  - {fileID: 11400000, guid: 56feba3e02393d546bd6ac7fff0bb70a, type: 2}
