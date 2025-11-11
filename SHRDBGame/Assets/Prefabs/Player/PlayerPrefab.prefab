@@ -237,13 +237,13 @@ GameObject:
   - component: {fileID: 7059302667897168772}
   - component: {fileID: 1423615207104555316}
   - component: {fileID: 2312147282919343217}
-  - component: {fileID: 326166853846157483}
   - component: {fileID: 1632878646837150098}
   - component: {fileID: 7530233131573385737}
   - component: {fileID: 4362416753099435262}
   - component: {fileID: 7801138737417021066}
   - component: {fileID: 1762384668466308072}
   - component: {fileID: 5513386154301896659}
+  - component: {fileID: 1767902209159982899}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -383,22 +383,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
---- !u!114 &326166853846157483
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 810799984191111178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ece18c26320b5854e9fc95c757b3ca69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 6370999122358619912}
-  floorLayer:
-    serializedVersion: 2
-    m_Bits: 8
 --- !u!114 &1632878646837150098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -499,6 +483,23 @@ MonoBehaviour:
     attack: 10
     attackMultiplier: 1
     speedMultiplier: 1
+  ammounthealth: 1
+--- !u!114 &1767902209159982899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 810799984191111178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ece18c26320b5854e9fc95c757b3ca69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 6370999122358619912}
+  floorLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &1261011611588499644
 GameObject:
   m_ObjectHideFlags: 0
@@ -612,7 +613,7 @@ MonoBehaviour:
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
   m_Cameras: []
-  m_RendererIndex: 0
+  m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
     m_Bits: 1
@@ -756,6 +757,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 3722701215405107769}
+  defaultAmplitude: 2
+  defaultFrequency: 2
 --- !u!1 &2583509001759789332
 GameObject:
   m_ObjectHideFlags: 0
@@ -768,6 +771,7 @@ GameObject:
   - component: {fileID: 1717513473419674808}
   - component: {fileID: 975447833743256437}
   - component: {fileID: 4825439435908066875}
+  - component: {fileID: 6549187879149318600}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -857,6 +861,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e8b78ac948f05a46a6d8339a503172b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6549187879149318600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2583509001759789332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+  m_PivotOffset: {x: 0, y: 0, z: 0}
+  m_AmplitudeGain: 0
+  m_FrequencyGain: 0
+  mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &3819089728743578804
 GameObject:
   m_ObjectHideFlags: 0
