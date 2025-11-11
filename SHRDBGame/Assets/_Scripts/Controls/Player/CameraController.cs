@@ -12,7 +12,7 @@ public class CameraController : MonoBehaviour
     private CinemachineVirtualCamera virtualCamera;
     private CinemachineBasicMultiChannelPerlin noise;
     private float shakeTimer;
-
+    private bool canShake = false;
     [SerializeField] float defaultAmplitude = 2f;
     [SerializeField] float defaultFrequency = 2f;
 
@@ -24,14 +24,21 @@ public class CameraController : MonoBehaviour
         noise = virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         noise.m_AmplitudeGain = 0f;
         noise.m_FrequencyGain = 0f;
+        //Me quiero suscribir al settingsmanager
+        SettingsManager.Instance.onSettingsChange.AddListener(changeCameraShakeSettings);
     }
     [ContextMenu("Probar Shake")]
+    void changeCameraShakeSettings()
+    {
+        canShake = SettingsManager.Instance.GetValue<bool>("CameraShake");
+    }
 public void TestShake()
     {
         Shake(1f,defaultAmplitude,defaultFrequency);
     }
     public void Shake(float duration, float amplitude = -1f, float frequency = -1f)
     {
+        if (!canShake) return;
         Debug.Log("Me llaman");
         if (amplitude < 0) amplitude = defaultAmplitude;
         if (frequency < 0) frequency = defaultFrequency;

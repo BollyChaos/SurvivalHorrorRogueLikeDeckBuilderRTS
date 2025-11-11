@@ -50,10 +50,13 @@ public class Interactor : MonoBehaviour
         // Detectar el interactuable más cercano dentro del rango
         if (interactablesInRange.Count > 0)
         {
-            currentTarget = GetClosestInteractable();
-            if (isInteracting && currentTarget != null)
+
+
+            if (isInteracting)
             {
-                currentTarget.Interact();
+                currentTarget = GetClosestInteractable();
+                if (currentTarget != null)
+                    currentTarget.Interact();
             }
         }
         else
@@ -92,6 +95,11 @@ public class Interactor : MonoBehaviour
                 interactable.SetInteractable(true);
                 interactablesInRange.Add(interactable);
             }
+            currentTarget = GetClosestInteractable();
+            if (currentTarget != null)
+            {
+                UIManager.Instance.SetInteractionText(currentTarget.GetInteractionText());
+            }
         }
     }
 
@@ -102,7 +110,13 @@ public class Interactor : MonoBehaviour
         {
             interactable.SetInteractable(false);
             interactablesInRange.Remove(interactable);
+            if (interactablesInRange.Count == 0)
+            {
+                UIManager.Instance.HideInteractionText();
+
+            }
         }
+
     }
 
     private void OnDrawGizmosSelected()
@@ -118,4 +132,5 @@ public interface IInteractable
     void Interact();
     void SetInteractable(bool value);
     Transform GetTransform();
+    public string GetInteractionText();
 }

@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -214,6 +215,18 @@ public class UIManager : ASingleton<UIManager>, IManager
     public void SetPlayerHealthUI(float healthAmmount)
     {
         PlayerHUD.transform.Find("PlayerHealth").GetComponent<HealthBarSlider>().SetHealth(healthAmmount);
+    }
+    public void SetInteractionText(string text)
+    {
+        //Debug.Log("Hola");
+        PlayerHUD.transform.Find("InteractionText").gameObject.SetActive(true);
+        PlayerHUD.transform.Find("InteractionText").GetComponent<TextMeshProUGUI>().text = text;
+    }
+    public void HideInteractionText()
+    {
+        //Debug.Log("Adios");
+        PlayerHUD.transform.Find("InteractionText").gameObject.SetActive(false);
+        
     }
     #endregion
 
