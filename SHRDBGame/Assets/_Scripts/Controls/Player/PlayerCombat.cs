@@ -24,6 +24,7 @@ public class PlayerCombat : MonoBehaviour
      [ContextMenu("PruebaSalud")]
     public void TrySetHealth()
     {
+        stats.CurrentHealth = stats.MaxHealth * ammounthealth;
         SetHealth(ammounthealth);
     }
     public void SetHealth(float healthAmmount)//valor normalizado por favor :)

@@ -11,6 +11,7 @@ public class LevelManager : ASingleton<LevelManager>,IManager
     public IManager.GameStartMode StartMode => IManager.GameStartMode.NORMAL;
     [SerializeField] private int nNights = 5;
     [SerializeField] private int currentNight = 1;
+    public int CurrentNigh{ get => currentNight; }
     [Tooltip("Duration of the night in seconds")]
     [SerializeField] public float nightDuration = 10f;
     public float NightDuration { get { return nightDuration; } }

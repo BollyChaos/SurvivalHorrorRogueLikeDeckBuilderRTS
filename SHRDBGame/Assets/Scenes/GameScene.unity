@@ -2318,7 +2318,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -2329,7 +2329,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 824841253}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -2406,6 +2406,8 @@ MonoBehaviour:
   - {fileID: 621159659}
   - {fileID: 685273790}
   - {fileID: 1744588077}
+  canSpawnDrops: 1
+  HealthDropPrefab: {fileID: 7501142099102665056, guid: b0147d9cb31c1a54487feceedd4cdc7f, type: 3}
 --- !u!1001 &923858733
 PrefabInstance:
   m_ObjectHideFlags: 0
