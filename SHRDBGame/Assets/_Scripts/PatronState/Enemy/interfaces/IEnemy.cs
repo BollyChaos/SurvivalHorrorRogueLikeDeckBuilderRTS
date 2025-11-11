@@ -23,6 +23,7 @@ namespace State.Interfaces
         public NavMeshAgent GetNavMeshAgent();
         public void SetSalonAbierto(bool estado);
         public bool IsSalonAbierto();
+        public float GetRestDuration();
 
         //Poner de aqui en adelante fucniones que puedan realizar los enemigos, ej: Detectar jugador, moverse...
     }
