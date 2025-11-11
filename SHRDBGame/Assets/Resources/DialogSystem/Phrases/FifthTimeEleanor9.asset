@@ -10,10 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0177bdbc8a56b2419a35c6521f4235a, type: 3}
-  m_Name: FirstTimeShop8
+  m_Name: FifthTimeEleanor9
   m_EditorClassIdentifier: 
-  speaker: 1
-  text: "Es por eso por lo que te ofrezco estas cartas, ten cuidado y \xFAsalas sabiamente,
-    cada una tiene su uso, ya sea para atacar, defenderte o incluso alguna usabilidad
-    extra."
+  speaker: 0
+  text: "Con que s\xF3tano, creo que si quiero saber lo que realmente pas\xF3 aqu\xED
+    deber\xEDa bajar all\xED a comprobarlo."
   textDuration: 2.5

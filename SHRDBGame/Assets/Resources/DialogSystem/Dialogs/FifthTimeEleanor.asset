@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed47826758172a541837b1c1f3f61262, type: 3}
+  m_Name: FifthTimeEleanor
+  m_EditorClassIdentifier: 
+  ConvName: 
+  phrases:
+  - {fileID: 11400000, guid: 592ecf7bcbea17545b046eef2e103df5, type: 2}
+  - {fileID: 11400000, guid: 71725296878795142bdb0f950d2c0501, type: 2}
+  - {fileID: 11400000, guid: 1f43fc9b51574ba49a8ce763c3db7b04, type: 2}
+  - {fileID: 11400000, guid: 6177f93ae512ca24b91bfdf65df0c032, type: 2}
+  - {fileID: 11400000, guid: 2983e03a3d9d47b4db0fa8ef1cba5b0d, type: 2}
+  - {fileID: 11400000, guid: e590208a68375cd4d8b7f0111c62746a, type: 2}
+  - {fileID: 11400000, guid: 4531ff06a48ee134f9e133aa7f567084, type: 2}
+  - {fileID: 11400000, guid: f11891eb747196c43a3b3ecaca4dc99a, type: 2}
+  - {fileID: 11400000, guid: 61318d5c84e8a6a49af41bdb8247371b, type: 2}

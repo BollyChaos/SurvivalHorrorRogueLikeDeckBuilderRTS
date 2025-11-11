@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0177bdbc8a56b2419a35c6521f4235a, type: 3}
   m_Name: FirstTimeShop9
   m_EditorClassIdentifier: 
-  speaker: 0
-  text: "Pero, \xBFy los colores? \xBFQu\xE9 es lo que me espera en esta casa?"
+  speaker: 1
+  text: "Pero ojo, no siempre estar\xE1n en tu poder ya que tienen usos limitados."
   textDuration: 2.5

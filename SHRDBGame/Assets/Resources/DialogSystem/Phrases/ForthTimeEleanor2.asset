@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0177bdbc8a56b2419a35c6521f4235a, type: 3}
-  m_Name: FirstTimeShop8
+  m_Name: ForthTimeEleanor2
   m_EditorClassIdentifier: 
   speaker: 1
-  text: "Es por eso por lo que te ofrezco estas cartas, ten cuidado y \xFAsalas sabiamente,
-    cada una tiene su uso, ya sea para atacar, defenderte o incluso alguna usabilidad
-    extra."
+  text: "La familia despreci\xF3 el esfuerzo de Alistair, el due\xF1o y se\xF1or
+    de esta mansi\xF3n, y, una noche, tras, la misteriosa muerte de este, algo extra\xF1o
+    sucedi\xF3."
   textDuration: 2.5

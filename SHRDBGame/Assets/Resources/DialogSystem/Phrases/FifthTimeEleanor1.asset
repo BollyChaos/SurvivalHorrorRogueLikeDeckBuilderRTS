@@ -10,10 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0177bdbc8a56b2419a35c6521f4235a, type: 3}
-  m_Name: FirstTimeShop8
+  m_Name: FifthTimeEleanor1
   m_EditorClassIdentifier: 
   speaker: 1
-  text: "Es por eso por lo que te ofrezco estas cartas, ten cuidado y \xFAsalas sabiamente,
-    cada una tiene su uso, ya sea para atacar, defenderte o incluso alguna usabilidad
-    extra."
+  text: "Has conseguido sobrevivir otra noche. Se nota que tienes el esp\xEDritu
+    de Alistair."
   textDuration: 2.5

@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0177bdbc8a56b2419a35c6521f4235a, type: 3}
-  m_Name: FirstTimeShop10
+  m_Script: {fileID: 11500000, guid: ed47826758172a541837b1c1f3f61262, type: 3}
+  m_Name: SecondTimeEleanor
   m_EditorClassIdentifier: 
-  speaker: 0
-  text: "Pero, \xBFy los colores? \xBFQu\xE9 es lo que me espera en esta casa?"
-  textDuration: 2.5
+  ConvName: 
+  phrases:
+  - {fileID: 11400000, guid: c3e030b5f014b174ea1d1e55812578fb, type: 2}
