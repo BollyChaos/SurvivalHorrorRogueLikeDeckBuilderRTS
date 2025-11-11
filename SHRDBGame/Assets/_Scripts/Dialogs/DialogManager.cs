@@ -123,7 +123,7 @@ public class DialogManager : ASingleton<DialogManager>, IManager
     }
     private void OnDestroy()
     {
-        currentDialog.Reset();
+        currentDialog?.Reset();
     }
     #endregion
     #region MANAGER LOGIC

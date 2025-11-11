@@ -10,7 +10,10 @@ public class Couch : MonoBehaviour,IInteractable
     {
         return this.transform;
     }
-
+public string GetInteractionText()
+    {
+        return "Presiona E para avanzar la siguiente noche";
+    }
     public void Interact()
     {
         if (interactable)
