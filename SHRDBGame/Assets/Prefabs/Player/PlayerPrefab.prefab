@@ -243,7 +243,6 @@ GameObject:
   - component: {fileID: 7801138737417021066}
   - component: {fileID: 1762384668466308072}
   - component: {fileID: 5513386154301896659}
-  - component: {fileID: 6679643119820346075}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -484,22 +483,6 @@ MonoBehaviour:
     attackMultiplier: 1
     speedMultiplier: 1
   ammounthealth: 1
---- !u!114 &6679643119820346075
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 810799984191111178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ece18c26320b5854e9fc95c757b3ca69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 6370999122358619912}
-  floorLayer:
-    serializedVersion: 2
-    m_Bits: 8
 --- !u!1 &1261011611588499644
 GameObject:
   m_ObjectHideFlags: 0
