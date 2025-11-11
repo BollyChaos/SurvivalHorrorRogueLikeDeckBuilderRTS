@@ -13,7 +13,7 @@ public class LookAtMouseOrGamepad : MonoBehaviour
    
     private void Start()
     {
-        mainCamera = Camera.main;
+        mainCamera = transform.parent.GetComponent<CameraController>().PlayerCamera;
         if(Gamepad.current != null)
         {
             LookForInput();

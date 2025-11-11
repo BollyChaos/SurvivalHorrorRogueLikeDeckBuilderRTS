@@ -41,6 +41,7 @@ public class BulletCardAction : MonoBehaviour, ICardAction
             bPrefab.SetActive(true);
             ParticleSystem ps = bPrefab.GetComponent<ParticleSystem>();
             ps.Play();
+            playerTransform.parent.GetComponent<CameraController>().Shake(0.5f, 4, 4);
             // Inicia la corrutina que destruye el sistema cuando acabe
 
             Destroy(ps.gameObject, 5); // Destruye el objeto del proyectil después de 5 segundos como medida de seguridad
@@ -53,6 +54,8 @@ public class BulletCardAction : MonoBehaviour, ICardAction
         bPrefab.SetActive(true);
         ParticleSystem ps = bPrefab.GetComponent<ParticleSystem>();
         ps.Play();
+            playerTransform.parent.GetComponent<CameraController>().Shake(0.4f, 2, 2);
+
         // Inicia la corrutina que destruye el sistema cuando acabe
 
         Destroy(ps.gameObject, 5); // Destruye el objeto del proyectil después de 5 segundos como medida de seguridad

@@ -23,7 +23,7 @@ public class MoveUIBetweenCanvases : MonoBehaviour
         Vector3 worldPos = rectTransform.position;
 
         // 2️⃣ Convertir la posición mundial a coordenadas de pantalla
-        Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
+        Vector3 screenPos = worldCamera.WorldToScreenPoint(worldPos);
 
         // 3️⃣ Cambiar el parent al canvas de pantalla
         rectTransform.SetParent(screenCanvas.transform, false);

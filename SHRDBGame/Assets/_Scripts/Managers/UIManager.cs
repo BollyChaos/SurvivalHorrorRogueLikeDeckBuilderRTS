@@ -161,7 +161,7 @@ public class UIManager : ASingleton<UIManager>, IManager
         mover.rectTransform = uiWorld.GetComponent<RectTransform>();
         if (mover.worldCamera == null)
         {
-            mover.worldCamera = Camera.main;
+            mover.worldCamera = FindAnyObjectByType<CameraController>().PlayerCamera;
         }
         mover.worldCanvas = WorldCanvas;
         mover.screenCanvas = PlayerHUD.GetComponent<Canvas>();

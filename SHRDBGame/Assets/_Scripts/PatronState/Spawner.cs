@@ -6,6 +6,8 @@ using UnityEngine.Pool;
 public class Spawner : MonoBehaviour
 {
     //Falta meter que se destruyan los enemigos de la object pool, no se en que script ponerlo
+    //*los enemigos no se destruyen en una object pool, de eso se trata el patron, de tocar lo menos posible la memoria
+    //Falta tambien controlar cuantos enemigos deben existir en la escena
     [SerializeField] private Transform[] spawnPoints;
     [SerializeField] private float timeBetweenSpawns = 5f;
     private float timeSinceLastSpawn;
@@ -14,7 +16,8 @@ public class Spawner : MonoBehaviour
     private IObjectPool<EnemyController> enemyPool;
 
     private void Awake()
-    {
+    {//habria que poner un metodo para suscribirse on startgame no en el awake
+    //el spawner tiene que estar controlado por algun manager no puede ir por su cuenta
         enemyPool = new ObjectPool<EnemyController>(CreateEnemy, OnGet, OnRelease);
     }
 
@@ -37,6 +40,7 @@ public class Spawner : MonoBehaviour
     void Update()
     {
         if (Time.time > timeSinceLastSpawn)
+        //ver si el tamaño de la pool es menor que el numero de enemigos que deberia haber en juego, normal que se pete
         {
             //Spawnear enemigo y resetear tiempo
             enemyPool.Get();

@@ -13,9 +13,10 @@ public class Couch : MonoBehaviour,IInteractable
 
     public void Interact()
     {
-        Debug.Log("Poniendo noche siguiente");
         if (interactable)
         {
+        Debug.Log("Poniendo noche siguiente");
+
             LevelManager.Instance.NextNight();
             interactable = false;
         }
