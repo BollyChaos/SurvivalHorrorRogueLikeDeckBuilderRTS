@@ -7,7 +7,7 @@ public class Spawner : MonoBehaviour
 {
     //Falta meter que se destruyan los enemigos de la object pool, no se en que script ponerlo
     [SerializeField] private Transform[] spawnPoints;
-    [SerializeField] private float timeBetweenSpawns = 5f;
+    [SerializeField] private float timeBetweenSpawns = 60f;
     private float timeSinceLastSpawn;
 
     [SerializeField] private EnemyController enemyPrefab;
