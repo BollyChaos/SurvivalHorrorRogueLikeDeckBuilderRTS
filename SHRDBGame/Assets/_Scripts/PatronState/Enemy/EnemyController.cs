@@ -164,7 +164,8 @@ public class EnemyController : MonoBehaviour, IEnemy
             GetComponent<Rigidbody>().MoveRotation(lookRotation);
         }
     }
-
+    #endregion
+    #region abuelo
     public virtual Transform GetCurrentWaypoint()
     {
         throw new System.NotImplementedException();
@@ -186,6 +187,11 @@ public class EnemyController : MonoBehaviour, IEnemy
     }
 
     public virtual bool IsSalonAbierto()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public virtual float GetRestDuration()
     {
         throw new System.NotImplementedException();
     }
