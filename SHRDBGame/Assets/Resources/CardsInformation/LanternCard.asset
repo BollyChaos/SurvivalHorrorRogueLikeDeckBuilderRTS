@@ -16,6 +16,6 @@ MonoBehaviour:
   cardName: Linterna
   description: "Mejora la visi\xF3n de tus alrededores"
   nUses: 3
-  unlocked: 1
+  unlocked: 0
   cardType: 2
   cardRarity: 0

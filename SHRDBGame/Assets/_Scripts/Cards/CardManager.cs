@@ -1,5 +1,6 @@
 using Managers;
 using Patterns.Singleton;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +16,7 @@ public class CardManager : ASingleton<CardManager>,IManager
 
     public void LoadData()//sacar los ids de las cartas desbloqueadas
     {
-        throw new System.NotImplementedException();
+        startingCards = (int)Math.Floor(SettingsManager.Instance.GetValue<float>("StartingCards"));
     }
 
     public void OnEnd()
@@ -111,6 +112,8 @@ public class CardManager : ASingleton<CardManager>,IManager
     public void StartManager()
     {
         Debug.Log($"[{name}]:Iniciando...");
+        SettingsManager.Instance.onSettingsChange.AddListener(LoadData);
+        LoadData();
     }
 
     

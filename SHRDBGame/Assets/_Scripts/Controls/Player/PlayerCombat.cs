@@ -5,16 +5,26 @@ using UnityEngine;
 public class PlayerCombat : MonoBehaviour
 {
     public Stats stats;
-
+    private bool godStatus = false;
+    private bool unlimitedDamage = false;
     private void Start()
     {
         stats.CurrentHealth = stats.MaxHealth;
+        SettingsManager.Instance.onSettingsChange.AddListener(onSettingsChange);
+        onSettingsChange();
     }
+    private void onSettingsChange()
+    {
+        godStatus = SettingsManager.Instance.GetValue<bool>("Invincible");
+        unlimitedDamage = SettingsManager.Instance.GetValue<bool>("UnlimitedDamage");
+        stats.MaxHealth = SettingsManager.Instance.GetValue<float>("PlayerHealth");
 
+    }
     public void Attack(EnemyCombat enemy)
     {
         if (enemy != null && enemy.stats.IsAlive())
         {
+            //tener en cuenta el daño ilimitado para cuando se haga esto hacer 999999 de daño
             //enemy.stats.TakeDamage(stats.Attack);
             Debug.Log($"Player attacked enemy. Enemy health: {enemy.stats.CurrentHealth}");
         }
@@ -27,8 +37,9 @@ public class PlayerCombat : MonoBehaviour
         stats.CurrentHealth = stats.MaxHealth * ammounthealth;
         SetHealth(ammounthealth);
     }
-    public void SetHealth(float healthAmmount)//valor normalizado por favor :)
+    private void SetHealth(float healthAmmount)//valor normalizado por favor :)
     {
+        if (godStatus) return;//un dios ni siente ni padece
         UIManager.Instance.SetPlayerHealthUI(healthAmmount);
     }
     public void TakeDamage(float amount)

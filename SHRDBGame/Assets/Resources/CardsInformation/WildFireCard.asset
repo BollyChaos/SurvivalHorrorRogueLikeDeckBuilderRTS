@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d4318f981197974aab869ef415c76c7, type: 3}
-  m_Name: CancelEventCard
+  m_Name: WildFireCard
   m_EditorClassIdentifier: 
-  cardId: 2
-  cardName: Cancelar Evento
-  description: Cancela el evento en curso
+  cardId: 5
+  cardName: FuegosFatuos
+  description: "Cinco espiritus de fuego te rodean. Al entrar en contacto con el
+    enemigo infligen da\xF1o y desaparecen"
   nUses: 3
   unlocked: 0
   cardType: 2
-  cardRarity: 1
+  cardRarity: 0

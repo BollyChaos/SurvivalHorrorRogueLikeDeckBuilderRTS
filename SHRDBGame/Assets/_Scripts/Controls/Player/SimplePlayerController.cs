@@ -13,6 +13,13 @@ public class SimplePlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         LookForInput();
+        SettingsManager.Instance.onSettingsChange.AddListener(onSettingsChange);
+        onSettingsChange();
+    }
+    void onSettingsChange()
+    {
+        speed = SettingsManager.Instance.GetValue<float>("PlayerSpeed");
+        
     }
     public void LookForInput()
     {

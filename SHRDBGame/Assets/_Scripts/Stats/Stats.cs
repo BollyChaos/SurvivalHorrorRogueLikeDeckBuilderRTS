@@ -8,7 +8,7 @@ public class Stats
     [Header("Atributos Basicos")]
     private float maxHealth = 100f;
     [SerializeField]
-    public float MaxHealth { get => maxHealth; }//esto lo necesito, pero solo se lee
+    public float MaxHealth { get => maxHealth; set => maxHealth=value; }//esto lo necesito, pero solo se lee
     [SerializeField]
     private float currentHealth = 100f;//a ver, hazlas privadas o quitas el proposito de tener funciones para quitar o tomar vida
     public float CurrentHealth { get => currentHealth; set => currentHealth = value; }

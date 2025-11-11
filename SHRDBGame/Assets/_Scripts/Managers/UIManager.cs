@@ -541,6 +541,8 @@ public class UIManager : ASingleton<UIManager>, IManager
         HideShopText();
         //2.UI Cards
         //Ahora queremos instanciar las cartas y manejarlo de forma dinamica para poder tener bien el estado 0 del juego
+        //esto es un poco xd habría que refactorizar:
+        //a lo mejor crear n Car{i+1} y dentro con el prefab emparentarlo, pero al menos funciona asi
         for (int i = 0; i < CardManager.Instance.startingCards; i++)
         {
             GameObject uiCard = GameObject.Instantiate(CardPrefab);

@@ -29,8 +29,8 @@ public class TeleportCardAction : MonoBehaviour, ICardAction
 
     public void ExecuteCardAction(CardObject cardObj)
     {
-        //comprobacion por sea caso
-        //if(cardObj.CardNUses==2){ Reset(); }
+        //comprobacion por sea caso se queda la carta pillada(el jugador se muere habiendo puesto un portal y en la siguiente partida se queda guardado ese punto)
+        if(cardObj.CardNUses==2){ Reset(); }
         switch (teleportState)
         {
             case TeleportState.SETSPAWN:

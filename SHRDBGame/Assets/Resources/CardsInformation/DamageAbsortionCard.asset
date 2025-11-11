@@ -10,13 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d4318f981197974aab869ef415c76c7, type: 3}
-  m_Name: FuegosFatuos
+  m_Name: DamageAbsortionCard
   m_EditorClassIdentifier: 
-  cardId: 9
-  cardName: FuegosFatuos
-  description: "Cinco espiritus de fuego te rodean. Al entrar en contacto con el
-    enemigo infligen da\xF1o y desaparecen"
-  nUses: 3
-  unlocked: 1
-  cardType: 2
-  cardRarity: 0
+  cardId: 1
+  cardName: "AbsorverDa\xF1o"
+  description: El siguiente golpe que recibas se convierte en salud
+  nUses: 2
+  unlocked: 0
+  cardType: 1
+  cardRarity: 1

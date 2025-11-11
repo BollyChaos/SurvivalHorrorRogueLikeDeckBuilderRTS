@@ -16,7 +16,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] float defaultAmplitude = 2f;
     [SerializeField] float defaultFrequency = 2f;
 
-    void Awake()
+    void Start()
     {
         virtualCamera = GetComponentInChildren<CinemachineVirtualCamera>();
 
@@ -26,6 +26,7 @@ public class CameraController : MonoBehaviour
         noise.m_FrequencyGain = 0f;
         //Me quiero suscribir al settingsmanager
         SettingsManager.Instance.onSettingsChange.AddListener(changeCameraShakeSettings);
+        changeCameraShakeSettings();
     }
     [ContextMenu("Probar Shake")]
     void changeCameraShakeSettings()

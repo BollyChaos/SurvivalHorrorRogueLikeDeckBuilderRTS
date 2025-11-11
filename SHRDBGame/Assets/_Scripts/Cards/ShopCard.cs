@@ -105,6 +105,7 @@ public class ShopCard : MonoBehaviour,IInteractable
 
     public string GetInteractionText()
     {
+        if (lockItem) return string.Empty;
         string inttext = $"Presiona E para comprar la carta por {price}";
         Debug.Log(inttext);
      

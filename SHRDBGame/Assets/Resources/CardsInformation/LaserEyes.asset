@@ -16,6 +16,6 @@ MonoBehaviour:
   cardName: OjosLaser
   description: Dispara dos rayos laser a traves de tus ojos
   nUses: 10
-  unlocked: 1
+  unlocked: 0
   cardType: 0
   cardRarity: 1
