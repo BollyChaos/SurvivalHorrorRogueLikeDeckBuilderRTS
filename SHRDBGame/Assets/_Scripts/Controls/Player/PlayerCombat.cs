@@ -19,13 +19,13 @@ public class PlayerCombat : MonoBehaviour
             Debug.Log($"Player attacked enemy. Enemy health: {enemy.stats.CurrentHealth}");
         }
     }
-    // [Range(0, 1)]
-    // [SerializeField] float ammounthealth = 1;
-    //  [ContextMenu("PruebaSalud")]
-    // public void TrySetHealth()
-    // {
-    //     SetHealth(ammounthealth);
-    // }
+    [Range(0, 1)]
+    [SerializeField] float ammounthealth = 1;
+     [ContextMenu("PruebaSalud")]
+    public void TrySetHealth()
+    {
+        SetHealth(ammounthealth);
+    }
     public void SetHealth(float healthAmmount)//valor normalizado por favor :)
     {
         UIManager.Instance.SetPlayerHealthUI(healthAmmount);

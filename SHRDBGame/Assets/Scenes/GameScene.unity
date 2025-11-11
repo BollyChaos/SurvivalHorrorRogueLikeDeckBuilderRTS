@@ -328,7 +328,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 115458960}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Techos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -502,28 +502,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1856540862}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &269150347 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2583509001759789332, guid: d4cb72a2c9fde014b9486598e41561ad, type: 3}
-  m_PrefabInstance: {fileID: 9184497059481731114}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &269150352
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 269150347}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
-  m_PivotOffset: {x: 0, y: 0, z: 0}
-  m_AmplitudeGain: 0
-  m_FrequencyGain: 0
-  mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &282237718
 GameObject:
   m_ObjectHideFlags: 0
@@ -924,7 +902,7 @@ GameObject:
   - component: {fileID: 414996295}
   - component: {fileID: 414996294}
   - component: {fileID: 414996293}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Plane (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2946,7 +2924,7 @@ GameObject:
   - component: {fileID: 1020748646}
   - component: {fileID: 1020748645}
   - component: {fileID: 1020748644}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Plane (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3682,7 +3660,7 @@ GameObject:
   - component: {fileID: 1195565524}
   - component: {fileID: 1195565523}
   - component: {fileID: 1195565522}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Plane (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6337,6 +6315,32 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &1812729747 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 810799984191111178, guid: d4cb72a2c9fde014b9486598e41561ad, type: 3}
+  m_PrefabInstance: {fileID: 9184497059481731114}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1812729748 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6370999122358619912, guid: d4cb72a2c9fde014b9486598e41561ad, type: 3}
+  m_PrefabInstance: {fileID: 9184497059481731114}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1812729761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812729747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ece18c26320b5854e9fc95c757b3ca69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1812729748}
+  floorLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!1 &1813675896
 GameObject:
   m_ObjectHideFlags: 0
@@ -7211,17 +7215,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerPrefab
       objectReference: {fileID: 0}
-    - target: {fileID: 3749423512489682763, guid: d4cb72a2c9fde014b9486598e41561ad, type: 3}
-      propertyPath: m_RendererIndex
-      value: -1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2583509001759789332, guid: d4cb72a2c9fde014b9486598e41561ad, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 810799984191111178, guid: d4cb72a2c9fde014b9486598e41561ad, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 269150352}
+      addedObject: {fileID: 1812729761}
   m_SourcePrefab: {fileID: 100100000, guid: d4cb72a2c9fde014b9486598e41561ad, type: 3}
 --- !u!33 &9205652021089946141
 MeshFilter:
