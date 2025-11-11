@@ -9,7 +9,7 @@ public class Spawner : MonoBehaviour
     //*los enemigos no se destruyen en una object pool, de eso se trata el patron, de tocar lo menos posible la memoria
     //Falta tambien controlar cuantos enemigos deben existir en la escena
     [SerializeField] private Transform[] spawnPoints;
-    [SerializeField] private float timeBetweenSpawns = 60f;
+    [SerializeField] private float timeBetweenSpawns = 61f;
     private float timeSinceLastSpawn;
 
     [SerializeField] private EnemyController enemyPrefab;
