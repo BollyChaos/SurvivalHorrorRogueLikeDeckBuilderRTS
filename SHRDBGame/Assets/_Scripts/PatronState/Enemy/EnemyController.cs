@@ -89,13 +89,17 @@ public class EnemyController : MonoBehaviour, IEnemy
     #endregion
 
     #region Player at sight calculations
-    public GameObject PlayerAtSight()
+    public virtual GameObject PlayerAtSight()
     {
         return playerAtSight;
     }
     public bool isPlayerAtSight()
     {
         return playerAtSight != null;
+    }
+    public void NullPlayerAtSight()
+    {
+        playerAtSight = null;
     }
 
     // private GameObject PlayerIsOnSight(GameObject player)
@@ -192,6 +196,11 @@ public class EnemyController : MonoBehaviour, IEnemy
     }
 
     public virtual float GetRestDuration()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public virtual void AttackPlayer()
     {
         throw new System.NotImplementedException();
     }
