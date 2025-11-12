@@ -19494,7 +19494,7 @@ MonoBehaviour:
   dropSize: 0
   attractionRange: 7
   attractionForce: 10
-  pickupRadius: 1.5
+  pickupRadius: 1.7
   playerTag: Player
 --- !u!54 &3361320373047509284
 Rigidbody:

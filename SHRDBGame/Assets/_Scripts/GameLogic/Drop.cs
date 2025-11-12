@@ -5,7 +5,8 @@ public class Drop : MonoBehaviour
     private enum DropType { Health, Money }
     [SerializeField]
     private DropType dropType;
-    private enum DropSize { Small, Medium, Large }
+    private bool canGive = true;
+    private enum DropSize { Small=0, Medium=1, Large=2 }
     [SerializeField]
     private DropSize dropSize = DropSize.Small;
     [Header("Magnet variables")]
@@ -29,6 +30,7 @@ public class Drop : MonoBehaviour
     }
     void Update()
     {
+        if (!canGive) return;
         if (player == null) return;
 
         float distance = Vector3.Distance(transform.position, player.position);
@@ -66,7 +68,8 @@ public class Drop : MonoBehaviour
 
         }
         GetComponent<AudioSource>()?.Play();//si tenemos sonido usarlo
-        Destroy(gameObject,0.2f);
+        canGive = false;
+        Destroy(gameObject,0.1f);
 
     }
 }

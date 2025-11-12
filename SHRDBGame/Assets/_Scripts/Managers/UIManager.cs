@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -226,7 +227,45 @@ public class UIManager : ASingleton<UIManager>, IManager
     {
         //Debug.Log("Adios");
         PlayerHUD.transform.Find("InteractionText").gameObject.SetActive(false);
-        
+
+    }
+    public void ShowMoneyForAWhile(int money)
+    {
+        GameObject moneyObj = PlayerHUD.transform.Find("PlayerMoney").gameObject;
+        moneyObj.SetActive(true);
+
+        PlayerHUD.transform.Find("PlayerMoney").GetComponent<TextMeshProUGUI>().text = $"x{money}";
+        var text = moneyObj.GetComponent<TextMeshProUGUI>();
+        text.text = $"x{money}";
+
+        StartCoroutine(FadeOutMoneyText(text, moneyObj));
+}
+
+IEnumerator FadeOutMoneyText(TextMeshProUGUI text, GameObject obj)
+{
+    // Espera visible
+    yield return new WaitForSeconds(1.5f);
+
+    Color c = text.color;
+    float t = 0f;
+    while (t < 0.75f)
+    {
+        t += Time.deltaTime;
+        c.a = Mathf.Lerp(1f, 0f, t / 0.75f);
+        text.color = c;
+        yield return null;
+    }
+
+    obj.SetActive(false);
+}
+    public void ShowMoney(int money)
+    {
+        PlayerHUD.transform.Find("PlayerMoney").gameObject.SetActive(true);
+        PlayerHUD.transform.Find("PlayerMoney").GetComponent<TextMeshProUGUI>().text=$"x{money}";
+    }
+    public void HideMoney()
+    {
+        PlayerHUD.transform.Find("PlayerMoney").gameObject.SetActive(false);
     }
     #endregion
 

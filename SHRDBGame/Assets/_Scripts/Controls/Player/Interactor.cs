@@ -99,6 +99,10 @@ public class Interactor : MonoBehaviour
             if (currentTarget != null)
             {
                 UIManager.Instance.SetInteractionText(currentTarget.GetInteractionText());
+                if (currentTarget.GetTransform().tag.Equals("Purchaseable"))
+                {
+                    UIManager.Instance.ShowMoney(GetComponent<Economy>().Coins);
+                }
             }
         }
     }
@@ -113,6 +117,11 @@ public class Interactor : MonoBehaviour
             if (interactablesInRange.Count == 0)
             {
                 UIManager.Instance.HideInteractionText();
+                if (interactable.GetTransform().tag.Equals("Purchaseable"))
+                {
+                    Debug.Log("ADios");
+                    UIManager.Instance.HideMoney();
+                }
 
             }
         }

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Economy : MonoBehaviour
 {
-    [SerializeField]private int coins = 0;
+    [SerializeField] private int coins = 0;
+    public int Coins{ get => coins; }
     [SerializeField] private bool unlimitedMoney = false;
     [SerializeField] private bool nextPurchaseFree = false;
     void Start()
@@ -19,6 +20,7 @@ public class Economy : MonoBehaviour
     public void AddCoins(int amount)
     {
         coins += amount;
+        UIManager.Instance.ShowMoneyForAWhile(coins);
     }
     public void NexPurchaseIsFree()
     {
@@ -30,6 +32,7 @@ public class Economy : MonoBehaviour
         if (amount <= coins)
         {
             coins -= amount;
+            UIManager.Instance.ShowMoney(coins);
             return true;
         }
         else

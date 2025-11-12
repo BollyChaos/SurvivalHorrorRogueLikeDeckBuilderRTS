@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 
 public class TrapCardAction : MonoBehaviour,ICardAction
@@ -12,7 +13,7 @@ public class TrapCardAction : MonoBehaviour,ICardAction
 
     public void ExecuteCardAction(CardObject cardObj)
     {
-        GameObject trap = Instantiate(spikeTrapPrefab, playerTransform.position, Quaternion.identity);
+        GameObject trap = Instantiate(spikeTrapPrefab, playerTransform.position+ UnityEngine.Vector3.down, UnityEngine.Quaternion.identity);
         trap.SetActive(true);
         cardObj.UsingCard = false;
     }

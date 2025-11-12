@@ -45,6 +45,7 @@ public class PlayerCombat : MonoBehaviour
     public void TakeDamage(float amount)
     {
         stats.TakeDamage(amount);
+        transform.parent.GetComponent<CameraController>().Shake(1.5f,(amount/stats.MaxHealth)*6f,(amount/stats.MaxHealth)*6f);
         SetHealth(stats.CurrentHealth / stats.MaxHealth);
 
     }
