@@ -15,6 +15,7 @@ public class BuffCardAction : MonoBehaviour, ICardAction
 
     private bool HasUsedBuff = false;
     private float buffTimeCounter = 0f;
+
     public void ExecuteCardAction(CardObject cardObj)
     {
         //cada vez que se usa la carta de buff se suma al contador
@@ -24,18 +25,25 @@ public class BuffCardAction : MonoBehaviour, ICardAction
         GameObject bp = Instantiate(particles, playerTransform);
         bp.SetActive(true);
         bp.GetComponent<ParticleSystem>().Play();
+
         switch (buffType)
         {
             case BuffType.Speed:
-                //20%,30% y 40%???
                 float speedPercentage = 1 + (2 + (int)cardObj.card.cardRarity) * 0.1f;
 
                 playerTransform.GetComponent<PlayerCombat>().stats.ChangeSpeedMultiplier(speedPercentage);
+
+                // ACTIVAR boost en FootstepPlayer
+                FootstepPlayer fp = playerTransform.GetComponent<FootstepPlayer>();
+                if (fp != null)
+                    fp.boostActive = true;
                 break;
+
             case BuffType.Damage:
                 float damagePercentage = 1 + (2 + (int)cardObj.card.cardRarity) * 0.1f;
                 playerTransform.GetComponent<PlayerCombat>().stats.AttackMultiplier = damagePercentage;
                 break;
+
             case BuffType.Invencibility:
                 playerTransform.GetComponent<PlayerCombat>().stats.Invencibility = true;
                 break;
@@ -44,27 +52,35 @@ public class BuffCardAction : MonoBehaviour, ICardAction
         cardObj.UsingCard = false;
         Destroy(bp, 6f);
     }
+
     private void Update()
     {
         if (!HasUsedBuff) return;
         buffTimeCounter -= Time.deltaTime;
+
         if (buffTimeCounter <= 0f)
         {
             HasUsedBuff = false;
 
-            switch (buffType) {
+            switch (buffType)
+            {
                 case BuffType.Speed:
                     playerTransform.GetComponent<PlayerCombat>().stats.ChangeSpeedMultiplier(1f);
+
+                    // DESACTIVAR boost en FootstepPlayer
+                    FootstepPlayer fp = playerTransform.GetComponent<FootstepPlayer>();
+                    if (fp != null)
+                        fp.boostActive = false;
                     break;
+
                 case BuffType.Damage:
                     playerTransform.GetComponent<PlayerCombat>().stats.AttackMultiplier = 1f;
                     break;
+
                 case BuffType.Invencibility:
                     playerTransform.GetComponent<PlayerCombat>().stats.Invencibility = false;
                     break;
             }
-
         }
-
     }
 }
