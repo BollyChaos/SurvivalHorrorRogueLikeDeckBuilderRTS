@@ -23,7 +23,7 @@ public class EnemyCombat : MonoBehaviour
     {
         if (player != null && player.stats.IsAlive())
         {
-            player.stats.TakeDamage(stats.Attack);
+            player.TakeDamage(stats.Attack);
             Debug.Log($"Enemy hit player. Player health: {player.stats.CurrentHealth}");
         }
     }
