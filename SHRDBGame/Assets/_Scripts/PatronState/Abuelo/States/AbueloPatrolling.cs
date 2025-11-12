@@ -20,11 +20,15 @@ public class AbueloPatrolling : AEnemyState
 
     public override void Enter()
     {
+        _isWaiting = false;
         _currentTransform = enemy.GetGameObject().transform;
         _patrolSpeed = enemy.GetPatrolSpeed();
         _currentWaypoint = enemy.GetCurrentWaypoint();
         _salonAbierto = enemy.IsSalonAbierto();
+        _currentWaypoint = enemy.GetCurrentWaypoint();
         enemy.MoveToNavMesh(_currentWaypoint.position, _patrolSpeed);
+        enemy.GetNavMeshAgent().isStopped = false;
+        //Debug.Log("Entering Patrolling State");
     }
 
     public override void Exit()
@@ -39,6 +43,11 @@ public class AbueloPatrolling : AEnemyState
 
     public override void Update()
     {
+        if (enemy.PlayerAtSight()!=null)
+        {
+            enemy.SetState(new AbueloBattling(enemy));
+            return;
+        }
         if (_isWaiting) { return; }
 
         Vector3 distanceToWaypoint = _currentWaypoint.position - _currentTransform.position;
@@ -48,7 +57,6 @@ public class AbueloPatrolling : AEnemyState
             float waitTime = _salonAbierto ? _WaitTimesF2[index % _WaitTimesF2.Length] : _WaitTimesF1[index % _WaitTimesF1.Length];
 
             enemy.GetGameObject().GetComponent<MonoBehaviour>().StartCoroutine(WaitAtWaypoint(waitTime));
-            
         }
 
 
@@ -57,7 +65,6 @@ public class AbueloPatrolling : AEnemyState
     {
         _isWaiting = true;
         enemy.GetNavMeshAgent().isStopped = true;
-
 
         yield return new WaitForSeconds(waitTime);
         enemy.GetNavMeshAgent().isStopped = false;

@@ -15,6 +15,7 @@ namespace State.Interfaces
         public int GetPatrolSpeed();
         public void SetPatrolSpeed(int speed);
         public GameObject PlayerAtSight();
+        public void NullPlayerAtSight();
         public void MoveToNavMesh(Vector3 direction, float speed);
         public void LookAt(Vector3 target);
         public Transform GetCurrentWaypoint();
@@ -24,6 +25,7 @@ namespace State.Interfaces
         public void SetSalonAbierto(bool estado);
         public bool IsSalonAbierto();
         public float GetRestDuration();
+        public void AttackPlayer();
 
         //Poner de aqui en adelante fucniones que puedan realizar los enemigos, ej: Detectar jugador, moverse...
     }

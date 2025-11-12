@@ -44,12 +44,17 @@ public class AbueloChasing : AEnemyState
 
     public override void FixedUpdate()
     {
+        if (enemy.PlayerAtSight()!=null)
+        {
+            enemy.SetState(new AbueloBattling(enemy));
+            return;
+        }
         if (_isResting) { return; }
 
         float distanceToSound = Vector3.Distance(_currentTransform.position, _destination);
         if (distanceToSound < 0.5f)
         {
-            enemy.SetState(new AbueloBattling(enemy));
+            enemy.AttackPlayer();
             //Vector3 direction = ((Vector3)_player.transform.position - (Vector3)_currentTransform.position).normalized;
         }
         else

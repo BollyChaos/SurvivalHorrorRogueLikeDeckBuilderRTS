@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,10 +9,13 @@ public class AbueloController : EnemyController
     //Atributos
     [SerializeField] private Transform[] waypoints;
     private bool _salonAbierto = false;
-    [SerializeField] private float hearingRange = 10f;
+    [SerializeField] private float hearingRange = 50f;
     private Vector3? lastHeardSoundPosition = null;
     private int currentWaypointIndex = 0;
     private float _restDuration = 1.5f;
+    private float damage = 40f;
+    private float health = 200f;
+    [SerializeField] GameObject slashPrefab;
     //Metodos
     private void Awake()
     {
@@ -37,7 +41,6 @@ public class AbueloController : EnemyController
     public void OnSoundHeard(Vector3 soundPosition)
     {
         float distance = Vector3.Distance(transform.position, soundPosition);
-
         if (distance <= hearingRange)
         {
             lastHeardSoundPosition = soundPosition;
@@ -66,6 +69,24 @@ public class AbueloController : EnemyController
     public override float GetRestDuration()
     {
         return _restDuration;
+    }
+    #endregion
+
+    #region ataque
+    public override void AttackPlayer()
+    {
+        ///Se Crea el slash para que el enemigo ataque
+        GameObject sPrefab = Instantiate(slashPrefab, transform.position + transform.forward * 2, transform.rotation);
+        sPrefab.SetActive(true);
+        ParticleSystem ps = sPrefab.GetComponent<ParticleSystem>();
+        ps.Play();
+
+        PrefabDamage slash = sPrefab.GetComponent<PrefabDamage>();
+        if (slash != null)
+        {
+            slash.Initialize(damage, "Enemy");
+        }
+        Destroy(sPrefab, 5f);
     }
     #endregion
 }
