@@ -13,6 +13,8 @@ public class AbueloPatrolling : AEnemyState
     private bool _salonAbierto; //cambiarlo a que lo mire del controller
     private float[] _WaitTimesF1 = { 5f, 5f, 10f };
     private float[] _WaitTimesF2 = { 5f, 5f, 5f, 10f, 15f };
+    private Coroutine _waitCoroutine; // referencia a la coroutine activa
+
     //Metodos
     public AbueloPatrolling(IEnemy enemy) : base(enemy)
     {
@@ -33,7 +35,13 @@ public class AbueloPatrolling : AEnemyState
 
     public override void Exit()
     {
-
+        enemy.GetNavMeshAgent().isStopped = false;
+        if (_waitCoroutine != null)
+        {
+            enemy.GetGameObject().GetComponent<MonoBehaviour>().StopCoroutine(_waitCoroutine); // Detiene solo esta, no todas
+            _waitCoroutine = null;
+        }
+        _isWaiting = false;
     }
 
     public override void FixedUpdate()
@@ -56,7 +64,7 @@ public class AbueloPatrolling : AEnemyState
             int index = enemy.GetCurrentWaypointIndex();
             float waitTime = _salonAbierto ? _WaitTimesF2[index % _WaitTimesF2.Length] : _WaitTimesF1[index % _WaitTimesF1.Length];
 
-            enemy.GetGameObject().GetComponent<MonoBehaviour>().StartCoroutine(WaitAtWaypoint(waitTime));
+            _waitCoroutine = enemy.GetGameObject().GetComponent<MonoBehaviour>().StartCoroutine(WaitAtWaypoint(waitTime));
         }
 
 

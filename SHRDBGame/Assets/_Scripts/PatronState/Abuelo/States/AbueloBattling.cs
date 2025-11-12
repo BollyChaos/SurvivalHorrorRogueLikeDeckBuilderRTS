@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using State.Interfaces;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class AbueloBattling : AEnemyState
 {
@@ -12,7 +13,9 @@ public class AbueloBattling : AEnemyState
     private GameObject _player;
     private float chaseSpeed;
     private float distanceToPlayer;
+    private NavMeshAgent _agent;
 
+    private Coroutine _cdCoroutine; // referencia a la coroutine activa
 
     //Metodos
     public AbueloBattling(IEnemy enemy) : base(enemy)
@@ -23,6 +26,8 @@ public class AbueloBattling : AEnemyState
     {
         _player = enemy.PlayerAtSight();
         _currentTransform = enemy.GetGameObject().transform;
+        _agent = enemy.GetNavMeshAgent();
+        chaseSpeed = enemy.GetChaseSpeed();
         //Debug.Log("ENTERING BATTLING STATE");
         //Debug.Log("Entering Chasing Player State");
     }
@@ -30,14 +35,23 @@ public class AbueloBattling : AEnemyState
     public override void Exit()
     {
         //Debug.Log("EXITING BATTLING STATE");
+        _agent.isStopped = false;
+        if (_cdCoroutine != null)
+        {
+            enemy.GetGameObject().GetComponent<MonoBehaviour>().StopCoroutine(_cdCoroutine); // Detiene solo esta, no todas
+            _cdCoroutine = null;
+        }
     }
 
     public override void FixedUpdate()
     {
+        enemy.LookAt(_player.transform.position); 
         float distanceToPlayer = Vector3.Distance(_currentTransform.position, _player.transform.position);
-        if (distanceToPlayer < 1.5f)
-            {
+        if (distanceToPlayer < 2f&& _agent.isStopped == false)
+        {
+                   
                 enemy.AttackPlayer();
+                enemy.GetGameObject().GetComponent<MonoBehaviour>().StartCoroutine(CD());
             }
             else if (distanceToPlayer >= 8f)
             {
@@ -53,5 +67,13 @@ public class AbueloBattling : AEnemyState
     {
         
     }
+private IEnumerator CD()
+    {
+        _agent.isStopped = true;
+        Debug.Log("Abuelo attacking, cooldown started");
+        yield return new WaitForSeconds(0.5f);
+        Debug.Log("Abuelo attack cooldown ended");
+        _agent.isStopped = false;
 
+    }
 }

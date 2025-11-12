@@ -165,7 +165,7 @@ public class EnemyController : MonoBehaviour, IEnemy
         if (direction != Vector3.zero)
         {
             Quaternion lookRotation = Quaternion.LookRotation(direction);
-            GetComponent<Rigidbody>().MoveRotation(lookRotation);
+            transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
         }
     }
     #endregion

@@ -16,7 +16,7 @@ public class AbueloChasing : AEnemyState
     private float _restDuration;
     private float chaseSpeed;
     
-
+    private Coroutine _restCoroutine; // referencia a la coroutine activa
 
     //Metodos
     public AbueloChasing(IEnemy enemy,Vector3 SoundPos) : base(enemy)
@@ -39,7 +39,13 @@ public class AbueloChasing : AEnemyState
 
     public override void Exit()
     {
-        
+        _agent.isStopped = false;
+        if (_restCoroutine != null)
+        {
+            enemy.GetGameObject().GetComponent<MonoBehaviour>().StopCoroutine(_restCoroutine); // Detiene solo esta, no todas
+            _restCoroutine = null;
+        }
+        _isResting = false;
     }
 
     public override void FixedUpdate()
@@ -55,6 +61,7 @@ public class AbueloChasing : AEnemyState
         if (distanceToSound < 0.5f)
         {
             enemy.AttackPlayer();
+            enemy.SetState(new AbueloPatrolling(enemy));
             //Vector3 direction = ((Vector3)_player.transform.position - (Vector3)_currentTransform.position).normalized;
         }
         else
