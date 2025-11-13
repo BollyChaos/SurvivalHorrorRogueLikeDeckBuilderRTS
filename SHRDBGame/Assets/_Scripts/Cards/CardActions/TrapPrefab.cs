@@ -1,19 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 [RequireComponent(typeof(Animator))]
 public class TrapPrefab : MonoBehaviour
 {
-    // Start is called before the first frame update
-    [SerializeField] Animator animator;
-    void OnTriggerEnter(Collider other)
+    [SerializeField] private Animator animator;
+
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(GetComponent<PrefabDamage>().Tag))
+        // Obtenemos el PrefabDamage para leer el targetTag de forma segura
+        PrefabDamage damageScript = GetComponent<PrefabDamage>();
+        if (damageScript != null && other.CompareTag(damageScript.TargetTag))
         {
-            Debug.Log("Hola");
+            Debug.Log("Trap activada");
+
+            // Activar animación
             animator.SetBool("SetTrap", true);
-             Destroy(gameObject,5f);//esto se puede cambiar despues
+
+            // Destruir trap después de un tiempo
+            Destroy(gameObject, 5f); // ajustable
         }
-       
     }
 }

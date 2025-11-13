@@ -2,59 +2,56 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(ASoundPlayer))]
 public class PrefabDamage : MonoBehaviour
 {
-    private float damage = 0f;
-    [SerializeField]
-    private string targetTag = "Enemy";
-    public string Tag { get => targetTag; }
+    [SerializeField] private float damage;
+    [SerializeField] private string targetTag;
 
-    // --- NUEVO: sonidos de impacto ---
-    [SerializeField] private AudioClip[] impactSounds;
-    [SerializeField] private float impactVolume = 1f;
-    private AudioSource audioSource;
+    private ASoundPlayer soundPlayer;
+
+    public string TargetTag => targetTag;
 
     private void Awake()
     {
-        audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.playOnAwake = false;
+        soundPlayer = GetComponent<ASoundPlayer>();
     }
 
-    private void Start()
-    {
-        //lo voy a destruir como apaño en slashcardaction
-        // Destroy(gameObject, lifetime); por que???? ponlo en una funcion y controlas cuando se destruye no solo nada mas crearlo
-    }
-
-    public void Initialize(float dmg, string targetTag = "Enemy")
+    public void Initialize(float dmg, string tag)
     {
         damage = dmg;
-        this.targetTag = targetTag;
+        targetTag = tag;
     }
 
-    // NUEVO: método para asignar los sonidos desde SlashCardAction
-    public void SetImpactSounds(AudioClip[] clips)
+    public void SetImpactClips(List<AudioClip> clips)
     {
-        impactSounds = clips;
+        if (soundPlayer != null)
+        {
+            // Accede a la lista privada mediante reflexión o crea un método público en ASoundPlayer para asignar la lista
+            soundPlayer.AssignClips(clips);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(targetTag))
         {
-            EnemyCombat enemy = other.GetComponent<EnemyCombat>();
+            // Aplica daño al enemigo
+            var enemy = other.GetComponent<MonoBehaviour>(); // Ajusta al script real de tu enemigo
             if (enemy != null)
             {
-                enemy.stats.TakeDamage(damage);
-                Debug.Log($"{other.name} took {damage} damage from attack!");
-
-                // NUEVO: reproducir sonido de impacto aleatorio
-                if (impactSounds != null && impactSounds.Length > 0)
-                {
-                    AudioClip clip = impactSounds[Random.Range(0, impactSounds.Length)];
-                    audioSource.PlayOneShot(clip, impactVolume);
-                }
+                var method = enemy.GetType().GetMethod("TakeDamage");
+                if (method != null)
+                    method.Invoke(enemy, new object[] { damage });
             }
+
+            // Reproduce sonido de impacto
+            if (soundPlayer != null)
+            {
+                soundPlayer.PlayRandomSound();
+            }
+
+            Destroy(gameObject);
         }
     }
 }

@@ -2,19 +2,25 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(ASoundPlayer))]
 public class FlashLightController : MonoBehaviour
 {
     [SerializeField] private GameObject flashLight;
-    [SerializeField] private float minBlinkInterval = 5f; // tiempo mínimo entre parpadeos
-    [SerializeField] private float maxBlinkInterval = 10f; // tiempo máximo entre parpadeos
-    [SerializeField] private float blinkDuration = 0.1f;   // duración del parpadeo
+    [SerializeField] private float minBlinkInterval = 5f;
+    [SerializeField] private float maxBlinkInterval = 10f;
+    [SerializeField] private float blinkDuration = 0.1f;
 
     private bool isFlashLightActive = true;
     private Coroutine flickerRoutine;
 
+    private ASoundPlayer soundPlayer;
+
     void Start()
     {
+        soundPlayer = GetComponent<ASoundPlayer>();
+
         LookForInput();
+
         if (flashLight != null)
             flickerRoutine = StartCoroutine(FlickerRoutine());
     }
@@ -32,17 +38,23 @@ public class FlashLightController : MonoBehaviour
     {
         isFlashLightActive = !isFlashLightActive;
         flashLight.SetActive(isFlashLightActive);
+
+        if (soundPlayer != null)
+        {
+            if (isFlashLightActive)
+                soundPlayer.PlaySound(0); // sonido de encendido
+            else
+                soundPlayer.PlaySound(1); // sonido de apagado
+        }
     }
 
-    private IEnumerator FlickerRoutine()//esta corrutina me da mucho miedo pero creo que esta controlada
+    private IEnumerator FlickerRoutine()
     {
         while (true)
         {
-            // Espera un tiempo aleatorio antes del siguiente parpadeo
             float waitTime = Random.Range(minBlinkInterval, maxBlinkInterval);
             yield return new WaitForSeconds(waitTime);
 
-            // Solo parpadea si está encendida
             if (isFlashLightActive && flashLight.activeSelf)
             {
                 flashLight.SetActive(false);

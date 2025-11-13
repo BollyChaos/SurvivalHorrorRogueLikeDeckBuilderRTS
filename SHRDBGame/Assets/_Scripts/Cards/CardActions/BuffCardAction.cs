@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+[RequireComponent(typeof(ASoundPlayer))]
 public class BuffCardAction : MonoBehaviour, ICardAction
 {
     private enum BuffType { Speed, Damage, Invencibility }
@@ -16,9 +17,17 @@ public class BuffCardAction : MonoBehaviour, ICardAction
     private bool HasUsedBuff = false;
     private float buffTimeCounter = 0f;
 
+    // sonido
+    private ASoundPlayer soundPlayer;
+
+    void Start()
+    {
+        soundPlayer = GetComponent<ASoundPlayer>();
+    }
+
     public void ExecuteCardAction(CardObject cardObj)
     {
-        //cada vez que se usa la carta de buff se suma al contador
+        // cada vez que se usa la carta de buff se suma al contador
         buffTimeCounter += buffTime;
         HasUsedBuff = true;
 
@@ -30,13 +39,16 @@ public class BuffCardAction : MonoBehaviour, ICardAction
         {
             case BuffType.Speed:
                 float speedPercentage = 1 + (2 + (int)cardObj.card.cardRarity) * 0.1f;
-
                 playerTransform.GetComponent<PlayerCombat>().stats.ChangeSpeedMultiplier(speedPercentage);
 
                 // ACTIVAR boost en FootstepPlayer
                 FootstepPlayer fp = playerTransform.GetComponent<FootstepPlayer>();
                 if (fp != null)
                     fp.boostActive = true;
+
+                // reproducir sonido de Speed Buff
+                if (soundPlayer != null)
+                    soundPlayer.PlayRandomSound();
                 break;
 
             case BuffType.Damage:

@@ -6,31 +6,27 @@ public class SlashCardAction : MonoBehaviour, ICardAction
 {
     private enum TypeOfSlash { Axe, Knife }
 
-    [SerializeField] GameObject slashPrefab;
+    [SerializeField] private GameObject slashPrefab;
     [SerializeField] private Transform playerTransform;
     [SerializeField] private TypeOfSlash typeOfSlash;
 
     [Header("Audio")]
-    [SerializeField] private AudioClip[] SwingSounds;      // Swing de hacha y cuchillo
-    [SerializeField] private AudioClip[] ImpactSounds;     // Impactos solo hacha
-    [SerializeField] private float swingVolume = 1f;
+    [SerializeField] private AudioClip[] SwingSounds;
+
+    [Header("Impact Sounds")]
+    [SerializeField] private List<AudioClip> impactSoundsAxe;
+    [SerializeField] private List<AudioClip> impactSoundsKnife;
 
     private PlayerCombat playerCombat;
     private float damage = 0f;
-
     private AudioSource audioSource;
 
     Transform ICardAction.PlayerTransform { get => playerTransform; set => playerTransform = value; }
 
     private void Awake()
     {
-        // Crear AudioSource local 2D si no existe
-        audioSource = GetComponent<AudioSource>();
-        if (audioSource == null)
-        {
-            audioSource = gameObject.AddComponent<AudioSource>();
-            audioSource.playOnAwake = false;
-        }
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
     }
 
     public void ExecuteCardAction(CardObject cardObj)
@@ -49,55 +45,49 @@ public class SlashCardAction : MonoBehaviour, ICardAction
                 KnifeAttack();
                 break;
         }
+
         cardObj.UsingCard = false;
     }
 
-    void AxeAttack()
+    private void AxeAttack()
     {
-        // Reproducir sonido de swing del hacha
-        PlaySwingSound(SwingSounds);
+        PlaySwingSound();
 
         GameObject sPrefab = Instantiate(slashPrefab, playerTransform.position + playerTransform.forward * 2, playerTransform.rotation);
         sPrefab.SetActive(true);
-        ParticleSystem ps = sPrefab.GetComponent<ParticleSystem>();
-        if (ps != null) ps.Play();
 
+        // Asigna daño e impacto
         PrefabDamage slash = sPrefab.GetComponent<PrefabDamage>();
         if (slash != null)
         {
             slash.Initialize(damage, "Enemy");
-            slash.SetImpactSounds(ImpactSounds); // Solo hacha tiene sonidos de impacto
+            slash.SetImpactClips(impactSoundsAxe);
         }
 
         Destroy(sPrefab, 5f);
     }
 
-    void KnifeAttack()
+    private void KnifeAttack()
     {
-        // Reproducir sonido de swing del cuchillo
-        PlaySwingSound(SwingSounds);
-
         GameObject sPrefab = Instantiate(slashPrefab, playerTransform.position + playerTransform.forward * 2, playerTransform.rotation);
         sPrefab.SetActive(true);
-        ParticleSystem ps = sPrefab.GetComponent<ParticleSystem>();
-        if (ps != null) ps.Play();
 
         PrefabDamage slash = sPrefab.GetComponent<PrefabDamage>();
         if (slash != null)
         {
             slash.Initialize(damage, "Enemy");
-            // Para el cuchillo no ponemos sonidos de impacto
+            slash.SetImpactClips(impactSoundsKnife);
         }
 
         Destroy(sPrefab, 5f);
     }
 
-    private void PlaySwingSound(AudioClip[] clips)
+    private void PlaySwingSound()
     {
-        if (clips != null && clips.Length > 0 && audioSource != null)
+        if (SwingSounds != null && SwingSounds.Length > 0)
         {
-            AudioClip clip = clips[Random.Range(0, clips.Length)];
-            audioSource.PlayOneShot(clip, swingVolume);
+            AudioClip clip = SwingSounds[Random.Range(0, SwingSounds.Length)];
+            audioSource.PlayOneShot(clip);
         }
     }
 }
