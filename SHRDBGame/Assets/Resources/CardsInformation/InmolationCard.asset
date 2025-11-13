@@ -16,6 +16,6 @@ MonoBehaviour:
   cardName: Inmolacion
   description: "Crea una explosion que haga un gran da\xF1o a tus enemigos"
   nUses: 1
-  unlocked: 0
+  unlocked: 1
   cardType: 0
   cardRarity: 1
