@@ -15,7 +15,7 @@ using static Managers.IManager;
 public class UIManager : ASingleton<UIManager>, IManager
 {
     //GameManager tiene sus estados pero no le importa en que estado se esta dentro del juego, ahi es donde entra uiManager 
-    public enum InGameStates { INGAME, INDIALOG, INPAUSE, SELECTINGCARDS, DAYTIME }//ya se que gamemanager tiene inpause y no creo que sea redundante ya que uimanager necesita saber si esta en pausa
+    public enum InGameStates { INGAME, INDIALOG, INPAUSE, SELECTINGCARDS, DAYTIME,ENDGAME }//ya se que gamemanager tiene inpause y no creo que sea redundante ya que uimanager necesita saber si esta en pausa
     public GameStartMode StartMode => GameStartMode.EARLY;
     [SerializeField] InGameStates previousInGameState;
     [SerializeField] InGameStates inGameStates;
@@ -272,9 +272,15 @@ public class UIManager : ASingleton<UIManager>, IManager
     #region ENDGAME
     [Header("EndGameUI")]
     public GameObject EndGameCavas;
-
+public void EndGame()
+    {
+        previousInGameState=InGameStates.ENDGAME;
+        inGameStates=InGameStates.ENDGAME;
+        ShowEndGameCanvas();
+    }
     internal void ShowEndGameCanvas()
     {
+        
         EndGameCavas.SetActive(true);
     }
 
@@ -391,6 +397,7 @@ public class UIManager : ASingleton<UIManager>, IManager
     {
         //primero ver si esta muerto
         EndGameCavas.SetActive(false);
+        
         if (inGameStates == InGameStates.SELECTINGCARDS)
         {
             GameManager.Instance.BlockPause();

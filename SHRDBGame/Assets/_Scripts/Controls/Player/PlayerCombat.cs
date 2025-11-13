@@ -18,6 +18,7 @@ public class PlayerCombat : MonoBehaviour
     private void Start()
     {
         stats.CurrentHealth = stats.MaxHealth;
+        UIManager.Instance.SetPlayerHealthUI(stats.CurrentHealth/stats.MaxHealth);
         SettingsManager.Instance.onSettingsChange.AddListener(onSettingsChange);
         onSettingsChange();
     }
@@ -69,6 +70,11 @@ public class PlayerCombat : MonoBehaviour
             stats.TakeDamage(amount);
             transform.parent.GetComponent<CameraController>().Shake(1.5f, (amount / stats.MaxHealth) * 6f, (amount / stats.MaxHealth) * 6f);
             OnChangeHealth.Invoke(true);
+            if (!stats.IsAlive())
+            {
+                //llamar al level manager de que el jugador ha muerto
+                LevelManager.Instance.EndGame();
+            }
 
         }
         SetHealth(stats.CurrentHealth / stats.MaxHealth);

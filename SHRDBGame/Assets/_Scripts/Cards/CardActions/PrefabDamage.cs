@@ -23,14 +23,14 @@ public class PrefabDamage : MonoBehaviour
         targetTag = tag;
     }
 
-    public void SetImpactClips(List<AudioClip> clips)
-    {
-        if (soundPlayer != null)
-        {
-            // Accede a la lista privada mediante reflexión o crea un método público en ASoundPlayer para asignar la lista
-            soundPlayer.AssignClips(clips);
-        }
-    }
+    // public void SetImpactClips(List<AudioClip> clips) no te estaban llamando porque ya se puede poner directamente en ASoundPlayer
+    // {
+    //     if (soundPlayer != null)
+    //     {
+    //         // Accede a la lista privada mediante reflexión o crea un método público en ASoundPlayer para asignar la lista
+    //         soundPlayer.AssignClips(clips);
+    //     }
+    // }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -51,7 +51,7 @@ public class PrefabDamage : MonoBehaviour
                 soundPlayer.PlayRandomSound();
             }
 
-            Destroy(gameObject);
+            //Destroy(gameObject); no lo destruyas porque no se escucha un carajo
         }
     }
 }
