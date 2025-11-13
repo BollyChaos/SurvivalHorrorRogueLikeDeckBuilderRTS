@@ -68,7 +68,7 @@ public class TioBattling : AEnemyState
     {
 
     }
-    public IEnumerator CD()
+    private IEnumerator CD()
     {
         _agent.isStopped = true;
         Debug.Log("Abuelo attacking, cooldown started");
