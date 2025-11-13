@@ -19,7 +19,17 @@ public class DamageInversionCardAction : MonoBehaviour,ICardAction
     } 
     public void ExecuteCardAction(CardObject cardObj)
     {
+        switch (inversionType)
+        {
+            case InversionType.HEALONDAMAGE:
         playerTransform.GetComponent<PlayerCombat>().HealOnDamage = true;
+
+                break;
+            case InversionType.REFLECTDAMAGE:
+        playerTransform.GetComponent<PlayerCombat>().ReflectDamage = true;
+
+                break;
+        }
         GameObject buffP = Instantiate(buffParticles, playerTransform.position, Quaternion.identity);
         buffP.SetActive(true);
         buffP.transform.SetParent(playerTransform);

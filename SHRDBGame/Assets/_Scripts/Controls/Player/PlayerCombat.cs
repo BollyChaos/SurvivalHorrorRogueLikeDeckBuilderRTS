@@ -57,6 +57,11 @@ public class PlayerCombat : MonoBehaviour
             Heal(amount);
             healOnDamage = false;
         }
+        else if (reflectDamage)
+        {
+            reflectDamage = false;
+            return;
+        }
         else
         {
 

@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 2625889815928679499}
   - component: {fileID: 8333566241591536260}
   m_Layer: 0
-  m_Name: Spot Light
+  m_Name: FlashLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -135,7 +135,8 @@ Transform:
   m_LocalPosition: {x: 0, y: -0.45, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 7756279067350975821}
   m_Father: {fileID: 6370999122358619912}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!108 &2625889815928679499
@@ -243,9 +244,9 @@ GameObject:
   - component: {fileID: 7801138737417021066}
   - component: {fileID: 1762384668466308072}
   - component: {fileID: 5513386154301896659}
-  - component: {fileID: 1420095143830406386}
   - component: {fileID: 5726651593690908929}
   - component: {fileID: 5879275800972109252}
+  - component: {fileID: 6055342261576375628}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -269,7 +270,6 @@ Transform:
   - {fileID: 6923529797600699477}
   - {fileID: 5599297027428663297}
   - {fileID: 878158683206230454}
-  - {fileID: 7756279067350975821}
   m_Father: {fileID: 1075684988725141035}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8043160140580408481
@@ -487,23 +487,10 @@ MonoBehaviour:
     attack: 10
     attackMultiplier: 1
     speedMultiplier: 1
+  OnChangeHealth:
+    m_PersistentCalls:
+      m_Calls: []
   ammounthealth: 1
---- !u!114 &1420095143830406386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 810799984191111178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ece18c26320b5854e9fc95c757b3ca69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 6370999122358619912}
-  floorLayer:
-    serializedVersion: 2
-    m_Bits: 8
 --- !u!114 &5726651593690908929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -627,6 +614,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6055342261576375628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 810799984191111178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89af0ade2089a084bbc27f8bda57b503, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashLight: {fileID: 462274442206720623}
+  minBlinkInterval: 5
+  maxBlinkInterval: 10
+  blinkDuration: 0.1
 --- !u!1 &1261011611588499644
 GameObject:
   m_ObjectHideFlags: 0
@@ -1136,12 +1139,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6546556710762457408}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.03, y: -0.03, z: -0.01}
+  m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0.42000008, y: -0.03000006, z: -0.010000229}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6370999122358619912}
+  m_Father: {fileID: 878158683206230454}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!108 &1604815608887828714
 Light:
