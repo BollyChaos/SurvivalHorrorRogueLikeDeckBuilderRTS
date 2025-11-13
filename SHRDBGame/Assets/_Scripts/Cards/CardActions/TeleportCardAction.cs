@@ -19,23 +19,42 @@ public class TeleportCardAction : MonoBehaviour, ICardAction
 
     [SerializeField]
     private Vector3 teleportPosition;
-    [SerializeField]
-    GameObject teleportspawnprefab;
+    [SerializeField] GameObject teleportspawnprefab;
+
+    // 🔊 NUEVO: sonidos (2D)
+    [SerializeField] private AudioClip placeTeleportSound;
+    [SerializeField] private AudioClip teleportSound;
+    [SerializeField, Range(0f, 1f)] private float teleportSoundVolume = 1f;
+
+    // AudioSource local (usado para reproducir en 2D)
+    private AudioSource audioSource;
+
+    void Awake()
+    {
+        // asegúrate de tener un AudioSource local (2D)
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.playOnAwake = false;
+            audioSource.spatialBlend = 0f; // 2D
+        }
+    }
+
     void Start()
     {
-        teleportSpawnPrefab.SetActive(false);
-        teleportPrefab.SetActive(false);
+        if (teleportSpawnPrefab != null) teleportSpawnPrefab.SetActive(false);
+        if (teleportPrefab != null) teleportPrefab.SetActive(false);
     }
 
     public void ExecuteCardAction(CardObject cardObj)
     {
         //comprobacion por sea caso se queda la carta pillada(el jugador se muere habiendo puesto un portal y en la siguiente partida se queda guardado ese punto)
-        if(cardObj.CardNUses==2){ Reset(); }
+        if (cardObj.CardNUses == 2) { Reset(); }
         switch (teleportState)
         {
             case TeleportState.SETSPAWN:
                 SetSpawn();
-
                 break;
             case TeleportState.TELEPORT:
                 Teleport();
@@ -53,38 +72,46 @@ public class TeleportCardAction : MonoBehaviour, ICardAction
         teleportspawnprefab.GetComponent<ParticleSystem>().Play();
         teleportState = TeleportState.TELEPORT;
 
+        // 🔊 Sonido al colocar el portal (2D)
+        if (placeTeleportSound != null && audioSource != null)
+            audioSource.PlayOneShot(placeTeleportSound, teleportSoundVolume);
     }
+
     void Teleport()
-{
-    StartCoroutine(TeleportRoutine());
-}
+    {
+        StartCoroutine(TeleportRoutine());
+    }
 
-IEnumerator TeleportRoutine()
-{
-    // Efecto de salida
-    var teleportprefab = Instantiate(teleportPrefab, playerTransform.position, Quaternion.identity);
-    teleportprefab.SetActive(true);
-    teleportprefab.GetComponent<ParticleSystem>().Play();
-    Destroy(teleportprefab, 0.5f);
+    IEnumerator TeleportRoutine()
+    {
+        // Efecto de salida
+        var teleportprefab = Instantiate(teleportPrefab, playerTransform.position, Quaternion.identity);
+        teleportprefab.SetActive(true);
+        teleportprefab.GetComponent<ParticleSystem>().Play();
+        Destroy(teleportprefab, 0.5f);
 
-    var rb = playerTransform.GetComponent<Rigidbody>();
-    rb.velocity = Vector3.zero;
-    rb.angularVelocity = Vector3.zero;
+        // 🔊 Sonido de teletransporte (2D)
+        if (teleportSound != null && audioSource != null)
+            audioSource.PlayOneShot(teleportSound, teleportSoundVolume);
 
-    yield return new WaitForFixedUpdate(); // esperar al paso de física
+        var rb = playerTransform.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            yield return new WaitForFixedUpdate(); // esperar al paso de física
+            rb.MovePosition(teleportPosition); // teletransportar correctamente
+        }
 
-    rb.MovePosition(teleportPosition); // teletransportar correctamente
+        yield return null;
+        Reset();
+    }
 
-    yield return null;
-    Reset();
-}
-
-    
     void Reset()
     {
         teleportState = TeleportState.SETSPAWN;
         teleportPosition = Vector3.zero;
-        if(teleportspawnprefab!=null)
+        if (teleportspawnprefab != null)
             Destroy(teleportspawnprefab, 0.5f);
     }
 }

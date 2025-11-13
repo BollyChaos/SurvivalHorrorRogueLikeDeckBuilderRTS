@@ -4522,6 +4522,17 @@ MonoBehaviour:
   slashPrefab: {fileID: 1396590404}
   playerTransform: {fileID: 0}
   typeOfSlash: 0
+  SwingSounds:
+  - {fileID: 8300000, guid: efcab393c3a5d4e4da38058d284a2005, type: 3}
+  - {fileID: 8300000, guid: 2901e574db7bb7c4ea7253f22cbb6fb4, type: 3}
+  - {fileID: 8300000, guid: a6a507248bcbdd04da8c8ae20021da04, type: 3}
+  - {fileID: 8300000, guid: bcabe2e86bac2bf4d95a102117cfeeea, type: 3}
+  ImpactSounds:
+  - {fileID: 8300000, guid: f0512e0fb16cca845ae5fbab523e1cf1, type: 3}
+  - {fileID: 8300000, guid: 15ff506ebdbfeaa4b87172fd14420ef0, type: 3}
+  - {fileID: 8300000, guid: f831c2ccb18f66842a3be0760f0dc773, type: 3}
+  - {fileID: 8300000, guid: e5513f367bb38c247aeafba7c05ce04b, type: 3}
+  swingVolume: 0.69
 --- !u!1 &483901798
 GameObject:
   m_ObjectHideFlags: 0
@@ -8574,6 +8585,13 @@ MonoBehaviour:
   typeOfGun: 0
   spreadAngle: 60
   bulletsCount: 4
+  gunShotSounds:
+  - {fileID: 8300000, guid: 3ab8ed505e3925146a212f9e76650f3a, type: 3}
+  - {fileID: 8300000, guid: f4d4f053b1f02f2438046578fae7a89d, type: 3}
+  - {fileID: 8300000, guid: c6d1a0c1d3422f048a4e68ac189f6d2b, type: 3}
+  - {fileID: 8300000, guid: 16545ece9b8b7294692e825a4cc3a057, type: 3}
+  shotgunShotSounds: []
+  shotVolume: 0.69
 --- !u!4 &794341950
 Transform:
   m_ObjectHideFlags: 0
@@ -11441,6 +11459,13 @@ MonoBehaviour:
   typeOfGun: 1
   spreadAngle: 60
   bulletsCount: 4
+  gunShotSounds: []
+  shotgunShotSounds:
+  - {fileID: 8300000, guid: 14c7e164977986f42afb3a04cf782fec, type: 3}
+  - {fileID: 8300000, guid: beefef55590cbf444abcaf34734cb0ab, type: 3}
+  - {fileID: 8300000, guid: b1956c4494432164fb75b45dd14ffd0b, type: 3}
+  - {fileID: 8300000, guid: a9ec7b1385509b74497843ab268ec977, type: 3}
+  shotVolume: 0.69
 --- !u!1 &1077143934
 GameObject:
   m_ObjectHideFlags: 0
@@ -14433,6 +14458,9 @@ MonoBehaviour:
   teleportPrefab: {fileID: 7761031033132745319}
   teleportPosition: {x: 0, y: 0, z: 0}
   teleportspawnprefab: {fileID: 0}
+  placeTeleportSound: {fileID: 8300000, guid: e4fd63a576d0f468087e071e9ed6f04f, type: 3}
+  teleportSound: {fileID: 8300000, guid: e8e15a6dc1992406e9bf9fd158199864, type: 3}
+  teleportSoundVolume: 0.69
 --- !u!1 &1336401726
 GameObject:
   m_ObjectHideFlags: 0
@@ -16160,6 +16188,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 0}
   healParticles: {fileID: 924262623}
+  healSound: {fileID: 8300000, guid: 4c805887f66dc40bdb245be9a7638588, type: 3}
+  healSoundVolume: 0.69
 --- !u!4 &1492288086
 Transform:
   m_ObjectHideFlags: 0
@@ -18495,6 +18525,17 @@ MonoBehaviour:
   slashPrefab: {fileID: 1455537832}
   playerTransform: {fileID: 0}
   typeOfSlash: 1
+  SwingSounds:
+  - {fileID: 8300000, guid: 7174a737cc4c25844baa28af9f5524be, type: 3}
+  - {fileID: 8300000, guid: a8bd25dd39f996444a306df9456adaeb, type: 3}
+  - {fileID: 8300000, guid: 7c23e0aaddab2f945abc9b17642750b7, type: 3}
+  - {fileID: 8300000, guid: f1ea1b03c87a3ca4e94b2c5c1d40945f, type: 3}
+  ImpactSounds:
+  - {fileID: 8300000, guid: 6a60c6eeda868344cb7760797927aebb, type: 3}
+  - {fileID: 8300000, guid: 3dea505d28667d141b06c2ee7937aca4, type: 3}
+  - {fileID: 8300000, guid: fb0f08a5fded07846a842bfa556b908e, type: 3}
+  - {fileID: 8300000, guid: d4924f0a6f8a8e54a95c094c49da67ca, type: 3}
+  swingVolume: 1
 --- !u!1001 &1823714018
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18503,6 +18544,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 483407204}
     m_Modifications:
+    - target: {fileID: 54149321252056101, guid: a8fa7ae358f108443b4b494621383177, type: 3}
+      propertyPath: impactSounds.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 54149321252056101, guid: a8fa7ae358f108443b4b494621383177, type: 3}
+      propertyPath: impactSounds.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: f0512e0fb16cca845ae5fbab523e1cf1, type: 3}
+    - target: {fileID: 54149321252056101, guid: a8fa7ae358f108443b4b494621383177, type: 3}
+      propertyPath: impactSounds.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 15ff506ebdbfeaa4b87172fd14420ef0, type: 3}
+    - target: {fileID: 54149321252056101, guid: a8fa7ae358f108443b4b494621383177, type: 3}
+      propertyPath: impactSounds.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: f831c2ccb18f66842a3be0760f0dc773, type: 3}
+    - target: {fileID: 54149321252056101, guid: a8fa7ae358f108443b4b494621383177, type: 3}
+      propertyPath: impactSounds.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: e5513f367bb38c247aeafba7c05ce04b, type: 3}
     - target: {fileID: 1239880308564990013, guid: a8fa7ae358f108443b4b494621383177, type: 3}
       propertyPath: m_IsTrigger
       value: 1
