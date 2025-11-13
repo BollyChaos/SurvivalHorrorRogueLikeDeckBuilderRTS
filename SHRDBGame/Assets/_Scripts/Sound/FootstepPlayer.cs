@@ -58,8 +58,7 @@ public class FootstepPlayer : MonoBehaviour
 
         audioSource.PlayOneShot(footstepClips[currentStepIndex]);
 
-        currentStepIndex++;
-        if (currentStepIndex >= footstepClips.Length)
-            currentStepIndex = 0;
+        currentStepIndex=(currentStepIndex+1)%footstepClips.Length;//te ahorras el if :)
+       
     }
 }
