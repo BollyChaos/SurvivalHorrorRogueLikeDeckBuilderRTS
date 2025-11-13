@@ -15,6 +15,7 @@ public class SimplePlayerController : MonoBehaviour
         LookForInput();
         SettingsManager.Instance.onSettingsChange.AddListener(onSettingsChange);
         onSettingsChange();
+        GetComponent<Animator>().speed=0f;
     }
     void onSettingsChange()
     {
@@ -37,6 +38,13 @@ public class SimplePlayerController : MonoBehaviour
     public void OnMove(InputAction.CallbackContext ctx)
     {
         inputDir = ctx.ReadValue<Vector2>();
+
+        GetComponent<Animator>().speed=1f;
+        
+        if (ctx.canceled)
+        {
+            GetComponent<Animator>().speed=0f;
+        }
     }
     public void OnLook(InputAction.CallbackContext ctx)
     {
@@ -53,6 +61,18 @@ public class SimplePlayerController : MonoBehaviour
         rb.velocity = new Vector3(_smoothedMovementInput.x * realSpeed, rb.velocity.y, _smoothedMovementInput.y * realSpeed);
 
         transform.rotation = Quaternion.LookRotation(new Vector3(inputLook.x, inputLook.y, 0));
+    }
+    private void OnDestroy()
+    {
+           PlayerInput input = InputManager.Instance.Input;
+        if (input != null)
+        {
+            input.actions["Move"].started -= OnMove;
+            input.actions["Move"].performed -= OnMove;
+            input.actions["Move"].canceled -= OnMove;
+
+            Debug.Log("InputManager encontrado");
+        }
     }
 
 }
