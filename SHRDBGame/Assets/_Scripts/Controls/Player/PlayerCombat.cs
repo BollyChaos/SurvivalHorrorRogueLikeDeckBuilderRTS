@@ -1,12 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerCombat : MonoBehaviour
 {
     public Stats stats;
     private bool godStatus = false;
     private bool unlimitedDamage = false;
+
+    private bool healOnDamage = false;
+    public bool HealOnDamage{ get => healOnDamage; set => healOnDamage = value; }
+    private bool reflectDamage = false;
+    public bool ReflectDamage { get => reflectDamage; set => reflectDamage = value; }
+    //curarse o recibir daño pueden ser eventos, el camera shake se puede suscribir al igual que los objetos que miren estos booleanos(para desactivarse)
+    public UnityEvent<bool> OnChangeHealth;//T si ha recibido daño y F si no
     private void Start()
     {
         stats.CurrentHealth = stats.MaxHealth;
@@ -44,8 +52,20 @@ public class PlayerCombat : MonoBehaviour
     }
     public void TakeDamage(float amount)
     {
-        stats.TakeDamage(amount);
-        transform.parent.GetComponent<CameraController>().Shake(1.5f,(amount/stats.MaxHealth)*6f,(amount/stats.MaxHealth)*6f);
+        if (healOnDamage)
+        {
+            Heal(amount);
+            healOnDamage = false;
+        }
+        else
+        {
+
+
+            stats.TakeDamage(amount);
+            transform.parent.GetComponent<CameraController>().Shake(1.5f, (amount / stats.MaxHealth) * 6f, (amount / stats.MaxHealth) * 6f);
+            OnChangeHealth.Invoke(true);
+
+        }
         SetHealth(stats.CurrentHealth / stats.MaxHealth);
 
     }
@@ -55,5 +75,7 @@ public class PlayerCombat : MonoBehaviour
     {
         stats.Heal(amount);
         SetHealth(stats.CurrentHealth / stats.MaxHealth);
+        OnChangeHealth.Invoke(false);
+
     }
 }

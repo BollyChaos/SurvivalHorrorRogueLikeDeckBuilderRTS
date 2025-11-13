@@ -48,6 +48,19 @@ namespace FullOpaqueVFX
                 ExplodeShield();
             }
         }
+        private void OnTriggerEnter(Collider other)
+        {
+             if (isExploding) return;
+
+           if(other.CompareTag("Enemy"))
+
+            currentHits++;
+
+            if (currentHits >= maxHits)
+            {
+                ExplodeShield();
+            }
+        }
 
         void RestartShieldParticles()
         {
