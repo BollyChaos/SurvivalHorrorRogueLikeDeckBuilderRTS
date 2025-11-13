@@ -7,36 +7,33 @@ public class ASoundPlayer : MonoBehaviour
 {
     [SerializeField] private List<AudioClip> audioClips;
     [SerializeField] private float pitchVariation = 0.1f;
+
     private AudioSource audioSource;
     private int soundIndex = 0;
 
-    private void Awake()
+    void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+            audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
     }
 
-    public void PlaySound(int soundIdx = 0)
+    public void PlaySound(int soundidx = 0)
     {
-        soundIndex = CheckSoundIndex(soundIdx);
+        if (audioClips == null || audioClips.Count == 0) return;
+
+        soundIndex = Mathf.Clamp(soundidx, 0, audioClips.Count - 1);
         audioSource.pitch = Random.Range(1 - pitchVariation, 1 + pitchVariation);
         audioSource.PlayOneShot(audioClips[soundIndex]);
     }
 
     public void PlayRandomSound()
     {
-        soundIndex = CheckSoundIndex(Random.Range(0, audioClips.Count));
+        if (audioClips == null || audioClips.Count == 0) return;
+
+        soundIndex = Random.Range(0, audioClips.Count);
         audioSource.pitch = Random.Range(1 - pitchVariation, 1 + pitchVariation);
         audioSource.PlayOneShot(audioClips[soundIndex]);
-    }
-
-    public void AssignClips(List<AudioClip> clips)
-    {
-        audioClips = clips;
-    }
-
-    private int CheckSoundIndex(int idx)
-    {
-        soundIndex = Mathf.Clamp(idx, 0, audioClips.Count - 1);
-        return soundIndex;
     }
 }

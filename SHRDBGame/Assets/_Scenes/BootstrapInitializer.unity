@@ -12849,7 +12849,7 @@ MonoBehaviour:
   - {fileID: 47566423}
   - {fileID: 1990027564}
   - {fileID: 1136538086}
-  debug: 1
+  debug: 0
   cardToUseAlways: Hacha
 --- !u!1001 &1098063823
 PrefabInstance:
