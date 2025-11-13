@@ -15,7 +15,7 @@ public class TiendaTrigger : MonoBehaviour
 
         if (root.CompareTag("Player"))
         {
-            UIManager.Instance.ShowShopText();
+           // UIManager.Instance.ShowShopText();
         }
     }
 
@@ -25,7 +25,7 @@ public class TiendaTrigger : MonoBehaviour
         {
             if (other.transform.GetComponent<Interactor>().isInteracting)
             {
-                UIManager.Instance.OpenPanel();
+               // UIManager.Instance.OpenPanel();
             }
         }
     }
@@ -37,7 +37,7 @@ public class TiendaTrigger : MonoBehaviour
         if (root.CompareTag("Player"))
         {
 
-            UIManager.Instance.HideShopText();
+          //  UIManager.Instance.HideShopText();
         }
     }
 

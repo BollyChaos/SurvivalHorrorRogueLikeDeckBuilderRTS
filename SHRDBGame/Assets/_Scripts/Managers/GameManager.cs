@@ -88,7 +88,11 @@ namespace Managers
                     break;
             }
         }
-
+    public void RestartGame()
+        {
+            OnEndGame();
+            GameSceneManager.Instance.LoadSceneById((int)SceneIds.GAMESCENE);
+        }
         public void PauseGame()
         {
             gameState = GameState.INPAUSE;

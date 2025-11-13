@@ -58,6 +58,7 @@ public class LevelManager : ASingleton<LevelManager>,IManager
     #region MANAGERLOGIC
     public void LoadData()
     {
+        //aqui se guardaran las variables relativas al contexto del juego, por si un jugador se sale en mitad de la partida
     }
 
     public void OnEnd()

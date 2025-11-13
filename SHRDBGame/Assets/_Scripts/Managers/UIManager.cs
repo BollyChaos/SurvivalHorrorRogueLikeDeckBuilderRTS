@@ -60,8 +60,8 @@ public class UIManager : ASingleton<UIManager>, IManager
             StartCoroutine(WaitForObject(UICards[i].gameObject));//va demasiado rapido y el objeto a lo mejor no esta activo
             UICards[i].BuildCard();
         }
-            //EventSystem.current.SetSelectedGameObject(UICards[0].gameObject); no se puede hacer porque se fastidia
-        
+        //EventSystem.current.SetSelectedGameObject(UICards[0].gameObject); no se puede hacer porque se fastidia
+
 
     }
     IEnumerator WaitForObject(GameObject obj)
@@ -239,29 +239,29 @@ public class UIManager : ASingleton<UIManager>, IManager
         text.text = $"x{money}";
 
         StartCoroutine(FadeOutMoneyText(text, moneyObj));
-}
-
-IEnumerator FadeOutMoneyText(TextMeshProUGUI text, GameObject obj)
-{
-    // Espera visible
-    yield return new WaitForSeconds(1.5f);
-
-    Color c = text.color;
-    float t = 0f;
-    while (t < 0.75f)
-    {
-        t += Time.deltaTime;
-        c.a = Mathf.Lerp(1f, 0f, t / 0.75f);
-        text.color = c;
-        yield return null;
     }
 
-    obj.SetActive(false);
-}
+    IEnumerator FadeOutMoneyText(TextMeshProUGUI text, GameObject obj)
+    {
+        // Espera visible
+        yield return new WaitForSeconds(1.5f);
+
+        Color c = text.color;
+        float t = 0f;
+        while (t < 0.75f)
+        {
+            t += Time.deltaTime;
+            c.a = Mathf.Lerp(1f, 0f, t / 0.75f);
+            text.color = c;
+            yield return null;
+        }
+
+        obj.SetActive(false);
+    }
     public void ShowMoney(int money)
     {
         PlayerHUD.transform.Find("PlayerMoney").gameObject.SetActive(true);
-        PlayerHUD.transform.Find("PlayerMoney").GetComponent<TextMeshProUGUI>().text=$"x{money}";
+        PlayerHUD.transform.Find("PlayerMoney").GetComponent<TextMeshProUGUI>().text = $"x{money}";
     }
     public void HideMoney()
     {
@@ -269,39 +269,15 @@ IEnumerator FadeOutMoneyText(TextMeshProUGUI text, GameObject obj)
     }
     #endregion
 
-    #region UIShop
-    [Header("UIShop")]
-    public GameObject ShopUI;
+    #region ENDGAME
+    [Header("EndGameUI")]
+    public GameObject EndGameCavas;
 
-    public Button ExitShopButton;
-    internal void ShowShopText()
+    internal void ShowEndGameCanvas()
     {
-        ShopUI.transform.Find("ShopText").gameObject.SetActive(true);
-    }
-    internal void HideShopText()
-    {
-        ShopUI.transform.Find("ShopText").gameObject.SetActive(false);
-    }
-    internal void OpenPanel()
-    {
-        if (ShopUI != null)
-        {
-            InputManager.Instance.SwitchMapToUI();
-            ShopUI.transform.Find("ShopPanel").gameObject.SetActive(true);
-            HideShopText();
-        }
-
+        EndGameCavas.SetActive(true);
     }
 
-    internal void ClosePanel()
-    {
-        if (ShopUI != null)
-        {
-            InputManager.Instance.SwitchMapToPlayer();
-            ShopUI.transform.Find("ShopPanel").gameObject.SetActive(false);
-            ShowShopText();
-        }
-    }
 
     #endregion
 
@@ -413,6 +389,8 @@ IEnumerator FadeOutMoneyText(TextMeshProUGUI text, GameObject obj)
     }
     public void OnPauseUI(bool isPaused)
     {
+        //primero ver si esta muerto
+        EndGameCavas.SetActive(false);
         if (inGameStates == InGameStates.SELECTINGCARDS)
         {
             GameManager.Instance.BlockPause();
@@ -467,7 +445,7 @@ IEnumerator FadeOutMoneyText(TextMeshProUGUI text, GameObject obj)
         }
         else
         {
-            Debug.LogError("Estado no reconocido en pausa");    
+            Debug.LogError("Estado no reconocido en pausa");
         }
 
 
@@ -536,10 +514,7 @@ IEnumerator FadeOutMoneyText(TextMeshProUGUI text, GameObject obj)
         }
     }
 
-    public void OnEnd()
-    {
-        Debug.Log($"[{name} cerrando...]");
-    }
+
 
     public void OnEndGame()
     {
@@ -576,8 +551,8 @@ IEnumerator FadeOutMoneyText(TextMeshProUGUI text, GameObject obj)
         Debug.Log($"[{name}]Empezando juego");
         PauseMenu?.SetActive(false);
         PlayerHUD?.SetActive(true);
-        ClosePanel();
-        HideShopText();
+        EndGameCavas?.SetActive(false);
+
         //2.UI Cards
         //Ahora queremos instanciar las cartas y manejarlo de forma dinamica para poder tener bien el estado 0 del juego
         //esto es un poco xd habría que refactorizar:
@@ -617,17 +592,29 @@ IEnumerator FadeOutMoneyText(TextMeshProUGUI text, GameObject obj)
 
         }
         //Shop
-        if (ShopUI != null)
+        if (EndGameCavas != null)
         {
-            DontDestroyOnLoad(ShopUI);//solo va a existir dentro del juego pero quiero mantenerlo tambien por sea caso
-            ShopUI.SetActive(true);
-            ClosePanel();
-            HideShopText();
-            ExitShopButton.onClick.AddListener(ClosePanel);
+            DontDestroyOnLoad(EndGameCavas);//solo va a existir dentro del juego pero quiero mantenerlo tambien por sea caso
+            EndGameCavas.SetActive(false);
+            //conectar los tres botones
+            EndGameCavas.transform.Find("EndGameText/Exit").GetComponent<Button>().onClick.AddListener(QuitApplication);
+            EndGameCavas.transform.Find("EndGameText/BackToMainMenu").GetComponent<Button>().onClick.AddListener(GameManager.Instance.GoBackToMainMenu);
+            EndGameCavas.transform.Find("EndGameText/Reset").GetComponent<Button>().onClick.AddListener(GameManager.Instance.RestartGame);
+
         }
         LoadData();
     }
+    public void OnEnd()
+    {
+        Debug.Log($"[{name} cerrando...]");
+        //Player
+        ContinueButton.onClick.RemoveAllListeners();
+        //End Game
+        EndGameCavas.transform.Find("EndGameText/Exit").GetComponent<Button>().onClick.RemoveAllListeners();
+        EndGameCavas.transform.Find("EndGameText/BackToMainMenu").GetComponent<Button>().onClick.RemoveAllListeners();
+        EndGameCavas.transform.Find("EndGameText/Reset").GetComponent<Button>().onClick.RemoveAllListeners();
 
+    }
 
 
 

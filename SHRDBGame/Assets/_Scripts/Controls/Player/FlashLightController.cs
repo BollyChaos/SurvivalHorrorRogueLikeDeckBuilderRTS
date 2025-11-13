@@ -34,7 +34,7 @@ public class FlashLightController : MonoBehaviour
         flashLight.SetActive(isFlashLightActive);
     }
 
-    private IEnumerator FlickerRoutine()
+    private IEnumerator FlickerRoutine()//esta corrutina me da mucho miedo pero creo que esta controlada
     {
         while (true)
         {
