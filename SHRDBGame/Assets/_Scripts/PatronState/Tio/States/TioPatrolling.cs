@@ -4,15 +4,16 @@ using State.Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Patrol : AEnemyState
+public class TioPatrolling : AEnemyState
 {
     //atributos
     private Transform _currentTransform;
     private Vector3 _destination;
     private bool _hasDestination = false;
     private float patrolSpeed;
+    private NavMeshAgent _agent;
     //Metodos
-    public Patrol(IEnemy enemy): base(enemy){}
+    public TioPatrolling(IEnemy enemy): base(enemy){}
 
     public override void Enter()
     {
@@ -22,6 +23,8 @@ public class Patrol : AEnemyState
         //Debug.Log("Entering Patrol State");
         _hasDestination = false;
         patrolSpeed = enemy.GetPatrolSpeed();
+        _agent = enemy.GetNavMeshAgent();
+        _agent.speed = patrolSpeed;
     }
 
     public override void Exit()
@@ -39,17 +42,15 @@ public class Patrol : AEnemyState
        if(enemy.PlayerAtSight()!=null) //Si detecta al jugador
         {
             //Debug.Log("Player Spotted, switching to Chasing Player State");
-            enemy.SetState(new ChasingPlayer(enemy));
+            enemy.SetState(new TioBattling(enemy));
         }
        else
         {
-            //lo comento porque peta un poco : )
-            //Debug.Log("distancia en el update:"+(_destination - _currentTransform.position).magnitude);
             //Comportamiento de patrulla
             if(!_hasDestination||(_destination - _currentTransform.position).magnitude < 0.5f)
             {
                 Vector3 point;
-                bool found = RandomPoint(_currentTransform.position,10f,out point);
+                bool found = RandomPoint(_currentTransform.position,15f,out point);
                 if(found)
                 {
                     _destination = point;

@@ -154,8 +154,8 @@ public class EnemyController : MonoBehaviour, IEnemy
     #region Movimiento
     public void MoveToNavMesh(Vector3 destination,float speed)
     {
-        _agent.SetDestination(destination);
         _agent.speed = speed;
+        _agent.SetDestination(destination);
     }
 
     public void LookAt(Vector3 target)
@@ -200,10 +200,11 @@ public class EnemyController : MonoBehaviour, IEnemy
         throw new System.NotImplementedException();
     }
 
+    #endregion
     public virtual void AttackPlayer()
     {
         throw new System.NotImplementedException();
     }
-    #endregion
+    
 
 }

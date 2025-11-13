@@ -4,47 +4,48 @@ using State.Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AbueloBattling : AEnemyState
+public class TioBattling : AEnemyState
 {
-   
-
     //atributos
     private Transform _currentTransform;
     private GameObject _player;
-    private float chaseSpeed;
-    private float distanceToPlayer;
+    private Vector3 _destination;
     private NavMeshAgent _agent;
-
-    private Coroutine _cdCoroutine; // referencia a la coroutine activa
-
+    private float chaseSpeed;
+    private bool _seenByPlayer = false;
+    
     //Metodos
-    public AbueloBattling(IEnemy enemy) : base(enemy)
-    {
-    }
+    public TioBattling(IEnemy enemy) : base(enemy) { }
 
     public override void Enter()
     {
-        _player = enemy.PlayerAtSight();
         _currentTransform = enemy.GetGameObject().transform;
         _agent = enemy.GetNavMeshAgent();
         chaseSpeed = enemy.GetChaseSpeed();
-        //Debug.Log("ENTERING BATTLING STATE");
+        _player = enemy.PlayerAtSight();
         //Debug.Log("Entering Chasing Player State");
+
+        // Configurar agente
+        _agent.speed = chaseSpeed;
+        _agent.isStopped = false;
     }
 
     public override void Exit()
     {
-        //Debug.Log("EXITING BATTLING STATE");
-        _agent.isStopped = false;
-        if (_cdCoroutine != null)
-        {
-            enemy.GetGameObject().GetComponent<MonoBehaviour>().StopCoroutine(_cdCoroutine); // Detiene solo esta, no todas
-            _cdCoroutine = null;
-        }
+        
     }
 
     public override void FixedUpdate()
     {
+        if (SeenByPlayer())
+        {
+            _agent.speed = chaseSpeed / 2f;
+        }
+        else
+        {
+            _agent.speed = chaseSpeed;
+        }
+        
         enemy.LookAt(_player.transform.position); 
         float distanceToPlayer = Vector3.Distance(_currentTransform.position, _player.transform.position);
         if (distanceToPlayer < 2f&& _agent.isStopped == false)
@@ -65,9 +66,9 @@ public class AbueloBattling : AEnemyState
 
     public override void Update()
     {
-        
+
     }
-public IEnumerator CD()
+    public IEnumerator CD()
     {
         _agent.isStopped = true;
         Debug.Log("Abuelo attacking, cooldown started");
@@ -75,5 +76,28 @@ public IEnumerator CD()
         Debug.Log("Abuelo attack cooldown ended");
         _agent.isStopped = false;
 
+    }
+    private bool SeenByPlayer()
+    {
+        if (_player == null) return false;
+
+        // Vector desde el jugador hacia el enemigo
+        Vector3 directionToEnemy = (_currentTransform.position - _player.transform.position).normalized;
+        
+        // Distancia entre jugador y enemigo
+        float distanceToEnemy = Vector3.Distance(_player.transform.position, _currentTransform.position);
+
+        // Comprobar distancia máxima
+        if (distanceToEnemy > 10f)
+            return false;
+
+        // Ángulo entre la dirección forward del jugador y la dirección hacia el enemigo
+        float angle = Vector3.Angle(_player.transform.forward, directionToEnemy);
+
+        // Comprobar si está dentro del cono (30 grados para cada lado = 60 grados totales)
+        if (angle <= 30f)
+            return true;
+
+        return false;
     }
 }
