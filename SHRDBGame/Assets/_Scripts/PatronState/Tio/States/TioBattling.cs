@@ -9,11 +9,10 @@ public class TioBattling : AEnemyState
     //atributos
     private Transform _currentTransform;
     private GameObject _player;
-    private Vector3 _destination;
+    
     private NavMeshAgent _agent;
     private float chaseSpeed;
-    private bool _seenByPlayer = false;
-    
+
     //Metodos
     public TioBattling(IEnemy enemy) : base(enemy) { }
 
@@ -39,6 +38,7 @@ public class TioBattling : AEnemyState
     {
         if (SeenByPlayer())
         {
+            Debug.Log("Tio seen by player, slowing down");
             _agent.speed = chaseSpeed / 2f;
         }
         else
@@ -57,11 +57,11 @@ public class TioBattling : AEnemyState
             else if (distanceToPlayer >= 8f)
             {
                 enemy.NullPlayerAtSight();
-                enemy.SetState(new AbueloPatrolling(enemy));
+                enemy.SetState(new TioPatrolling(enemy));
                 return;
             }
             //Vector3 direction = ((Vector3)_player.transform.position - (Vector3)_currentTransform.position).normalized;
-            enemy.MoveToNavMesh(_player.transform.position, enemy.GetChaseSpeed());
+            enemy.MoveToNavMesh(_player.transform.position, _agent.speed);
     }
 
     public override void Update()
