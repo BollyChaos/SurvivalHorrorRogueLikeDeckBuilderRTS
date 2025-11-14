@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-2502229100878447294
+--- !u!114 &-3160814317283518842
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Tela2
+  m_Name: Mantel1
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -38,8 +38,8 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 5882d4653ff98a24fb558f724b34ab8a, type: 3}
-        m_Scale: {x: 3, y: 0.5}
+        m_Texture: {fileID: 2800000, guid: 56cef52fa2d61b8499200b5af8bd1608, type: 3}
+        m_Scale: {x: 0.0104, y: 0.014}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
@@ -62,8 +62,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 5882d4653ff98a24fb558f724b34ab8a, type: 3}
-        m_Scale: {x: 3, y: 0.5}
+        m_Texture: {fileID: 2800000, guid: 56cef52fa2d61b8499200b5af8bd1608, type: 3}
+        m_Scale: {x: 0.0104, y: 0.014}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
