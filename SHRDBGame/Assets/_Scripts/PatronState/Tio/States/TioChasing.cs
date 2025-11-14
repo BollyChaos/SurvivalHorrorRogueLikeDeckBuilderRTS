@@ -42,14 +42,14 @@ public class TioChasing : AEnemyState
     {
         if (enemy.PlayerAtSight()!=null)
         {
-            enemy.SetState(new AbueloBattling(enemy));
+            enemy.SetState(new TioBattling(enemy));
             return;
         }
 
         float distanceToSound = Vector3.Distance(_currentTransform.position, _destination);
         if (distanceToSound < 0.5f)
         {
-            enemy.SetState(new AbueloPatrolling(enemy));
+            enemy.SetState(new TioPatrolling(enemy));
             //Vector3 direction = ((Vector3)_player.transform.position - (Vector3)_currentTransform.position).normalized;
         }
         else

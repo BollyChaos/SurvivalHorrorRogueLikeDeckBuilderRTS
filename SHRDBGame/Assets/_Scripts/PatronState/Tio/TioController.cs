@@ -6,6 +6,8 @@ public class TioController : EnemyController
 {
     [SerializeField]private float hearingRange;
     private Vector3? lastHeardSoundPosition;
+    [SerializeField] GameObject slashPrefab;
+    private float damage = 40f;
 
     private void Awake()
     {
@@ -22,7 +24,7 @@ public class TioController : EnemyController
         if (distance <= hearingRange)
         {
             lastHeardSoundPosition = soundPosition;
-            SetState(new AbueloChasing(this, soundPosition));
+            SetState(new TioChasing(this, soundPosition));
         }
     }
     public Vector3? GetLastHeardSoundPosition()
@@ -30,5 +32,23 @@ public class TioController : EnemyController
         return lastHeardSoundPosition;
     }
 
+    #endregion
+    #region  ataque
+
+    public override void AttackPlayer()
+    {
+        ///Se Crea el slash para que el enemigo ataque
+        GameObject sPrefab = Instantiate(slashPrefab, transform.position + transform.forward * 2, transform.rotation);
+        sPrefab.SetActive(true);
+        ParticleSystem ps = sPrefab.GetComponent<ParticleSystem>();
+        ps.Play();
+
+        PrefabDamage slash = sPrefab.GetComponent<PrefabDamage>();
+        if (slash != null)
+        {
+            slash.Initialize(damage, "Enemy");
+        }
+        Destroy(sPrefab, 5f);
+    }
     #endregion
 }
