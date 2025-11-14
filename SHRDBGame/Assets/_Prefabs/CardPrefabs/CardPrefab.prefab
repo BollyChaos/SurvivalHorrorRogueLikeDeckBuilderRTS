@@ -57,7 +57,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 00a94705eae9a1a40992087b9785d579, type: 2}
   m_Color: {r: 0.36477977, g: 0.35252866, b: 0.05850236, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -275,6 +275,12 @@ MonoBehaviour:
   commonCardMatAttack: {fileID: 0}
   commonCardMatDefense: {fileID: 0}
   commonCardMatUtility: {fileID: 0}
+  rareCardMatAttack: {fileID: 0}
+  rareCardMatDefense: {fileID: 0}
+  rareCardMatUtility: {fileID: 0}
+  specialCardMatAttack: {fileID: 0}
+  specialCardMatDefense: {fileID: 0}
+  specialCardMatUtility: {fileID: 0}
   cardNUses: 0
   usingCard: 0
   discard: 0
