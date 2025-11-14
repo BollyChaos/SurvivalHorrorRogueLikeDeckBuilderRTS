@@ -6,7 +6,7 @@ namespace Managers
 {
     public class SoundManager : ASingleton<SoundManager>, IManager
     {
-        private enum SoundTrack { MENU, INTRO, DAY, NIGHT }
+        private enum SoundTrack { MENU, INTRO, DAY, NIGHT,DEATH }
         [SerializeField] private AudioSource musicSource;
         [SerializeField] private AudioSource sfxSource;
         [SerializeField] private List<AudioClip> audioClips;
@@ -62,6 +62,11 @@ namespace Managers
         {
             PlayMusic(audioClips[1]);
             LevelManager.Instance.onNightStateChanged.AddListener(OnNightChange);
+        }
+        public void OnPlayerDeath()
+        {
+            PlayMusic(audioClips[(int)SoundTrack.DEATH]);//voy a poner uno para que el recolector de basura no lo borre por no hacer nada
+            
         }
         public void OnNightChange(bool isNight)
         {

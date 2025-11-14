@@ -24,6 +24,13 @@ public class CardUser : MonoBehaviour
     [SerializeField]
     CardType currentCardType = CardType.Attack;
     CardType previousCardType = CardType.Attack;
+    public bool HasAnyCards
+    {
+        get
+        {
+            return HasAttackCards || HasDefenseCards || HasUtilityCards;
+        }
+    }
     public bool HasAttackCards
     {
         get
@@ -222,29 +229,55 @@ public class CardUser : MonoBehaviour
         {
             AttackCard = GetComponent<CardInventory>().GiveCard(CardType.Attack);
             if (AttackCard != null)
+            {
                 AnimateCard();
+            }
+            else if (HasAnyCards && !HasAttackCards&&currentCardType==CardType.Attack)//si hay cartas pero no de ataque saltar a la siguiente
+            {
+                currentCardType = CardType.Defense;
+                AnimateCard();
+            }
+
+
 
         }
         if (!HasDefenseCards)
         {
             DefenseCard = GetComponent<CardInventory>().GiveCard(CardType.Defense);
             if (DefenseCard != null)
+            {
                 AnimateCard();
+
+            }
+            else if (HasAnyCards && !HasDefenseCards&&currentCardType==CardType.Defense)//si hay cartas pero no de ataque saltar a la siguiente
+            {
+                currentCardType = CardType.Utility;
+                AnimateCard();
+            }
         }
         if (!HasUtilityCards)
         {
             UtilityCard = GetComponent<CardInventory>().GiveCard(CardType.Utility);
             if (UtilityCard != null)
+            {
                 AnimateCard();
+
+            }
+            else if (HasAnyCards && !HasUtilityCards&&currentCardType==CardType.Utility)//si hay cartas pero no de ataque saltar a la siguiente
+            {
+                currentCardType = CardType.Attack;
+                AnimateCard();
+            }
+
         }
-        
+
         HandleCardPressed();
         if (previousCardType != currentCardType)
         {
             AnimateCard();
             previousCardType = currentCardType;
         }
-      
+
     }
     void HandleCardPressed()
     {
@@ -259,23 +292,23 @@ public class CardUser : MonoBehaviour
                 switch (currentCardType)
                 {
                     case CardType.Attack:
-                       
-                        if(HasAttackCards)
+
+                        if (HasAttackCards)
                             AttackCard?.UseCard();
 
 
                         break;
 
                     case CardType.Defense:
-                        if(HasDefenseCards)
+                        if (HasDefenseCards)
                             DefenseCard?.UseCard();
-                       
+
 
 
                         break;
 
                     case CardType.Utility:
-                        if(HasUtilityCards)
+                        if (HasUtilityCards)
                             UtilityCard?.UseCard();
                         break;
                 }

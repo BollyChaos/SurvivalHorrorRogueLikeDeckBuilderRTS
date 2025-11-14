@@ -62,7 +62,7 @@ public class LevelManager : ASingleton<LevelManager>, IManager
         //llamar al uimanager tambien
 
         UIManager.Instance.EndGame();
-
+        SoundManager.Instance.OnPlayerDeath();
         //Desactivar enemigos
     }
     #region MANAGERLOGIC

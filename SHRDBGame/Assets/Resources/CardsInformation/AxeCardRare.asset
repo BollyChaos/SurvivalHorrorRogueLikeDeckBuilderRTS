@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d4318f981197974aab869ef415c76c7, type: 3}
-  m_Name: Speed+Card
+  m_Name: AxeCardRare
   m_EditorClassIdentifier: 
-  cardId: 11
-  cardName: Velocidad+
-  description: Mejora la velocidad durante un tiempo
-  nUses: 2
+  cardId: 1
+  cardName: Hacha
+  description: "Arma mel\xE9 que inflige gran da\xF1o"
+  nUses: 10
   unlocked: 1
-  cardType: 2
+  cardType: 0
   cardRarity: 1

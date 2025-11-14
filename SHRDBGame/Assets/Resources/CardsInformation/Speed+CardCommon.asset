@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d4318f981197974aab869ef415c76c7, type: 3}
-  m_Name: GunCard
+  m_Name: Speed+CardCommon
   m_EditorClassIdentifier: 
-  cardId: 5
-  cardName: Pistola
-  description: Dispara un proyectil hacia donde apuntes
-  nUses: 4
+  cardId: 27
+  cardName: Velocidad+
+  description: Mejora la velocidad durante un tiempo
+  nUses: 3
   unlocked: 1
-  cardType: 0
+  cardType: 2
   cardRarity: 0

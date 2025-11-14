@@ -395,10 +395,9 @@ public class UIManager : ASingleton<UIManager>, IManager
     }
     public void OnPauseUI(bool isPaused)
     {
-        //primero ver si esta muerto
-        EndGameCavas.SetActive(false);
+       //primero ver si esta muerto
 
-        if (inGameStates == InGameStates.SELECTINGCARDS)
+        if (inGameStates == InGameStates.SELECTINGCARDS||inGameStates==InGameStates.ENDGAME)
         {
             GameManager.Instance.BlockPause();
             return;//selectingcards es crucial y bloquea la pausa
@@ -438,6 +437,7 @@ public class UIManager : ASingleton<UIManager>, IManager
             //no cambiar al mapa de player porque seguimos en interfaz
             Debug.Log("Volviendo a dialogo");
             previousInGameState = inGameStates;
+        PlayerHUD.SetActive(true);
 
             inGameStates = InGameStates.INDIALOG;
         }
@@ -447,6 +447,7 @@ public class UIManager : ASingleton<UIManager>, IManager
             previousInGameState = inGameStates;
 
             inGameStates = InGameStates.INGAME;
+        PlayerHUD.SetActive(true);
 
             InputManager.Instance.SwitchMapToPlayer();
         }
@@ -460,6 +461,8 @@ public class UIManager : ASingleton<UIManager>, IManager
     }
     public void ShowSelectionCanvas()
     {
+        PlayerHUD.SetActive(true);
+        //mas avanzado, enseñar todas las cartas
         isSettingsCanvasDirty = false;
         PauseMenu.transform.Find("SelectionCanvas").gameObject.SetActive(true);
         PauseMenu.transform.Find("TabCanvas").gameObject.SetActive(false);
@@ -475,6 +478,7 @@ public class UIManager : ASingleton<UIManager>, IManager
     }
     public void ShowTabCanvas()
     {
+        PlayerHUD.SetActive(false);
         isSettingsCanvasDirty = false;//empieza en true porque carga los cambios
         PauseMenu.transform.Find("SelectionCanvas").gameObject.SetActive(false);
         PauseMenu.transform.Find("TabCanvas").gameObject.SetActive(true);
@@ -483,7 +487,10 @@ public class UIManager : ASingleton<UIManager>, IManager
     }
     public void GoBackToMainMenu()
     {
+        PlayerHUD.SetActive(false);
+        EndGameCavas.SetActive(false);
         GameManager.Instance.GoBackToMainMenu();
+        
     }
     #endregion
     #region ManagerLogic
@@ -618,7 +625,7 @@ public class UIManager : ASingleton<UIManager>, IManager
             EndGameCavas.SetActive(false);
             //conectar los tres botones
             EndGameCavas.transform.Find("EndGameText/Exit").GetComponent<Button>().onClick.AddListener(QuitApplication);
-            EndGameCavas.transform.Find("EndGameText/BackToMainMenu").GetComponent<Button>().onClick.AddListener(GameManager.Instance.GoBackToMainMenu);
+            EndGameCavas.transform.Find("EndGameText/BackToMainMenu").GetComponent<Button>().onClick.AddListener(GoBackToMainMenu);
             EndGameCavas.transform.Find("EndGameText/Reset").GetComponent<Button>().onClick.AddListener(GameManager.Instance.RestartGame);
 
         }
