@@ -8,21 +8,21 @@ public class HealingCardAction : MonoBehaviour, ICardAction
     [SerializeField] private Transform playerTransform;
     [SerializeField] private GameObject healParticles;
 
-    [SerializeField] private AudioClip healSound;
-    [SerializeField, Range(0f, 1f)] private float healSoundVolume = 1f;
+    // [SerializeField] private AudioClip healSound; sigues sin hacerme caso
+    // [SerializeField, Range(0f, 1f)] private float healSoundVolume = 1f;
 
-    private AudioSource audioSource;
+    // private AudioSource audioSource;
 
-    private void Awake()
-    {
-        audioSource = GetComponent<AudioSource>();
-        if (audioSource == null)
-        {
-            audioSource = gameObject.AddComponent<AudioSource>();
-            audioSource.playOnAwake = false;
-            audioSource.spatialBlend = 0f; // 2D
-        }
-    }
+    // private void Awake()
+    // {
+    //     audioSource = GetComponent<AudioSource>();
+    //     if (audioSource == null)
+    //     {
+    //         audioSource = gameObject.AddComponent<AudioSource>();
+    //         audioSource.playOnAwake = false;
+    //         audioSource.spatialBlend = 0f; // 2D
+    //     }
+    // }
 
     public void ExecuteCardAction(CardObject cardObj)
     {
@@ -30,8 +30,9 @@ public class HealingCardAction : MonoBehaviour, ICardAction
         hp.SetActive(true);
         hp.GetComponent<ParticleSystem>().Play();
 
-        if (healSound != null && audioSource != null)
-            audioSource.PlayOneShot(healSound, healSoundVolume);
+        // if (healSound != null && audioSource != null)
+        //     audioSource.PlayOneShot(healSound, healSoundVolume);
+        GetComponent<ASoundPlayer>().PlaySound();
 
         //20%,30% y 40%???
         float healPercentage = (2 + (int)cardObj.card.cardRarity) * 0.1f;

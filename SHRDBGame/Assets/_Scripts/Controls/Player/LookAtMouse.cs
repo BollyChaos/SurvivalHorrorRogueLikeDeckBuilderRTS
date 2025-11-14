@@ -19,7 +19,8 @@ public class LookAtMouseOrGamepad : MonoBehaviour
         {
             LookForInput();
         }
-
+        enabled=false;
+        enabled=true;
     }
 
     private void LookForInput()

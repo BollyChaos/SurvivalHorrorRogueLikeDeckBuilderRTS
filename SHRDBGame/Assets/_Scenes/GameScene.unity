@@ -10187,6 +10187,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 4520941202123774485, guid: 9c070b9c405d3eb449b4ecd6c761c063, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 5408071293250056949, guid: 9c070b9c405d3eb449b4ecd6c761c063, type: 3}
       propertyPath: deathClip
       value: 

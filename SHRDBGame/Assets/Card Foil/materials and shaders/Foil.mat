@@ -2,20 +2,24 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Foil
   m_Shader: {fileID: 4800000, guid: 40543cbcc3b8f5f409737a8a16f01ec5, type: 3}
-  m_ShaderKeywords: 
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -83,8 +87,8 @@ Material:
     - _Colorgradient1: {r: 1, g: 0, b: 0.062094666, a: 0}
     - _Colorgradient2: {r: 0, g: 0.06287715, b: 1, a: 0}
     - _Colorgradientsurface1: {r: 1, g: 0, b: 0.062094666, a: 0}
-    - _Colorgradientsurface2: {r: 0, g: 0.06287715, b: 1, a: 0}
-    - _ColorrectanguloTexto: {r: 0, g: 0.11541614, b: 0.26415092, a: 1}
+    - _Colorgradientsurface2: {r: 1, g: 0.045009866, b: 0, a: 0}
+    - _ColorrectanguloTexto: {r: 0.0849254, g: 0.15161166, b: 0.23899364, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _Metallicinandout: {r: 1, g: 1, b: 0, a: 0}
     - _Pentagono1: {r: 5.32, g: 9.43, b: -4.17, a: -0.14}

@@ -15,7 +15,7 @@ using static Managers.IManager;
 public class UIManager : ASingleton<UIManager>, IManager
 {
     //GameManager tiene sus estados pero no le importa en que estado se esta dentro del juego, ahi es donde entra uiManager 
-    public enum InGameStates { INGAME, INDIALOG, INPAUSE, SELECTINGCARDS, DAYTIME,ENDGAME }//ya se que gamemanager tiene inpause y no creo que sea redundante ya que uimanager necesita saber si esta en pausa
+    public enum InGameStates { INGAME, INDIALOG, INPAUSE, SELECTINGCARDS, DAYTIME, ENDGAME }//ya se que gamemanager tiene inpause y no creo que sea redundante ya que uimanager necesita saber si esta en pausa
     public GameStartMode StartMode => GameStartMode.EARLY;
     [SerializeField] InGameStates previousInGameState;
     [SerializeField] InGameStates inGameStates;
@@ -51,13 +51,13 @@ public class UIManager : ASingleton<UIManager>, IManager
         inGameStates = InGameStates.SELECTINGCARDS;
 
         StartCoroutine(WaitForObject(PlayerHUD));
-
+       // Debug.Log("Cartas que llegan: "+cards.Count+",cartas de interfaz: "+UICards.Count);
         for (int i = 0; i < UICards.Count; i++)
         {
             Debug.Log("Construyendo Cartas");
             UICards[i].gameObject.SetActive(true);
             UICards[i].card = cards[i];
-            StartCoroutine(WaitForObject(UICards[i].gameObject));//va demasiado rapido y el objeto a lo mejor no esta activo
+            //StartCoroutine(WaitForObject(UICards[i].gameObject));//va demasiado rapido y el objeto a lo mejor no esta activo
             UICards[i].BuildCard();
         }
         //EventSystem.current.SetSelectedGameObject(UICards[0].gameObject); no se puede hacer porque se fastidia
@@ -272,15 +272,15 @@ public class UIManager : ASingleton<UIManager>, IManager
     #region ENDGAME
     [Header("EndGameUI")]
     public GameObject EndGameCavas;
-public void EndGame()
+    public void EndGame()
     {
-        previousInGameState=InGameStates.ENDGAME;
-        inGameStates=InGameStates.ENDGAME;
+        previousInGameState = InGameStates.ENDGAME;
+        inGameStates = InGameStates.ENDGAME;
         ShowEndGameCanvas();
     }
     internal void ShowEndGameCanvas()
     {
-        
+
         EndGameCavas.SetActive(true);
     }
 
@@ -397,7 +397,7 @@ public void EndGame()
     {
         //primero ver si esta muerto
         EndGameCavas.SetActive(false);
-        
+
         if (inGameStates == InGameStates.SELECTINGCARDS)
         {
             GameManager.Instance.BlockPause();
@@ -564,18 +564,31 @@ public void EndGame()
         //Ahora queremos instanciar las cartas y manejarlo de forma dinamica para poder tener bien el estado 0 del juego
         //esto es un poco xd habría que refactorizar:
         //a lo mejor crear n Car{i+1} y dentro con el prefab emparentarlo, pero al menos funciona asi
+        string parent = "CardsSelector";
+
         for (int i = 0; i < CardManager.Instance.startingCards; i++)
         {
-            GameObject uiCard = GameObject.Instantiate(CardPrefab);
+            string emptyCardHolder = $"Card({i + 1})";
+            string path = parent + "/" + emptyCardHolder;
 
-            string parent = $"CardsSelector/Card({i + 1})";
-            PlayerHUD.transform.Find(parent);
-            EmparentCard(parent, uiCard);
-            uiCard.GetComponent<RectTransform>().localPosition = Vector3.zero;
-            uiCard.GetComponent<RectTransform>().localScale = new Vector3(3, 3);
+            Transform parentTransform = PlayerHUD.transform.Find(parent);
+
+            // Crear si no existe
+            Transform holder = PlayerHUD.transform.Find(path);
+            if (holder == null)
+            {
+                GameObject cardHolder = new GameObject(emptyCardHolder, typeof(RectTransform));
+
+                cardHolder.transform.SetParent(parentTransform, false);
+                holder = cardHolder.transform;
+            }
+
+            // Crear carta UI
+            GameObject uiCard = Instantiate(CardPrefab);
+            uiCard.transform.SetParent(holder, false);
+
+            uiCard.GetComponent<RectTransform>().localScale = Vector3.one * 3f;
             uiCard.SetActive(false);
-
-            //no hay que hacer nada mas porque al crearse y activarse buscaran al uimanager
         }
     }
 

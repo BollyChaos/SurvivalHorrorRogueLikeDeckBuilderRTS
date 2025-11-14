@@ -21,25 +21,25 @@ public class TeleportCardAction : MonoBehaviour, ICardAction
     private Vector3 teleportPosition;
     [SerializeField] GameObject teleportspawnprefab;
 
-    // 🔊 NUEVO: sonidos (2D)
-    [SerializeField] private AudioClip placeTeleportSound;
-    [SerializeField] private AudioClip teleportSound;
-    [SerializeField, Range(0f, 1f)] private float teleportSoundVolume = 1f;
+    // // 🔊 NUEVO: sonidos (2D) te lo voy a seguir comentando hasta que lo hagas bien
+    // [SerializeField] private AudioClip placeTeleportSound;
+    // [SerializeField] private AudioClip teleportSound;
+    // [SerializeField, Range(0f, 1f)] private float teleportSoundVolume = 1f;
 
     // AudioSource local (usado para reproducir en 2D)
-    private AudioSource audioSource;
+    // private AudioSource audioSource;
 
-    void Awake()
-    {
-        // asegúrate de tener un AudioSource local (2D)
-        audioSource = GetComponent<AudioSource>();
-        if (audioSource == null)
-        {
-            audioSource = gameObject.AddComponent<AudioSource>();
-            audioSource.playOnAwake = false;
-            audioSource.spatialBlend = 0f; // 2D
-        }
-    }
+    // void Awake()
+    // {
+    //     // asegúrate de tener un AudioSource local (2D)
+    //     audioSource = GetComponent<AudioSource>();
+    //     if (audioSource == null)
+    //     {
+    //         audioSource = gameObject.AddComponent<AudioSource>();
+    //         audioSource.playOnAwake = false;
+    //         audioSource.spatialBlend = 0f; // 2D
+    //     }
+    // }
 
     void Start()
     {
@@ -72,9 +72,10 @@ public class TeleportCardAction : MonoBehaviour, ICardAction
         teleportspawnprefab.GetComponent<ParticleSystem>().Play();
         teleportState = TeleportState.TELEPORT;
 
-        // 🔊 Sonido al colocar el portal (2D)
-        if (placeTeleportSound != null && audioSource != null)
-            audioSource.PlayOneShot(placeTeleportSound, teleportSoundVolume);
+        // // 🔊 Sonido al colocar el portal (2D)
+        // if (placeTeleportSound != null && audioSource != null)
+        //     audioSource.PlayOneShot(placeTeleportSound, teleportSoundVolume);
+        GetComponent<ASoundPlayer>().PlaySound(0);
     }
 
     void Teleport()
@@ -90,9 +91,10 @@ public class TeleportCardAction : MonoBehaviour, ICardAction
         teleportprefab.GetComponent<ParticleSystem>().Play();
         Destroy(teleportprefab, 0.5f);
 
-        // 🔊 Sonido de teletransporte (2D)
-        if (teleportSound != null && audioSource != null)
-            audioSource.PlayOneShot(teleportSound, teleportSoundVolume);
+        // // 🔊 Sonido de teletransporte (2D)
+        // if (teleportSound != null && audioSource != null)
+        //     audioSource.PlayOneShot(teleportSound, teleportSoundVolume);
+        GetComponent<ASoundPlayer>().PlaySound(1);
 
         var rb = playerTransform.GetComponent<Rigidbody>();
         if (rb != null)

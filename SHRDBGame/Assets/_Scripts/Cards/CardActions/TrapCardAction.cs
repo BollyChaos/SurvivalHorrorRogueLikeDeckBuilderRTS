@@ -13,7 +13,7 @@ public class TrapCardAction : MonoBehaviour,ICardAction
 
     public void ExecuteCardAction(CardObject cardObj)
     {
-        GameObject trap = Instantiate(spikeTrapPrefab, playerTransform.position+ UnityEngine.Vector3.down, UnityEngine.Quaternion.identity);
+        GameObject trap = Instantiate(spikeTrapPrefab, playerTransform.position+0.25f* UnityEngine.Vector3.down, UnityEngine.Quaternion.identity);
         trap.SetActive(true);
         cardObj.UsingCard = false;
     }
