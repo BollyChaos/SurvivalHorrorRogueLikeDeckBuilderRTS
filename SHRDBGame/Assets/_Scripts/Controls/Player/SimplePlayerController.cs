@@ -39,7 +39,7 @@ public class SimplePlayerController : MonoBehaviour
     {
         inputDir = ctx.ReadValue<Vector2>();
 
-        GetComponent<Animator>().speed=1f;
+        GetComponent<Animator>().speed=1.25f;
         
         if (ctx.canceled)
         {
