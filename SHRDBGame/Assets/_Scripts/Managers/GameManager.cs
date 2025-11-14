@@ -190,7 +190,7 @@ namespace Managers
             {
                 Debug.Log("Trigger tutorial activado");
             });
-            GameObject.Find("StartingDialog").GetComponent<TriggerEvent>().onTriggerEnterEvent.AddListener(() =>
+            GameObject.Find("StartingDialog")?.GetComponent<TriggerEvent>().onTriggerEnterEvent.AddListener(() =>
 {
     DialogManager.Instance.PlayDialogRequest("EnteringMansion");
 }

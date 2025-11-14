@@ -78,4 +78,15 @@ public class LookAtMouseOrGamepad : MonoBehaviour
     {
         lookInput = context.ReadValue<Vector2>();
     }
+    public void OnDestroy()
+    {
+         PlayerInput input = InputManager.Instance.Input;
+        if (input != null)
+        {
+
+            input.actions["Look"].started -= OnLook;
+            input.actions["Look"].performed -= OnLook;
+
+        }
+    }
 }

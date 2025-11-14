@@ -4650,8 +4650,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1532848861}
   m_HandleRect: {fileID: 1532848860}
   m_Direction: 2
-  m_Value: 0.9999999
-  m_Size: 0.29825062
+  m_Value: 1
+  m_Size: 0.29825065
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5074,8 +5074,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1402753228}
   m_HandleRect: {fileID: 1402753227}
   m_Direction: 2
-  m_Value: 0.9999999
-  m_Size: 0.29825062
+  m_Value: 1
+  m_Size: 0.29825065
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -10980,8 +10980,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 510130303}
   m_HandleRect: {fileID: 510130302}
   m_Direction: 2
-  m_Value: 0.9999999
-  m_Size: 0.29825062
+  m_Value: 1
+  m_Size: 0.29825065
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -13232,8 +13232,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1377059355}
   m_HandleRect: {fileID: 1377059354}
   m_Direction: 2
-  m_Value: 0.9999999
-  m_Size: 0.29825062
+  m_Value: 1
+  m_Size: 0.29825065
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -14322,7 +14322,7 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  delayedColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  delayedColor: {r: 1, g: 0.9203187, b: 0, a: 1}
   easeType: 6
   delaySpeed: 1.5
   initialDelay: 0.25
@@ -19054,7 +19054,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 800
   m_TargetDisplay: 0
 --- !u!224 &1725973897
 RectTransform:

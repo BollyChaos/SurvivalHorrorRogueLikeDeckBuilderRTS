@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,22 +11,36 @@ public class CardObject : MonoBehaviour
     [SerializeField]
     public
     CardsSO card;
+    [Header("Materials")]
     [SerializeField]
-    Color AttackColor;
+    Material commonCardMatAttack;
     [SerializeField]
-    Color DefenseColor;
+    Material commonCardMatDefense;
     [SerializeField]
-    Color UtilityColor;
+    Material commonCardMatUtility;
+    [SerializeField]
+    Material rareCardMatAttack;
+    [SerializeField]
+    Material rareCardMatDefense;
+    [SerializeField]
+    Material rareCardMatUtility;
+    [SerializeField]
+    Material specialCardMatAttack;
+    [SerializeField]
+    Material specialCardMatDefense;
+    [SerializeField]
+    Material specialCardMatUtility;
     [SerializeField] private int cardNUses;//va a ser la copia del numero de usos de la carta
-    public int CardNUses{ get => cardNUses; }
-[SerializeField]
+    public int CardNUses { get => cardNUses; }
+    [SerializeField]
     private bool usingCard = false;
     public bool discard = false;
-    public bool UsingCard{
-        get{return usingCard;}
-        set{ usingCard = value; }
-          }
-    
+    public bool UsingCard
+    {
+        get { return usingCard; }
+        set { usingCard = value; }
+    }
+
     //Aqui se pueden a�adir materiales distintos para luego las rarezas
 
     [ContextMenu("BuildCard")]
@@ -33,7 +48,7 @@ public class CardObject : MonoBehaviour
     {
 
         cardNUses = card.nUses;
-        
+
         // StartCoroutine(BuildCardCoroutine());
 
         Image cardSprite = null;
@@ -45,18 +60,62 @@ public class CardObject : MonoBehaviour
         }
 
         if (card != null)
-            switch (card.cardType)
+            switch (card.cardRarity)//no me juzgueis por esto, soy humano
             {
-                case CardType.Attack:
-                    cardSprite.color = AttackColor;
+                case CardRarity.Common:
+                    switch (card.cardType)
+                    {
+
+                        case CardType.Attack:
+                            cardSprite.GetComponentInChildren<Image>().material = commonCardMatAttack;
+
+                            break;
+                        case CardType.Defense:
+                            cardSprite.GetComponentInChildren<Image>().material = commonCardMatDefense;
+                            break;
+                        case CardType.Utility:
+                            cardSprite.GetComponentInChildren<Image>().material = commonCardMatUtility;
+                            break;
+
+                    }
+
                     break;
-                case CardType.Defense:
-                    cardSprite.color = DefenseColor;
+                case CardRarity.Rare:
+                       switch (card.cardType)
+                    {
+
+                        case CardType.Attack:
+                            cardSprite.GetComponentInChildren<Image>().material = rareCardMatAttack;
+
+                            break;
+                        case CardType.Defense:
+                            cardSprite.GetComponentInChildren<Image>().material = rareCardMatDefense;
+                            break;
+                        case CardType.Utility:
+                            cardSprite.GetComponentInChildren<Image>().material = rareCardMatUtility;
+                            break;
+
+                    }
                     break;
-                case CardType.Utility:
-                    cardSprite.color = UtilityColor;
+                case CardRarity.Special:
+      switch (card.cardType)
+                    {
+
+                        case CardType.Attack:
+                            cardSprite.GetComponentInChildren<Image>().material = specialCardMatAttack;
+
+                            break;
+                        case CardType.Defense:
+                            cardSprite.GetComponentInChildren<Image>().material = specialCardMatDefense;
+                            break;
+                        case CardType.Utility:
+                            cardSprite.GetComponentInChildren<Image>().material = specialCardMatUtility;
+                            break;
+
+                    }
                     break;
             }
+
         //Los hijos cardtitle y carddesccription contienen el titulo y la descripcion respectivamente
         Transform cardChild = transform.Find("CardTitle");
         if (cardChild != null)
@@ -73,52 +132,11 @@ public class CardObject : MonoBehaviour
         cardChild = transform.Find("NCardUses");
         if (cardChild != null)
         {
-             var comp = cardChild.GetComponent<TextMeshProUGUI>();
+            var comp = cardChild.GetComponent<TextMeshProUGUI>();
             comp.text = $"{card.nUses}";
         }
     }
-    private IEnumerator BuildCardCoroutine()
-    {
-        //basado en las propiedades de la carta en un prefab vacio mete los valores del so
-        //1. Ver tipo 
-        Image cardSprite = null;
-        foreach (Transform child in transform)
-        {
-            cardSprite = child.GetComponentInChildren<Image>();
-            if (cardSprite != null)
-                break;
-        }
-
-        yield return null;
-        if (card != null)
-            switch (card.cardType)
-            {
-                case CardType.Attack:
-                    cardSprite.color = AttackColor;
-                    break;
-                case CardType.Defense:
-                    cardSprite.color = DefenseColor;
-                    break;
-                case CardType.Utility:
-                    cardSprite.color = UtilityColor;
-                    break;
-            }
-        yield return null;
-        //Los hijos cardtitle y carddesccription contienen el titulo y la descripcion respectivamente
-        Transform cardChild = transform.Find("CardTitle");
-        if (cardChild != null)
-        {
-            var comp = cardChild.GetComponent<TextMeshProUGUI>();
-            comp.text = card.CardName;
-        }
-        cardChild = transform.Find("CardDescription");
-        if (cardChild != null)
-        {
-            var comp = cardChild.GetComponent<TextMeshProUGUI>();
-            comp.text = card.Description;
-        }
-        yield return null;
-    }
+   
     public void UseCard()
     {
         if (usingCard) return;
@@ -127,10 +145,10 @@ public class CardObject : MonoBehaviour
         //llamar a cardlogichandler y decir su nombre
         --cardNUses;
 
-          var cardChild = transform.Find("NCardUses");
+        var cardChild = transform.Find("NCardUses");
         if (cardChild != null)
         {
-             var comp = cardChild.GetComponent<TextMeshProUGUI>();
+            var comp = cardChild.GetComponent<TextMeshProUGUI>();
             comp.text = $"{cardNUses}";
         }
         CardManager.Instance.GetComponent<CardLogicHandler>().UseCard(this);
@@ -147,13 +165,13 @@ public class CardObject : MonoBehaviour
                 Debug.Log($"Error al descartar la carta: {e.Message}");
             }
         }
-        
+
     }
     public void Discard()
     {
         Debug.Log("Descartando carta");
         //gameObject.SetActive(false);
-        if(gameObject!=null)
+        if (gameObject != null)
             Destroy(gameObject);
     }
 }

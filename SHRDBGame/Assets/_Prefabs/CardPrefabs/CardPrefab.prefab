@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.368, g: 0.35505527, b: 0.11465326, a: 1}
+  m_Color: {r: 0.36477977, g: 0.35252866, b: 0.05850236, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -272,10 +272,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   card: {fileID: 0}
-  AttackColor: {r: 0.401, g: 0.17604877, b: 0.17604877, a: 1}
-  DefenseColor: {r: 0.21807691, g: 0.26653844, b: 0.42, a: 1}
-  UtilityColor: {r: 0.368, g: 0.35505527, b: 0.11465326, a: 1}
+  commonCardMatAttack: {fileID: 0}
+  commonCardMatDefense: {fileID: 0}
+  commonCardMatUtility: {fileID: 0}
   cardNUses: 0
+  usingCard: 0
   discard: 0
 --- !u!114 &7740669622009908523
 MonoBehaviour:
