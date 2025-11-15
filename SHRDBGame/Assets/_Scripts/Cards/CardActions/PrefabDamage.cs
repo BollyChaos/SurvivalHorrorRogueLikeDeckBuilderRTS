@@ -36,6 +36,7 @@ public class PrefabDamage : MonoBehaviour
     {
         if (other.CompareTag(targetTag))
         {
+            Debug.LogWarning($"Le pegue");
             // Aplica daño al enemigo
             var enemy = other.GetComponent<MonoBehaviour>(); // Ajusta al script real de tu enemigo
             if (enemy != null)

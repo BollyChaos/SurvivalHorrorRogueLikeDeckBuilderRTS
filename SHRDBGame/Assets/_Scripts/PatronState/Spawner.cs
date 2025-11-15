@@ -12,28 +12,28 @@ public class Spawner : MonoBehaviour
     [SerializeField] private float timeBetweenSpawns = 60f;
     private float timeSinceLastSpawn;
 
-    [SerializeField] private EnemyController enemyPrefab;
-    private IObjectPool<EnemyController> enemyPool;
+    [SerializeField] private VecinoController enemyPrefab;
+    private IObjectPool<VecinoController> enemyPool;
 
     private void Awake()
     {//habria que poner un metodo para suscribirse on startgame no en el awake
     //el spawner tiene que estar controlado por algun manager no puede ir por su cuenta
-        enemyPool = new ObjectPool<EnemyController>(CreateEnemy, OnGet, OnRelease);
+        enemyPool = new ObjectPool<VecinoController>(CreateEnemy, OnGet, OnRelease);
     }
 
-    private void OnGet (EnemyController enemy)
+    private void OnGet (VecinoController enemy)
     {
         enemy.gameObject.SetActive(true);
         Transform randomSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
         enemy.transform.position = randomSpawnPoint.position;
     }
-    private void OnRelease(EnemyController enemy)
+    private void OnRelease(VecinoController enemy)
     {
         enemy.gameObject.SetActive(false);
     }
-    private EnemyController CreateEnemy()
+    private VecinoController CreateEnemy()
     {
-        EnemyController enemy = Instantiate(enemyPrefab);
+        VecinoController enemy = Instantiate(enemyPrefab);
         enemy.SetPool(enemyPool);
         return enemy;
     }

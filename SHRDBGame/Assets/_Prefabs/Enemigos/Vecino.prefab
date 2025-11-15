@@ -202,9 +202,10 @@ GameObject:
   - component: {fileID: 7517976363267575545}
   - component: {fileID: 6153413042572521166}
   - component: {fileID: 2261900835802368192}
+  - component: {fileID: 745411407956557981}
   m_Layer: 0
   m_Name: Vecino
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -217,7 +218,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6030719545769491451}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -241,7 +242,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vision: {fileID: 6030719545769491451}
   hearingRange: 50
-  slashPrefab: {fileID: 0}
+  slashPrefab: {fileID: 6019284606097982153, guid: f7967d5cc29259345b339191a31d1b7c, type: 3}
 --- !u!135 &6153413042572521166
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -285,6 +286,25 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &745411407956557981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6030719545769491451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75aaab7be42a49445bb2d5a340691bd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats:
+    currentHealth: 100
+    invencibility: 0
+    attack: 10
+    attackMultiplier: 1
+    speedMultiplier: 1
+  damageCooldown: 1
 --- !u!1 &7766457946671023599
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class VecinoController : EnemyController
 {
@@ -9,6 +10,13 @@ public class VecinoController : EnemyController
     [SerializeField] GameObject slashPrefab;
     private float damage = 20f;
     private float health = 100f;
+
+    private IObjectPool<VecinoController> enemyPool;
+
+    public void SetPool(IObjectPool<VecinoController> pool)
+    {
+        enemyPool = pool;
+    }
 
     private void Awake()
     {
