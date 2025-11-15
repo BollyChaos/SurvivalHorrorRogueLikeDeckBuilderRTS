@@ -34,22 +34,41 @@ public class PrefabDamage : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.layer == LayerMask.NameToLayer("EnemyVision")){return;}
         if (other.CompareTag(targetTag))
         {
-            // Aplica daño al enemigo
-            var enemy = other.GetComponent<MonoBehaviour>(); // Ajusta al script real de tu enemigo
-            if (enemy != null)
-            {
-                var method = enemy.GetType().GetMethod("TakeDamage");
-                if (method != null)
-                    method.Invoke(enemy, new object[] { damage });
-            }
+            // Primero probamos si es un jugador
+        PlayerCombat player = other.GetComponent<PlayerCombat>();
+        if (player != null)
+        {
 
+            player.TakeDamage(damage);
             // Reproduce sonido de impacto
             if (soundPlayer != null)
             {
                 soundPlayer.PlayRandomSound();
             }
+            return;
+        }
+
+        // Si no es jugador, probamos si es enemigo
+        EnemyCombat enemy = other.GetComponent<EnemyCombat>();
+        if (enemy == null){
+            enemy = other.GetComponentInParent<EnemyCombat>();
+        }
+        //<Debug.Log("PrefabDamage detected collision with " + other.name);
+        if (enemy != null)
+        {
+            enemy.TakeDamage(damage);
+            // Reproduce sonido de impacto
+            if (soundPlayer != null)
+            {
+                soundPlayer.PlayRandomSound();
+            }
+            return;
+        }
+
+            
 
             //Destroy(gameObject); no lo destruyas porque no se escucha un carajo
         }

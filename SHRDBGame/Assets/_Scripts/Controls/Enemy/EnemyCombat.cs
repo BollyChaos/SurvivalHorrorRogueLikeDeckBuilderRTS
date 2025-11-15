@@ -9,9 +9,10 @@ public class EnemyCombat : MonoBehaviour
     public float damageCooldown = 1f; // Tiempo entre ataques
     private float lastAttackTime = 0f;
 
-    private void OnTriggerEnter(Collider collision)
+    private void OnCollisionEnter(Collision collision)
     {
-        PlayerCombat player = collision.GetComponent<PlayerCombat>();
+        if (collision.gameObject.layer == LayerMask.NameToLayer("EnemyVision")){return;}
+        PlayerCombat player = collision.gameObject.GetComponent<PlayerCombat>();
 
         if (player != null && Time.time >= lastAttackTime + damageCooldown)
         {
@@ -25,7 +26,18 @@ public class EnemyCombat : MonoBehaviour
         if (player != null && player.stats.IsAlive())
         {
             player.TakeDamage(stats.Attack);
-            Debug.Log($"Enemy hit player. Player health: {player.stats.CurrentHealth}");
+            //Debug.Log($"Enemy hit player. Player health: {player.stats.CurrentHealth}");
+        }
+    }
+    public void TakeDamage(float amount)
+    {
+        stats.TakeDamage(amount);
+        
+        //Debug.Log($"Enemy took damage. Current health: {stats.CurrentHealth}");
+        if (!stats.IsAlive())
+        {
+            //desactivar enemigo
+            gameObject.SetActive(false);
         }
     }
 }

@@ -2131,17 +2131,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 295162809}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1928029503 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6823851821172519275, guid: 07e45468502ca82498ad4c1a97e98b51, type: 3}
-  m_PrefabInstance: {fileID: 729618971910111665}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1928029506 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1929194019264007463, guid: 07e45468502ca82498ad4c1a97e98b51, type: 3}
   m_PrefabInstance: {fileID: 729618971910111665}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1928029503}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 984b799db7a601347a054eea2a613f6f, type: 3}
@@ -2628,26 +2623,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1350768365799400280, guid: 07e45468502ca82498ad4c1a97e98b51, type: 3}
-      propertyPath: m_Radius
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1350768365799400280, guid: 07e45468502ca82498ad4c1a97e98b51, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1929194019264007463, guid: 07e45468502ca82498ad4c1a97e98b51, type: 3}
-      propertyPath: vision
-      value: 
-      objectReference: {fileID: 1928029503}
-    - target: {fileID: 1929194019264007463, guid: 07e45468502ca82498ad4c1a97e98b51, type: 3}
-      propertyPath: slashPrefab
-      value: 
-      objectReference: {fileID: 8224439537519867580}
-    - target: {fileID: 1929194019264007463, guid: 07e45468502ca82498ad4c1a97e98b51, type: 3}
-      propertyPath: hearingRange
-      value: 50
-      objectReference: {fileID: 0}
     - target: {fileID: 3696420041013151392, guid: 07e45468502ca82498ad4c1a97e98b51, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2691,10 +2666,6 @@ PrefabInstance:
     - target: {fileID: 6823851821172519275, guid: 07e45468502ca82498ad4c1a97e98b51, type: 3}
       propertyPath: m_Name
       value: Tio
-      objectReference: {fileID: 0}
-    - target: {fileID: 6823851821172519275, guid: 07e45468502ca82498ad4c1a97e98b51, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2753,10 +2724,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Vecino
       objectReference: {fileID: 0}
-    - target: {fileID: 7517976363267575545, guid: 77af28352866ea44ca4aea93c25bb1f8, type: 3}
-      propertyPath: slashPrefab
-      value: 
-      objectReference: {fileID: 8224439537519867580}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2846,7 +2813,7 @@ PrefabInstance:
     - target: {fileID: 510766130280093480, guid: 31456fbe6a2b7a14e8b888d6b35c6d0d, type: 3}
       propertyPath: slashPrefab
       value: 
-      objectReference: {fileID: 8224439537519867580}
+      objectReference: {fileID: 6019284606097982153, guid: f7967d5cc29259345b339191a31d1b7c, type: 3}
     - target: {fileID: 510766130280093480, guid: 31456fbe6a2b7a14e8b888d6b35c6d0d, type: 3}
       propertyPath: waypoints.Array.data[0]
       value: 
@@ -2903,20 +2870,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Abuelo
       objectReference: {fileID: 0}
-    - target: {fileID: 2405132392736585338, guid: 31456fbe6a2b7a14e8b888d6b35c6d0d, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31456fbe6a2b7a14e8b888d6b35c6d0d, type: 3}
---- !u!1 &8224439537519867580 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6019284606097982153, guid: f7967d5cc29259345b339191a31d1b7c, type: 3}
-  m_PrefabInstance: {fileID: 587205276726481486}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

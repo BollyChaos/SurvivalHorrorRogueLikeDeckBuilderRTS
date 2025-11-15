@@ -12,7 +12,7 @@ public class TioController : EnemyController
 
     private void Awake()
     {
-        SetChaseSpeed(7);
+        SetChaseSpeed(12);
         SetPatrolSpeed(3);
         base.Awake();
         SetState(new TioPatrolling(this));
@@ -47,7 +47,7 @@ public class TioController : EnemyController
         PrefabDamage slash = sPrefab.GetComponent<PrefabDamage>();
         if (slash != null)
         {
-            slash.Initialize(damage, "Enemy");
+            slash.Initialize(damage, "Player");
         }
         Destroy(sPrefab, 5f);
     }

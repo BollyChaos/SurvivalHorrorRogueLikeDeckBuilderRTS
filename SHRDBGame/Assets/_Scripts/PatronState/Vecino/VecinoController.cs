@@ -55,7 +55,7 @@ public class VecinoController : EnemyController
         PrefabDamage slash = sPrefab.GetComponent<PrefabDamage>();
         if (slash != null)
         {
-            slash.Initialize(damage, "Enemy");
+            slash.Initialize(damage, "Player");
         }
         Destroy(sPrefab, 5f);
     }
