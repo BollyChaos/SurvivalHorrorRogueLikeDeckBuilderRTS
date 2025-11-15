@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speaker: 0
   text: "Lo mejor ser\xE1 entrar y dejarme de tonter\xEDas, pero c\xF3mo va a ser
-    peligrosa una vieja casa, ni que se hubiera realizado un ritual en ella"
+    peligrosa una vieja casa, si total, solo es un conjunto de viejos ladrillos y
+    tablones de madera."
   textDuration: 2.5
