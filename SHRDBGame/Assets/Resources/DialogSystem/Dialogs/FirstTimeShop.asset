@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed47826758172a541837b1c1f3f61262, type: 3}
   m_Name: FirstTimeShop
   m_EditorClassIdentifier: 
-  ConvName: 
+  ConvName: FirstTimeShop
   phrases:
   - {fileID: 11400000, guid: 92c83a812fea2fe4dbf17c37267afa06, type: 2}
   - {fileID: 11400000, guid: 4f094c80f5d58744da96b317a45844ad, type: 2}
@@ -23,5 +23,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b6d77dcf1b214bb41b22c86f640b6a83, type: 2}
   - {fileID: 11400000, guid: d6f52feedb3316b4fbf586a162e95f08, type: 2}
   - {fileID: 11400000, guid: eab7709c0d36c1c48b2e2489cc2191cd, type: 2}
-  - {fileID: 11400000, guid: c3ba2d5039a1ccf448f4bb6f44bf8565, type: 2}
   - {fileID: 11400000, guid: e60ee711ebf8bbc4ebfa174fb06e85d4, type: 2}

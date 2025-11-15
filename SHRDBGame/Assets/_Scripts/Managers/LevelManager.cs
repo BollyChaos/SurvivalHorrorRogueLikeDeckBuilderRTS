@@ -52,6 +52,7 @@ public class LevelManager : ASingleton<LevelManager>, IManager
         else
         {
             Debug.Log("All nights completed!");
+            WinGame();
             // Aquí puedes agregar la lógica para cuando se completen todas las noches
         }
     }
@@ -64,6 +65,14 @@ public class LevelManager : ASingleton<LevelManager>, IManager
         UIManager.Instance.EndGame();
         SoundManager.Instance.OnPlayerDeath();
         //Desactivar enemigos
+    }
+    public void WinGame()
+    {
+          Debug.Log("Fin de la partida");
+        InputManager.Instance.SwitchMapToUI();
+        //llamar al uimanager tambien
+
+        UIManager.Instance.EndGame(true);
     }
     #region MANAGERLOGIC
     public void LoadData()
