@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: EnteringMansionPhrase1
   m_EditorClassIdentifier: 
   speaker: 0
-  text: "Con que aqu\xED es donde voy a vivir a partir de ahora, no s\xE9 si haberlo
+  text: "Todav\xEDa sigo sin saber qu\xE9 es lo que hago aqu\xED, no s\xE9 si haberlo
     dejado todo por esto realmente merece la pena."
   textDuration: 2.5
