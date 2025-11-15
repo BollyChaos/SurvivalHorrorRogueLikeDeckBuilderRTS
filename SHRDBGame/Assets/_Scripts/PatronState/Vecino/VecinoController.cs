@@ -2,20 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TioController : EnemyController
+public class VecinoController : EnemyController
 {
     [SerializeField]private float hearingRange;
     private Vector3? lastHeardSoundPosition;
     [SerializeField] GameObject slashPrefab;
-    private float damage = 30f;
-    private float health = 200f;
+    private float damage = 20f;
+    private float health = 100f;
 
     private void Awake()
     {
         SetChaseSpeed(7);
         SetPatrolSpeed(3);
         base.Awake();
-        SetState(new TioPatrolling(this));
+        SetState(new VecinoPatrolling(this));
     }
     #region sonidos
 
@@ -25,7 +25,7 @@ public class TioController : EnemyController
         if (distance <= hearingRange)
         {
             lastHeardSoundPosition = soundPosition;
-            SetState(new TioChasing(this, soundPosition));
+            SetState(new VecinoChasing(this, soundPosition));
         }
     }
     public Vector3? GetLastHeardSoundPosition()
