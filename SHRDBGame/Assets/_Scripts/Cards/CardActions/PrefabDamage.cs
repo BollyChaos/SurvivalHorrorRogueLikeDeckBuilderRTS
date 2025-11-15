@@ -34,15 +34,8 @@ public class PrefabDamage : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //IGNORAR SI ENTRA EN LA VISION DEL ENEMIGO
-        if (other.gameObject.layer == LayerMask.NameToLayer("EnemyVision")){return;}
-
         if (other.CompareTag(targetTag))
         {
-<<<<<<< Updated upstream
-=======
-            //Debug.LogWarning($"Le pegue");
->>>>>>> Stashed changes
             // Aplica daño al enemigo
             var enemy = other.GetComponent<MonoBehaviour>(); // Ajusta al script real de tu enemigo
             if (enemy != null)

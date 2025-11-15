@@ -125,19 +125,29 @@ public class EnemyController : MonoBehaviour, IEnemy
 
     // }
 
-    public void OnPlayerEnterVision(GameObject other)
+    private void OnTriggerEnter(Collider other)
     {
-        playerAtSight = other;
+        if (other.CompareTag("Player"))
+        {
+            playerAtSight = other.gameObject;
+            
+        }
     }
 
-    public void OnPlayerStayVision(GameObject other)
+    private void OnTriggerStay(Collider other)
     {
-        playerAtSight = other;
+        if (other.CompareTag("Player"))
+        {
+            playerAtSight = other.gameObject;
+        }
     }
 
-    public void OnPlayerExitVision()
+    private void OnTriggerExit(Collider other)
     {
-        playerAtSight = null;
+        if (other.CompareTag("Player"))
+        {
+            playerAtSight = null;
+        }
     }
     #endregion
 
