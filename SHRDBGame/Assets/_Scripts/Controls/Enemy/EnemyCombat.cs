@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyCombat : MonoBehaviour
 {
     public Stats stats;
+
     public float damageCooldown = 1f; // Tiempo entre ataques
     private float lastAttackTime = 0f;
 
