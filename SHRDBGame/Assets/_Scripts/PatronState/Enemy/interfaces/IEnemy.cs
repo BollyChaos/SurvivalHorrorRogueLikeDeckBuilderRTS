@@ -26,6 +26,9 @@ namespace State.Interfaces
         public bool IsSalonAbierto();
         public float GetRestDuration();
         public void AttackPlayer();
+        public void OnPlayerEnterVision(GameObject other);
+        public void OnPlayerStayVision(GameObject other);
+        public void OnPlayerExitVision();
 
         //Poner de aqui en adelante fucniones que puedan realizar los enemigos, ej: Detectar jugador, moverse...
     }
