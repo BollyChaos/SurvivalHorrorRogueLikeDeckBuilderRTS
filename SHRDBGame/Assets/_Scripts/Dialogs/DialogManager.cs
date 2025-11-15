@@ -6,6 +6,7 @@ using Patterns.Singleton;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class DialogManager : ASingleton<DialogManager>, IManager
@@ -20,6 +21,7 @@ public class DialogManager : ASingleton<DialogManager>, IManager
     Coroutine RunningDialog;
 
     public IManager.GameStartMode StartMode => IManager.GameStartMode.NORMAL;
+    public UnityEvent onEndDialog;
 
     #region DIALOG LOGIC
     [ContextMenu("PlayDialog")]
@@ -32,6 +34,7 @@ public class DialogManager : ASingleton<DialogManager>, IManager
 
         if (RunningDialog == null)
         {
+            Debug.Log("[DialogManager] Iniciando dialogo: "+dialogName);
             RunningDialog = StartCoroutine(PlayDialog(dialogName));
         }
         else
@@ -42,7 +45,7 @@ public class DialogManager : ASingleton<DialogManager>, IManager
     public void ReadInputValue(bool input)
     {
         InputPressed = input;
-        Debug.Log("Input de dialogo recibido" + input);
+        //Debug.Log("Input de dialogo recibido" + input);
 
     }
     private void Update()
@@ -69,7 +72,7 @@ public class DialogManager : ASingleton<DialogManager>, IManager
         }
     }
 
-    public IEnumerator PlayDialog(string DialogName)
+    private IEnumerator PlayDialog(string DialogName)
     {
         dialogCanvas.gameObject.SetActive(true);
         DialogSO dialog = FindDialog(DialogName);
@@ -86,7 +89,7 @@ public class DialogManager : ASingleton<DialogManager>, IManager
         while (iterator.MoveNext())
         {
             i++;
-            Debug.Log("Iteracion" + i);
+            //Debug.Log("Iteracion" + i);
 
             dialogCanvas.PreparteText((PhraseSO)iterator.Current);
 
@@ -105,7 +108,7 @@ public class DialogManager : ASingleton<DialogManager>, IManager
         dialogCanvas.gameObject.SetActive(false);
         InputManager.Instance.SwitchMapToPlayer();
         UIManager.Instance.CloseDialog();
-
+        onEndDialog.Invoke();
 
 
     }

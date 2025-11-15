@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -37,6 +38,7 @@ public class CardInventory : MonoBehaviour
     }
     public void AddCard(CardObject pCard)
     {
+        try{
         switch (pCard.card.cardType)
         {
             case CardType.Attack:
@@ -69,6 +71,10 @@ public class CardInventory : MonoBehaviour
                     }
                 }
                 break;
+        }}catch(Exception e)
+        {
+            Debug.LogError("La carta que me ha llegado es null: "+pCard==null);
+            Debug.LogError(e.Message);   
         }
 
     }

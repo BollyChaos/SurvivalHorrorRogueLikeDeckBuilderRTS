@@ -61,7 +61,7 @@ public class UIManager : ASingleton<UIManager>, IManager
             UICards[i].BuildCard();
         }
         //EventSystem.current.SetSelectedGameObject(UICards[0].gameObject); no se puede hacer porque se fastidia
-
+PlayerHUD.transform.Find("CardsSelector").gameObject.SetActive(true);
 
     }
     IEnumerator WaitForObject(GameObject obj)
@@ -94,7 +94,7 @@ public class UIManager : ASingleton<UIManager>, IManager
         //
         Debug.Log("Seleccion acabada");
         //bloquear interfaz(desactivar el componente)
-
+        PlayerHUD.transform.Find("CardsSelector").gameObject.SetActive(false);
         ContinueButton.gameObject.SetActive(false);
         previousInGameState = inGameStates;
         inGameStates = InGameStates.INGAME;
@@ -154,7 +154,8 @@ public class UIManager : ASingleton<UIManager>, IManager
         InputManager.Instance.SwitchMapToPlayer();
 
         //y comienza la noche >:)
-        LevelManager.Instance.StartNight();
+        //Movido al fin de dialogo con Eleanor
+        GameObject.Find("Eleanor").GetComponent<EleanorBehaviour>().EndCardSelection();
     }
     //recibir el canvas padre world space y pasar la pos al canvas screen space de player
     public void PassWorldPosToUI(GameObject uiWorld, Canvas WorldCanvas)//el canvas screen space es el de player hud
@@ -272,10 +273,19 @@ public class UIManager : ASingleton<UIManager>, IManager
     #region ENDGAME
     [Header("EndGameUI")]
     public GameObject EndGameCavas;
-    public void EndGame()
+    public void EndGame(bool won=false)
     {
         previousInGameState = InGameStates.ENDGAME;
         inGameStates = InGameStates.ENDGAME;
+        if (won)
+        {
+            EndGameCavas.transform.Find("EndGameText").GetComponent<TextMeshProUGUI>().text="¡Has ganado!";
+        }
+        else
+        {
+            EndGameCavas.transform.Find("EndGameText").GetComponent<TextMeshProUGUI>().text="¡Has muerto!";
+            
+        }
         ShowEndGameCanvas();
     }
     internal void ShowEndGameCanvas()
@@ -597,7 +607,9 @@ public class UIManager : ASingleton<UIManager>, IManager
             uiCard.GetComponent<RectTransform>().localScale = Vector3.one * 3f;
             uiCard.SetActive(false);
         }
+        PlayerHUD.transform.Find(parent).gameObject.SetActive(false);
     }
+
 
     public void SaveData()
     {

@@ -1,7 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[Obsolete("Sistema obsoleto de prueba")]
 public class Couch : MonoBehaviour,IInteractable
 {
     public bool IsInteractable { get => interactable; }

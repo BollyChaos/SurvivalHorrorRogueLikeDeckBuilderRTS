@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed47826758172a541837b1c1f3f61262, type: 3}
+  m_Name: TutorialDialog
+  m_EditorClassIdentifier: 
+  ConvName: TutorialDialog
+  phrases:
+  - {fileID: 11400000, guid: 7136566038a43ef45a704ba4a71b85dc, type: 2}
+  - {fileID: 11400000, guid: 737b33ef9236e384f82fc095e1d47964, type: 2}
+  - {fileID: 11400000, guid: 86f65e045e0343a4d8a9be7947712893, type: 2}
+  - {fileID: 11400000, guid: 177a1afceca8b514b8bac4f0e704dc47, type: 2}
+  - {fileID: 11400000, guid: baa857def439eab42adb78cac3d5190b, type: 2}
+  - {fileID: 11400000, guid: 703903b3a75b5ee4a93659d467dd0421, type: 2}
+  - {fileID: 11400000, guid: 25b66d3b4c9d219498a806759b385d36, type: 2}
+  - {fileID: 11400000, guid: ce3152536c152b745a1350802d36c5e2, type: 2}
+  - {fileID: 11400000, guid: aa74982b231c9ec4ba67d1e0addedb18, type: 2}
+  - {fileID: 11400000, guid: ef0503c2f5ffd6c40969b98f46acd828, type: 2}
+  - {fileID: 11400000, guid: bc0ed2213b0523d46ab03956798c8048, type: 2}
+  - {fileID: 11400000, guid: 90dba4ab8c75730469c1d7b933ddb26e, type: 2}
+  - {fileID: 11400000, guid: f83dfed9fefab984f860e4bc3d1a4f9e, type: 2}

@@ -14598,6 +14598,7 @@ GameObject:
   - component: {fileID: 3361320373047509284}
   - component: {fileID: 7204506075114958393}
   - component: {fileID: 3185796594274775653}
+  - component: {fileID: 2169592733961413317}
   m_Layer: 0
   m_Name: MoneyDrop
   m_TagString: Untagged
@@ -19640,3 +19641,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2169592733961413317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9006538771556817521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8091c049a97777242a5dd8b0b3fc5707, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClips: []
+  pitchVariation: 0.1

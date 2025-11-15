@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed47826758172a541837b1c1f3f61262, type: 3}
   m_Name: SecondTimeEleanor
   m_EditorClassIdentifier: 
-  ConvName: 
+  ConvName: SecondTimeEleanor
   phrases:
   - {fileID: 11400000, guid: c3e030b5f014b174ea1d1e55812578fb, type: 2}
