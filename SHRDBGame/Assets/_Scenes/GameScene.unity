@@ -25398,7 +25398,7 @@ MonoBehaviour:
   - {fileID: 252046319}
   - {fileID: 725064929}
   - {fileID: 544548583}
-  timeBetweenSpawns: 5
+  timeBetweenSpawns: 20
   CanSpawnEnemies: 0
   enemyPrefab: {fileID: 1198936802}
   vecinos: []
@@ -28649,6 +28649,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4233152162951676266, guid: b9a75477857f20241968d4b053a528b7, type: 3}
+      propertyPath: eleanormesh
+      value: 
+      objectReference: {fileID: 2775697153087314346}
+    - target: {fileID: 4233152162951676266, guid: b9a75477857f20241968d4b053a528b7, type: 3}
       propertyPath: EntranceDoor
       value: 
       objectReference: {fileID: 1406503272}
@@ -28669,6 +28673,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9a75477857f20241968d4b053a528b7, type: 3}
+--- !u!23 &2775697153087314346 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6681199088304877273, guid: b9a75477857f20241968d4b053a528b7, type: 3}
+  m_PrefabInstance: {fileID: 2775697153087314345}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2878086257477160570
 GameObject:
   m_ObjectHideFlags: 0

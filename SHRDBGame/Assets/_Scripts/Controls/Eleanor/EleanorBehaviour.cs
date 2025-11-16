@@ -6,6 +6,8 @@ public class EleanorBehaviour : MonoBehaviour, IInteractable
 {
     private enum EleanorPhase { STARTGAME, GETCARDS, AFTERCARDS, ONSHOP }
     private enum EleanorTime { FIRST, SECOND, THIRD, FORTH, FIFTH }
+    [SerializeField]
+    //private MeshRenderer eleanormesh;
     private int DayTimeCounter = 2;//tras la primera noche se habla dos veces con eleanor para que en la segunda puedas saltar a la siguiente noche
     private int dayCounter = 0;
 
@@ -53,24 +55,33 @@ public class EleanorBehaviour : MonoBehaviour, IInteractable
     }
     public void onEndDialog()
     {
-        isInteractionLocked = false;
         DialogManager.Instance.onEndDialog.RemoveListener(onEndDialog);
 
         if (phase == EleanorPhase.AFTERCARDS)
         {
-            LevelManager.Instance.StartNight();
             phase = EleanorPhase.ONSHOP;
             transform.position = shopSpot;
+            LevelManager.Instance.StartNight();
+            isInteractionLocked = false;
+
+
+            
         }
         else if (phase == EleanorPhase.ONSHOP && dayCounter == DayTimeCounter)
         {
             dayCounter = 0;
             LevelManager.Instance.NextNight();
+        isInteractionLocked = false;
+
         }
         else if (time == EleanorTime.FIFTH)
         {
             LevelManager.Instance.NextNight();
+        isInteractionLocked = false;
+
         }
+        isInteractionLocked = false;
+
 
     }
     public void EndCardSelection()

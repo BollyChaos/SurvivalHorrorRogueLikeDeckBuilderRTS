@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DamageAbsortionCard
   m_EditorClassIdentifier: 
   cardId: 1
-  cardName: "AbsorverDa\xF1o"
+  cardName: "AbsorberDa\xF1o"
   description: El siguiente golpe que recibas se convierte en salud
   nUses: 2
   unlocked: 0

@@ -67,24 +67,35 @@ public class Interactor : MonoBehaviour
     }
 
     private IInteractable GetClosestInteractable()
+{
+    float minDist = float.MaxValue;
+    IInteractable closest = null;
+
+    // Recorremos al revés para poder eliminar sin problemas
+    for (int j = interactablesInRange.Count - 1; j >= 0; j--)
     {
-        float minDist = float.MaxValue;
-        IInteractable closest = null;
+        var i = interactablesInRange[j];
 
-        foreach (var i in interactablesInRange)
+        if (i == null || !i.GetTransform().gameObject.activeSelf)
         {
-            if (i == null) continue;
-
-            float dist = Vector3.Distance(transform.position, i.GetTransform().position);
-            if (dist < minDist)
-            {
-                minDist = dist;
-                closest = i;
-            }
+            UIManager.Instance.HideInteractionText();
+            interactablesInRange.RemoveAt(j); // eliminar inactivo o null
+            
+            continue;
         }
 
-        return closest;
+        float dist = Vector3.Distance(transform.position, i.GetTransform().position);
+
+        if (dist < minDist)
+        {
+            minDist = dist;
+            closest = i;
+        }
     }
+
+    return closest;
+}
+
 
     private void OnTriggerEnter(Collider other)
     {

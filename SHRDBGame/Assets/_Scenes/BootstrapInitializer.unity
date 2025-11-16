@@ -1718,7 +1718,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "N\xBA Cartas Inicio(no activar de momento, se casca el juego)"
+  m_text: "N\xBA Cartas Inicio"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 7488960c6bd2a3140bfe6a450232e25e, type: 2}
   m_sharedMaterial: {fileID: 6181864109730628114, guid: 7488960c6bd2a3140bfe6a450232e25e, type: 2}
@@ -2471,7 +2471,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DebugGame: 1
-  ChangeInitalScene: 1
+  ChangeInitalScene: 0
   startingDebugScene: 2
   SkipPhase: 0
   SkipCardSelectionPhase: 1
@@ -4359,8 +4359,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1402753228}
   m_HandleRect: {fileID: 1402753227}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.29825065
+  m_Value: 0.9999999
+  m_Size: 0.29825062
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -9402,8 +9402,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 510130303}
   m_HandleRect: {fileID: 510130302}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.29825065
+  m_Value: 0.9999999
+  m_Size: 0.29825062
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -10264,7 +10264,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nNights: 5
   currentNight: 1
-  nightDuration: 2000
+  nightDuration: 120
   isNightActive: 0
   onNightStateChanged:
     m_PersistentCalls:
@@ -11268,8 +11268,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1377059355}
   m_HandleRect: {fileID: 1377059354}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.29825065
+  m_Value: 0.9999999
+  m_Size: 0.29825062
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -13129,7 +13129,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1293504410
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14341,8 +14341,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 980390442}
   m_HandleRect: {fileID: 980390441}
   m_Direction: 2
-  m_Value: 1.0000001
-  m_Size: 0.29825065
+  m_Value: 1
+  m_Size: 0.29825062
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -15802,7 +15802,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1585409020
 RectTransform:
   m_ObjectHideFlags: 0
@@ -20259,7 +20259,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1441314980085305491, guid: efd028d2bb76ef24cab90569513c2059, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.7
       objectReference: {fileID: 0}
     - target: {fileID: 1441314980085305491, guid: efd028d2bb76ef24cab90569513c2059, type: 3}
       propertyPath: m_LocalPosition.z
@@ -20293,6 +20293,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3387927970632984691, guid: efd028d2bb76ef24cab90569513c2059, type: 3}
+      propertyPath: audioClips.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3387927970632984691, guid: efd028d2bb76ef24cab90569513c2059, type: 3}
+      propertyPath: audioClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6688336199676993398, guid: efd028d2bb76ef24cab90569513c2059, type: 3}
       propertyPath: m_Name
       value: InmolationCardPrefab
@@ -20317,7 +20325,7 @@ GameObject:
   - component: {fileID: 1990027565}
   - component: {fileID: 1990027566}
   m_Layer: 0
-  m_Name: "AbsorverDa\xF1o"
+  m_Name: "AbsorberDa\xF1o"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
