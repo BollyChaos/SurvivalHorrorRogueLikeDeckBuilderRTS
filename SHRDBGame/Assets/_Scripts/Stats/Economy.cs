@@ -41,4 +41,12 @@ public class Economy : MonoBehaviour
             return false;
         }
     }
+
+    public bool HasCoins(int amount)
+    {
+        if (unlimitedMoney || nextPurchaseFree)
+            return true;
+
+        return coins >= amount;
+    }
 }

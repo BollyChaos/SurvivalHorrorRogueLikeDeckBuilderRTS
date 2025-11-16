@@ -7,17 +7,18 @@ using UnityEngine;
 public class BuffCardAction : MonoBehaviour, ICardAction
 {
     private enum BuffType { Speed, Damage, Invencibility }
+
     public Transform PlayerTransform { get => playerTransform; set => playerTransform = value; }
     [SerializeField] BuffType buffType;
     [SerializeField] private Transform playerTransform;
+
     [SerializeField] private GameObject particles;
-    [SerializeField]
-    private float buffTime = 5f;
+    [SerializeField] private float buffTime = 5f;
 
     private bool HasUsedBuff = false;
     private float buffTimeCounter = 0f;
 
-    // sonido
+
     private ASoundPlayer soundPlayer;
 
     void Start()
@@ -27,7 +28,6 @@ public class BuffCardAction : MonoBehaviour, ICardAction
 
     public void ExecuteCardAction(CardObject cardObj)
     {
-        // cada vez que se usa la carta de buff se suma al contador
         buffTimeCounter += buffTime;
         HasUsedBuff = true;
 
@@ -41,12 +41,10 @@ public class BuffCardAction : MonoBehaviour, ICardAction
                 float speedPercentage = 1 + (2 + (int)cardObj.card.cardRarity) * 0.1f;
                 playerTransform.GetComponent<PlayerCombat>().stats.ChangeSpeedMultiplier(speedPercentage);
 
-                // ACTIVAR boost en FootstepPlayer
                 FootstepPlayer fp = playerTransform.GetComponent<FootstepPlayer>();
-                if (fp != null)
-                    fp.boostActive = true;
+                if (fp != null) fp.boostActive = true;
 
-                // reproducir sonido de Speed Buff
+
                 if (soundPlayer != null)
                     soundPlayer.PlayRandomSound();
                 break;
@@ -58,6 +56,10 @@ public class BuffCardAction : MonoBehaviour, ICardAction
 
             case BuffType.Invencibility:
                 playerTransform.GetComponent<PlayerCombat>().stats.Invencibility = true;
+
+
+                if (soundPlayer != null)
+                    soundPlayer.PlayRandomSound();
                 break;
         }
 
@@ -68,6 +70,7 @@ public class BuffCardAction : MonoBehaviour, ICardAction
     private void Update()
     {
         if (!HasUsedBuff) return;
+
         buffTimeCounter -= Time.deltaTime;
 
         if (buffTimeCounter <= 0f)
@@ -78,11 +81,8 @@ public class BuffCardAction : MonoBehaviour, ICardAction
             {
                 case BuffType.Speed:
                     playerTransform.GetComponent<PlayerCombat>().stats.ChangeSpeedMultiplier(1f);
-
-                    // DESACTIVAR boost en FootstepPlayer
                     FootstepPlayer fp = playerTransform.GetComponent<FootstepPlayer>();
-                    if (fp != null)
-                        fp.boostActive = false;
+                    if (fp != null) fp.boostActive = false;
                     break;
 
                 case BuffType.Damage:

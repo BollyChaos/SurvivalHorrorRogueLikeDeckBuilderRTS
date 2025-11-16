@@ -2,34 +2,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageInversionCardAction : MonoBehaviour,ICardAction
+public class DamageInversionCardAction : MonoBehaviour, ICardAction
 {
     private enum InversionType { HEALONDAMAGE, REFLECTDAMAGE }
     [SerializeField] private InversionType inversionType;
-    
 
-    public Transform PlayerTransform { get => playerTransform; set =>playerTransform=value; }
+    public Transform PlayerTransform { get => playerTransform; set => playerTransform = value; }
     private Transform playerTransform;
 
-    [SerializeField]
-    GameObject buffParticles;
+    [Header("Particles")]
+    [SerializeField] private GameObject buffParticles;
+
+    [Header("Audio")]
+    [SerializeField] private ASoundPlayer buffSoundPlayer;
+    [SerializeField] private int buffSoundIndex = 0;
+
     void Start()
     {
-        buffParticles.SetActive(false);
-    } 
+        if (buffParticles != null)
+            buffParticles.SetActive(false);
+    }
+
     public void ExecuteCardAction(CardObject cardObj)
     {
         switch (inversionType)
         {
             case InversionType.HEALONDAMAGE:
-        playerTransform.GetComponent<PlayerCombat>().HealOnDamage = true;
-
+                playerTransform.GetComponent<PlayerCombat>().HealOnDamage = true;
                 break;
-            case InversionType.REFLECTDAMAGE:
-        playerTransform.GetComponent<PlayerCombat>().ReflectDamage = true;
 
+            case InversionType.REFLECTDAMAGE:
+                playerTransform.GetComponent<PlayerCombat>().ReflectDamage = true;
                 break;
         }
+
+        if (buffSoundPlayer != null)
+            buffSoundPlayer.PlaySound(buffSoundIndex);
+
         GameObject buffP = Instantiate(buffParticles, playerTransform.position, Quaternion.identity);
         buffP.SetActive(true);
         buffP.transform.SetParent(playerTransform);
