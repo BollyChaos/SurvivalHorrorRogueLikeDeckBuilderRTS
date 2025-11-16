@@ -17,6 +17,7 @@ public class Interactor : MonoBehaviour
     private readonly List<IInteractable> interactablesInRange = new();
     void Start()
     {
+       
         LookForInput();
     }
     [ContextMenu("DecirInteractuables")]
@@ -119,7 +120,7 @@ public class Interactor : MonoBehaviour
                 UIManager.Instance.HideInteractionText();
                 if (interactable.GetTransform().tag.Equals("Purchaseable"))
                 {
-                    Debug.Log("ADios");
+                    //Debug.Log("ADios");
                     UIManager.Instance.HideMoney();
                 }
 

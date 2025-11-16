@@ -41,6 +41,7 @@ namespace Managers
 
         void Start()
         {
+           
             //primero logica debug
             if (DebugGame)
             {
