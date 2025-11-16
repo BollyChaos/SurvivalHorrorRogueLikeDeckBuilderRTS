@@ -1,57 +1,125 @@
 using System.Collections;
 using System.Collections.Generic;
 using Managers;
+using Patterns.Singleton;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class EnemyManager : IManager
+public class EnemyManager : ASingleton<EnemyManager>, IManager
 {
     //Atributos
-    private AbueloController _abuelo;
-    private VecinoController[] _vecinos;
-    private int _nVecinos;
-    private TioController[] _tios;
-    private int _nTios;
-    public IManager.GameStartMode StartMode => throw new System.NotImplementedException();
+    [SerializeField]
+    private GameObject _abueloPrefab;
+    private GameObject _abuelo;
+
+    [SerializeField]
+    private Spawner vecinosSpawner;
+    [SerializeField]
+    private int _nVecinos = 5;
+    private float spawnRate = 60f;
+    public int NVecinos => _nVecinos;
+    [SerializeField]
+    //respawn en la siguiente noche
+    private GameObject _tioPrefab;
+    [SerializeField]
+    private List<GameObject> _tios;
+    [SerializeField]
+    private int _nTios = 3;
+    public IManager.GameStartMode StartMode => IManager.GameStartMode.NORMAL;
 
     public void LoadData()
     {
-        throw new System.NotImplementedException();
     }
 
     public void OnEnd()
     {
-        throw new System.NotImplementedException();
     }
 
     public void OnEndGame()
     {
-        throw new System.NotImplementedException();
+        vecinosSpawner.CanSpawnEnemies = false;
     }
 
     public void OnStartGame()
     {
-        throw new System.NotImplementedException();
-    }
+        vecinosSpawner = GameObject.FindAnyObjectByType<Spawner>();
+        vecinosSpawner.NVecinos = _nVecinos;
+        vecinosSpawner.TimeBetweenSpawns = spawnRate;
 
+    }
+    void CreateEnemies()
+    {
+        if (_abuelo != null)
+        {
+            if (_abuelo.activeSelf == false)
+            {
+                _abuelo.SetActive(true);
+            }
+        }
+        else
+        {
+            _abuelo=Instantiate(_abueloPrefab,transform);
+        }
+    CreateTios();
+    }
+    void CreateTios()
+    {
+        if (_tios.Count==0)
+        {
+            for(int i = 0; i < _nTios; i++)
+            {
+                GameObject tio=Instantiate(_tioPrefab,transform);
+                _tios.Add(tio);
+            }
+
+        }
+        else
+        {
+            foreach(var tio in _tios)
+            {
+                tio.SetActive(true);
+            }
+        }
+        
+    }
+    public void InitEnemies()
+    {
+        vecinosSpawner.CanSpawnEnemies = true;
+        CreateEnemies();
+    }
+    public void StopEnemies()
+    {
+
+        vecinosSpawner.StopEnemies();
+        if (_abuelo != null)
+        {
+            
+                _abuelo.SetActive(false);
+            
+        }
+        foreach(var tio in _tios)
+        {
+            tio.SetActive(false);
+        }
+    }
     public void SaveData()
     {
-        throw new System.NotImplementedException();
     }
 
     public void StartManager()
     {
-        throw new System.NotImplementedException();
     }
     public void OnSoundHeard(Vector3 soundPosition)
     {
-        _abuelo.OnSoundHeard(soundPosition);
-        for (int i = 0; i < _nVecinos; i++)
+        _abuelo.GetComponent<AbueloController>().OnSoundHeard(soundPosition);
+        for (int i = 0; i < vecinosSpawner.vecinos.Count; i++)
         {
-            _vecinos[i].OnSoundHeard(soundPosition);
+            //_vecinos[i].OnSoundHeard(soundPosition);
+            vecinosSpawner.vecinos[i].GetComponent<VecinoController>().OnSoundHeard(soundPosition);
         }
         for (int i = 0; i < _nTios; i++)
         {
-            _tios[i].OnSoundHeard(soundPosition);
+            _tios[i].GetComponent<TioController>().OnSoundHeard(soundPosition);
         }
     }
 }

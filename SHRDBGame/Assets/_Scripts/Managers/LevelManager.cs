@@ -33,12 +33,14 @@ public class LevelManager : ASingleton<LevelManager>, IManager
     {
         isNightActive = true;
         onNightStateChanged?.Invoke(isNightActive);
+        EnemyManager.Instance.InitEnemies();
     }
     public void EndNight()
     {
         isNightActive = false;
         nightTimer = 0f;
         onNightStateChanged?.Invoke(isNightActive);
+        EnemyManager.Instance.StopEnemies();
 
     }
     [ContextMenu("Next Night")]
