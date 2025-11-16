@@ -2664,13 +2664,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5566216778175348975, guid: 07e45468502ca82498ad4c1a97e98b51, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3d809d66c65dc2c40954b32bc3883add, type: 2}
     - target: {fileID: 6823851821172519275, guid: 07e45468502ca82498ad4c1a97e98b51, type: 3}
       propertyPath: m_Name
       value: Tio
       objectReference: {fileID: 0}
     - target: {fileID: 6823851821172519275, guid: 07e45468502ca82498ad4c1a97e98b51, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2819,22 +2823,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 510766130280093480, guid: 31456fbe6a2b7a14e8b888d6b35c6d0d, type: 3}
-      propertyPath: slashPrefab
-      value: 
-      objectReference: {fileID: 6019284606097982153, guid: f7967d5cc29259345b339191a31d1b7c, type: 3}
-    - target: {fileID: 510766130280093480, guid: 31456fbe6a2b7a14e8b888d6b35c6d0d, type: 3}
-      propertyPath: waypoints.Array.data[0]
-      value: 
-      objectReference: {fileID: 22715389}
-    - target: {fileID: 510766130280093480, guid: 31456fbe6a2b7a14e8b888d6b35c6d0d, type: 3}
-      propertyPath: waypoints.Array.data[1]
-      value: 
-      objectReference: {fileID: 485641642}
-    - target: {fileID: 510766130280093480, guid: 31456fbe6a2b7a14e8b888d6b35c6d0d, type: 3}
-      propertyPath: waypoints.Array.data[2]
-      value: 
-      objectReference: {fileID: 1188207080}
     - target: {fileID: 719507911460250031, guid: 31456fbe6a2b7a14e8b888d6b35c6d0d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2881,7 +2869,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2405132392736585338, guid: 31456fbe6a2b7a14e8b888d6b35c6d0d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2904,6 +2892,6 @@ SceneRoots:
   - {fileID: 729618971910111665}
   - {fileID: 295162809}
   - {fileID: 2092747423}
-  - {fileID: 3557923236941083634}
   - {fileID: 587205276726481486}
   - {fileID: 1944377144}
+  - {fileID: 3557923236941083634}

@@ -36,7 +36,7 @@ public class AbueloController : EnemyController
         {
             //Debug.LogError("No se encontró el GameObject 'WaypointsAbuelo' en la escena");
         }
-
+        transform.position = waypoints[0].position;
         SetState(new AbueloPatrolling(this));
     }
     private void OnEnable()
