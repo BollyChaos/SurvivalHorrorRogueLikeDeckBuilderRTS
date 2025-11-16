@@ -9,6 +9,11 @@ public class EnemyCombat : MonoBehaviour
     public float damageCooldown = 1f; // Tiempo entre ataques
     private float lastAttackTime = 0f;
 
+    protected void OnEnable()
+    {
+        // Reiniciamos la salud del enemigo al activarse
+        stats.ResetStats();
+    }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("EnemyVision")){return;}
@@ -37,6 +42,7 @@ public class EnemyCombat : MonoBehaviour
         if (!stats.IsAlive())
         {
             //desactivar enemigo
+            gameObject.GetComponent<EnemyController>().ShootDrops();
             gameObject.SetActive(false);
         }
     }

@@ -6,6 +6,7 @@ using UnityEngine;
 public class Stats
 {
     [Header("Atributos Basicos")]
+    [SerializeField]
     private float maxHealth = 100f;
     [SerializeField]
     public float MaxHealth { get => maxHealth; set => maxHealth=value; }//esto lo necesito, pero solo se lee
@@ -51,5 +52,11 @@ public class Stats
     {
         speedMultiplier = sM;
     }
-   
+   public void ResetStats()
+    {
+        currentHealth = maxHealth;
+        attackMultiplier = 1f;
+        speedMultiplier = 1f;
+        invencibility = false;
+    }
 }

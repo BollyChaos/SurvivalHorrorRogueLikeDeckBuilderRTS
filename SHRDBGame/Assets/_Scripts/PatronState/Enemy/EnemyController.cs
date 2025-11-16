@@ -19,6 +19,8 @@ public class EnemyController : MonoBehaviour, IEnemy
     private int patrolSpeed = 2;
     private NavMeshAgent _agent;
     [SerializeField] private GameObject vision;
+    [SerializeField] GameObject HealthDropPrefab; 
+    [SerializeField] GameObject MoneyDropPrefab; 
 
     private IObjectPool<EnemyController> enemyPool;
 
@@ -32,6 +34,11 @@ public class EnemyController : MonoBehaviour, IEnemy
     protected void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
+        SetState(new Patrol(this));
+    }
+    protected void OnEnable()
+    {
+        // Reiniciamos el estado del enemigo al activarse
         SetState(new Patrol(this));
     }
     public GameObject GetGameObject()
@@ -159,6 +166,26 @@ public class EnemyController : MonoBehaviour, IEnemy
         }
     }
     #endregion
+    #region Drop 
+    public void ShootDrops()
+    {
+        int nDropsMoney = Random.Range(1,2);
+        int nDropsHealth = Random.Range(1,2);
+        for(int i = 0; i < nDropsHealth; i++)
+        {
+            // Crear el objeto en posiciones aleatorias cercanas al enemigo
+            GameObject prefabDropHealth = Instantiate(HealthDropPrefab, transform.position + (new Vector3(Random.Range(1,5),Random.Range(1,5),Random.Range(1,5))), Quaternion.identity);
+            
+        }
+        for(int i = 0; i < nDropsMoney; i++)
+        {
+            // Crear el objeto en posiciones aleatorias cercanas al enemigo
+            GameObject prefabDropHealth = Instantiate(MoneyDropPrefab, transform.position+ (new Vector3(Random.Range(1,5),Random.Range(1,5),Random.Range(1,5))), Quaternion.identity);
+            
+        }
+    }
+    #endregion
+
     #region abuelo
     public virtual Transform GetCurrentWaypoint()
     {

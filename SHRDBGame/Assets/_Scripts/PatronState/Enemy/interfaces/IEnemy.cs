@@ -30,6 +30,7 @@ namespace State.Interfaces
         public void OnPlayerEnterVision(GameObject other);
         public void OnPlayerStayVision(GameObject other);
         public void OnPlayerExitVision();
+        public void ShootDrops();
 
         //Poner de aqui en adelante fucniones que puedan realizar los enemigos, ej: Detectar jugador, moverse...
     }

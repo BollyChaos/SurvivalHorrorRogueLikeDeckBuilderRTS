@@ -25,6 +25,10 @@ public class VecinoController : EnemyController
         base.Awake();
         SetState(new VecinoPatrolling(this));
     }
+    private void OnEnable()
+    {
+        SetState(new VecinoPatrolling(this));
+    }
     #region sonidos
 
     public void OnSoundHeard(Vector3 soundPosition)

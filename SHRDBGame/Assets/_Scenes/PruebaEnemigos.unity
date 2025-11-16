@@ -330,6 +330,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats:
+    maxHealth: 100
     currentHealth: 100
     invencibility: 0
     attack: 10
@@ -2728,6 +2729,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Vecino
       objectReference: {fileID: 0}
+    - target: {fileID: 6030719545769491451, guid: 77af28352866ea44ca4aea93c25bb1f8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2876,7 +2881,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2405132392736585338, guid: 31456fbe6a2b7a14e8b888d6b35c6d0d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

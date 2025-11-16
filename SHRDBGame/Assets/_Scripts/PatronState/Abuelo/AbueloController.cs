@@ -7,19 +7,40 @@ using UnityEngine.AI;
 public class AbueloController : EnemyController
 {
     //Atributos
-    [SerializeField] private Transform[] waypoints;
+     private List<Transform> waypoints = new List<Transform>();
     private bool _salonAbierto = false;
     [SerializeField] private float hearingRange = 50f;
     private Vector3? lastHeardSoundPosition = null;
     private int currentWaypointIndex = 0;
     private float _restDuration = 1.5f;
     private float damage = 40f;
-    private float health = 200f;
     [SerializeField] GameObject slashPrefab;
     //Metodos
     private void Awake()
     {
+
         base.Awake();
+        
+        // Buscar el GameObject con nombre "WaypointsAbuelo" y obtener sus hijos como waypoints
+        GameObject waypointsContainer = GameObject.Find("WaypointsAbuelo");
+        if (waypointsContainer != null)
+        {
+            waypoints.Clear();
+            for (int i = 0; i < waypointsContainer.transform.childCount; i++)
+            {
+                waypoints.Add(waypointsContainer.transform.GetChild(i));
+            }
+            //Debug.Log($"Abuelo: {waypoints.Count} waypoints cargados desde {waypointsContainer.name}");
+        }
+        else
+        {
+            //Debug.LogError("No se encontró el GameObject 'WaypointsAbuelo' en la escena");
+        }
+
+        SetState(new AbueloPatrolling(this));
+    }
+    private void OnEnable()
+    {
         SetState(new AbueloPatrolling(this));
     }
     #region Waypoints
@@ -28,7 +49,7 @@ public class AbueloController : EnemyController
     }
     public override void NextWaypoint()
     {
-        currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
+        currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Count;
     }
     public override int GetCurrentWaypointIndex()
     {
