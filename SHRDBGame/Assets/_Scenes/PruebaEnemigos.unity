@@ -2667,6 +2667,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tio
       objectReference: {fileID: 0}
+    - target: {fileID: 6823851821172519275, guid: 07e45468502ca82498ad4c1a97e98b51, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2686,7 +2690,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4218087781645645949, guid: 77af28352866ea44ca4aea93c25bb1f8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.06
       objectReference: {fileID: 0}
     - target: {fileID: 4218087781645645949, guid: 77af28352866ea44ca4aea93c25bb1f8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2869,6 +2873,10 @@ PrefabInstance:
     - target: {fileID: 2405132392736585338, guid: 31456fbe6a2b7a14e8b888d6b35c6d0d, type: 3}
       propertyPath: m_Name
       value: Abuelo
+      objectReference: {fileID: 0}
+    - target: {fileID: 2405132392736585338, guid: 31456fbe6a2b7a14e8b888d6b35c6d0d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
