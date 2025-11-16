@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 14ea3356f7a135c4aacd4f97e499d7fb
+guid: aa5c9409f7b084b40a159326871bd7de
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,17 +8,12 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Cristal
-    second: {fileID: -3437194871006262605, guid: 8d6d34ab3e0f5e44ba502a975c6e755a, type: 3}
+    second: {fileID: -3437194871006262605, guid: 59beba53dcf7d1b499fd0386906f01a0, type: 3}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Material #2
     second: {fileID: 2100000, guid: 3d809d66c65dc2c40954b32bc3883add, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material #3
-    second: {fileID: 8622231856638578679, guid: aa5c9409f7b084b40a159326871bd7de, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -52,7 +47,7 @@ ModelImporter:
       takeName: Take 001
       internalID: 1827226128182048838
       firstFrame: 0
-      lastFrame: 35
+      lastFrame: 20
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
