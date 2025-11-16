@@ -15,3 +15,8 @@ MonoBehaviour:
   ConvName: SecondTimeEleanor
   phrases:
   - {fileID: 11400000, guid: c3e030b5f014b174ea1d1e55812578fb, type: 2}
+  - {fileID: 11400000, guid: eab783e8ee0625d4591142aae3b307e6, type: 2}
+  - {fileID: 11400000, guid: 399ab5ee47a90914c8994bf224c1613e, type: 2}
+  - {fileID: 11400000, guid: 724b607e0ea3b1c40ba52fde7b8f5993, type: 2}
+  - {fileID: 11400000, guid: 743de59b804bcd54c95fb7862417581a, type: 2}
+  - {fileID: 11400000, guid: 152895706a801194894f597150532584, type: 2}

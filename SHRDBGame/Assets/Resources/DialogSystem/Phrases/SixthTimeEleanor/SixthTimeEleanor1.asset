@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed47826758172a541837b1c1f3f61262, type: 3}
-  m_Name: BlockedOffice
+  m_Script: {fileID: 11500000, guid: d0177bdbc8a56b2419a35c6521f4235a, type: 3}
+  m_Name: SixthTimeEleanor1
   m_EditorClassIdentifier: 
-  ConvName: BlockedOffice
-  phrases:
-  - {fileID: 11400000, guid: adc58d0afa6a6264b9e815f8c4db7af1, type: 2}
+  speaker: 1
+  text: "Enhorabuena. \xA1Has sobrevivido! Aunque no hayas descubierto el secreto
+    del s\xF3tano\n"
+  textDuration: 2.5

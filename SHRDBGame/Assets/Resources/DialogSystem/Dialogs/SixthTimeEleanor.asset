@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ed47826758172a541837b1c1f3f61262, type: 3}
-  m_Name: BlockedOffice
+  m_Name: SixthTimeEleanor
   m_EditorClassIdentifier: 
-  ConvName: BlockedOffice
+  ConvName: SixthTimeEleanor
   phrases:
-  - {fileID: 11400000, guid: adc58d0afa6a6264b9e815f8c4db7af1, type: 2}
+  - {fileID: 11400000, guid: 23a2b38f5e04e764db078296c04ddbc1, type: 2}
+  - {fileID: 11400000, guid: 1e5a5495d0a0bb240bb9cd6a4ccb7002, type: 2}

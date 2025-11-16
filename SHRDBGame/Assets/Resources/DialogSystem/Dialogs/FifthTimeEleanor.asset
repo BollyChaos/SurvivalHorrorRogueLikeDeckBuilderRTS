@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed47826758172a541837b1c1f3f61262, type: 3}
   m_Name: FifthTimeEleanor
   m_EditorClassIdentifier: 
-  ConvName: 
+  ConvName: FifthTimeEleanor
   phrases:
   - {fileID: 11400000, guid: 592ecf7bcbea17545b046eef2e103df5, type: 2}
   - {fileID: 11400000, guid: 71725296878795142bdb0f950d2c0501, type: 2}

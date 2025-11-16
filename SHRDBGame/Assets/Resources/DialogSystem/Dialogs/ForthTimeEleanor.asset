@@ -12,6 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed47826758172a541837b1c1f3f61262, type: 3}
   m_Name: ForthTimeEleanor
   m_EditorClassIdentifier: 
-  ConvName: 
+  ConvName: ForthTimeEleanor
   phrases:
   - {fileID: 11400000, guid: d05b35a1e4a229a47a1fca2e6bb3e7b3, type: 2}
+  - {fileID: 11400000, guid: be4f1b64b02241b4fb7669d313d14118, type: 2}
+  - {fileID: 11400000, guid: ebde3e2e76a8e0545b5e2850df5dde1c, type: 2}
+  - {fileID: 11400000, guid: 9945ebeaf71eae344aa5df385a77044a, type: 2}
+  - {fileID: 11400000, guid: 10d638442cefa7e4cb0ebd68309f324e, type: 2}
+  - {fileID: 11400000, guid: c8224bb01391595458a4cb38178393ad, type: 2}
+  - {fileID: 11400000, guid: 559ffbb8ac374534a9b8dee384b5d18d, type: 2}
+  - {fileID: 11400000, guid: 539f9057321c0ab4ba3eb42f7005d0b9, type: 2}

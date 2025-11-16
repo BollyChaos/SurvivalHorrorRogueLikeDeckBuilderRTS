@@ -12,6 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed47826758172a541837b1c1f3f61262, type: 3}
   m_Name: ThirdTimeEleanor
   m_EditorClassIdentifier: 
-  ConvName: 
+  ConvName: ThirdTimeEleanor
   phrases:
   - {fileID: 11400000, guid: 04b30c504955c274daebc74583353a10, type: 2}
+  - {fileID: 11400000, guid: d1cb842ba14df7c4b9794a629c1eb668, type: 2}
+  - {fileID: 11400000, guid: 0b99c91356d9c3344b045d5d4c01f204, type: 2}
+  - {fileID: 11400000, guid: 82d59e3caa7289d4aaae3574d150bd73, type: 2}
+  - {fileID: 11400000, guid: 887703a9e358af54c9d0ada5619b64df, type: 2}
+  - {fileID: 11400000, guid: 15d984d2a959acb47a59e635f0c18ff7, type: 2}
+  - {fileID: 11400000, guid: 8dedb579ee66c534690f9131b88fd64f, type: 2}

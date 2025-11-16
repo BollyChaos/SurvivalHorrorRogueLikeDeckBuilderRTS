@@ -5,8 +5,10 @@ using UnityEngine;
 public class EleanorBehaviour : MonoBehaviour, IInteractable
 {
     private enum EleanorPhase { STARTGAME, GETCARDS, AFTERCARDS, ONSHOP }
-    private enum EleanorTime { FIRST, SECOND, THIRD, FORTH }
-    
+    private enum EleanorTime { FIRST, SECOND, THIRD, FORTH, FIFTH }
+    private int DayTimeCounter = 2;//tras la primera noche se habla dos veces con eleanor para que en la segunda puedas saltar a la siguiente noche
+    private int dayCounter = 0;
+
     [SerializeField]
     private EleanorPhase phase = EleanorPhase.STARTGAME;//inicio juego
     [SerializeField]
@@ -38,7 +40,7 @@ public class EleanorBehaviour : MonoBehaviour, IInteractable
         if (isInteractionLocked) return "";
         return "Pulsa E para hablar con Eleanor";
     }
-public void OnNightChanged(bool night)
+    public void OnNightChanged(bool night)
     {
         if (phase == EleanorPhase.ONSHOP)
         {
@@ -53,13 +55,19 @@ public void OnNightChanged(bool night)
     {
         isInteractionLocked = false;
         DialogManager.Instance.onEndDialog.RemoveListener(onEndDialog);
+
         if (phase == EleanorPhase.AFTERCARDS)
         {
             LevelManager.Instance.StartNight();
             phase = EleanorPhase.ONSHOP;
             transform.position = shopSpot;
         }
-        else if (phase == EleanorPhase.ONSHOP)
+        else if (phase == EleanorPhase.ONSHOP && dayCounter == DayTimeCounter)
+        {
+            dayCounter = 0;
+            LevelManager.Instance.NextNight();
+        }
+        else if (time == EleanorTime.FIFTH)
         {
             LevelManager.Instance.NextNight();
         }
@@ -96,6 +104,7 @@ public void OnNightChanged(bool night)
             case EleanorPhase.AFTERCARDS:
 
                 isInteractionLocked = true;
+
                 DialogManager.Instance.PlayDialogRequest("TutorialDialogAfterCards");
                 DialogManager.Instance.onEndDialog.AddListener(onEndDialog);
 
@@ -107,27 +116,68 @@ public void OnNightChanged(bool night)
                 switch (time)
                 {
                     case EleanorTime.FIRST:
-                    //de momento solo se queda aqui
+                        //de momento solo se queda aqui
                         isInteractionLocked = true;
-                        DialogManager.Instance.PlayDialogRequest("SecondTimeEleanor");
+                        dayCounter++;
+                        if (dayCounter == 1)
+                            DialogManager.Instance.PlayDialogRequest("SecondTimeEleanor");
+                        else
+                        {
+                            DialogManager.Instance.PlayDialogRequest("NextNight");
+                            time = EleanorTime.SECOND;
+                        }
+
                         DialogManager.Instance.onEndDialog.AddListener(onEndDialog);
 
                         break;
                     case EleanorTime.SECOND:
                         isInteractionLocked = true;
-                        DialogManager.Instance.PlayDialogRequest("Example");
+                        dayCounter++;
+                        if (dayCounter == 1)
+                            DialogManager.Instance.PlayDialogRequest("ThirdTimeEleanor");
+                        else
+                        {
+                            DialogManager.Instance.PlayDialogRequest("NextNight");
+                            time = EleanorTime.THIRD;
+
+                        }
+
                         DialogManager.Instance.onEndDialog.AddListener(onEndDialog);
 
                         break;
                     case EleanorTime.THIRD:
                         isInteractionLocked = true;
-                        DialogManager.Instance.PlayDialogRequest("Example");
+                        dayCounter++;
+                        if (dayCounter == 1)
+                            DialogManager.Instance.PlayDialogRequest("ForthTimeEleanor");
+                        else
+                        {
+                            DialogManager.Instance.PlayDialogRequest("NextNight");
+                            time = EleanorTime.FORTH;
+
+                        }
+
                         DialogManager.Instance.onEndDialog.AddListener(onEndDialog);
 
                         break;
                     case EleanorTime.FORTH:
                         isInteractionLocked = true;
-                        DialogManager.Instance.PlayDialogRequest("Example");
+                        dayCounter++;
+                        if (dayCounter == 1)
+                            DialogManager.Instance.PlayDialogRequest("FifthTimeEleanor");
+                        else
+                            DialogManager.Instance.PlayDialogRequest("NextNight");//ya no hace falta actualizar el estado :)
+
+                        DialogManager.Instance.onEndDialog.AddListener(onEndDialog);
+                        time = EleanorTime.FIFTH;
+
+                        break;
+                    case EleanorTime.FIFTH:
+                        isInteractionLocked = true;
+                        //final malo, solo sobrevivir
+                        DialogManager.Instance.PlayDialogRequest("SixthTimeEleanor");
+                        //para el final bueno tendria que ver la condicion de "ha muerto el niño" y dar el dialogo del final bueno
+
                         DialogManager.Instance.onEndDialog.AddListener(onEndDialog);
 
                         break;

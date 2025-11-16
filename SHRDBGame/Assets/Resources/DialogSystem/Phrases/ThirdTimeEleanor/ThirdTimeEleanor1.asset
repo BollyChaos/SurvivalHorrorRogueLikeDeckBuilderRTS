@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: ThirdTimeEleanor1
   m_EditorClassIdentifier: 
   speaker: 1
-  text: "Me alegro encontrarte una noche m\xE1s."
+  text: "Me alegra encontrarte una noche m\xE1s."
   textDuration: 2.5

@@ -44,7 +44,7 @@ public class LevelManager : ASingleton<LevelManager>, IManager
     [ContextMenu("Next Night")]
     public void NextNight()
     {
-        if (currentNight <= nNights)
+        if (currentNight < nNights)
         {
             currentNight++;
             StartNight();
