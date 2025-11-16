@@ -70,6 +70,7 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
             {
                 GameObject tio=Instantiate(_tioPrefab,transform);
                 _tios.Add(tio);
+                tio.transform.position=vecinosSpawner.GetRandomSpawnPoint().position;
             }
 
         }
@@ -78,6 +79,7 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
             foreach(var tio in _tios)
             {
                 tio.SetActive(true);
+                tio.transform.position=vecinosSpawner.GetRandomSpawnPoint().position;
             }
         }
         

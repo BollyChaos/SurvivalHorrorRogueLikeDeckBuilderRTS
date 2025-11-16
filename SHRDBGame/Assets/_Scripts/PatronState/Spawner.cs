@@ -52,8 +52,7 @@ public class Spawner : MonoBehaviour
     {
 
         GameObject vecino = GetFirstDisabled();
-        Transform randomSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-
+Transform randomSpawnPoint=GetRandomSpawnPoint();
         if (vecino == null&&vecinos.Count<nVecinos)
         {
 
@@ -77,7 +76,11 @@ public void StopEnemies()
             vecino.gameObject.SetActive(false);
         }
     }
-
+public Transform GetRandomSpawnPoint()
+    {
+       return  spawnPoints[Random.Range(0, spawnPoints.Length)];
+         
+    }
     // private IObjectPool<VecinoController> enemyPool;
 
     // private void Awake()
