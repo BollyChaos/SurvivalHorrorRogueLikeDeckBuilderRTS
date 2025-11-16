@@ -47,7 +47,7 @@ public class AbueloBattling : AEnemyState
     {
         enemy.LookAt(_player.transform.position); 
         float distanceToPlayer = Vector3.Distance(_currentTransform.position, _player.transform.position);
-        if (distanceToPlayer < 2f&& _agent.isStopped == false)
+        if (distanceToPlayer < 3f&& _agent.isStopped == false)
         {
                    
                 enemy.AttackPlayer();

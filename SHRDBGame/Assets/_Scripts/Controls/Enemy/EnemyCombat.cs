@@ -36,6 +36,7 @@ public class EnemyCombat : MonoBehaviour
     }
     public void TakeDamage(float amount)
     {
+        //Debug.Log("Me han quitado: "+amount);
         stats.TakeDamage(amount);
         
         //Debug.Log($"Enemy took damage. Current health: {stats.CurrentHealth}");

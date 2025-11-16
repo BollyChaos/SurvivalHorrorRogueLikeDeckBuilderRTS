@@ -22,29 +22,40 @@ public class AbueloController : EnemyController
         base.Awake();
         
         // Buscar el GameObject con nombre "WaypointsAbuelo" y obtener sus hijos como waypoints
-        GameObject waypointsContainer = GameObject.Find("WaypointsAbuelo");
+     
+     
+       
+    }
+    void Start()
+    {
+        
+           Transform waypointsContainer = GameObject.Find("WaypointsAbuelo").transform;
+           waypoints.Clear();
+           Debug.Log(":"+waypointsContainer.childCount);
         if (waypointsContainer != null)
         {
-            waypoints.Clear();
-            for (int i = 0; i < waypointsContainer.transform.childCount; i++)
-            {
-                waypoints.Add(waypointsContainer.transform.GetChild(i));
-            }
+           
+           
+                foreach(Transform child in waypointsContainer)
+                {
+                      waypoints.Add(child);
+                }
+              
+            
             //Debug.Log($"Abuelo: {waypoints.Count} waypoints cargados desde {waypointsContainer.name}");
+               transform.position = waypoints[2].position;
+                //Debug.Log("Spawneando en:"+waypoints[0].localPosition);
         }
         else
         {
-            //Debug.LogError("No se encontró el GameObject 'WaypointsAbuelo' en la escena");
+            Debug.LogError("No se encontró el GameObject 'WaypointsAbuelo' en la escena");
         }
-        transform.position = waypoints[0].position;
-        SetState(new AbueloPatrolling(this));
+         SetState(new AbueloPatrolling(this));
     }
-    private void OnEnable()
-    {
-        SetState(new AbueloPatrolling(this));
-    }
+   
     #region Waypoints
     public override Transform GetCurrentWaypoint() {
+
         return waypoints[currentWaypointIndex];
     }
     public override void NextWaypoint()

@@ -54,6 +54,7 @@ public class Stats
     }
    public void ResetStats()
     {
+        Debug.Log("Reseteando");
         currentHealth = maxHealth;
         attackMultiplier = 1f;
         speedMultiplier = 1f;

@@ -67,6 +67,7 @@ public class LevelManager : ASingleton<LevelManager>, IManager
         UIManager.Instance.EndGame();
         SoundManager.Instance.OnPlayerDeath();
         //Desactivar enemigos
+        EnemyManager.Instance.StopEnemies();
     }
     public void WinGame()
     {

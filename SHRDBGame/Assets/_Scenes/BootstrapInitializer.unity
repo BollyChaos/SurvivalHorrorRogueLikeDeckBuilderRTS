@@ -4077,7 +4077,7 @@ AudioSource:
   m_GameObject: {fileID: 483407203}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 4574885540612182250, guid: 48073a528e47b2542a5cc7f1e576b898, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -8539,7 +8539,7 @@ AudioSource:
   m_GameObject: {fileID: 875180736}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 4574885540612182250, guid: 48073a528e47b2542a5cc7f1e576b898, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -8725,7 +8725,7 @@ AudioSource:
   m_GameObject: {fileID: 880319352}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 4574885540612182250, guid: 48073a528e47b2542a5cc7f1e576b898, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -10150,7 +10150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nNights: 5
   currentNight: 1
-  nightDuration: 20
+  nightDuration: 2000
   isNightActive: 0
   onNightStateChanged:
     m_PersistentCalls:
@@ -17825,7 +17825,7 @@ AudioSource:
   m_GameObject: {fileID: 1807129277}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 4574885540612182250, guid: 48073a528e47b2542a5cc7f1e576b898, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -19173,7 +19173,7 @@ AudioSource:
   m_GameObject: {fileID: 1899470101}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 4574885540612182250, guid: 48073a528e47b2542a5cc7f1e576b898, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -21883,6 +21883,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1807129278}
     m_Modifications:
+    - target: {fileID: 2171907115921011286, guid: f14ecf0b85f4a484087a9e798557ce7d, type: 3}
+      propertyPath: damage
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4322329117238892473, guid: f14ecf0b85f4a484087a9e798557ce7d, type: 3}
       propertyPath: m_Name
       value: KnifeCardPrefab

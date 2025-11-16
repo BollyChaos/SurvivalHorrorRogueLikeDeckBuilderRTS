@@ -207,7 +207,7 @@ PlayerHUD.transform.Find("CardsSelector").gameObject.SetActive(true);
         if (parent.childCount > 0)
         {
             Transform ultimoHijo = parent.GetChild(parent.childCount - 1);
-            Debug.Log("El �ltimo hijo es: " + ultimoHijo.name);
+//            Debug.Log("El �ltimo hijo es: " + ultimoHijo.name);
             return ultimoHijo.GetComponent<CardObject>();
         }
         return null;
