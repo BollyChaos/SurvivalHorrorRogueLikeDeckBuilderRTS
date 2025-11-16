@@ -2470,7 +2470,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b550ab2573d92d4596dea3c3a8ce24e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DebugGame: 1
+  DebugGame: 0
   ChangeInitalScene: 0
   startingDebugScene: 2
   SkipPhase: 0
