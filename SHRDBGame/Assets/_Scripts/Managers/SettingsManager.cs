@@ -30,6 +30,7 @@ public class SettingsManager : ASingleton<SettingsManager>, IManager, ILoaderUse
     }
    public void StartManager()
     {
+        Debug.Log($"[{name}]Inciando...");
         LoadData();
     }
     public void OnStartGame()

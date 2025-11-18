@@ -150,8 +150,25 @@ namespace Managers
         {
             Debug.Log($"[{name}]:Iniciando...");
             managersList = managersList.Where(m => m != null).ToList();
+            // foreach(var manager in managersList)
+            // {
+            //     Debug.Log($"[{manager}]: Encontrado");
+            // }
 
-            foreach (var manager in managersList.Where(m => m != null))
+           
+            foreach (var manager in managersList.FindAll(m => m.StartMode == IManager.GameStartMode.FIRST))
+            {
+                manager.StartManager();
+            }
+            foreach (var manager in managersList.FindAll(m => m.StartMode == IManager.GameStartMode.EARLY))
+            {
+                manager.StartManager();
+            }
+            foreach (var manager in managersList.FindAll(m => m.StartMode == IManager.GameStartMode.NORMAL))
+            {
+                manager.StartManager();
+            }
+            foreach (var manager in managersList.FindAll(m => m.StartMode == IManager.GameStartMode.LATE))
             {
                 manager.StartManager();
             }
