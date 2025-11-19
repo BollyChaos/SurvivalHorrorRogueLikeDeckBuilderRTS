@@ -31,7 +31,7 @@ public class AbueloController : EnemyController
         
            Transform waypointsContainer = GameObject.Find("WaypointsAbuelo").transform;
            waypoints.Clear();
-           Debug.Log(":"+waypointsContainer.childCount);
+//           Debug.Log(":"+waypointsContainer.childCount);
         if (waypointsContainer != null)
         {
            

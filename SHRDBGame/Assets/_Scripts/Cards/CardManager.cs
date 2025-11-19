@@ -62,7 +62,7 @@ public class CardManager : ASingleton<CardManager>,IManager
     {
         GetComponent<CardShuffler>().nCardsToGive = startingCards;
         List<CardsSO> cardsReceived = GetComponent<CardShuffler>().ShuffleCards();
-
+Debug.Log($"[{name}]Empezando selección de cartas");
         UIManager.Instance?.BuildCards(cardsReceived);
 
     }

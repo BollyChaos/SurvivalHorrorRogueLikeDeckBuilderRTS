@@ -41,7 +41,7 @@ namespace Managers
 
         void Start()
         {
-           
+
             //primero logica debug
             if (DebugGame)
             {
@@ -89,7 +89,7 @@ namespace Managers
                     break;
             }
         }
-    public void RestartGame()
+        public void RestartGame()
         {
             OnEndGame();
             GameSceneManager.Instance.LoadSceneById((int)SceneIds.GAMESCENE);
@@ -155,7 +155,7 @@ namespace Managers
             //     Debug.Log($"[{manager}]: Encontrado");
             // }
 
-           
+
             foreach (var manager in managersList.FindAll(m => m.StartMode == IManager.GameStartMode.FIRST))
             {
                 manager.StartManager();
@@ -208,10 +208,10 @@ namespace Managers
             {
                 Debug.Log("Trigger tutorial activado");
             });
-            GameObject.Find("StartingDialog")?.GetComponent<TriggerEvent>().onTriggerEnterEvent.AddListener(() =>
-{
-    DialogManager.Instance.PlayDialogRequest("EnteringMansion");
-}
+            GameObject.Find("StartingDialog").GetComponent<TriggerEvent>().onTriggerEnterEvent.AddListener(() =>
+                {
+                 DialogManager.Instance.PlayDialogRequest("EnteringMansion");
+                    }
             );
 
             //Logica de empezar el juego ya del gamemanager, que ocurre primero, de momento se empieza con la seleccion de cartas
