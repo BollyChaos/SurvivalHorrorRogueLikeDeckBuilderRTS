@@ -60,7 +60,12 @@ public class SimplePlayerController : MonoBehaviour
         float realSpeed = speed * GetComponent<PlayerCombat>().stats.SpeedMultiplier;
         rb.velocity = new Vector3(_smoothedMovementInput.x * realSpeed, rb.velocity.y, _smoothedMovementInput.y * realSpeed);
 
-        transform.rotation = Quaternion.LookRotation(new Vector3(inputLook.x, inputLook.y, 0));
+        Vector3 lookDir = new Vector3(inputLook.x, 0, inputLook.y);
+
+if (lookDir.sqrMagnitude > 0.0001f)  // evita el warning
+{
+    transform.rotation = Quaternion.LookRotation(lookDir);
+}
     }
     private void OnDestroy()
     {

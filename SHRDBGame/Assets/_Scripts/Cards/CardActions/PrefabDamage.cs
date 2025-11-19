@@ -6,11 +6,13 @@ using UnityEngine;
 public class PrefabDamage : MonoBehaviour
 {
     [SerializeField] private float damage;
+    public float Damage=>damage;
     [SerializeField] private string targetTag;
 
     private ASoundPlayer soundPlayer;
 
     public string TargetTag => targetTag;
+    public bool particleCollision=false;
 
     private void Awake()
     {
@@ -73,4 +75,17 @@ public class PrefabDamage : MonoBehaviour
             //Destroy(gameObject); no lo destruyas porque no se escucha un carajo
         }
     }
+     private void OnParticleCollision(GameObject other)
+    {
+        if(particleCollision)
+        Debug.Log("chocando con "+other.name+" con tag: "+other.tag);
+        //Debug.Log(tag);
+
+        if (other.CompareTag(targetTag))
+        {
+            Debug.Log("dando daño soy "+name);
+           other.GetComponentInParent<EnemyCombat>().TakeDamage(Damage);
+        }
+    }
+
 }

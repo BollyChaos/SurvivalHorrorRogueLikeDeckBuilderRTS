@@ -25,7 +25,7 @@ public class EnemyCombat : MonoBehaviour
             lastAttackTime = Time.time;
         }
     }
-
+   
     public void Attack(PlayerCombat player)
     {
         if (player != null && player.stats.IsAlive())

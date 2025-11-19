@@ -17,6 +17,7 @@ public class EleanorBehaviour : MonoBehaviour, IInteractable
     private EleanorTime time = EleanorTime.FIRST;//primera noche
     public bool IsInteractable { get => isInteractable; }
     private bool isInteractable = false;
+    [SerializeField]
     private bool isInteractionLocked = false;
     [SerializeField]
     Vector3 shopSpot = new Vector3(26.3400002f, 6.92999983f, -8.78999996f);
@@ -80,6 +81,7 @@ public class EleanorBehaviour : MonoBehaviour, IInteractable
         isInteractionLocked = false;
 
         }
+        Debug.Log("Fin del bloqueo");
         isInteractionLocked = false;
 
 

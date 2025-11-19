@@ -15,7 +15,7 @@ MonoBehaviour:
   cardId: 5
   cardName: Pistola
   description: Dispara un proyectil hacia donde apuntes
-  nUses: 10
+  nUses: 15
   unlocked: 1
   cardType: 0
   cardRarity: 1

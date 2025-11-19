@@ -15,7 +15,7 @@ MonoBehaviour:
   cardId: 1
   cardName: Hacha
   description: "Arma mel\xE9 que inflige gran da\xF1o"
-  nUses: 10
+  nUses: 15
   unlocked: 1
   cardType: 0
   cardRarity: 1

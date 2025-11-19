@@ -12,9 +12,11 @@ public class TriggerEvent : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            Debug.Log($"[{name}] Activando evento");
             onTriggerEnterEvent?.Invoke();
+            gameObject.SetActive(false);
         }
-        gameObject.SetActive(false);
+        
     }
    
 }

@@ -233,6 +233,11 @@ PlayerHUD.transform.Find("CardsSelector").gameObject.SetActive(true);
     public void ShowMoneyForAWhile(int money)
     {
         GameObject moneyObj = PlayerHUD.transform.Find("PlayerMoney").gameObject;
+        if (moneyObj == null)
+        {
+            Debug.LogError("No se encuentra PlayerMoney");
+            return;
+        }
         moneyObj.SetActive(true);
 
         PlayerHUD.transform.Find("PlayerMoney").GetComponent<TextMeshProUGUI>().text = $"x{money}";

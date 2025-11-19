@@ -9810,11 +9810,11 @@ GameObject:
   - component: {fileID: 6032477313275134962}
   m_Layer: 0
   m_Name: BulletCardPrefab
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3969785271422823241
 Transform:
   m_ObjectHideFlags: 0
@@ -13657,7 +13657,7 @@ ParticleSystem:
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
-    collisionMessages: 0
+    collisionMessages: 1
     collidesWithDynamic: 1
     interiorCollisions: 0
   TriggerModule:
@@ -14726,6 +14726,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 100
   targetTag: Enemy
+  particleCollision: 1
 --- !u!114 &3329687509062594466
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -2470,11 +2470,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b550ab2573d92d4596dea3c3a8ce24e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DebugGame: 0
-  ChangeInitalScene: 0
+  DebugGame: 1
+  ChangeInitalScene: 1
   startingDebugScene: 2
   SkipPhase: 0
-  SkipCardSelectionPhase: 1
+  SkipCardSelectionPhase: 0
   MakeNightsShorter: 0
 --- !u!4 &277794896
 Transform:
@@ -2860,6 +2860,10 @@ PrefabInstance:
     - target: {fileID: 3969785271422823241, guid: cb0146b12eb2908478b48edd6f85518b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7811690933635609686, guid: cb0146b12eb2908478b48edd6f85518b, type: 3}
+      propertyPath: damage
+      value: 66
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11035,7 +11039,7 @@ MonoBehaviour:
   - {fileID: 1990027564}
   - {fileID: 1136538086}
   debug: 0
-  cardToUseAlways: Inmolacion
+  cardToUseAlways: Escopeta
 --- !u!1 &1100893903
 GameObject:
   m_ObjectHideFlags: 0
@@ -22010,7 +22014,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2171907115921011286, guid: f14ecf0b85f4a484087a9e798557ce7d, type: 3}
       propertyPath: damage
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4322329117238892473, guid: f14ecf0b85f4a484087a9e798557ce7d, type: 3}
       propertyPath: m_Name
@@ -22541,61 +22545,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 794341950}
     m_Modifications:
-    - target: {fileID: 1514471495951624064, guid: cb0146b12eb2908478b48edd6f85518b, type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1593546161891916985, guid: cb0146b12eb2908478b48edd6f85518b, type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3329687509062594466, guid: cb0146b12eb2908478b48edd6f85518b, type: 3}
-      propertyPath: audioClips.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3329687509062594466, guid: cb0146b12eb2908478b48edd6f85518b, type: 3}
-      propertyPath: audioClips.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: e9530d2b3ff560d478cfcaa76bf37723, type: 3}
-    - target: {fileID: 3329687509062594466, guid: cb0146b12eb2908478b48edd6f85518b, type: 3}
-      propertyPath: audioClips.Array.data[1]
-      value: 
-      objectReference: {fileID: 8300000, guid: 4f862a2c01771384a9e31e09e7da462b, type: 3}
-    - target: {fileID: 3329687509062594466, guid: cb0146b12eb2908478b48edd6f85518b, type: 3}
-      propertyPath: audioClips.Array.data[2]
-      value: 
-      objectReference: {fileID: 8300000, guid: 02d79617520da0a4fb0607042b12fd1e, type: 3}
-    - target: {fileID: 3329687509062594466, guid: cb0146b12eb2908478b48edd6f85518b, type: 3}
-      propertyPath: audioClips.Array.data[3]
-      value: 
-      objectReference: {fileID: 8300000, guid: 42e461835c6d38c47a49450ed0181f42, type: 3}
-    - target: {fileID: 3329687509062594466, guid: cb0146b12eb2908478b48edd6f85518b, type: 3}
-      propertyPath: audioClips.Array.data[4]
-      value: 
-      objectReference: {fileID: 8300000, guid: f4d4f053b1f02f2438046578fae7a89d, type: 3}
-    - target: {fileID: 3329687509062594466, guid: cb0146b12eb2908478b48edd6f85518b, type: 3}
-      propertyPath: audioClips.Array.data[5]
-      value: 
-      objectReference: {fileID: 8300000, guid: c6d1a0c1d3422f048a4e68ac189f6d2b, type: 3}
-    - target: {fileID: 3329687509062594466, guid: cb0146b12eb2908478b48edd6f85518b, type: 3}
-      propertyPath: audioClips.Array.data[6]
-      value: 
-      objectReference: {fileID: 8300000, guid: 16545ece9b8b7294692e825a4cc3a057, type: 3}
-    - target: {fileID: 3329687509062594466, guid: cb0146b12eb2908478b48edd6f85518b, type: 3}
-      propertyPath: audioClips.Array.data[7]
-      value: 
-      objectReference: {fileID: 8300000, guid: 16545ece9b8b7294692e825a4cc3a057, type: 3}
     - target: {fileID: 3469342555321442635, guid: cb0146b12eb2908478b48edd6f85518b, type: 3}
       propertyPath: m_Name
       value: BulletCardPrefab
-      objectReference: {fileID: 0}
-    - target: {fileID: 3469342555321442635, guid: cb0146b12eb2908478b48edd6f85518b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3944098493948526997, guid: cb0146b12eb2908478b48edd6f85518b, type: 3}
-      propertyPath: playOnAwake
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3969785271422823241, guid: cb0146b12eb2908478b48edd6f85518b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -22637,57 +22589,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5101412017004216868, guid: cb0146b12eb2908478b48edd6f85518b, type: 3}
-      propertyPath: looping
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5101412017004216868, guid: cb0146b12eb2908478b48edd6f85518b, type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6032477313275134962, guid: cb0146b12eb2908478b48edd6f85518b, type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: 4574885540612182250, guid: 48073a528e47b2542a5cc7f1e576b898, type: 2}
     - target: {fileID: 7811690933635609686, guid: cb0146b12eb2908478b48edd6f85518b, type: 3}
       propertyPath: damage
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 7811690933635609686, guid: cb0146b12eb2908478b48edd6f85518b, type: 3}
-      propertyPath: targetTag
-      value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 7811690933635609686, guid: cb0146b12eb2908478b48edd6f85518b, type: 3}
-      propertyPath: impactSounds.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 7811690933635609686, guid: cb0146b12eb2908478b48edd6f85518b, type: 3}
-      propertyPath: impactSounds.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: e9530d2b3ff560d478cfcaa76bf37723, type: 3}
-    - target: {fileID: 7811690933635609686, guid: cb0146b12eb2908478b48edd6f85518b, type: 3}
-      propertyPath: impactSounds.Array.data[1]
-      value: 
-      objectReference: {fileID: 8300000, guid: 4f862a2c01771384a9e31e09e7da462b, type: 3}
-    - target: {fileID: 7811690933635609686, guid: cb0146b12eb2908478b48edd6f85518b, type: 3}
-      propertyPath: impactSounds.Array.data[2]
-      value: 
-      objectReference: {fileID: 8300000, guid: 02d79617520da0a4fb0607042b12fd1e, type: 3}
-    - target: {fileID: 7811690933635609686, guid: cb0146b12eb2908478b48edd6f85518b, type: 3}
-      propertyPath: impactSounds.Array.data[3]
-      value: 
-      objectReference: {fileID: 8300000, guid: 42e461835c6d38c47a49450ed0181f42, type: 3}
-    - target: {fileID: 8475847233549216544, guid: cb0146b12eb2908478b48edd6f85518b, type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9082230543275259216, guid: cb0146b12eb2908478b48edd6f85518b, type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9108450115997696823, guid: cb0146b12eb2908478b48edd6f85518b, type: 3}
-      propertyPath: playOnAwake
-      value: 0
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

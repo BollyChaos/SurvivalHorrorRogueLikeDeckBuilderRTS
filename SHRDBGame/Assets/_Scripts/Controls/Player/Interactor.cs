@@ -24,6 +24,10 @@ public class Interactor : MonoBehaviour
     public void SayInteractables()
     {
         Debug.Log($"Interactuables en rango: {interactablesInRange.Count}");
+        foreach(var interactable in interactablesInRange)
+        {
+            Debug.Log(interactable.GetTransform().name);
+        }
     }
     public void LookForInput()
     {
@@ -113,7 +117,7 @@ public class Interactor : MonoBehaviour
                 UIManager.Instance.SetInteractionText(currentTarget.GetInteractionText());
                 if (currentTarget.GetTransform().tag.Equals("Purchaseable"))
                 {
-                    UIManager.Instance.ShowMoney(GetComponent<Economy>().Coins);
+                    UIManager.Instance.ShowMoney(GetComponentInParent<Economy>().Coins);
                 }
             }
         }
