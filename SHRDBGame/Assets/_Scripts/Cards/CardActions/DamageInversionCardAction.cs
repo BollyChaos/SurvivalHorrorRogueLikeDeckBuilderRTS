@@ -15,7 +15,8 @@ public class DamageInversionCardAction : MonoBehaviour, ICardAction
 
     [Header("Audio")]
     [SerializeField] private ASoundPlayer buffSoundPlayer;
-    [SerializeField] private int buffSoundIndex = 0;
+    [SerializeField] private int healOnDamageSoundIndex = 0;
+    [SerializeField] private int reflectSoundIndex = 1;
 
     void Start()
     {
@@ -29,15 +30,18 @@ public class DamageInversionCardAction : MonoBehaviour, ICardAction
         {
             case InversionType.HEALONDAMAGE:
                 playerTransform.GetComponent<PlayerCombat>().HealOnDamage = true;
+
+                if (buffSoundPlayer != null)
+                    buffSoundPlayer.PlaySound(healOnDamageSoundIndex);
                 break;
 
             case InversionType.REFLECTDAMAGE:
                 playerTransform.GetComponent<PlayerCombat>().ReflectDamage = true;
+
+                if (buffSoundPlayer != null)
+                    buffSoundPlayer.PlaySound(reflectSoundIndex);
                 break;
         }
-
-        if (buffSoundPlayer != null)
-            buffSoundPlayer.PlaySound(buffSoundIndex);
 
         GameObject buffP = Instantiate(buffParticles, playerTransform.position, Quaternion.identity);
         buffP.SetActive(true);

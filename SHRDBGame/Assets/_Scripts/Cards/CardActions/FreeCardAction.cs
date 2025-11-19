@@ -2,26 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FreeCardAction : MonoBehaviour,ICardAction
+public class FreeCardAction : MonoBehaviour, ICardAction
 {
-    // Start is called before the first frame update
+    [Header("Particles")]
     [SerializeField] GameObject freeCardPE;
 
     private Transform playerTransform;
-    public Transform PlayerTransform { get => playerTransform; set =>playerTransform=value; }
+    public Transform PlayerTransform { get => playerTransform; set => playerTransform = value; }
+
+    [Header("Audio")]
+    [SerializeField] private ASoundPlayer freeCardSoundPlayer;
+    [SerializeField] private int freeCardSoundIndex = 0;
+
     void Start()
     {
-        freeCardPE.SetActive(false);
-        
-    }
-    public void ExecuteCardAction(CardObject cardObj)
-    {
-        freeCardPE.SetActive(false);//como la animacion esta en playonawake esto le mete un reseteo, no estoy loco, aun
-        freeCardPE.SetActive(true);
-        freeCardPE.transform.position = playerTransform.position;
-        playerTransform.GetComponent<Economy>().NexPurchaseIsFree();
-        cardObj.UsingCard = false;
+        if (freeCardPE != null)
+            freeCardPE.SetActive(false);
     }
 
-   
+    public void ExecuteCardAction(CardObject cardObj)
+    {
+        freeCardPE.SetActive(false);
+        freeCardPE.SetActive(true);
+
+        freeCardPE.transform.position = playerTransform.position;
+
+        playerTransform.GetComponent<Economy>().NexPurchaseIsFree();
+
+        if (freeCardSoundPlayer != null)
+            freeCardSoundPlayer.PlaySound(freeCardSoundIndex);
+
+        cardObj.UsingCard = false;
+    }
 }
