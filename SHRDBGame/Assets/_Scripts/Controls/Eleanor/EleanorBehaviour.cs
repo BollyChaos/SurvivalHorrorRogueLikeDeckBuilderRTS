@@ -54,31 +54,44 @@ public class EleanorBehaviour : MonoBehaviour, IInteractable
     {
         return transform;
     }
+    public void SkipTutorial()
+    {
+
+        DialogManager.Instance.InterruptDialog();
+        DialogManager.Instance.onEndDialog.RemoveListener(onEndDialog);
+        
+        goToShop();
+        cardSelectionTrigger.gameObject.SetActive(true);
+
+        EleanorBackWall.gameObject.SetActive(false);
+
+
+    }
     public void onEndDialog()
     {
         DialogManager.Instance.onEndDialog.RemoveListener(onEndDialog);
-
-        if (phase == EleanorPhase.AFTERCARDS)
+        if (phase == EleanorPhase.GETCARDS)
         {
-            phase = EleanorPhase.ONSHOP;
-            transform.position = shopSpot;
-            LevelManager.Instance.StartNight();
-            isInteractionLocked = false;
+            //quitar el boton de saltar tutorial   
+            UIManager.Instance.HideSkipTutorialButton();
+        }
+        else if (phase == EleanorPhase.AFTERCARDS)
+        {
+            goToShop();
 
 
-            
         }
         else if (phase == EleanorPhase.ONSHOP && dayCounter == DayTimeCounter)
         {
             dayCounter = 0;
             LevelManager.Instance.NextNight();
-        isInteractionLocked = false;
+            isInteractionLocked = false;
 
         }
         else if (time == EleanorTime.FIFTH)
         {
             LevelManager.Instance.NextNight();
-        isInteractionLocked = false;
+            isInteractionLocked = false;
 
         }
         Debug.Log("Fin del bloqueo");
@@ -86,17 +99,29 @@ public class EleanorBehaviour : MonoBehaviour, IInteractable
 
 
     }
+    private void goToShop()
+    {
+        phase = EleanorPhase.ONSHOP;
+        transform.position = shopSpot;
+        LevelManager.Instance.StartNight();
+        isInteractionLocked = false;
+
+    }
     public void EndCardSelection()
     {
+        if (phase == EleanorPhase.ONSHOP) return;
         phase = EleanorPhase.AFTERCARDS;
         isInteractionLocked = false;
     }
     public void Interact()
     {
         if (isInteractionLocked) return;
+
         switch (phase)
         {
             case EleanorPhase.STARTGAME:
+                //enseñar el boton de saltar tutorial
+                UIManager.Instance.ShowSkipTutorialButton();
                 isInteractionLocked = true;
                 Debug.Log("Poniendo primer texto");
                 DialogManager.Instance.PlayDialogRequest("TutorialDialog");

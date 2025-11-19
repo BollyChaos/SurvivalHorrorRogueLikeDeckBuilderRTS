@@ -5,7 +5,8 @@ using UnityEngine;
 public class SlashCardAction : MonoBehaviour, ICardAction
 {
     private enum TypeOfSlash { Axe, Knife }
-
+    [Tooltip("Multiplicador de arma(el jugador empieza con 10 daño base x 1 de multiplicador propio)")]
+    [SerializeField] float toolMultiplier = 2f;
     [SerializeField] private GameObject slashPrefab;
     [SerializeField] private Transform playerTransform;
     [SerializeField] private TypeOfSlash typeOfSlash;
@@ -33,15 +34,15 @@ public class SlashCardAction : MonoBehaviour, ICardAction
     {
         playerCombat = playerTransform.GetComponent<PlayerCombat>();
         float baseDamage = playerCombat.stats.Attack;
+        damage = baseDamage * toolMultiplier;
+
 
         switch (typeOfSlash)
         {
             case TypeOfSlash.Axe:
-                damage = baseDamage * 3f;
                 AxeAttack();
                 break;
             case TypeOfSlash.Knife:
-                damage = baseDamage * 2f;
                 KnifeAttack();
                 break;
         }
@@ -53,7 +54,7 @@ public class SlashCardAction : MonoBehaviour, ICardAction
     {
         GetComponent<ASoundPlayer>().PlayRandomSound();
 
-        GameObject sPrefab = Instantiate(slashPrefab, playerTransform.position + playerTransform.forward * 2+Vector3.up, playerTransform.rotation);
+        GameObject sPrefab = Instantiate(slashPrefab, playerTransform.position + playerTransform.forward * 2 + Vector3.up, playerTransform.rotation);
         sPrefab.SetActive(true);
 
         // Asigna da�o e impacto
@@ -71,7 +72,7 @@ public class SlashCardAction : MonoBehaviour, ICardAction
     {
         GetComponent<ASoundPlayer>().PlayRandomSound();
 
-        GameObject sPrefab = Instantiate(slashPrefab, playerTransform.position + playerTransform.forward * 1.5f+Vector3.up, playerTransform.rotation);
+        GameObject sPrefab = Instantiate(slashPrefab, playerTransform.position + playerTransform.forward * 1.5f + Vector3.up, playerTransform.rotation);
         sPrefab.SetActive(true);
 
         PrefabDamage slash = sPrefab.GetComponent<PrefabDamage>();

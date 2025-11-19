@@ -155,7 +155,7 @@ PlayerHUD.transform.Find("CardsSelector").gameObject.SetActive(true);
 
         //y comienza la noche >:)
         //Movido al fin de dialogo con Eleanor
-        GameObject.Find("Eleanor").GetComponent<EleanorBehaviour>().EndCardSelection();
+        GameObject.Find("Eleanor")?.GetComponent<EleanorBehaviour>().EndCardSelection();
     }
     //recibir el canvas padre world space y pasar la pos al canvas screen space de player
     public void PassWorldPosToUI(GameObject uiWorld, Canvas WorldCanvas)//el canvas screen space es el de player hud
@@ -214,6 +214,25 @@ PlayerHUD.transform.Find("CardsSelector").gameObject.SetActive(true);
     }
     #endregion
     #region PLAYERUI
+    public void ShowSkipTutorialButton()
+    {
+        Button skipButton=PlayerHUD.transform.Find("Skip").GetComponent<Button>();
+        skipButton.gameObject.SetActive(true);
+        skipButton.onClick.AddListener(SkipTutorialButton);
+
+    }
+    private void SkipTutorialButton()
+    {
+        FindAnyObjectByType<EleanorBehaviour>().SkipTutorial();
+        
+    }
+    public void HideSkipTutorialButton()
+    {
+        Button skipButton=PlayerHUD.transform.Find("Skip").GetComponent<Button>();
+        skipButton.onClick.RemoveAllListeners();
+        skipButton.gameObject.SetActive(false);
+        
+    }
     public void SetPlayerHealthUI(float healthAmmount)
     {
         PlayerHUD.transform.Find("PlayerHealth").GetComponent<HealthBarSlider>().SetHealth(healthAmmount);
@@ -458,11 +477,12 @@ PlayerHUD.transform.Find("CardsSelector").gameObject.SetActive(true);
         }
         else if (!isPaused && previousInGameState == InGameStates.INGAME)
         {
+
             Debug.Log("Volviendo a ingame");
             previousInGameState = inGameStates;
 
             inGameStates = InGameStates.INGAME;
-        PlayerHUD.SetActive(true);
+            PlayerHUD.SetActive(true);
 
             InputManager.Instance.SwitchMapToPlayer();
         }
@@ -502,7 +522,12 @@ PlayerHUD.transform.Find("CardsSelector").gameObject.SetActive(true);
     }
     public void GoBackToMainMenu()
     {
+        inGameStates=InGameStates.ENDGAME;
+        previousInGameState=InGameStates.ENDGAME;
+
+        Debug.Log("Cerrando");
         PlayerHUD.SetActive(false);
+        Debug.Log(PlayerHUD.activeSelf);
         EndGameCavas.SetActive(false);
         GameManager.Instance.GoBackToMainMenu();
         
@@ -576,6 +601,8 @@ PlayerHUD.transform.Find("CardsSelector").gameObject.SetActive(true);
 
     public void OnStartGame()
     {
+        inGameStates=InGameStates.INGAME;
+        previousInGameState=inGameStates;
         //1.Al empezar juego se activa la hud del player
         Debug.Log($"[{name}]Empezando juego");
         PauseMenu?.SetActive(false);

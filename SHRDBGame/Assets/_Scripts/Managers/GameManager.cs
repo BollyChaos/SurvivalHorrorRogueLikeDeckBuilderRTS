@@ -96,6 +96,7 @@ namespace Managers
         }
         public void PauseGame()
         {
+            Debug.Log("Pausar juego");
             gameState = GameState.INPAUSE;
             onPause?.Invoke(true);
         }
@@ -241,6 +242,8 @@ namespace Managers
         }
         public void OnDestroy()
         {
+            managersList = managersList.Where(m => m != null).ToList();
+
             managersList.Clear();
         }
         public void GoBackToMainMenu()//cuando se llame a esta funcion es porque se ha salido a traves del menu de pausa

@@ -102,17 +102,26 @@ public class DialogManager : ASingleton<DialogManager>, IManager
             yield return new WaitUntil(() => nextRequested);
             nextRequested = false;
         }
-        currentDialog.Reset();
+      OnEndDialog();
+
+    }
+    private void OnEndDialog()
+    {
+       currentDialog.Reset();
         RunningDialog = null;
         dialogCanvas.EndOfDialog();
         dialogCanvas.gameObject.SetActive(false);
         InputManager.Instance.SwitchMapToPlayer();
         UIManager.Instance.CloseDialog();
         onEndDialog.Invoke();
-
-
+   
     }
-
+public void InterruptDialog()
+    {
+        // if(RunningDialog!=null)
+        //     StopCoroutine(RunningDialog);
+        OnEndDialog();
+    }
     DialogSO FindDialog(string DialogName)
     {
 

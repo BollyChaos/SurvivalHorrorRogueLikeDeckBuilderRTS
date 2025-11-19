@@ -10,6 +10,8 @@ public class Interactor : MonoBehaviour
     [Header("Interacción")]
     [SerializeField] private LayerMask interactableMask;
     [SerializeField] private float interactionRadius = 2f;
+    [SerializeField] private float gcTime = 0.2f;
+    private float gcCounter = 0f;
     [SerializeField] public bool isInteracting = false;
     private IInteractable currentTarget;
 
@@ -17,14 +19,14 @@ public class Interactor : MonoBehaviour
     private readonly List<IInteractable> interactablesInRange = new();
     void Start()
     {
-       
+
         LookForInput();
     }
     [ContextMenu("DecirInteractuables")]
     public void SayInteractables()
     {
         Debug.Log($"Interactuables en rango: {interactablesInRange.Count}");
-        foreach(var interactable in interactablesInRange)
+        foreach (var interactable in interactablesInRange)
         {
             Debug.Log(interactable.GetTransform().name);
         }
@@ -59,46 +61,59 @@ public class Interactor : MonoBehaviour
 
             if (isInteracting)
             {
-                currentTarget = GetClosestInteractable();
                 if (currentTarget != null)
+                {
+                    UIManager.Instance.HideInteractionText();
                     currentTarget.Interact();
+                }
+            }
+            if (gcCounter < gcTime)
+            {
+                gcCounter += Time.deltaTime;
+            }
+            else
+            {
+                gcCounter = 0f;
+                currentTarget = GetClosestInteractable();
             }
         }
+
         else
         {
             currentTarget = null;
         }
+
     }
 
     private IInteractable GetClosestInteractable()
-{
-    float minDist = float.MaxValue;
-    IInteractable closest = null;
-
-    // Recorremos al revés para poder eliminar sin problemas
-    for (int j = interactablesInRange.Count - 1; j >= 0; j--)
     {
-        var i = interactablesInRange[j];
+        float minDist = float.MaxValue;
+        IInteractable closest = null;
 
-        if (i == null || !i.GetTransform().gameObject.activeSelf)
+        // Recorremos al revés para poder eliminar sin problemas
+        for (int j = interactablesInRange.Count - 1; j >= 0; j--)
         {
-            UIManager.Instance.HideInteractionText();
-            interactablesInRange.RemoveAt(j); // eliminar inactivo o null
-            
-            continue;
+            var i = interactablesInRange[j];
+
+            if (i == null || !i.GetTransform().gameObject.activeSelf)
+            {
+                UIManager.Instance.HideInteractionText();
+                interactablesInRange.RemoveAt(j); // eliminar inactivo o null
+
+                continue;
+            }
+
+            float dist = Vector3.Distance(transform.position, i.GetTransform().position);
+
+            if (dist < minDist)
+            {
+                minDist = dist;
+                closest = i;
+            }
         }
 
-        float dist = Vector3.Distance(transform.position, i.GetTransform().position);
-
-        if (dist < minDist)
-        {
-            minDist = dist;
-            closest = i;
-        }
+        return closest;
     }
-
-    return closest;
-}
 
 
     private void OnTriggerEnter(Collider other)
