@@ -139,4 +139,8 @@ public class InputManager : ASingleton<InputManager>, IManager
         EventSystem.current.SetSelectedGameObject(Button);
     }
     #endregion
+    // public void Update()
+    // {
+    //     if(UnityEngine.Input.GetKeyDown(KeyCode.E)){SwitchMapToPlayer();}
+    // }
 }

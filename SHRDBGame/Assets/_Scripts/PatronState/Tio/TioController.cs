@@ -17,10 +17,10 @@ public class TioController : EnemyController
         base.Awake();
         SetState(new TioPatrolling(this));
     }
-    private void OnEnable()
-    {
-        SetState(new TioPatrolling(this));
-    }
+    // private void OnEnable()
+    // {
+    //     SetState(new TioPatrolling(this));
+    // }
     #region sonidos
 
     public void OnSoundHeard(Vector3 soundPosition)

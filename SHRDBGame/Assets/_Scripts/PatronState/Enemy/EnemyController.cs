@@ -36,11 +36,11 @@ public class EnemyController : MonoBehaviour, IEnemy
         _agent = GetComponent<NavMeshAgent>();
         SetState(new Patrol(this));
     }
-    protected void OnEnable()
-    {
-        // Reiniciamos el estado del enemigo al activarse
-        SetState(new Patrol(this));
-    }
+    // protected void OnEnable()
+    // {
+    //     // Reiniciamos el estado del enemigo al activarse
+    //     SetState(new Patrol(this));
+    // }
     public GameObject GetGameObject()
     {
         return gameObject;
