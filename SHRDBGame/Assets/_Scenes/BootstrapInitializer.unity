@@ -11422,7 +11422,7 @@ MonoBehaviour:
   - {fileID: 47566423}
   - {fileID: 1990027564}
   - {fileID: 1136538086}
-  debug: 1
+  debug: 0
   cardToUseAlways: Trampa
 --- !u!1 &1100893903
 GameObject:
@@ -11735,7 +11735,7 @@ MonoBehaviour:
   buffParticles: {fileID: 4746555708058557657}
   buffSoundPlayer: {fileID: 1136538089}
   healOnDamageSoundIndex: 0
-  reflectSoundIndex: 1
+  reflectSoundIndex: 0
 --- !u!4 &1136538088
 Transform:
   m_ObjectHideFlags: 0
