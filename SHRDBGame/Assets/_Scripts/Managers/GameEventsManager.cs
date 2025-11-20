@@ -5,10 +5,12 @@ using Patterns.Singleton;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class GameEventsManager : ASingleton<GameEventsManager>,IManager
+public class GameEventsManager : ASingleton<GameEventsManager>, IManager
 {
     public IManager.GameStartMode StartMode => IManager.GameStartMode.NORMAL;
-    public enum GameEvent { NONE, LIGHTSOUT, ENEMIESAGRO, SPAWNMONSTERS, GOTORANDOMROOM,MONEYRAIN,HEALTHRAIN,SPAWNCARD, }
+    public enum GameEvent { NONE, LIGHTSOUT, ENEMIESAGRO, SPAWNMONSTERS, GOTORANDOMROOM, MONEYRAIN, HEALTHRAIN, SPAWNCARD, }
+    [Header("Events")]
+
     [SerializeField]
     public GameEvent currentEvent = GameEvent.NONE;
     [SerializeField] public float TimeBetweenEvents = 20f;
@@ -18,6 +20,13 @@ public class GameEventsManager : ASingleton<GameEventsManager>,IManager
     private float counter = 0f;
     private float[] eventProbs;//de momento van a ser sucesos equiprobables
     private float decayFactor = .6f;
+    [Header("LightsOutEvent")]
+    [SerializeField] float blackOutTime=6f;
+    [Header("Debug")]
+    [SerializeField]
+    bool debug = true;
+    [SerializeField, ShowIf("debug")]
+    private GameEvent fixedTimeEvent;
     #region MANAGERLOGIC
     void Update()
     {
@@ -26,13 +35,46 @@ public class GameEventsManager : ASingleton<GameEventsManager>,IManager
         {
             counter = 0f;
             timeToWait = UnityEngine.Random.Range(TimeBetweenEvents - randomRange, TimeBetweenEvents + randomRange);
-            currentEvent = (GameEvent)DynamicProbability.GetRandomIndexArgs(eventProbs, decayFactor);
+
+            if (!debug)
+            {
+                currentEvent = (GameEvent)DynamicProbability.GetRandomIndexArgs(eventProbs, decayFactor);
+
+            }
+            else
+            {
+                currentEvent = fixedTimeEvent;
+            }
+            ThrowEvent();
             Debug.Log($"[{name}]VA A OCURRIR EL EVENTO {currentEvent}");
             Debug.Log($"[{name}]EVENTO EN {timeToWait} SEGUNDOS");
 
         }
         else counter += Time.deltaTime;
-    
+
+    }
+    private void ThrowEvent()
+    {
+        switch (currentEvent)
+        {
+            case GameEvent.LIGHTSOUT:
+           StartCoroutine( LightsEvent());
+            break;
+        }
+    }
+    private IEnumerator LightsEvent()
+    {
+        List<Light> sceneLights=new List<Light>(FindObjectsOfType<Light>());
+        foreach(var light in sceneLights)
+        {
+            light.gameObject.SetActive(false);
+        }
+        
+        yield return new WaitForSeconds(blackOutTime);
+         foreach(var light in sceneLights)
+        {
+            light.gameObject.SetActive(true);
+        }
     }
     public void LoadData()
     {
@@ -40,7 +82,7 @@ public class GameEventsManager : ASingleton<GameEventsManager>,IManager
 
     public void OnEnd()
     {
-         Debug.Log($"[{name} cerrando...]");
+        Debug.Log($"[{name} cerrando...]");
     }
 
     public void OnEndGame()
@@ -52,8 +94,8 @@ public class GameEventsManager : ASingleton<GameEventsManager>,IManager
     public void OnStartGame()
     {
         Debug.Log($"[{name}]:Empezando juego");
-       LevelManager.Instance.onNightStateChanged.AddListener(OnNightStateChanged);
-       
+        LevelManager.Instance.onNightStateChanged.AddListener(OnNightStateChanged);
+
     }
     public void OnNightStateChanged(bool isNight)
 
@@ -82,7 +124,7 @@ public class GameEventsManager : ASingleton<GameEventsManager>,IManager
         {
             eventProbs[i] = 1f;
         }
-       
+
     }
     #endregion
     // IEnumerator CreateEvents()
