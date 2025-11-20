@@ -83,8 +83,36 @@ public class PrefabDamage : MonoBehaviour
 
         if (other.CompareTag(targetTag))
         {
-            Debug.Log("dando daño soy "+name);
-           other.GetComponentInParent<EnemyCombat>().TakeDamage(Damage);
+             // Primero probamos si es un jugador
+        PlayerCombat player = other.GetComponent<PlayerCombat>();
+        if (player != null)
+        {
+
+            player.TakeDamage(damage);
+            // Reproduce sonido de impacto
+            if (soundPlayer != null)
+            {
+                soundPlayer.PlayRandomSound();
+            }
+            return;
+        }
+
+        // Si no es jugador, probamos si es enemigo
+        EnemyCombat enemy = other.GetComponent<EnemyCombat>();
+        if (enemy == null){
+            enemy = other.GetComponentInParent<EnemyCombat>();
+        }
+        //<Debug.Log("PrefabDamage detected collision with " + other.name);
+        if (enemy != null)
+        {
+            enemy.TakeDamage(damage);
+            // Reproduce sonido de impacto
+            if (soundPlayer != null)
+            {
+                soundPlayer.PlayRandomSound();
+            }
+            return;
+        }
         }
     }
 

@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 2561869650353142601}
   - component: {fileID: 822382133900782640}
   - component: {fileID: 657376898528865541}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Vision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -303,7 +303,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4218087781645645949
 Transform:
   m_ObjectHideFlags: 0
@@ -336,7 +336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34758552ea2733c43bccc702142592aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vision: {fileID: 6030719545769491451}
+  vision: {fileID: 2486545822045728731}
   HealthDropPrefab: {fileID: 7501142099102665056, guid: b0147d9cb31c1a54487feceedd4cdc7f, type: 3}
   MoneyDropPrefab: {fileID: 9006538771556817521, guid: 4381609bd111e7b448a88deb5032e77e, type: 3}
   hearingRange: 50

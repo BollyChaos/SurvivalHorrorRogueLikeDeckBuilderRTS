@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &719507911460250031
 Transform:
   m_ObjectHideFlags: 0
@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4a470ea6b4b974e880d632f714cea9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vision: {fileID: 2405132392736585338}
+  vision: {fileID: 8966587364198135753}
   HealthDropPrefab: {fileID: 7501142099102665056, guid: b0147d9cb31c1a54487feceedd4cdc7f, type: 3}
   MoneyDropPrefab: {fileID: 9006538771556817521, guid: 4381609bd111e7b448a88deb5032e77e, type: 3}
   hearingRange: 50

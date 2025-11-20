@@ -20,11 +20,6 @@ public class AbueloController : EnemyController
     {
 
         base.Awake();
-        
-        // Buscar el GameObject con nombre "WaypointsAbuelo" y obtener sus hijos como waypoints
-     
-     
-       
     }
     void Start()
     {

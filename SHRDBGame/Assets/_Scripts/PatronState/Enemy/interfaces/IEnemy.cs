@@ -31,6 +31,11 @@ namespace State.Interfaces
         public void OnPlayerStayVision(GameObject other);
         public void OnPlayerExitVision();
         public void ShootDrops();
+        public void RangeAttackPlayer();
+        public void SetMisionsCompleted(bool estado);
+        public bool AreMisionsCompleted();
+        public void SetTalkable(bool estado);
+         public GameObject GetPlayer();
 
         //Poner de aqui en adelante fucniones que puedan realizar los enemigos, ej: Detectar jugador, moverse...
     }

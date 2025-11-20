@@ -34,7 +34,7 @@ public class EnemyController : MonoBehaviour, IEnemy
     protected void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
-        SetState(new Patrol(this));
+        //SetState(new Patrol(this));
     }
     // protected void OnEnable()
     // {
@@ -223,5 +223,31 @@ public class EnemyController : MonoBehaviour, IEnemy
         throw new System.NotImplementedException();
     }
     
+    #region Hija
+    public virtual void RangeAttackPlayer()
+    {
+        throw new System.NotImplementedException();
+    }
+    public virtual void SetMisionsCompleted(bool estado)
+    {
+        throw new System.NotImplementedException();
+    }
+    public virtual bool AreMisionsCompleted()
+    {
+        throw new System.NotImplementedException();
+    }
+    public virtual void SetTalkable(bool estado)
+    {
+        throw new System.NotImplementedException();
+    }
+    public virtual bool IsTalkable()
+    {
+        throw new System.NotImplementedException();
+    }
+    public virtual GameObject GetPlayer()
+    {
+        throw new System.NotImplementedException();
+    }
+    #endregion
 
 }

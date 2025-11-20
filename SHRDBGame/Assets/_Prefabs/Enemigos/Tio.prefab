@@ -352,7 +352,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 984b799db7a601347a054eea2a613f6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vision: {fileID: 6823851821172519275}
+  vision: {fileID: 7354971085373023676}
   HealthDropPrefab: {fileID: 7501142099102665056, guid: b0147d9cb31c1a54487feceedd4cdc7f, type: 3}
   MoneyDropPrefab: {fileID: 9006538771556817521, guid: 4381609bd111e7b448a88deb5032e77e, type: 3}
   hearingRange: 50
