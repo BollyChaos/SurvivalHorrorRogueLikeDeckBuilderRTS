@@ -249,6 +249,20 @@ PlayerHUD.transform.Find("CardsSelector").gameObject.SetActive(true);
         PlayerHUD.transform.Find("InteractionText").gameObject.SetActive(false);
 
     }
+    public void ShowRoomText(string roomText)
+    {
+        PlayerHUD.transform.Find("RoomText").GetComponent<TextMeshProUGUI>().text=roomText;
+    }
+    public void HideRoomText(string roomText)
+    {
+
+        if (PlayerHUD.transform.Find("RoomText").GetComponent<TextMeshProUGUI>().text == roomText)
+        {
+            PlayerHUD.transform.Find("RoomText").GetComponent<TextMeshProUGUI>().text = "";
+        }
+        
+        
+    }
     public void ShowMoneyForAWhile(int money)
     {
         GameObject moneyObj = PlayerHUD.transform.Find("PlayerMoney").gameObject;

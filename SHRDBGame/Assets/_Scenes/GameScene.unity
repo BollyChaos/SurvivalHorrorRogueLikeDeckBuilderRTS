@@ -2160,6 +2160,7 @@ GameObject:
   m_Component:
   - component: {fileID: 129454026}
   - component: {fileID: 129454027}
+  - component: {fileID: 129454028}
   m_Layer: 0
   m_Name: HabitacionInvitados
   m_TagString: Untagged
@@ -2203,6 +2204,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 25, y: 1, z: 15}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &129454028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 129454025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd7ce879eb0c6d49a6214f6a04b0a02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: "Habitaci\xF3n de Invitados"
+  interactorLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &133702289 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 8815f18a9815c5646a3fa1134d7b5e4f, type: 3}
@@ -2391,6 +2408,7 @@ GameObject:
   m_Component:
   - component: {fileID: 139818146}
   - component: {fileID: 139818147}
+  - component: {fileID: 139818148}
   m_Layer: 0
   m_Name: SalaSecreta
   m_TagString: Untagged
@@ -2434,6 +2452,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 10, y: 1, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &139818148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 139818145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd7ce879eb0c6d49a6214f6a04b0a02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: Sala secreta
+  interactorLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &143245903
 GameObject:
   m_ObjectHideFlags: 0
@@ -2901,6 +2935,7 @@ GameObject:
   m_Component:
   - component: {fileID: 173177970}
   - component: {fileID: 173177971}
+  - component: {fileID: 173177972}
   m_Layer: 0
   m_Name: "Ba\xF1o1"
   m_TagString: Untagged
@@ -2944,6 +2979,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 10, y: 1, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &173177972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 173177969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd7ce879eb0c6d49a6214f6a04b0a02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: "Ba\xF1o"
+  interactorLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1001 &173214614
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6608,6 +6659,7 @@ GameObject:
   m_Component:
   - component: {fileID: 413375178}
   - component: {fileID: 413375179}
+  - component: {fileID: 413375180}
   m_Layer: 0
   m_Name: Habitacion2
   m_TagString: Untagged
@@ -6651,6 +6703,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 15, y: 1, z: 22}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &413375180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 413375177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd7ce879eb0c6d49a6214f6a04b0a02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: "Habitaci\xF3n"
+  interactorLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1001 &414615385
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8802,6 +8870,7 @@ GameObject:
   m_Component:
   - component: {fileID: 495994681}
   - component: {fileID: 495994682}
+  - component: {fileID: 495994683}
   m_Layer: 0
   m_Name: Garaje
   m_TagString: Untagged
@@ -8845,6 +8914,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 35, y: 1, z: 22}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &495994683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 495994680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd7ce879eb0c6d49a6214f6a04b0a02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: Garaje
+  interactorLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1001 &497073168
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9470,6 +9555,7 @@ GameObject:
   m_Component:
   - component: {fileID: 556205357}
   - component: {fileID: 556205358}
+  - component: {fileID: 556205359}
   m_Layer: 0
   m_Name: Habitacion1
   m_TagString: Untagged
@@ -9513,6 +9599,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 15, y: 1, z: 22}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &556205359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 556205356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd7ce879eb0c6d49a6214f6a04b0a02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: "Habitaci\xF3n"
+  interactorLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &563074569
 GameObject:
   m_ObjectHideFlags: 0
@@ -10677,6 +10779,7 @@ GameObject:
   m_Component:
   - component: {fileID: 638063248}
   - component: {fileID: 638063249}
+  - component: {fileID: 638063250}
   m_Layer: 0
   m_Name: Cocina
   m_TagString: Untagged
@@ -10720,6 +10823,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 23, y: 1, z: 25}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &638063250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 638063247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd7ce879eb0c6d49a6214f6a04b0a02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: Cocina
+  interactorLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &641608382
 GameObject:
   m_ObjectHideFlags: 0
@@ -11228,6 +11347,7 @@ GameObject:
   m_Component:
   - component: {fileID: 680853302}
   - component: {fileID: 680853303}
+  - component: {fileID: 680853304}
   m_Layer: 0
   m_Name: Despensa
   m_TagString: Untagged
@@ -11271,6 +11391,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 7, y: 1, z: 25}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &680853304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 680853301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd7ce879eb0c6d49a6214f6a04b0a02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: Despensa
+  interactorLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &682690873
 GameObject:
   m_ObjectHideFlags: 0
@@ -11910,6 +12046,7 @@ GameObject:
   m_Component:
   - component: {fileID: 700771027}
   - component: {fileID: 700771028}
+  - component: {fileID: 700771029}
   m_Layer: 0
   m_Name: HabitacionPadres
   m_TagString: Untagged
@@ -11953,6 +12090,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 25, y: 1, z: 20}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &700771029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 700771026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd7ce879eb0c6d49a6214f6a04b0a02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: "Habitaci\xF3n de los Padres"
+  interactorLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &718346127
 GameObject:
   m_ObjectHideFlags: 0
@@ -12128,7 +12281,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 0.024, y: 0.0002000001, z: 0.17750008}
   m_Center: {x: -0.012, y: 0.000099988785, z: -0.08874994}
@@ -12552,6 +12705,7 @@ GameObject:
   m_Component:
   - component: {fileID: 766855296}
   - component: {fileID: 766855297}
+  - component: {fileID: 766855298}
   m_Layer: 0
   m_Name: "Ba\xF1oPadres"
   m_TagString: Untagged
@@ -12595,6 +12749,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 10, y: 1, z: 20}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &766855298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 766855295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd7ce879eb0c6d49a6214f6a04b0a02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: "Ba\xF1o de los Padres"
+  interactorLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &775089061
 GameObject:
   m_ObjectHideFlags: 0
@@ -13058,6 +13228,7 @@ GameObject:
   m_Component:
   - component: {fileID: 803580935}
   - component: {fileID: 803580936}
+  - component: {fileID: 803580937}
   m_Layer: 0
   m_Name: Salon
   m_TagString: Untagged
@@ -13101,6 +13272,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 30, y: 1, z: 30}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &803580937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 803580934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd7ce879eb0c6d49a6214f6a04b0a02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: "Sal\xF3n"
+  interactorLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1001 &809378463
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13199,6 +13386,7 @@ GameObject:
   m_Component:
   - component: {fileID: 819168420}
   - component: {fileID: 819168421}
+  - component: {fileID: 819168422}
   m_Layer: 0
   m_Name: Biblioteca
   m_TagString: Untagged
@@ -13242,6 +13430,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 10, y: 1, z: 30}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &819168422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 819168419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd7ce879eb0c6d49a6214f6a04b0a02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: Biblioteca
+  interactorLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &824841253
 GameObject:
   m_ObjectHideFlags: 0
@@ -24466,6 +24670,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1538679736}
   - component: {fileID: 1538679737}
+  - component: {fileID: 1538679738}
   m_Layer: 0
   m_Name: Oficina
   m_TagString: Untagged
@@ -24509,6 +24714,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 15, y: 1, z: 25}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1538679738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1538679735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd7ce879eb0c6d49a6214f6a04b0a02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: Oficina
+  interactorLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &1550893189
 GameObject:
   m_ObjectHideFlags: 0
@@ -27090,6 +27311,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1632479707}
   - component: {fileID: 1632479708}
+  - component: {fileID: 1632479709}
   m_Layer: 0
   m_Name: Comedor
   m_TagString: Untagged
@@ -27133,6 +27355,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 35, y: 1, z: 60}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1632479709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1632479706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd7ce879eb0c6d49a6214f6a04b0a02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: Comedor
+  interactorLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &1640933244 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 8815f18a9815c5646a3fa1134d7b5e4f, type: 3}
@@ -27383,6 +27621,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1675262445}
   - component: {fileID: 1675262446}
+  - component: {fileID: 1675262447}
   m_Layer: 0
   m_Name: "Ba\xF1o2"
   m_TagString: Untagged
@@ -27426,6 +27665,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 10, y: 1, z: 22}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1675262447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1675262444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd7ce879eb0c6d49a6214f6a04b0a02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: "Ba\xF1o"
+  interactorLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &1685517532
 GameObject:
   m_ObjectHideFlags: 0
@@ -28403,6 +28658,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1715643920}
   - component: {fileID: 1715643921}
+  - component: {fileID: 1715643922}
   m_Layer: 0
   m_Name: Recibidor
   m_TagString: Untagged
@@ -28446,6 +28702,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 12, y: 1, z: 100}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1715643922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1715643919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd7ce879eb0c6d49a6214f6a04b0a02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: Recibidor
+  interactorLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1001 &1718756239
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32276,6 +32548,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2028335223}
   - component: {fileID: 2028335224}
+  - component: {fileID: 2028335225}
   m_Layer: 0
   m_Name: SalonInvitados
   m_TagString: Untagged
@@ -32319,6 +32592,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 25, y: 1, z: 45}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2028335225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2028335222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd7ce879eb0c6d49a6214f6a04b0a02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: "Sal\xF3n de Invitados"
+  interactorLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1001 &2030628010
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34369,6 +34658,10 @@ PrefabInstance:
       propertyPath: deathAudioPlayer
       value: 
       objectReference: {fileID: 1748572042}
+    - target: {fileID: 6897179572025835811, guid: 9c070b9c405d3eb449b4ecd6c761c063, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
