@@ -8,7 +8,7 @@ using UnityEngine;
 public class GameEventsManager : ASingleton<GameEventsManager>,IManager
 {
     public IManager.GameStartMode StartMode => IManager.GameStartMode.NORMAL;
-    public enum GameEvent { NONE, LIGHTSOUT, ENEMIESAGRO, SPAWNMONSTERS, GOTORANDOMROOM }
+    public enum GameEvent { NONE, LIGHTSOUT, ENEMIESAGRO, SPAWNMONSTERS, GOTORANDOMROOM,MONEYRAIN,HEALTHRAIN,SPAWNCARD, }
     [SerializeField]
     public GameEvent currentEvent = GameEvent.NONE;
     [SerializeField] public float TimeBetweenEvents = 20f;

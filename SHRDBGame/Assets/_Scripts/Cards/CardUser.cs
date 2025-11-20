@@ -65,30 +65,79 @@ public class CardUser : MonoBehaviour
             Debug.Log("Input Encontrado");
             //Recoger los inputs
 
-            ////izquierda
+
             ///ACCIONES ANTIGUAS
-            //input.actions["UseLeftCard"].started += ReadInputLeftCard;
-            //input.actions["UseLeftCard"].performed += ReadInputLeftCard;
-            //input.actions["UseLeftCard"].canceled += ReadInputLeftCard;
-            ////centro
-            //input.actions["UseCenterCard"].started += ReadInputCenterCard;
-            //input.actions["UseCenterCard"].performed += ReadInputCenterCard;
-            //input.actions["UseCenterCard"].canceled += ReadInputCenterCard;
-            ////derecha
-            //input.actions["UseRightCard"].started += ReadInputRightCard;
-            //input.actions["UseRightCard"].performed += ReadInputRightCard;
-            //input.actions["UseRightCard"].canceled += ReadInputRightCard;
+
+            //ver usebuttons si true leer como botones si false leer esto
             //NUEVAS ACCIONES, DESPLAZARSE HASTA UNA CARTA Y USAR UNA CARTA
             //Usar la carta
             input.actions["UseCard"].started += ReadInputCard;
             input.actions["UseCard"].performed += ReadInputCard;
             input.actions["UseCard"].canceled += ReadInputCard;
-            //Mover el indice para usar la otra carta
-            input.actions["NavigateCards"].started += NavigateCards;
-            input.actions["NavigateCards"].performed += NavigateCards;
-            input.actions["NavigateCards"].canceled += NavigateCards;
+            SettingsManager.Instance.onSettingsChange.AddListener(onSettingsChange);
+            onSettingsChange();
 
         }
+    }
+    public void onSettingsChange()
+    {
+        bool canUseButtons = SettingsManager.Instance.GetValue<bool>("UseButtons");
+        PlayerInput input = InputManager.Instance.Input;
+            if (canUseButtons)
+            {
+                UnSuscribeNavigationInput(input);
+                ReadButtonsInput(input);
+            }
+            else
+            {
+                UnSuscribeButtonsInput(input);
+                ReadNavigationInput(input);
+            }
+    }
+    private void ReadButtonsInput(PlayerInput input)
+    {
+        //izquierda
+        input.actions["UseLeftCard"].started += ReadInputLeftCard;
+        input.actions["UseLeftCard"].performed += ReadInputLeftCard;
+        input.actions["UseLeftCard"].canceled += ReadInputLeftCard;
+        //centro
+        input.actions["UseCenterCard"].started += ReadInputCenterCard;
+        input.actions["UseCenterCard"].performed += ReadInputCenterCard;
+        input.actions["UseCenterCard"].canceled += ReadInputCenterCard;
+        //derecha
+        input.actions["UseRightCard"].started += ReadInputRightCard;
+        input.actions["UseRightCard"].performed += ReadInputRightCard;
+        input.actions["UseRightCard"].canceled += ReadInputRightCard;
+
+    }
+    private void UnSuscribeButtonsInput(PlayerInput input)
+    {
+        //izquierda
+        input.actions["UseLeftCard"].started -= ReadInputLeftCard;
+        input.actions["UseLeftCard"].performed -= ReadInputLeftCard;
+        input.actions["UseLeftCard"].canceled -= ReadInputLeftCard;
+        //centro
+        input.actions["UseCenterCard"].started -= ReadInputCenterCard;
+        input.actions["UseCenterCard"].performed -= ReadInputCenterCard;
+        input.actions["UseCenterCard"].canceled -= ReadInputCenterCard;
+        //derecha
+        input.actions["UseRightCard"].started -= ReadInputRightCard;
+        input.actions["UseRightCard"].performed -= ReadInputRightCard;
+        input.actions["UseRightCard"].canceled -= ReadInputRightCard;
+    }
+    private void ReadNavigationInput(PlayerInput input)
+    {
+        //Mover el indice para usar la otra carta
+        input.actions["NavigateCards"].started += NavigateCards;
+        input.actions["NavigateCards"].performed += NavigateCards;
+        input.actions["NavigateCards"].canceled += NavigateCards;
+    }
+    private void UnSuscribeNavigationInput(PlayerInput input)
+    {
+        //Mover el indice para usar la otra carta
+        input.actions["NavigateCards"].started -= NavigateCards;
+        input.actions["NavigateCards"].performed -= NavigateCards;
+        input.actions["NavigateCards"].canceled -= NavigateCards;
     }
 
     #region UsingCards
@@ -120,20 +169,24 @@ public class CardUser : MonoBehaviour
     //     GetComponent<CardInventory>().GiveCard(cardType);
     // }
     //Sabemos que el jugador unicamente usara tres cartas por lo que las pondremos en orden en la lista, cuando llegue el evento se gastan una vez
-    //public void ReadInputLeftCard(InputAction.CallbackContext ctx)
-    //{
-    //    cardPressed[0] = ctx.ReadValue<float>() > 0f;
-    //}
+    public void ReadInputLeftCard(InputAction.CallbackContext ctx)
+    {
+        if (ctx.ReadValue<float>() > 0f)
+            currentCardType = CardType.Attack;
+    }
 
-    //public void ReadInputCenterCard(InputAction.CallbackContext ctx)
-    //{
-    //    cardPressed[1] = ctx.ReadValue<float>() > 0f;
-    //}
+    public void ReadInputCenterCard(InputAction.CallbackContext ctx)
+    {
+        if (ctx.ReadValue<float>() > 0f)
+            currentCardType = CardType.Defense;
+    }
 
-    //public void ReadInputRightCard(InputAction.CallbackContext ctx)
-    //{
-    //    cardPressed[2] = ctx.ReadValue<float>() > 0f;
-    //}
+    public void ReadInputRightCard(InputAction.CallbackContext ctx)
+    {
+        if (ctx.ReadValue<float>() > 0f)
+            currentCardType = CardType.Utility;
+    }
+
     private void NavigateCards(InputAction.CallbackContext ctx)
     {
         float scroll = ctx.ReadValue<float>(); // +1 = up, -1 = down
@@ -232,7 +285,7 @@ public class CardUser : MonoBehaviour
             {
                 AnimateCard();
             }
-            else if (HasAnyCards && !HasAttackCards&&currentCardType==CardType.Attack)//si hay cartas pero no de ataque saltar a la siguiente
+            else if (HasAnyCards && !HasAttackCards && currentCardType == CardType.Attack)//si hay cartas pero no de ataque saltar a la siguiente
             {
                 currentCardType = CardType.Defense;
                 AnimateCard();
@@ -249,7 +302,7 @@ public class CardUser : MonoBehaviour
                 AnimateCard();
 
             }
-            else if (HasAnyCards && !HasDefenseCards&&currentCardType==CardType.Defense)//si hay cartas pero no de ataque saltar a la siguiente
+            else if (HasAnyCards && !HasDefenseCards && currentCardType == CardType.Defense)//si hay cartas pero no de ataque saltar a la siguiente
             {
                 currentCardType = CardType.Utility;
                 AnimateCard();
@@ -263,7 +316,7 @@ public class CardUser : MonoBehaviour
                 AnimateCard();
 
             }
-            else if (HasAnyCards && !HasUtilityCards&&currentCardType==CardType.Utility)//si hay cartas pero no de ataque saltar a la siguiente
+            else if (HasAnyCards && !HasUtilityCards && currentCardType == CardType.Utility)//si hay cartas pero no de ataque saltar a la siguiente
             {
                 currentCardType = CardType.Attack;
                 AnimateCard();
@@ -341,6 +394,9 @@ public class CardUser : MonoBehaviour
         {
             Destroy(AttackCard);
         }
+        PlayerInput input = InputManager.Instance.Input;
+        UnSuscribeButtonsInput(input);
+        UnSuscribeNavigationInput(input);
     }
 
 }
