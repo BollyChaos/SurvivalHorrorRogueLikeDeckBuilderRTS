@@ -78,11 +78,12 @@ public class PrefabDamage : MonoBehaviour
      private void OnParticleCollision(GameObject other)
     {
         if(particleCollision)
-        Debug.Log("chocando con "+other.name+" con tag: "+other.tag);
+//        Debug.Log("chocando con "+other.name+" con tag: "+other.tag);
         //Debug.Log(tag);
 
         if (other.CompareTag(targetTag))
         {
+
              // Primero probamos si es un jugador
         PlayerCombat player = other.GetComponent<PlayerCombat>();
         if (player != null)
@@ -113,6 +114,10 @@ public class PrefabDamage : MonoBehaviour
             }
             return;
         }
+
+          //  Debug.Log("dando daño soy "+name);
+           other.GetComponentInParent<EnemyCombat>().TakeDamage(Damage);
+
         }
     }
 
