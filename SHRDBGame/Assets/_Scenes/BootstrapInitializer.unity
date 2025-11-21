@@ -10921,7 +10921,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nNights: 5
   currentNight: 1
-  nightDuration: 120
+  nightDuration: 180
   isNightActive: 0
   onNightStateChanged:
     m_PersistentCalls:
