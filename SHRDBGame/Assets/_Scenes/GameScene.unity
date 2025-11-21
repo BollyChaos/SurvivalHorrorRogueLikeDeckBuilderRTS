@@ -34645,10 +34645,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hija
       objectReference: {fileID: 0}
-    - target: {fileID: 7739205641307531646, guid: c791c191480819e4690184b5a8a7a57e, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

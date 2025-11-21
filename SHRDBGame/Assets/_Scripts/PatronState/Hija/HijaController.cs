@@ -32,10 +32,7 @@ public class HijaController : EnemyController
     //metodos
     public void Awake()
     {
-
         base.Awake();
-        _player=FindObjectOfType<SimplePlayerController>().gameObject;
-
         SetState(new HijaBattling(this));
     }
     // Start is called before the first frame update
