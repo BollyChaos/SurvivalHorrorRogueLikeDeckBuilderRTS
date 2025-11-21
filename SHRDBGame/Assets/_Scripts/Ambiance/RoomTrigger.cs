@@ -5,7 +5,7 @@ using UnityEngine;
 public class RoomTrigger : MonoBehaviour
 {
     [SerializeField]
-    string roomName;
+    public string roomName;
     [SerializeField]
     LayerMask interactorLayer;
     void OnTriggerEnter(Collider other)

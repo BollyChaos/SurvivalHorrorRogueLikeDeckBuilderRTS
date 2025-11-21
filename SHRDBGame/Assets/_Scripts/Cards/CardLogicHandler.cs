@@ -36,7 +36,7 @@ public class CardLogicHandler : MonoBehaviour
         {
              GameObject foundCardEffectDebug =
             cardEffects.Find(n => n.name == cardToUseAlways);
-        if (foundCardEffectDebug!=null)
+            if (foundCardEffectDebug!=null)
             {
 
                 foundCardEffectDebug.GetComponent<ICardAction>().ExecuteCardAction(cardObj);

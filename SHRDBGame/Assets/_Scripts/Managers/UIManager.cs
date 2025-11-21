@@ -51,7 +51,7 @@ public class UIManager : ASingleton<UIManager>, IManager
         inGameStates = InGameStates.SELECTINGCARDS;
 
         StartCoroutine(WaitForObject(PlayerHUD));
-       // Debug.Log("Cartas que llegan: "+cards.Count+",cartas de interfaz: "+UICards.Count);
+        // Debug.Log("Cartas que llegan: "+cards.Count+",cartas de interfaz: "+UICards.Count);
         for (int i = 0; i < UICards.Count; i++)
         {
             Debug.Log("Construyendo Cartas");
@@ -61,7 +61,7 @@ public class UIManager : ASingleton<UIManager>, IManager
             UICards[i].BuildCard();
         }
         //EventSystem.current.SetSelectedGameObject(UICards[0].gameObject); no se puede hacer porque se fastidia
-PlayerHUD.transform.Find("CardsSelector").gameObject.SetActive(true);
+        PlayerHUD.transform.Find("CardsSelector").gameObject.SetActive(true);
 
     }
     IEnumerator WaitForObject(GameObject obj)
@@ -207,7 +207,7 @@ PlayerHUD.transform.Find("CardsSelector").gameObject.SetActive(true);
         if (parent.childCount > 0)
         {
             Transform ultimoHijo = parent.GetChild(parent.childCount - 1);
-//            Debug.Log("El �ltimo hijo es: " + ultimoHijo.name);
+            //            Debug.Log("El �ltimo hijo es: " + ultimoHijo.name);
             return ultimoHijo.GetComponent<CardObject>();
         }
         return null;
@@ -216,7 +216,7 @@ PlayerHUD.transform.Find("CardsSelector").gameObject.SetActive(true);
     #region PLAYERUI
     public void ShowSkipTutorialButton()
     {
-        Button skipButton=PlayerHUD.transform.Find("Skip").GetComponent<Button>();
+        Button skipButton = PlayerHUD.transform.Find("Skip").GetComponent<Button>();
         skipButton.gameObject.SetActive(true);
         skipButton.onClick.AddListener(SkipTutorialButton);
 
@@ -224,14 +224,14 @@ PlayerHUD.transform.Find("CardsSelector").gameObject.SetActive(true);
     private void SkipTutorialButton()
     {
         FindAnyObjectByType<EleanorBehaviour>().SkipTutorial();
-        
+
     }
     public void HideSkipTutorialButton()
     {
-        Button skipButton=PlayerHUD.transform.Find("Skip").GetComponent<Button>();
+        Button skipButton = PlayerHUD.transform.Find("Skip").GetComponent<Button>();
         skipButton.onClick.RemoveAllListeners();
         skipButton.gameObject.SetActive(false);
-        
+
     }
     public void SetPlayerHealthUI(float healthAmmount)
     {
@@ -251,7 +251,7 @@ PlayerHUD.transform.Find("CardsSelector").gameObject.SetActive(true);
     }
     public void ShowRoomText(string roomText)
     {
-        PlayerHUD.transform.Find("RoomText").GetComponent<TextMeshProUGUI>().text=roomText;
+        PlayerHUD.transform.Find("RoomText").GetComponent<TextMeshProUGUI>().text = roomText;
     }
     public void HideRoomText(string roomText)
     {
@@ -260,8 +260,8 @@ PlayerHUD.transform.Find("CardsSelector").gameObject.SetActive(true);
         {
             PlayerHUD.transform.Find("RoomText").GetComponent<TextMeshProUGUI>().text = "";
         }
-        
-        
+
+
     }
     public void ShowMoneyForAWhile(int money)
     {
@@ -273,17 +273,16 @@ PlayerHUD.transform.Find("CardsSelector").gameObject.SetActive(true);
         }
         moneyObj.SetActive(true);
 
-        PlayerHUD.transform.Find("PlayerMoney").GetComponent<TextMeshProUGUI>().text = $"x{money}";
+        //PlayerHUD.transform.Find("PlayerMoney").GetComponent<TextMeshProUGUI>().text = $"x{money}";
         var text = moneyObj.GetComponent<TextMeshProUGUI>();
         text.text = $"x{money}";
 
-        StartCoroutine(FadeOutMoneyText(text, moneyObj));
+        StartCoroutine(FadeOutText(text, moneyObj));
     }
-
-    IEnumerator FadeOutMoneyText(TextMeshProUGUI text, GameObject obj)
+    IEnumerator FadeOutText(TextMeshProUGUI text, GameObject obj, float time = 1.5f)
     {
         // Espera visible
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(time);
 
         Color c = text.color;
         float t = 0f;
@@ -294,9 +293,30 @@ PlayerHUD.transform.Find("CardsSelector").gameObject.SetActive(true);
             text.color = c;
             yield return null;
         }
-
+        c.a = 1f;
+        text.color = c;
         obj.SetActive(false);
+
     }
+    public void ShowGameEventForAWhile(string eventText)
+    {
+        GameObject eventObj = PlayerHUD.transform.Find("EventText").gameObject;
+        if (eventObj == null)
+        {
+            Debug.LogError("No se encuentra PlayerMoney");
+            return;
+        }
+        eventObj.SetActive(true);
+
+        //PlayerHUD.transform.Find("PlayerMoney").GetComponent<TextMeshProUGUI>().text = eventText;
+        var text = eventObj.GetComponent<TextMeshProUGUI>();
+        text.text = eventText;
+
+        StartCoroutine(FadeOutText(text, eventObj, 3.5f));
+    }
+
+
+
     public void ShowMoney(int money)
     {
         PlayerHUD.transform.Find("PlayerMoney").gameObject.SetActive(true);
@@ -311,18 +331,18 @@ PlayerHUD.transform.Find("CardsSelector").gameObject.SetActive(true);
     #region ENDGAME
     [Header("EndGameUI")]
     public GameObject EndGameCavas;
-    public void EndGame(bool won=false)
+    public void EndGame(bool won = false)
     {
         previousInGameState = InGameStates.ENDGAME;
         inGameStates = InGameStates.ENDGAME;
         if (won)
         {
-            EndGameCavas.transform.Find("EndGameText").GetComponent<TextMeshProUGUI>().text="¡Has ganado!";
+            EndGameCavas.transform.Find("EndGameText").GetComponent<TextMeshProUGUI>().text = "¡Has ganado!";
         }
         else
         {
-            EndGameCavas.transform.Find("EndGameText").GetComponent<TextMeshProUGUI>().text="¡Has muerto!";
-            
+            EndGameCavas.transform.Find("EndGameText").GetComponent<TextMeshProUGUI>().text = "¡Has muerto!";
+
         }
         ShowEndGameCanvas();
     }
@@ -443,9 +463,9 @@ PlayerHUD.transform.Find("CardsSelector").gameObject.SetActive(true);
     }
     public void OnPauseUI(bool isPaused)
     {
-       //primero ver si esta muerto
+        //primero ver si esta muerto
 
-        if (inGameStates == InGameStates.SELECTINGCARDS||inGameStates==InGameStates.ENDGAME)
+        if (inGameStates == InGameStates.SELECTINGCARDS || inGameStates == InGameStates.ENDGAME)
         {
             GameManager.Instance.BlockPause();
             return;//selectingcards es crucial y bloquea la pausa
@@ -485,7 +505,7 @@ PlayerHUD.transform.Find("CardsSelector").gameObject.SetActive(true);
             //no cambiar al mapa de player porque seguimos en interfaz
             Debug.Log("Volviendo a dialogo");
             previousInGameState = inGameStates;
-        PlayerHUD.SetActive(true);
+            PlayerHUD.SetActive(true);
 
             inGameStates = InGameStates.INDIALOG;
         }
@@ -536,15 +556,15 @@ PlayerHUD.transform.Find("CardsSelector").gameObject.SetActive(true);
     }
     public void GoBackToMainMenu()
     {
-        inGameStates=InGameStates.ENDGAME;
-        previousInGameState=InGameStates.ENDGAME;
+        inGameStates = InGameStates.ENDGAME;
+        previousInGameState = InGameStates.ENDGAME;
 
         Debug.Log("Cerrando");
         PlayerHUD.SetActive(false);
         Debug.Log(PlayerHUD.activeSelf);
         EndGameCavas.SetActive(false);
         GameManager.Instance.GoBackToMainMenu();
-        
+
     }
     #endregion
     #region ManagerLogic
@@ -615,8 +635,8 @@ PlayerHUD.transform.Find("CardsSelector").gameObject.SetActive(true);
 
     public void OnStartGame()
     {
-        inGameStates=InGameStates.INGAME;
-        previousInGameState=inGameStates;
+        inGameStates = InGameStates.INGAME;
+        previousInGameState = inGameStates;
         //1.Al empezar juego se activa la hud del player
         Debug.Log($"[{name}]Empezando juego");
         PauseMenu?.SetActive(false);

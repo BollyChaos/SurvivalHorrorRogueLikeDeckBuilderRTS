@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d4318f981197974aab869ef415c76c7, type: 3}
   m_Name: WildFireCard
   m_EditorClassIdentifier: 
-  cardId: 5
+  cardId: 31
   cardName: FuegosFatuos
   description: "Cinco espiritus de fuego te rodean. Al entrar en contacto con el
     enemigo infligen da\xF1o y desaparecen"
-  nUses: 3
-  unlocked: 0
-  cardType: 2
+  nUses: 2
+  unlocked: 1
+  cardType: 0
   cardRarity: 0
