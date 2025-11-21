@@ -8,6 +8,7 @@ public class HijaBehaviour : MonoBehaviour, IInteractable
     private bool _isInterctable = true;
     public bool IsInteractable => _isInterctable;
     
+    
 
     public string GetInteractionText()
     {
@@ -21,7 +22,22 @@ public class HijaBehaviour : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        throw new System.NotImplementedException();
+        HijaController hija = GetComponent<HijaController>();
+        PlayerInventory inv = FindObjectOfType<PlayerInventory>();
+        if (hija.IsTalkable())
+        {
+            // Lógica para iniciar conversación con la Hija
+            Debug.Log("Iniciando conversación con la Hija...");
+            if (hija.IsWaitingForGift() && inv.tieneObjeto)
+        {
+            // Lógica para entregar el objeto a la Hija
+            inv.SoltarObjeto();
+            hija.SetWaitingForGift(false);
+            hija.GiftReceived();
+            Debug.Log("Objeto entregado a la Hija.");
+        }
+        }
+        
     }
 
     public void SetInteractable(bool value)

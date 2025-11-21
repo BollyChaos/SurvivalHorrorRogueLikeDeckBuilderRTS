@@ -22,6 +22,7 @@ namespace State.Interfaces
         public int GetCurrentWaypointIndex();
         public void NextWaypoint();
         public NavMeshAgent GetNavMeshAgent();
+        public NavMeshAgent GetAgent();
         public void SetSalonAbierto(bool estado);
         public bool IsSalonAbierto();
         public float GetRestDuration();
@@ -41,6 +42,9 @@ namespace State.Interfaces
         public bool IsPlayerInRoom();
         public void SetCrying(bool estado);
         public bool IsCrying();
+        public bool IsWaitingForGift();
+        public void SetWaitingForGift(bool estado);
+        public void GiftReceived();
         //Poner de aqui en adelante fucniones que puedan realizar los enemigos, ej: Detectar jugador, moverse...
     }
 }
