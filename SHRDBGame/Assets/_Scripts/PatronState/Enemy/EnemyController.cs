@@ -165,6 +165,10 @@ public class EnemyController : MonoBehaviour, IEnemy
             transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
         }
     }
+    public NavMeshAgent GetAgent()
+    {
+        return _agent;
+    }
     #endregion
     #region Drop 
     public void ShootDrops()
@@ -267,6 +271,18 @@ public class EnemyController : MonoBehaviour, IEnemy
     }
 
     public virtual bool IsCrying()
+    {
+        throw new System.NotImplementedException();
+    }
+    public virtual bool IsWaitingForGift()
+    {
+        throw new System.NotImplementedException();
+    }
+    public virtual void SetWaitingForGift(bool estado)
+    {
+        throw new System.NotImplementedException();
+    }
+    public virtual void GiftReceived()
     {
         throw new System.NotImplementedException();
     }

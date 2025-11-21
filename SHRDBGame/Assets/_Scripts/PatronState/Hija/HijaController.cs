@@ -6,7 +6,7 @@ public class HijaController : EnemyController
 {
     //atributos
     private bool talkable = true;
-    private bool _salonAbierto = false;
+    public bool _salonAbierto = false;
     private bool _missionsCompleted = false;
     private float damage = 50;
     private float rangeDamage = 20f;
@@ -15,6 +15,7 @@ public class HijaController : EnemyController
     [SerializeField] int nMisions = 3;
     [SerializeField] GameObject _player;
     private bool Crying = false;
+    private bool waitingForGift = false;
     [Header("Utility System")]
     public float timeSinceGift = 0f;  // TSR
     public float timeSinceSeen = 0f;  // TSJ
@@ -33,7 +34,7 @@ public class HijaController : EnemyController
     public void Awake()
     {
         base.Awake();
-        SetState(new HijaBattling(this));
+        SetState(new HijaWaiting(this));
     }
     // Start is called before the first frame update
     void Start()
@@ -134,4 +135,18 @@ public class HijaController : EnemyController
     {
         return Crying;
     }
+    #region regalo
+    public override bool IsWaitingForGift()
+    {
+        return waitingForGift;
+    }
+    public override void SetWaitingForGift(bool estado)
+    {
+        waitingForGift = estado;
+    }
+    public override void GiftReceived()
+    {
+        timeSinceGift = 0f;
+    }
+    #endregion
 }

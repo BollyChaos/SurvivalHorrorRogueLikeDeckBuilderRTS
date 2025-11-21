@@ -61,6 +61,7 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
         else
         {
             _abuelo=Instantiate(_abueloPrefab,transform);
+            _abuelo.SetActive(true);
         }
         if (_hija != null)
         {
@@ -72,6 +73,7 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
         else
         {
             _hija=Instantiate(_hijaPrefab,transform);
+            _hija.SetActive(true);
         }
     CreateTios();
     }
