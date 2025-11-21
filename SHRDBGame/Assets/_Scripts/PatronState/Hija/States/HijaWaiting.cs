@@ -26,7 +26,7 @@ public class HijaWaiting : AEnemyState
 
     public override void Update()
     {
-        if(enemy.IsSalonAbierto())
+        if(enemy.IsSalonAbierto()&& !enemy.AreMisionsCompleted())
         {
             enemy.SetState(new HijaMisions(enemy));
         }

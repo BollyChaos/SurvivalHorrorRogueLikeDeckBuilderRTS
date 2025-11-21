@@ -36,7 +36,11 @@ namespace State.Interfaces
         public bool AreMisionsCompleted();
         public void SetTalkable(bool estado);
          public GameObject GetPlayer();
-
+         public void PlayerEnteredRoom();
+         public void PlayerLeftRoom();
+        public bool IsPlayerInRoom();
+        public void SetCrying(bool estado);
+        public bool IsCrying();
         //Poner de aqui en adelante fucniones que puedan realizar los enemigos, ej: Detectar jugador, moverse...
     }
 }

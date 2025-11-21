@@ -14,6 +14,20 @@ public class HijaController : EnemyController
     [SerializeField] GameObject BulletPrefab;
     [SerializeField] int nMisions = 3;
     [SerializeField] GameObject _player;
+    private bool Crying = false;
+    [Header("Utility System")]
+    public float timeSinceGift = 0f;  // TSR
+    public float timeSinceSeen = 0f;  // TSJ
+
+    public float enfado = 0f;
+    public float aburrimiento = 0f;
+    public float ganasDeLlorar = 0f;
+
+    [SerializeField] public float enfadoMax = 10f;
+    [SerializeField] public float aburrimientoMax = 10f;
+    [SerializeField] public float llorarUmbral = 0.6f;
+    // Estado del trigger del salón
+    private bool playerInRoom = false;
 
     //metodos
     public void Awake()
@@ -24,7 +38,7 @@ public class HijaController : EnemyController
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     #region salon
@@ -91,8 +105,33 @@ public class HijaController : EnemyController
         Destroy(sPrefab, 5f);
     }
     #endregion
+    #region player
     public override GameObject GetPlayer()
     {
         return _player;
+    }
+    // Se llama desde trigger del salón
+    public override void PlayerEnteredRoom()
+    {
+        playerInRoom = true;
+        timeSinceSeen = 0f;
+    }
+
+    public override void PlayerLeftRoom()
+    {
+        playerInRoom = false;
+    }
+    public override bool IsPlayerInRoom()
+    {
+        return playerInRoom;
+    }
+    #endregion
+    public override void SetCrying(bool estado)
+    {
+        Crying = estado;
+    }
+    public override bool IsCrying()
+    {
+        return Crying;
     }
 }

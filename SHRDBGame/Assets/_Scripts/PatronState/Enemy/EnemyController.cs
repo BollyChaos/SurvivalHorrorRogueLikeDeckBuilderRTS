@@ -248,6 +248,29 @@ public class EnemyController : MonoBehaviour, IEnemy
     {
         throw new System.NotImplementedException();
     }
+    public virtual void PlayerEnteredRoom()
+    {
+        throw new System.NotImplementedException();
+    }
+    public virtual void PlayerLeftRoom()
+    {
+        throw new System.NotImplementedException();
+    }
+    public virtual bool IsPlayerInRoom()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public virtual void SetCrying(bool estado)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public virtual bool IsCrying()
+    {
+        throw new System.NotImplementedException();
+    }
+
     #endregion
 
 }

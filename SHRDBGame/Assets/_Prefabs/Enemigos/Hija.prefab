@@ -355,8 +355,17 @@ MonoBehaviour:
   HealthDropPrefab: {fileID: 7501142099102665056, guid: b0147d9cb31c1a54487feceedd4cdc7f, type: 3}
   MoneyDropPrefab: {fileID: 9006538771556817521, guid: 4381609bd111e7b448a88deb5032e77e, type: 3}
   slashPrefab: {fileID: 6019284606097982153, guid: f7967d5cc29259345b339191a31d1b7c, type: 3}
-  BulletPrefab: {fileID: 3469342555321442635, guid: cb0146b12eb2908478b48edd6f85518b, type: 3}
+  BulletPrefab: {fileID: 7320806799341754823, guid: 18f6324a221c1bd458ab5c231ed2b796, type: 3}
   nMisions: 3
+  _player: {fileID: 0}
+  timeSinceGift: 0
+  timeSinceSeen: 0
+  enfado: 0
+  aburrimiento: 0
+  ganasDeLlorar: 0
+  enfadoMax: 10
+  aburrimientoMax: 10
+  llorarUmbral: 0.6
 --- !u!114 &98376841491413578
 MonoBehaviour:
   m_ObjectHideFlags: 0

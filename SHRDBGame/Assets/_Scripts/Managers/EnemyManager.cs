@@ -11,6 +11,8 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
     [SerializeField]
     private GameObject _abueloPrefab;
     private GameObject _abuelo;
+    private GameObject _hijaPrefab;
+    private GameObject _hija;
 
     [SerializeField]
     private Spawner vecinosSpawner;
@@ -59,6 +61,17 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
         else
         {
             _abuelo=Instantiate(_abueloPrefab,transform);
+        }
+        if (_hija != null)
+        {
+            if (_hija.activeSelf == false)
+            {
+                _hija.SetActive(true);
+            }
+        }
+        else
+        {
+            _hija=Instantiate(_hijaPrefab,transform);
         }
     CreateTios();
     }
@@ -125,4 +138,19 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
             _tios[i].GetComponent<TioController>().OnSoundHeard(soundPosition);
         }
     }
+    public void SalonAbierto()
+    {
+        _abuelo.GetComponent<AbueloController>().SetSalonAbierto(true);
+        _hija.GetComponent<HijaController>().SetSalonAbierto(true);
+    }
+    #region hija
+    public void PlayerinHijaRoom()
+    {
+        _hija.GetComponent<HijaController>().PlayerEnteredRoom();
+    }
+    public void PlayerOutHijaRoom()
+    {
+        _hija.GetComponent<HijaController>().PlayerLeftRoom();
+    }
+    #endregion
 }
