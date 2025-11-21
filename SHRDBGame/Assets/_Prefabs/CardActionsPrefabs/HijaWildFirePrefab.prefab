@@ -4845,6 +4845,7 @@ GameObject:
   - component: {fileID: 8003762280261539865}
   - component: {fileID: 502862297453407277}
   - component: {fileID: 1538580778859452851}
+  - component: {fileID: -1395011695510782082}
   m_Layer: 0
   m_Name: HijaWildFirePrefab
   m_TagString: Untagged
@@ -9811,3 +9812,17 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1.4829637
   m_Center: {x: 0.06513739, y: -0.25638437, z: -0.11573243}
+--- !u!114 &-1395011695510782082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7320806799341754823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 908015b98cac1484b928dce66a6582c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: {x: 0, y: 0, z: 1}
+  speed: 15

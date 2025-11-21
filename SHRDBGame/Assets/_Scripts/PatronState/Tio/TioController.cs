@@ -53,7 +53,7 @@ public class TioController : EnemyController
         {
             slash.Initialize(damage, "Player");
         }
-        Destroy(sPrefab, 5f);
+        Destroy(sPrefab, 1f);
     }
     #endregion
 }

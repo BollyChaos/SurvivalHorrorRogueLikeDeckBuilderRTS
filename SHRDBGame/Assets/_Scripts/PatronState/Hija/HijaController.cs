@@ -15,7 +15,7 @@ public class HijaController : EnemyController
     [SerializeField] int nMisions = 3;
     [SerializeField] GameObject _player;
     private bool Crying = false;
-    private bool waitingForGift = false;
+    public bool waitingForGift = false;
     [Header("Utility System")]
     public float timeSinceGift = 0f;  // TSR
     public float timeSinceSeen = 0f;  // TSJ
@@ -24,8 +24,8 @@ public class HijaController : EnemyController
     public float aburrimiento = 0f;
     public float ganasDeLlorar = 0f;
 
-    [SerializeField] public float enfadoMax = 10f;
-    [SerializeField] public float aburrimientoMax = 10f;
+    [SerializeField] public float enfadoMax = 100f;
+    [SerializeField] public float aburrimientoMax = 100f;
     [SerializeField] public float llorarUmbral = 0.6f;
     // Estado del trigger del salón
     private bool playerInRoom = false;
@@ -34,6 +34,7 @@ public class HijaController : EnemyController
     public void Awake()
     {
         base.Awake();
+        _player = GameObject.FindGameObjectWithTag("Player");
         SetState(new HijaWaiting(this));
     }
     // Start is called before the first frame update
@@ -95,6 +96,7 @@ public class HijaController : EnemyController
         ///Se Crea el slash para que el enemigo ataque
         GameObject sPrefab = Instantiate(BulletPrefab, transform.position + transform.forward * 2, transform.rotation);
         sPrefab.SetActive(true);
+        sPrefab.GetComponent<MoveInDirection>().direction = transform.forward;
         ParticleSystem ps = sPrefab.GetComponent<ParticleSystem>();
         ps.Play();
 

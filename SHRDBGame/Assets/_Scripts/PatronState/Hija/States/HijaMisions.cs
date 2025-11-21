@@ -8,6 +8,7 @@ public class HijaMisions : AEnemyState
     //atributos
     private HijaController hija;
     private Coroutine cryRoutine = null;
+    private EnemyManager enemyManager;
     //metodos
     public HijaMisions(IEnemy enemy) : base(enemy)
     {
@@ -16,14 +17,19 @@ public class HijaMisions : AEnemyState
 
     public override void Enter()
     {
+        enemyManager = GameObject.FindObjectOfType<EnemyManager>();
         hija.timeSinceGift = 0;
         hija.timeSinceSeen = 0;
+        Debug.Log("Enter State HijaMisions");
     }
 
     public override void Exit()
     {
-        enemy.GetGameObject().GetComponent<MonoBehaviour>().StopCoroutine(cryRoutine);
-        cryRoutine = null;
+        if (cryRoutine != null)
+        {
+            enemy.GetGameObject().GetComponent<MonoBehaviour>().StopCoroutine(cryRoutine);
+            cryRoutine = null;
+        }
     }
 
     public override void FixedUpdate()
@@ -33,6 +39,11 @@ public class HijaMisions : AEnemyState
 
     public override void Update()
     {
+        if(enemy.GetGameObject().GetComponent<EnemyCombat>().stats.CurrentHealth < enemy.GetGameObject().GetComponent<EnemyCombat>().stats.MaxHealth)
+        {
+            enemy.SetState(new HijaBattling(enemy));
+            return;
+        }
         if (enemy.AreMisionsCompleted())
         {
             enemy.SetState(new HijaWaiting(enemy));
@@ -92,14 +103,21 @@ public class HijaMisions : AEnemyState
         enemy.SetCrying(true);
 
         // Reproducir sonido
+        ASoundPlayer audioSource = enemy.GetGameObject().GetComponent<ASoundPlayer>();
+        if (audioSource != null)
+        {
+            audioSource.PlayRandomSound();
+        }
         Debug.Log("La niña está llorando...");
 
         // Aquí puedes llamar AudioSource.Play();
         // Y también alertar enemigos cercanos
 
-
+        //llama a los otros enemigos para que vayan
+        enemyManager.OnSoundHeard(enemy.GetGameObject().transform.position);
         yield return new WaitForSeconds(3f);  // DURACIÓN DEL LLANTO
 
+        audioSource.StopSound();
         enemy.SetCrying(false);
     }
 }

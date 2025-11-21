@@ -36,4 +36,11 @@ public class ASoundPlayer : MonoBehaviour
         audioSource.pitch = Random.Range(1 - pitchVariation, 1 + pitchVariation);
         audioSource.PlayOneShot(audioClips[soundIndex]);
     }
+    public void StopSound()
+    {
+        if (audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
+    }
 }

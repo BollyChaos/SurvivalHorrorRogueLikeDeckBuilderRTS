@@ -9,7 +9,7 @@ public class GrabGift : MonoBehaviour , IInteractable
 
     public string GetInteractionText()
     {
-        return "Pulsa E para hablar cojer el objeto";
+        return "Pulsa E para coger el objeto";
     }
 
     public Transform GetTransform()

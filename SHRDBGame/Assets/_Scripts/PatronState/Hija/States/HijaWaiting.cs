@@ -11,7 +11,7 @@ public class HijaWaiting : AEnemyState
 
     public override void Enter()
     {
-        
+        Debug.Log("Enter State HijaWaiting");
     }
 
     public override void Exit()
@@ -26,9 +26,15 @@ public class HijaWaiting : AEnemyState
 
     public override void Update()
     {
+        if(enemy.GetGameObject().GetComponent<EnemyCombat>().stats.CurrentHealth < enemy.GetGameObject().GetComponent<EnemyCombat>().stats.MaxHealth)
+        {
+            enemy.SetState(new HijaBattling(enemy));
+            return;
+        }
         if(enemy.IsSalonAbierto()&& !enemy.AreMisionsCompleted())
         {
             enemy.SetState(new HijaMisions(enemy));
+            return;
         }
     }
 }

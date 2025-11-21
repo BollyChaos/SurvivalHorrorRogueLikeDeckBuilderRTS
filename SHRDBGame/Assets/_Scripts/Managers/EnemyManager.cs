@@ -76,7 +76,7 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
         {
             _hija=Instantiate(_hijaPrefab,transform);
             _hija.SetActive(true);
-            _hija.transform.localPosition=new Vector3(33.3423004f,0,146.146515f);
+            _hija.transform.localPosition=new Vector3(20.5f,0f,73.6999969f);
         }
     CreateTios();
     }
