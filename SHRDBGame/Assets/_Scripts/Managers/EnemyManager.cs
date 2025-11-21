@@ -4,6 +4,7 @@ using Managers;
 using Patterns.Singleton;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyManager : ASingleton<EnemyManager>, IManager
 {
@@ -11,6 +12,7 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
     [SerializeField]
     private GameObject _abueloPrefab;
     private GameObject _abuelo;
+    [SerializeField]
     private GameObject _hijaPrefab;
     private GameObject _hija;
 
@@ -71,10 +73,13 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
         }
         else
         {
-            _hija=Instantiate(_hijaPrefab,transform);
+            _hija=Instantiate(_hijaPrefab);
+            _hija.transform.position=new Vector3(33.3423004f,0,146.146515f);
+            _hija.gameObject.SetActive(true);
         }
     CreateTios();
     }
+
     void CreateTios()
     {
         if (_tios.Count==0)
@@ -117,6 +122,37 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
         {
             tio.SetActive(false);
         }
+    }
+     [ContextMenu("Parar enemigos dialogo")]
+    public void OnDialogEnemies()
+    {
+          vecinosSpawner.OnDialogEnemies();
+        if (_abuelo != null)
+        {
+            
+                _abuelo.GetComponent<NavMeshAgent>().isStopped=true;;
+            
+        }
+        foreach(var tio in _tios)
+        {
+            tio.GetComponent<NavMeshAgent>().isStopped=true;
+        }
+        DialogManager.Instance.onEndDialog.AddListener(OnDialogEnemiesEnd);
+    }
+    private void OnDialogEnemiesEnd()
+    {
+          vecinosSpawner.OnDialogEnemiesEnd();
+        if (_abuelo != null)
+        {
+            
+                _abuelo.GetComponent<NavMeshAgent>().isStopped=false;;
+            
+        }
+        foreach(var tio in _tios)
+        {
+            tio.GetComponent<NavMeshAgent>().isStopped=false;
+        }
+        DialogManager.Instance.onEndDialog.RemoveListener(OnDialogEnemiesEnd);
     }
     public void SaveData()
     {

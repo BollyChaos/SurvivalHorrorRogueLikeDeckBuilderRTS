@@ -2047,6 +2047,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _abueloPrefab: {fileID: 2405132392736585338, guid: 31456fbe6a2b7a14e8b888d6b35c6d0d, type: 3}
+  _hijaPrefab: {fileID: 7739205641307531646, guid: c791c191480819e4690184b5a8a7a57e, type: 3}
   vecinosSpawner: {fileID: 0}
   _nVecinos: 3
   _tioPrefab: {fileID: 6823851821172519275, guid: 07e45468502ca82498ad4c1a97e98b51, type: 3}

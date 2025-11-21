@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Pool;
 
 public class Spawner : MonoBehaviour
@@ -80,6 +81,21 @@ public Transform GetRandomSpawnPoint()
     {
        return  spawnPoints[Random.Range(0, spawnPoints.Length)];
          
+    }
+    public void OnDialogEnemies()
+    {
+         foreach(var vecino in vecinos)
+        {
+            vecino.GetComponent<NavMeshAgent>().isStopped=true;
+        }
+    }
+    public void OnDialogEnemiesEnd()
+    {
+       
+         foreach(var vecino in vecinos)
+        {
+            vecino.GetComponent<NavMeshAgent>().isStopped=false;
+        }
     }
     // private IObjectPool<VecinoController> enemyPool;
 
