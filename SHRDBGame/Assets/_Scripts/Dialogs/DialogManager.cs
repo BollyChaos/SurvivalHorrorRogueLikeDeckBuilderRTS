@@ -60,12 +60,12 @@ public class DialogManager : ASingleton<DialogManager>, IManager
             InputPressed = false; // resetear el estado del input
             if (!dialogCanvas.IsFinished)
             {
-                Debug.Log("[DialogManager] Interrumpiendo...");
+              //  Debug.Log("[DialogManager] Interrumpiendo...");
                 SkipPhrase(); // salta al final de la frase actual
             }
             else
             {
-                Debug.Log("[DialogManager] Pidiendo siguiente frase...");
+              //  Debug.Log("[DialogManager] Pidiendo siguiente frase...");
                 nextRequested = true; // le avisa a la corrutina que debe avanzar
             }
 

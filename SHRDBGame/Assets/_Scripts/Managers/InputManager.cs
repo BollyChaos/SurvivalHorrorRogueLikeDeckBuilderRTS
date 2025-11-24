@@ -1,7 +1,5 @@
 using Managers;
 using Patterns.Singleton;
-using System;
-using System.IO;
 using UI.Tabs;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -101,6 +99,7 @@ public class InputManager : ASingleton<InputManager>, IManager
 
     }
     [ContextMenu("Cambiar a mapa de accion UI")]
+    
     public void SwitchMapToUI()
     {
         inputMap = InputMap.UI;
