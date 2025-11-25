@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CommonCardAttack
+  m_Name: CommonCardUtility 1
   m_Shader: {fileID: 4800000, guid: d5aa6e1106b04b840a671728bacd83bb, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -34,7 +34,7 @@ Material:
     - _ShineSpeed: 1
     - _ShineWidth: 0.2
     m_Colors:
-    - _Color: {r: 0.61006284, g: 0.2743364, b: 0.2743364, a: 1}
+    - _Color: {r: 0.64779866, g: 0.6209479, b: 0.2872314, a: 1}
     - _Direction: {r: 1, g: 1, b: -1, a: -1}
-    - _ShineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _ShineColor: {r: 0.3333333, g: 0.3333333, b: 0.3333333, a: 1}
   m_BuildTextureStacks: []

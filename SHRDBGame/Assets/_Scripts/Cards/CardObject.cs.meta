@@ -3,7 +3,17 @@ guid: c326a995243c7f84a9dc824cdb226912
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - card: {instanceID: 0}
+  - commonCardMatAttack: {instanceID: 0}
+  - commonCardMatDefense: {instanceID: 0}
+  - commonCardMatUtility: {instanceID: 0}
+  - rareCardMatAttack: {instanceID: 0}
+  - rareCardMatDefense: {instanceID: 0}
+  - rareCardMatUtility: {instanceID: 0}
+  - specialCardMatAttack: {instanceID: 0}
+  - specialCardMatDefense: {instanceID: 0}
+  - specialCardMatUtility: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

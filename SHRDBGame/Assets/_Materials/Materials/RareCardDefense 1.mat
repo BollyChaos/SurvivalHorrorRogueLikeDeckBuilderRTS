@@ -52,7 +52,7 @@ Material:
     - _Speed: 0.5
     - _Tiling: 2.81
     m_Colors:
-    - _Color: {r: 0.022012413, g: 0.55588967, b: 1, a: 1}
+    - _Color: {r: 0, g: 0.3366423, b: 0.61635214, a: 1}
     - _HoloDirection: {r: 1, g: 1, b: 0, a: 0}
     - _ShineDir: {r: 1, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
