@@ -12,18 +12,21 @@ public class CardObject : MonoBehaviour
     public
     CardsSO card;
     [Header("Materials")]
+    [Header("ComonCards")]
     [SerializeField]
     Material commonCardMatAttack;
     [SerializeField]
     Material commonCardMatDefense;
     [SerializeField]
     Material commonCardMatUtility;
+    [Header("RareCards")]
     [SerializeField]
     Material rareCardMatAttack;
     [SerializeField]
     Material rareCardMatDefense;
     [SerializeField]
     Material rareCardMatUtility;
+    [Header("SpecialCards")]
     [SerializeField]
     Material specialCardMatAttack;
     [SerializeField]

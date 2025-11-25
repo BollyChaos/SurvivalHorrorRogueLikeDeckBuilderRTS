@@ -2472,7 +2472,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DebugGame: 1
-  ChangeInitalScene: 0
+  ChangeInitalScene: 1
   startingDebugScene: 2
   SkipPhase: 1
   SkipCardSelectionPhase: 0
@@ -14925,15 +14925,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentEvent: 0
-  TimeBetweenEvents: 40
-  randomRange: 5
+  TimeBetweenEvents: 1
+  randomRange: 0
   blackOutTime: 20
   moneyPrefab: {fileID: 9006538771556817521, guid: 4381609bd111e7b448a88deb5032e77e, type: 3}
   nMoneyDrops: 5
   moneyTime: 15
+  healthPrefab: {fileID: 7501142099102665056, guid: b0147d9cb31c1a54487feceedd4cdc7f, type: 3}
+  nHealthDrops: 3
+  healthTime: 15
   canVarySize: 0
-  debug: 0
-  fixedTimeEvent: 5
+  debug: 1
+  fixedTimeEvent: 6
 --- !u!4 &1336401728
 Transform:
   m_ObjectHideFlags: 0
@@ -16009,6 +16012,7 @@ MonoBehaviour:
   ContinueButton: {fileID: 1187974092}
   EndGameCavas: {fileID: 1971900294}
   PlayButton: {fileID: 0}
+  Credits: {fileID: 0}
   PauseMenu: {fileID: 1854659999}
   uiElements: []
   isSettingsCanvasDirty: 0

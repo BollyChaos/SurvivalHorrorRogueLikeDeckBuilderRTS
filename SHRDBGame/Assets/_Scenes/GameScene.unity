@@ -32824,6 +32824,10 @@ PrefabInstance:
       value: CardDrop
       objectReference: {fileID: 0}
     - target: {fileID: 7723569488581496489, guid: 12f9340b5eed37445b189c545dbbc120, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7723569488581496489, guid: 12f9340b5eed37445b189c545dbbc120, type: 3}
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}

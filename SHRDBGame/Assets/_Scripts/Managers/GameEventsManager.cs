@@ -22,6 +22,7 @@ public class GameEventsManager : ASingleton<GameEventsManager>, IManager
     private float decayFactor = .6f;
     [Header("LightsOutEvent")]
     [SerializeField] float blackOutTime = 6f;
+
     [Header("MoneyRainEvent")]
     [SerializeField]
     GameObject moneyPrefab;
@@ -29,8 +30,18 @@ public class GameEventsManager : ASingleton<GameEventsManager>, IManager
     int nMoneyDrops = 5;
     [SerializeField]
     float moneyTime = 15;
+
+    [Header("HealthRainEvent")]
+    [SerializeField]
+    GameObject healthPrefab;
+    [SerializeField]
+    int nHealthDrops = 3;
+    [SerializeField]
+    float healthTime = 15;
+
     [SerializeField]
     bool canVarySize = false;
+
 
     [Header("Debug")]
     [SerializeField]
@@ -68,16 +79,16 @@ public class GameEventsManager : ASingleton<GameEventsManager>, IManager
         switch (currentEvent)
         {
             case GameEvent.NONE:
-            break;
+                break;
             case GameEvent.ENEMIESAGRO:
-            UIManager.Instance.ShowGameEventForAWhile("Agresividad de los enemigos aumentada(no implementado)");
-            break;
+                UIManager.Instance.ShowGameEventForAWhile("Agresividad de los enemigos aumentada(no implementado)");
+                break;
             case GameEvent.SPAWNMONSTERS:
-            UIManager.Instance.ShowGameEventForAWhile("Van a aparecer enemigos en la sala(no implementado)");
-            break;
+                UIManager.Instance.ShowGameEventForAWhile("Van a aparecer enemigos en la sala(no implementado)");
+                break;
             case GameEvent.GOTORANDOMROOM:
-            UIManager.Instance.ShowGameEventForAWhile("Ve a la sala (no implementado) en x segundos o muere");
-            break;
+                UIManager.Instance.ShowGameEventForAWhile("Ve a la sala (no implementado) en x segundos o muere");
+                break;
             case GameEvent.LIGHTSOUT:
                 StartCoroutine(LightsEvent());
                 break;
@@ -85,9 +96,8 @@ public class GameEventsManager : ASingleton<GameEventsManager>, IManager
                 MoneyRain();
                 break;
             case GameEvent.HEALTHRAIN:
-            UIManager.Instance.ShowGameEventForAWhile("Lluvia de salud(no implementado)");
-            
-            break;
+                HealthRain();
+                break;
         }
     }
 
@@ -110,21 +120,42 @@ public class GameEventsManager : ASingleton<GameEventsManager>, IManager
 
     private void MoneyRain()
     {
+
         List<RoomTrigger> rooms = new List<RoomTrigger>(FindObjectsOfType<RoomTrigger>());
         int nRoom = Random.Range(0, rooms.Count - 1);
-
         Debug.Log("Va a aparecer dinero en la sala " + rooms[nRoom].roomName + " durante " + moneyTime);
         UIManager.Instance.ShowGameEventForAWhile("Va a aparecer dinero en la sala: " + rooms[nRoom].roomName + " durante " + moneyTime);
 
-        for (int i = 0; i < nMoneyDrops; i++)
-        {
-            Vector3 spawnPos = GetRandomPointInBox(rooms[nRoom].GetComponent<BoxCollider>());
-            spawnPos += Vector3.up * 8;
-            GameObject money = Instantiate(moneyPrefab);
-            moneyPrefab.transform.localPosition=spawnPos;
-            Destroy(money, moneyTime);
-        }
+        InstantiateDropsInRandomRoom(moneyPrefab, rooms[nRoom].GetComponent<BoxCollider>(), nMoneyDrops, moneyTime);
 
+
+    }
+    private void HealthRain()
+    {
+
+        List<RoomTrigger> rooms = new List<RoomTrigger>(FindObjectsOfType<RoomTrigger>());
+        int nRoom = Random.Range(0, rooms.Count - 1);
+        Debug.Log("Va a aparecer dinero en la sala " + rooms[nRoom].roomName + " durante " + healthTime);
+        UIManager.Instance.ShowGameEventForAWhile("Va a aparecer salud en la sala: " + rooms[nRoom].roomName + " durante " + healthTime);
+
+        InstantiateDropsInRandomRoom(healthPrefab, rooms[nRoom].GetComponent<BoxCollider>(), nHealthDrops, healthTime);
+
+
+    }
+
+    private void InstantiateDropsInRandomRoom(GameObject prefab, BoxCollider room, int nDrops, float timeToDestroy)
+    {
+
+
+
+        for (int i = 0; i < nDrops; i++)
+        {
+            Vector3 spawnPos = GetRandomPointInBox(room);
+            spawnPos += Vector3.up * 8;
+            GameObject prefabInstantiated = Instantiate(prefab);
+            prefabInstantiated.transform.localPosition = spawnPos;
+            Destroy(prefabInstantiated, timeToDestroy);
+        }
     }
     Vector3 GetRandomPointInBox(BoxCollider box)
     {
