@@ -359,7 +359,7 @@ public class UIManager : ASingleton<UIManager>, IManager
     [Header("MainMenu")]
 
     public Button PlayButton;
-
+    public GameObject Credits;
     void OnPlayPressed()
     {
         GameSceneManager.Instance.LoadSceneById((int)GameSceneManager.SceneIds.GAMESCENE);
@@ -368,8 +368,13 @@ public class UIManager : ASingleton<UIManager>, IManager
     internal void LookForMainMenuCanvas()
     {
         PlayButton = GameObject.Find("CanvasMainMenu/PanelMainMenu/Buttons/PlayButton").GetComponent<Button>();
+        Credits= GameObject.Find("CanvasMainMenu/Credits");
+        Credits.transform.SetAsLastSibling();
+        Credits.SetActive(false);
         GameObject.Find("CanvasMainMenu/PanelMainMenu/Buttons/OptionsButton").GetComponent<Button>().onClick.AddListener(ShowTabCanvasInMainMenu);
+        GameObject.Find("CanvasMainMenu/PanelMainMenu/Buttons/CreditsButton").GetComponent<Button>().onClick.AddListener(ShowCredits);
         GameObject.Find("CanvasMainMenu/PanelMainMenu/Buttons/ExitButton").GetComponent<Button>().onClick.AddListener(QuitApplication);
+
 
         //  Debug.Log(PlayButton == null);
 
@@ -379,6 +384,17 @@ public class UIManager : ASingleton<UIManager>, IManager
             //Resetear uiinputmodule por si se ralla
             InputManager.Instance.ResetUIInPutModule(PlayButton.gameObject);
         }
+    }
+     public void HideCredits()
+    {
+        GameManager.Instance.OutCredits();
+       Credits.gameObject.SetActive(false);
+    }
+    public void ShowCredits()
+    {
+         GameManager.Instance.InCredits();
+       Credits.gameObject.SetActive(true);
+        
     }
     public void QuitApplication()
     {
@@ -545,6 +561,7 @@ public class UIManager : ASingleton<UIManager>, IManager
     {
         PauseMenu.SetActive(false);
     }
+   
     public void ShowTabCanvas()
     {
         PlayerHUD.SetActive(false);

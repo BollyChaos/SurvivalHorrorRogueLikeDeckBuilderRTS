@@ -9,7 +9,7 @@ using static Managers.GameSceneManager;
 
 namespace Managers
 {
-    public enum GameState { STARTING, INMAINMENU, INGAME, INPAUSE, ENDGAME }
+    public enum GameState { STARTING, INMAINMENU,INCREDITS, INGAME, INPAUSE, ENDGAME }
 
     public class GameManager : ASingleton<GameManager>, IManager
     {
@@ -104,6 +104,15 @@ namespace Managers
         {
             gameState = GameState.INGAME;
             onPause?.Invoke(false);
+        }
+        public void InCredits()
+        {
+            gameState=GameState.INCREDITS;
+        }
+        public void OutCredits()
+        {
+            gameState=GameState.INMAINMENU;
+            
         }
         public void BlockPause()//caso excepcional para cuando se seleccionen las cartas se bloquea la pausa
         {

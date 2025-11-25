@@ -39,6 +39,11 @@ public class InputManager : ASingleton<InputManager>, IManager
             case GameState.INMAINMENU:
                 UIManager.Instance.HideTabCanvasInMainMenu();
                 break;
+            case GameState.INCREDITS:
+                GameManager.Instance.OutCredits();
+                UIManager.Instance.HideCredits();
+            //cerrar creditos
+            break;
         }
     }
     public void OnSaveChanges(InputAction.CallbackContext ctx)
