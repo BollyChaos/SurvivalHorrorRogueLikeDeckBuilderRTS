@@ -34,7 +34,7 @@ Material:
     - _ShineSpeed: 1
     - _ShineWidth: 0.2
     m_Colors:
-    - _Color: {r: 0.61006284, g: 0.2743364, b: 0.2743364, a: 1}
+    - _Color: {r: 0.61635214, g: 0.28491744, b: 0.28491744, a: 1}
     - _Direction: {r: 1, g: 1, b: -1, a: -1}
     - _ShineColor: {r: 0.5031446, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
