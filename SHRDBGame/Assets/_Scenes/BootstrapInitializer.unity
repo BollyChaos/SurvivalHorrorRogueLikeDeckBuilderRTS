@@ -2471,7 +2471,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b550ab2573d92d4596dea3c3a8ce24e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DebugGame: 1
+  DebugGame: 0
   ChangeInitalScene: 1
   startingDebugScene: 2
   SkipPhase: 1
@@ -14925,7 +14925,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentEvent: 0
-  TimeBetweenEvents: 1
+  TimeBetweenEvents: 40
   randomRange: 0
   blackOutTime: 20
   moneyPrefab: {fileID: 9006538771556817521, guid: 4381609bd111e7b448a88deb5032e77e, type: 3}
@@ -14935,8 +14935,10 @@ MonoBehaviour:
   nHealthDrops: 3
   healthTime: 15
   canVarySize: 0
+  cardDropPrefab: {fileID: 7723569488581496489, guid: 12f9340b5eed37445b189c545dbbc120, type: 3}
+  cardTime: 15
   debug: 1
-  fixedTimeEvent: 6
+  fixedTimeEvent: 0
 --- !u!4 &1336401728
 Transform:
   m_ObjectHideFlags: 0

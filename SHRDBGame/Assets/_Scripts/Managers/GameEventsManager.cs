@@ -41,7 +41,11 @@ public class GameEventsManager : ASingleton<GameEventsManager>, IManager
 
     [SerializeField]
     bool canVarySize = false;
-
+    [Header("SpawnCardEvent")]
+    [SerializeField]
+    GameObject cardDropPrefab;
+    [SerializeField]
+    float cardTime = 15;
 
     [Header("Debug")]
     [SerializeField]
@@ -98,6 +102,9 @@ public class GameEventsManager : ASingleton<GameEventsManager>, IManager
             case GameEvent.HEALTHRAIN:
                 HealthRain();
                 break;
+            case GameEvent.SPAWNCARD:
+            SpawnCard();
+            break;
         }
     }
 
@@ -121,36 +128,50 @@ public class GameEventsManager : ASingleton<GameEventsManager>, IManager
     private void MoneyRain()
     {
 
-        List<RoomTrigger> rooms = new List<RoomTrigger>(FindObjectsOfType<RoomTrigger>());
-        int nRoom = Random.Range(0, rooms.Count - 1);
-        Debug.Log("Va a aparecer dinero en la sala " + rooms[nRoom].roomName + " durante " + moneyTime);
-        UIManager.Instance.ShowGameEventForAWhile("Va a aparecer dinero en la sala: " + rooms[nRoom].roomName + " durante " + moneyTime);
 
-        InstantiateDropsInRandomRoom(moneyPrefab, rooms[nRoom].GetComponent<BoxCollider>(), nMoneyDrops, moneyTime);
+        InstantiateDropsInRandomRoom(moneyPrefab, nMoneyDrops, moneyTime);
 
 
     }
     private void HealthRain()
     {
 
-        List<RoomTrigger> rooms = new List<RoomTrigger>(FindObjectsOfType<RoomTrigger>());
-        int nRoom = Random.Range(0, rooms.Count - 1);
-        Debug.Log("Va a aparecer dinero en la sala " + rooms[nRoom].roomName + " durante " + healthTime);
-        UIManager.Instance.ShowGameEventForAWhile("Va a aparecer salud en la sala: " + rooms[nRoom].roomName + " durante " + healthTime);
 
-        InstantiateDropsInRandomRoom(healthPrefab, rooms[nRoom].GetComponent<BoxCollider>(), nHealthDrops, healthTime);
+        InstantiateDropsInRandomRoom(healthPrefab, nHealthDrops, healthTime);
 
 
     }
+    private void SpawnCard()
+    {
+        InstantiateDropsInRandomRoom(cardDropPrefab,1,cardTime);
+    }
 
-    private void InstantiateDropsInRandomRoom(GameObject prefab, BoxCollider room, int nDrops, float timeToDestroy)
+    private void InstantiateDropsInRandomRoom(GameObject prefab, int nDrops, float timeToDestroy)
     {
 
+        List<RoomTrigger> rooms = new List<RoomTrigger>(FindObjectsOfType<RoomTrigger>());
+        int nRoom = Random.Range(0, rooms.Count - 1);
 
+        switch (currentEvent)
+        {
+            case GameEvent.MONEYRAIN:
+                Debug.Log("Va a aparecer dinero en la sala " + rooms[nRoom].roomName + " durante " + timeToDestroy);
+                UIManager.Instance.ShowGameEventForAWhile("Va a aparecer salud en la sala: " + rooms[nRoom].roomName + " durante " + timeToDestroy);
+                break;
+            case GameEvent.HEALTHRAIN:
+                Debug.Log("Va a aparecer dinero en la sala " + rooms[nRoom].roomName + " durante " + timeToDestroy);
+                UIManager.Instance.ShowGameEventForAWhile("Va a aparecer dinero en la sala: " + rooms[nRoom].roomName + " durante " + timeToDestroy);
+
+                break;
+            case GameEvent.SPAWNCARD:
+                 Debug.Log("Va a aparecer una carta en la sala " + rooms[nRoom].roomName + " durante " + timeToDestroy);
+                UIManager.Instance.ShowGameEventForAWhile("Va a aparecer una carta en la sala: " + rooms[nRoom].roomName + " durante " + timeToDestroy);
+                break;
+        }
 
         for (int i = 0; i < nDrops; i++)
         {
-            Vector3 spawnPos = GetRandomPointInBox(room);
+            Vector3 spawnPos = GetRandomPointInBox(rooms[nRoom].GetComponent<BoxCollider>());
             spawnPos += Vector3.up * 8;
             GameObject prefabInstantiated = Instantiate(prefab);
             prefabInstantiated.transform.localPosition = spawnPos;

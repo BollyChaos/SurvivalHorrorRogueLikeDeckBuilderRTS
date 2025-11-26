@@ -625,6 +625,12 @@ public class UIManager : ASingleton<UIManager>, IManager
     {
         //TODO eliminar cartas de player hud(o quizas guardarlas para la proxima partida?->otro metodo para guardar preguntar si se quiere guardar partida antes de salir)
         //quitar cartas de player HUD
+        previousInGameState=InGameStates.INGAME;
+        inGameStates=InGameStates.INGAME;
+        //quitar pausa al acabar juego
+        OnPauseUI(false);
+        //quitar la interfaz de usuario
+        PlayerHUD.SetActive(false);
         foreach (var card in UICards)
         {
             Destroy(card);

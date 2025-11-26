@@ -41,7 +41,7 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
 
     public void OnEndGame()
     {
-        vecinosSpawner.CanSpawnEnemies = false;
+       StopEnemies();
     }
 
     public void OnStartGame()

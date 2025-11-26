@@ -16,9 +16,13 @@ public class CardDrop : MonoBehaviour, IInteractable
 
     private bool isInteractable = false;
     public bool IsInteractable { get => isInteractable; set => isInteractable = value; }
+    //si molesta quitar on enable para que esté controlado
+    void OnEnable()
+    {
+        CreateCard();
+    }
 
-   
-[ContextMenu("Crear Carta")]
+    [ContextMenu("Crear Carta")]
     public void CreateCard()
     {
         // Crear UI de la carta

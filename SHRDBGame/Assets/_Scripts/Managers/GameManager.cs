@@ -258,7 +258,6 @@ namespace Managers
         public void GoBackToMainMenu()//cuando se llame a esta funcion es porque se ha salido a traves del menu de pausa
         {
             GameSceneManager.Instance.LoadSceneById((int)SceneIds.MAINMENUSCENE);
-            UnPauseGame();
             OnEndGame();
         }
     }
