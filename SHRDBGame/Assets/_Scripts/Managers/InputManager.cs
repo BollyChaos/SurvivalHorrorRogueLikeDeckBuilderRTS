@@ -46,10 +46,10 @@ public class InputManager : ASingleton<InputManager>, IManager
             break;
         }
     }
-    public void OnSaveChanges(InputAction.CallbackContext ctx)
-    {
-        UIManager.Instance.SaveTemporalData();
-    }
+    // public void OnSaveChanges(InputAction.CallbackContext ctx)
+    // {
+    //     UIManager.Instance.SaveTemporalData();
+    // }
     public void ReadDialogInput(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -121,9 +121,9 @@ public class InputManager : ASingleton<InputManager>, IManager
         playerInput.actions["NavigateTabs"].started+=tabs.GetComponent<TabGroup>().OnNavigateTabs;
         playerInput.actions["NavigateTabs"].performed+=tabs.GetComponent<TabGroup>().OnNavigateTabs;
         playerInput.actions["NavigateTabs"].canceled += tabs.GetComponent<TabGroup>().OnNavigateTabs;
-        //agregar accion de guardar
-        playerInput.actions.FindActionMap("UI").FindAction("SaveChanges").started+=OnSaveChanges;
-        playerInput.actions.FindActionMap("UI").FindAction("SaveChanges").performed+=OnSaveChanges;
+        //agregar accion de guardar, (descartado)
+        // playerInput.actions.FindActionMap("UI").FindAction("SaveChanges").started+=OnSaveChanges;
+        // playerInput.actions.FindActionMap("UI").FindAction("SaveChanges").performed+=OnSaveChanges;
         //La pausa segun el mapa
         playerInput.actions.FindActionMap("Player").FindAction("Escape").started+=OnEscape;
         playerInput.actions.FindActionMap("Player").FindAction("Escape").performed+=OnEscape;

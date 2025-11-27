@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6020584815971807772}
   - component: {fileID: 3246072814975506561}
   - component: {fileID: 7156361133301809708}
+  - component: {fileID: 2308078747181320677}
   m_Layer: 6
   m_Name: Puerta
   m_TagString: Untagged
@@ -105,8 +106,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1.87
-  m_Center: {x: 2.95, y: 0, z: 0}
+  m_Radius: 0.6
+  m_Center: {x: 5, y: 1, z: 1.3}
 --- !u!114 &7156361133301809708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,9 +120,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50e894cdf9ba679498275f978fbae6a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  triggerInside: {fileID: 2308078747181320677}
+  triggerOutside: {fileID: 3246072814975506561}
   openInsideDegrees: -180
   closedDegrees: -90
   openOutsideDegrees: 0
+--- !u!135 &2308078747181320677
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150445957618350327}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.6
+  m_Center: {x: 5, y: 1.1, z: -1.3}
 --- !u!1001 &5597069747351907365
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -258,8 +282,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.01, y: 0.025450513, z: 0.002}
-  m_Center: {x: -0.0048999996, y: 0.012274647, z: 0.0012000002}
+  m_Size: {x: 0.0098550115, y: 0.025450513, z: 0.0020000006}
+  m_Center: {x: -0.0049658646, y: 0.012274778, z: 0.0022000181}
 --- !u!4 &5343081405138308046 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8815f18a9815c5646a3fa1134d7b5e4f, type: 3}

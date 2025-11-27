@@ -457,7 +457,7 @@ public class UIManager : ASingleton<UIManager>, IManager
     {//Guardar los cambios (avisar a settingsmanager)
         if (!isSettingsCanvasDirty) return;
         SettingsManager.Instance.SaveData();
-        PauseMenu.transform.Find("TabCanvas/SaveText/SaveImage").GetComponent<Image>().color = Color.green;
+        //PauseMenu.transform.Find("TabCanvas/SaveText/SaveImage").GetComponent<Image>().color = Color.green; descartado, no me terminaba de convencer
 
         isSettingsCanvasDirty = false;
     }
@@ -522,6 +522,7 @@ public class UIManager : ASingleton<UIManager>, IManager
             Debug.Log("Volviendo a dialogo");
             previousInGameState = inGameStates;
             PlayerHUD.SetActive(true);
+            SaveTemporalData();
 
             inGameStates = InGameStates.INDIALOG;
         }
@@ -530,6 +531,7 @@ public class UIManager : ASingleton<UIManager>, IManager
 
             Debug.Log("Volviendo a ingame");
             previousInGameState = inGameStates;
+            SaveTemporalData();
 
             inGameStates = InGameStates.INGAME;
             PlayerHUD.SetActive(true);

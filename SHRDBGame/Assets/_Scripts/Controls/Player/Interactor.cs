@@ -38,7 +38,7 @@ public class Interactor : MonoBehaviour
         if (input != null)
         {
             input.actions["Interact"].started += OnInteract;
-            input.actions["Interact"].performed += OnInteract;
+            //input.actions["Interact"].performed += OnInteract;
             input.actions["Interact"].canceled += OnInteract;
 
             Debug.Log("InputManager encontrado");
@@ -65,6 +65,7 @@ public class Interactor : MonoBehaviour
                 {
                     UIManager.Instance.HideInteractionText();
                     currentTarget.Interact();
+                    isInteracting=false;
                 }
             }
             if (gcCounter < gcTime)
@@ -75,6 +76,10 @@ public class Interactor : MonoBehaviour
             {
                 gcCounter = 0f;
                 currentTarget = GetClosestInteractable();
+                if (currentTarget!=null&&!currentTarget.IsInteractable)
+                {
+                    currentTarget.SetInteractable(true);//si sigue pero no es interactable resetear estado
+                }
             }
         }
 
@@ -159,11 +164,11 @@ public class Interactor : MonoBehaviour
 
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, interactionRadius);
-    }
+    // private void OnDrawGizmosSelected()
+    // {
+    //     Gizmos.color = Color.yellow;
+    //     Gizmos.DrawWireSphere(transform.position, interactionRadius);
+    // }
 
 }
 public interface IInteractable

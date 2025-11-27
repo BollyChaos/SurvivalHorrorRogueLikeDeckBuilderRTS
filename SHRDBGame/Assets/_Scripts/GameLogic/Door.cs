@@ -4,69 +4,131 @@ using UnityEngine;
 
 public class Door : MonoBehaviour, IInteractable
 {
+    [SerializeField] private Collider triggerInside;
+    [SerializeField] private Collider triggerOutside;
+
     [SerializeField]
     float openInsideDegrees;
     [SerializeField]
     float closedDegrees;
     [SerializeField]
     float openOutsideDegrees;
-    public bool IsInteractable =>isInteractable;
-    private bool isInteractable=false;
-bool isOpen = false; // Añádelo arriba como campo privado
+    public bool IsInteractable => isInteractable;
+    private bool isInteractable = false;
+    bool isOpen = false;
+    private LTDescr currentTween;
+
 
     [ContextMenu("Poner Grados")]
     public void SetDegrees()
     {
-        openInsideDegrees=closedDegrees-90f;
-        openOutsideDegrees=closedDegrees+90f;   
+        openInsideDegrees = closedDegrees - 90f;
+        openOutsideDegrees = closedDegrees + 90f;
     }
 
     public string GetInteractionText()
     {
-        if(!isInteractable) return "";
+        if (!isInteractable) return "";
         return "Pulsa E para abrir la puerta";
     }
 
-    
 
-public void Interact()
-{
-    if (!isInteractable) return;
 
-    Vector3 playerPos = FindAnyObjectByType<SimplePlayerController>().transform.position;
-
-    // Dirección desde la puerta hacia el jugador
-    Vector3 dir = (playerPos - transform.position).normalized;
-
-    // ¿Jugador delante o detrás? (según el forward de la puerta)
-    float dot = Vector3.Dot(transform.forward, dir);
-
-    float targetY = closedDegrees;
-
-    if (!isOpen)
+    public void Interact()
     {
-        // Abrir hacia dentro o hacia fuera
-        targetY = (dot > 0) ? openOutsideDegrees : openInsideDegrees;
+        if (!isInteractable) return;
+        isInteractable = false;
+
+        Vector3 playerPos = FindAnyObjectByType<SimplePlayerController>().transform.position;
+
+        // Dirección jugador → puerta
+        Vector3 dir = (playerPos - transform.position).normalized;
+
+        // Dot para saber si está delante o detrás
+        float dot = Vector3.Dot(transform.forward, dir);
+
+        float targetY = closedDegrees;
+
+        if (!isOpen)
+        {
+            // Abrir hacia dentro o hacia fuera
+            bool opensOutside = dot > 0; // delante de la puerta
+
+            targetY = opensOutside ? openOutsideDegrees : openInsideDegrees;
+
+            // Activar/desactivar triggers
+            triggerInside.enabled = opensOutside;   // si abre hacia fuera, interior queda activo
+            triggerOutside.enabled = !opensOutside; // y el exterior se desactiva
+        }
+        else
+        {
+            // Cerrar → activar ambos triggers otra vez
+            targetY = closedDegrees;
+
+            triggerInside.enabled = true;
+            triggerOutside.enabled = true;
+        }
+
+        // Aplicar rotación
+        // Vector3 e = transform.localEulerAngles;
+        // e.y = targetY;
+        // transform.localEulerAngles = e;
+        AnimateDoor(targetY);
+
+        isOpen = !isOpen;
+        isInteractable = false;
     }
-    else
+
+    private void AnimateDoor(float targetY)
     {
-        // Cerrar
-        targetY = closedDegrees;
+        // Cancelar tween previo si existe
+        if (currentTween != null)
+            LeanTween.cancel(gameObject);
+
+        isInteractable = false; // bloquear interacción durante la animación
+
+        // Ángulo inicial (0..360)
+        float startY = transform.localEulerAngles.y;
+
+        // Delta angular mínimo (firma: positivo = giro en sentido 'positivo')
+        float delta = Mathf.DeltaAngle(startY, targetY); // rango (-180,180]
+
+        // Animamos desde 0 hasta delta, y aplicamos startY + valor para seguir la ruta más corta
+        currentTween = LeanTween.value(gameObject, 0f, delta, 0.5f)
+            .setEaseOutQuad()
+            .setOnUpdate((float d) =>
+            {
+                float newY = startY + d;
+                Vector3 e = transform.localEulerAngles;
+                e.y = newY;
+                transform.localEulerAngles = e;
+            })
+            .setOnComplete(() =>
+            {
+                // Asegurar que el ángulo final exactamente sea targetY (normalizado)
+                Vector3 e = transform.localEulerAngles;
+                e.y = targetY;
+                transform.localEulerAngles = e;
+
+                isInteractable = true;
+                currentTween = null;
+            }).setOnComplete(() =>
+            {
+                if (!isOpen)
+                {
+
+                    FindObjectOfType<CameraController>().Shake(.5f, 1f, 1);
+
+                }
+
+            });
     }
 
-    // Aplicar rotación instantáneamente (puedes animarlo luego si quieres)
-    Vector3 e = transform.localEulerAngles;
-    e.y = targetY;
-    transform.localEulerAngles = e;
-
-    isOpen = !isOpen;
-    isInteractable=false;
-}
 
 
     public void SetInteractable(bool value)
     {
-        isInteractable=value;
+        isInteractable = value;
     }
     public Transform GetTransform()
     {
