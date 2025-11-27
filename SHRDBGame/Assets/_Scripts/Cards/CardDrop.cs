@@ -17,7 +17,7 @@ public class CardDrop : MonoBehaviour, IInteractable
     private bool isInteractable = false;
     public bool IsInteractable { get => isInteractable; set => isInteractable = value; }
     //si molesta quitar on enable para que esté controlado
-    void OnEnable()
+    void Start()
     {
         CreateCard();
     }
@@ -28,7 +28,7 @@ public class CardDrop : MonoBehaviour, IInteractable
         // Crear UI de la carta
         instantiatedCardUI = GameObject.Instantiate(cardWorldUI, transform.Find("CardUIWorldCanvas"));
         cardWorldUI.SetActive(false);
-        instantiatedCardUI.transform.localPosition = new Vector3(0.05f, 2+8.38f, 0.23f);
+        instantiatedCardUI.transform.localPosition = new Vector3(0.05f, 4.38f, 0.23f);
         instantiatedCardUI.transform.localEulerAngles = new Vector3(75f, 0f, 0f);
         instantiatedCardUI.transform.localScale = new Vector3(0.04f, 0.04f, 0.04f);
         instantiatedCardUI.GetComponent<PopUp>().SetInitialTransform();
@@ -49,6 +49,7 @@ public class CardDrop : MonoBehaviour, IInteractable
 
         if (isInteractable&&cardObject.card!=null)
         {
+            isInteractable=false;
             Debug.Log($"[{name}] Card Picked!");
 
             cardParticles.GetComponent<ParticleSystem>().Stop();
@@ -65,6 +66,10 @@ public class CardDrop : MonoBehaviour, IInteractable
         }
        
     }
+    void OnCollisionEnter(Collision collision)
+    {
+        cardMesh.GetComponent<IdleFloatAndRotate>().ActivateAnimation();
+    }
 
     public void ResetItem()
     {
@@ -73,7 +78,8 @@ public class CardDrop : MonoBehaviour, IInteractable
         instantiatedCardUI.SetActive(false);
     }
 
-    public Transform GetTransform() => transform;
+    public Transform GetTransform() => this == null ? null : transform;
+
 
     public void SetInteractable(bool value)
     {

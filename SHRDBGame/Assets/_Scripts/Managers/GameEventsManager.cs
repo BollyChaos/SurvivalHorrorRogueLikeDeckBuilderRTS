@@ -173,8 +173,10 @@ public class GameEventsManager : ASingleton<GameEventsManager>, IManager
         {
             Vector3 spawnPos = GetRandomPointInBox(rooms[nRoom].GetComponent<BoxCollider>());
             spawnPos += Vector3.up * 8;
-            GameObject prefabInstantiated = Instantiate(prefab);
+            GameObject prefabInstantiated = Instantiate(prefab,transform);
             prefabInstantiated.transform.localPosition = spawnPos;
+            prefabInstantiated.transform.localEulerAngles = new Vector3(0,90,0);
+            
             Destroy(prefabInstantiated, timeToDestroy);
         }
     }
