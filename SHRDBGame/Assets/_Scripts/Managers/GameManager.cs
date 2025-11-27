@@ -9,11 +9,18 @@ using static Managers.GameSceneManager;
 
 namespace Managers
 {
-    public enum GameState { STARTING, INMAINMENU,INCREDITS, INGAME, INPAUSE, ENDGAME }
+    public enum GameState { STARTING, INMAINMENU, INCREDITS, INGAME, INPAUSE, ENDGAME }
+    public enum GamePlatform
+    {
+        Standalone,
+        WebGL_PC,
+        WebGL_Mobile
+    }
+
 
     public class GameManager : ASingleton<GameManager>, IManager
     {
-
+        public GamePlatform gamePlatform;
         public List<IManager> managersList;
         private GameState gameState = GameState.STARTING;
         public static Action<bool> onPause;
@@ -23,6 +30,10 @@ namespace Managers
         #region DEBUGGING
         [Header("DebugGame")]
         public bool DebugGame = true;
+        public bool DebugPlatForm = true;
+        [ShowIf("DebugGame", "DebugPlatForm")]
+        [SerializeField]
+        GamePlatform debugGamePlatform;
         [ShowIf("DebugGame")]
         //Saltar alguna escena
         public bool ChangeInitalScene = true;
@@ -49,6 +60,14 @@ namespace Managers
                 {
                     GameSceneManager.Instance.StartingScene = startingDebugScene;
                 }
+                if (DebugPlatForm)
+                {
+                    gamePlatform = debugGamePlatform;
+                }
+                else
+                {
+                    gamePlatform = GetPlatform();
+                }
 
             }
 
@@ -65,7 +84,20 @@ namespace Managers
 
 
         }
+        public GamePlatform GetPlatform()
+        {
+#if UNITY_WEBGL
+            // En WebGL distinguimos móvil de PC
+            if (Application.isMobilePlatform)
+                return GamePlatform.WebGL_Mobile;
 
+            return GamePlatform.WebGL_PC;
+
+#else
+        // Cualquier versión descargada: Windows, Linux, Mac, Android, iOS
+        return GamePlatform.Standalone;
+#endif
+        }
         void OnEnable()
         {
             SceneManager.sceneLoaded += OnChangeScene;
@@ -107,12 +139,12 @@ namespace Managers
         }
         public void InCredits()
         {
-            gameState=GameState.INCREDITS;
+            gameState = GameState.INCREDITS;
         }
         public void OutCredits()
         {
-            gameState=GameState.INMAINMENU;
-            
+            gameState = GameState.INMAINMENU;
+
         }
         public void BlockPause()//caso excepcional para cuando se seleccionen las cartas se bloquea la pausa
         {
@@ -220,8 +252,8 @@ namespace Managers
             });
             GameObject.Find("StartingDialog").GetComponent<TriggerEvent>().onTriggerEnterEvent.AddListener(() =>
                 {
-                 DialogManager.Instance.PlayDialogRequest("EnteringMansion");
-                    }
+                    DialogManager.Instance.PlayDialogRequest("EnteringMansion");
+                }
             );
 
             //Logica de empezar el juego ya del gamemanager, que ocurre primero, de momento se empieza con la seleccion de cartas

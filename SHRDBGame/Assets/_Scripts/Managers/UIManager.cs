@@ -662,6 +662,8 @@ public class UIManager : ASingleton<UIManager>, IManager
     {
         inGameStates = InGameStates.INGAME;
         previousInGameState = inGameStates;
+        //0. Ver la plataforma en la que se arranca
+        PrepareUIPlatform();
         //1.Al empezar juego se activa la hud del player
         Debug.Log($"[{name}]Empezando juego");
         PauseMenu?.SetActive(false);
@@ -700,8 +702,16 @@ public class UIManager : ASingleton<UIManager>, IManager
         }
         PlayerHUD.transform.Find(parent).gameObject.SetActive(false);
     }
-
-
+public void PrepareUIPlatform()
+    {
+        switch (GameManager.Instance.gamePlatform)
+        {
+            case GamePlatform.WebGL_Mobile:
+            ShowMobileInput();
+            break;
+        }
+    }
+public void ShowMobileInput(){}
     public void SaveData()
     {
         throw new System.NotImplementedException();

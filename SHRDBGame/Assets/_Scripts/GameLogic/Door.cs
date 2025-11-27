@@ -32,17 +32,10 @@ public class Door : MonoBehaviour, IInteractable
         return "Pulsa E para abrir la puerta";
     }
 
-
-
-    public void Interact()
+    public void RotateDoor(Vector3 referencePos)
     {
-        if (!isInteractable) return;
-        isInteractable = false;
-
-        Vector3 playerPos = FindAnyObjectByType<SimplePlayerController>().transform.position;
-
-        // Dirección jugador → puerta
-        Vector3 dir = (playerPos - transform.position).normalized;
+        // Dirección 
+        Vector3 dir = (referencePos - transform.position).normalized;
 
         // Dot para saber si está delante o detrás
         float dot = Vector3.Dot(transform.forward, dir);
@@ -76,7 +69,17 @@ public class Door : MonoBehaviour, IInteractable
         AnimateDoor(targetY);
 
         isOpen = !isOpen;
+    }
+
+    public void Interact()
+    {
+        if (!isInteractable) return;
         isInteractable = false;
+
+        Vector3 playerPos = FindAnyObjectByType<SimplePlayerController>().transform.position;
+
+
+        RotateDoor(playerPos);
     }
 
     private void AnimateDoor(float targetY)

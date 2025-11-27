@@ -12,6 +12,7 @@ public class InputManager : ASingleton<InputManager>, IManager
     [SerializeField] private PlayerInput playerInput;
     public enum InputMap{PLAYER,UI}
     public InputMap inputMap = InputMap.PLAYER;
+    [SerializeField]
     public PlayerInput Input
     {
         get { return playerInput; }
