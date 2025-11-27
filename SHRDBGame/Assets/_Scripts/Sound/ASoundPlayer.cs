@@ -36,6 +36,24 @@ public class ASoundPlayer : MonoBehaviour
         audioSource.pitch = Random.Range(1 - pitchVariation, 1 + pitchVariation);
         audioSource.PlayOneShot(audioClips[soundIndex]);
     }
+
+    public void PlayLoop(int soundidx = 0)
+    {
+        if (audioClips == null || audioClips.Count == 0) return;
+
+        soundIndex = Mathf.Clamp(soundidx, 0, audioClips.Count - 1);
+        audioSource.clip = audioClips[soundIndex];
+        audioSource.pitch = 1f;
+        audioSource.loop = true;
+        audioSource.Play();
+    }
+
+    public void StopLoop()
+    {
+        audioSource.loop = false;
+        audioSource.Stop();
+    }
+
     public void StopSound()
     {
         if (audioSource.isPlaying)

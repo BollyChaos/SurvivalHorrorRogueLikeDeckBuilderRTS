@@ -13,11 +13,16 @@ public class Door : MonoBehaviour, IInteractable
     float closedDegrees;
     [SerializeField]
     float openOutsideDegrees;
+
     public bool IsInteractable => isInteractable;
     private bool isInteractable = false;
     bool isOpen = false;
     private LTDescr currentTween;
 
+    [Header("Audio")]
+    [SerializeField] private ASoundPlayer soundPlayer;
+    [SerializeField] private int openSoundIndex = 0;
+    [SerializeField] private int closeSoundIndex = 1;
 
     [ContextMenu("Poner Grados")]
     public void SetDegrees()
@@ -29,7 +34,7 @@ public class Door : MonoBehaviour, IInteractable
     public string GetInteractionText()
     {
         if (!isInteractable) return "";
-        return "Pulsa E para abrir la puerta";
+        return "Pulsa E";
     }
 
     public void RotateDoor(Vector3 referencePos)
@@ -52,6 +57,10 @@ public class Door : MonoBehaviour, IInteractable
             // Activar/desactivar triggers
             triggerInside.enabled = opensOutside;   // si abre hacia fuera, interior queda activo
             triggerOutside.enabled = !opensOutside; // y el exterior se desactiva
+
+            // 🔊 SONIDO DE ABRIR (NUEVO)
+            if (soundPlayer != null)
+                soundPlayer.PlaySound(openSoundIndex);
         }
         else
         {
@@ -60,6 +69,10 @@ public class Door : MonoBehaviour, IInteractable
 
             triggerInside.enabled = true;
             triggerOutside.enabled = true;
+
+            // 🔊 SONIDO DE CERRAR (NUEVO)
+            if (soundPlayer != null)
+                soundPlayer.PlaySound(closeSoundIndex);
         }
 
         // Aplicar rotación
@@ -77,7 +90,6 @@ public class Door : MonoBehaviour, IInteractable
         isInteractable = false;
 
         Vector3 playerPos = FindAnyObjectByType<SimplePlayerController>().transform.position;
-
 
         RotateDoor(playerPos);
     }
@@ -119,15 +131,11 @@ public class Door : MonoBehaviour, IInteractable
             {
                 if (!isOpen)
                 {
-
                     FindObjectOfType<CameraController>().Shake(.5f, 1f, 1);
-
                 }
 
             });
     }
-
-
 
     public void SetInteractable(bool value)
     {

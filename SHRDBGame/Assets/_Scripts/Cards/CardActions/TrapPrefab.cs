@@ -3,9 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(ASoundPlayer))]
 public class TrapPrefab : MonoBehaviour
 {
     [SerializeField] private Animator animator;
+
+    private ASoundPlayer soundPlayer;
+
+    private void Awake()
+    {
+        soundPlayer = GetComponent<ASoundPlayer>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -17,6 +25,11 @@ public class TrapPrefab : MonoBehaviour
 
             // Activar animación
             animator.SetBool("SetTrap", true);
+
+            if (soundPlayer != null)
+            {
+                soundPlayer.PlayRandomSound();
+            }
 
             // Destruir trap después de un tiempo
             Destroy(gameObject, 5f); // ajustable
