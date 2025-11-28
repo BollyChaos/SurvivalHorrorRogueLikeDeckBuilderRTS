@@ -8,6 +8,7 @@ public class RoomTrigger : MonoBehaviour
     public string roomName;
     [SerializeField]
     LayerMask interactorLayer;
+    public Door door;
     void OnTriggerEnter(Collider other)
     {
         if (((1 << other.gameObject.layer) & interactorLayer) != 0)
@@ -22,5 +23,9 @@ public class RoomTrigger : MonoBehaviour
         {
             UIManager.Instance.HideRoomText(roomName);
         }
+    }
+    public void CerrarPuerta()
+    {
+        door.RotateDoor(transform.position);
     }
 }

@@ -2053,6 +2053,9 @@ MonoBehaviour:
   _tioPrefab: {fileID: 6823851821172519275, guid: 07e45468502ca82498ad4c1a97e98b51, type: 3}
   _tios: []
   _nTios: 3
+  _padrePrefab: {fileID: 2879473705699620044, guid: a43e529740815484db449b1a446e7748, type: 3}
+  _padres: []
+  _nPadres: 2
 --- !u!4 &253484922
 Transform:
   m_ObjectHideFlags: 0

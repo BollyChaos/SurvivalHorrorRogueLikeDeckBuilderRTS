@@ -29,6 +29,12 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
     private List<GameObject> _tios;
     [SerializeField]
     private int _nTios = 3;
+    [SerializeField]
+    private GameObject _padrePrefab;
+    [SerializeField]
+    private List<GameObject> _padres;
+    [SerializeField]
+    private int _nPadres = 2;
     public IManager.GameStartMode StartMode => IManager.GameStartMode.NORMAL;
 
     public void LoadData()
@@ -79,6 +85,7 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
             _hija.transform.localPosition=new Vector3(20.5f,0f,73.6999969f);
         }
     CreateTios();
+    CreatePadres();
     }
     void CreateTios()
     {
@@ -103,6 +110,30 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
         }
         
     }
+    
+    void CreatePadres()
+    {
+        if (_padres.Count==0)
+        {
+            for(int i = 0; i < _nPadres; i++)
+            {
+                GameObject padre=Instantiate(_padrePrefab,transform);
+                _padres.Add(padre);
+                padre.SetActive(true);
+                padre.transform.position=vecinosSpawner.GetRandomSpawnPoint().position;
+            }
+
+        }
+        else
+        {
+            foreach(var padre in _padres)
+            {
+                padre.SetActive(true);
+                padre.transform.position=vecinosSpawner.GetRandomSpawnPoint().position;
+            }
+        }
+        
+    }
     public void InitEnemies()
     {
         vecinosSpawner.CanSpawnEnemies = true;
@@ -115,7 +146,7 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
         if (_abuelo != null)
         {
             
-                _abuelo.SetActive(false);
+            _abuelo.SetActive(false);
             
         }
         foreach(var tio in _tios)
