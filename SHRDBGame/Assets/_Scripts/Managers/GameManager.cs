@@ -30,8 +30,8 @@ namespace Managers
         #region DEBUGGING
         [Header("DebugGame")]
         public bool DebugGame = true;
-        public bool DebugPlatForm = true;
-        [ShowIf("DebugGame", "DebugPlatForm")]
+        public bool DebugPlatform = true;
+        [ShowIf("DebugGame", "DebugPlatform")]
         [SerializeField]
         GamePlatform debugGamePlatform;
         [ShowIf("DebugGame")]
@@ -60,7 +60,7 @@ namespace Managers
                 {
                     GameSceneManager.Instance.StartingScene = startingDebugScene;
                 }
-                if (DebugPlatForm)
+                if (DebugPlatform)
                 {
                     gamePlatform = debugGamePlatform;
                 }
