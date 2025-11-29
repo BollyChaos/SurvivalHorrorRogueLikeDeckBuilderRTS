@@ -26,21 +26,22 @@ public class LookAtMouseOrGamepad : MonoBehaviour
     private void Start()
     {
         mainCamera = transform.parent.GetComponent<CameraController>().PlayerCamera;
-
-        if (Gamepad.current != null)
-        {
-            LookForInput();
-        }
-        enabled = false;
+            enabled = false;
         enabled = true;
         framingTransposer = vcam.GetCinemachineComponent<CinemachineFramingTransposer>();
 
+
+        if (Gamepad.current != null||GameManager.Instance.gamePlatform!=GamePlatform.WebGL_Mobile)
+        {
+            LookForInput();
+        }
+    
 
     }
 
     private void LookForInput()
     {
-
+       
         PlayerInput input = InputManager.Instance.Input;
         if (input != null)
         {
@@ -54,7 +55,11 @@ public class LookAtMouseOrGamepad : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Gamepad.current != null && lookInput != Vector2.zero||GameManager.Instance.gamePlatform==GamePlatform.WebGL_Mobile) // Si hay mando conectado
+        if (GameManager.Instance.gamePlatform == GamePlatform.WebGL_Mobile)
+        {
+            HandleMobileLook();
+        }
+        else if (Gamepad.current != null && lookInput != Vector2.zero) // Si hay mando conectado
         {
             HandleGamepadLook();
         }
@@ -125,10 +130,25 @@ public class LookAtMouseOrGamepad : MonoBehaviour
 
 
 
+private void HandleMobileLook()
+    {
+        //mirar hacia donde se mueva el jugador
+        
+        Vector2 lookMobile=GetComponent<SimplePlayerController>().Direction;
+          Vector2 screenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
+        Vector2 screenPos = screenCenter + lookMobile * 300f;
 
+        Ray ray = mainCamera.ScreenPointToRay(screenPos);
+        if (Physics.Raycast(ray, out RaycastHit hit, 100f, floorLayer))
+        {
+            Vector3 lookPoint = hit.point;
+            lookPoint.y = target.position.y;
+            target.LookAt(lookPoint);
+        }
+    }
     private void HandleMouseLook()
     {
-        if (InputManager.Instance.inputMap == InputManager.InputMap.UI) return;
+        if (InputManager.Instance.inputMap == InputManager.InputMap.UI||InputManager.Instance.inputMap == InputManager.InputMap.MOBILE) return;
 
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit, 100f, floorLayer))

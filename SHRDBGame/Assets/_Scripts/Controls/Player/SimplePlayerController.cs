@@ -1,9 +1,11 @@
+using Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
 public class SimplePlayerController : MonoBehaviour
 {
     [SerializeField] float speed = 2f;
     private Vector2 inputDir = Vector2.zero;
+    public Vector2 Direction{get=>inputDir;}
     private Vector2 inputLook = Vector2.zero;
 
     private Vector2 _smoothedMovementInput;
@@ -28,12 +30,31 @@ public class SimplePlayerController : MonoBehaviour
         PlayerInput input = InputManager.Instance.Input;
         if (input != null)
         {
+            if (GameManager.Instance.gamePlatform == GamePlatform.WebGL_Mobile)
+            {
+                GameObject.Find("MobileHUD/LeftStick").GetComponent<Joystick>().onMove.AddListener(OnMoveMobile);
+            }
+            else
+            {
+                
+            
             input.actions["Move"].started += OnMove;
             input.actions["Move"].performed += OnMove;
             input.actions["Move"].canceled += OnMove;
+            }
 
             Debug.Log("InputManager encontrado");
         }
+    }
+    public void OnMoveMobile(Vector3 dir)
+    {
+        inputDir=dir;
+         GetComponent<Animator>().speed=1.25f;
+        if (inputDir.magnitude < 0.001)
+        {
+              GetComponent<Animator>().speed=0f;
+        }
+
     }
     public void OnMove(InputAction.CallbackContext ctx)
     {

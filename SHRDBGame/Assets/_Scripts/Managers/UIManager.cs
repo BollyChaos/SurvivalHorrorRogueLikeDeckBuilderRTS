@@ -219,11 +219,11 @@ public class UIManager : ASingleton<UIManager>, IManager
     public void ShowMobileInput()
     {
         
-        PlayerHUD.transform.Find("MobileInput").gameObject.SetActive(true);
+        MobileHUD.SetActive(true);
     }
     public void HideMobileInput()
     {
-        PlayerHUD.transform.Find("MobileInput").gameObject.SetActive(false);
+        MobileHUD.SetActive(false);
         
     }
     public void ShowSkipTutorialButton()
@@ -757,6 +757,11 @@ public void EndUIPlatform()
             PlayerHUD.SetActive(false);
             ContinueButton.onClick.AddListener(onEndSelection);
 
+        }
+        //movil
+        if (MobileHUD != null)
+        {
+            DontDestroyOnLoad(MobileHUD);
         }
         //Shop
         if (EndGameCavas != null)

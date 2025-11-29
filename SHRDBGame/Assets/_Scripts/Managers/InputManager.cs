@@ -96,32 +96,45 @@ public class InputManager : ASingleton<InputManager>, IManager
          case GamePlatform.Standalone:
          case GamePlatform.WebGL_PC:
         SwitchMapToPlayer();
-        SwitchUIModule("UI");
+        SwitchUIModule();
          break;   
          case GamePlatform.WebGL_Mobile:
          SwitchMapToMobile();
-         SwitchUIModule("Mobile");
+         SwitchUIModule();
          break;
         }
         
 
     }
-    private void SwitchUIModule(string map)
+    private void SwitchUIModule()
     {
-         
-        Debug.Log($"UI InputModule usando mapa: {map}");
-        playerInput.actions.FindActionMap(map)?.Enable();
+        switch(GameManager.Instance.gamePlatform)
+        {
+            case GamePlatform.Standalone:
+         case GamePlatform.WebGL_PC:
 
-        uiModule.point = InputActionReference.Create(playerInput.actions.FindAction($"{map}/Point"));
-        uiModule.leftClick = InputActionReference.Create(playerInput.actions.FindAction($"{map}/Click",throwIfNotFound: false));
-        uiModule.middleClick = InputActionReference.Create(playerInput.actions.FindAction($"{map}/MiddleClick",throwIfNotFound: false));
-        uiModule.rightClick = InputActionReference.Create(playerInput.actions.FindAction($"{map}/RightClick",throwIfNotFound: false));
-        uiModule.scrollWheel = InputActionReference.Create(playerInput.actions.FindAction($"{map}/Scroll", throwIfNotFound: false));
-        uiModule.submit = InputActionReference.Create(playerInput.actions.FindAction($"{map}/Submit"));
-        uiModule.cancel = InputActionReference.Create(playerInput.actions.FindAction($"{map}/Cancel", throwIfNotFound: false));
-        uiModule.move = InputActionReference.Create(playerInput.actions.FindAction($"{map}/Navigate", throwIfNotFound: false));
+         break;
+          case GamePlatform.WebGL_Mobile:
 
+          break; 
+        }
     }
+    // private void SwitchUIModule(string map) no funciona
+    // {
+         
+    //     Debug.Log($"UI InputModule usando mapa: {map}");
+    //     playerInput.actions.FindActionMap(map)?.Enable();
+
+    //     uiModule.point = InputActionReference.Create(playerInput.actions.FindAction($"{map}/Point"));
+    //     uiModule.leftClick = InputActionReference.Create(playerInput.actions.FindAction($"{map}/Click",throwIfNotFound: false));
+    //     uiModule.middleClick = InputActionReference.Create(playerInput.actions.FindAction($"{map}/MiddleClick",throwIfNotFound: false));
+    //     uiModule.rightClick = InputActionReference.Create(playerInput.actions.FindAction($"{map}/RightClick",throwIfNotFound: false));
+    //     uiModule.scrollWheel = InputActionReference.Create(playerInput.actions.FindAction($"{map}/Scroll", throwIfNotFound: false));
+    //     uiModule.submit = InputActionReference.Create(playerInput.actions.FindAction($"{map}/Submit"));
+    //     uiModule.cancel = InputActionReference.Create(playerInput.actions.FindAction($"{map}/Cancel", throwIfNotFound: false));
+    //     uiModule.move = InputActionReference.Create(playerInput.actions.FindAction($"{map}/Navigate", throwIfNotFound: false));
+
+    // }
     public void SaveData()
     {
         throw new System.NotImplementedException();
@@ -139,7 +152,6 @@ public class InputManager : ASingleton<InputManager>, IManager
     
     public void SwitchMapToUI()
     {
-        if(GameManager.Instance.gamePlatform==GamePlatform.WebGL_Mobile) return;//en movil esto no es necesario, sigue si propio esquema
         inputMap = InputMap.UI;
         playerInput.SwitchCurrentActionMap("UI");
 
@@ -147,7 +159,8 @@ public class InputManager : ASingleton<InputManager>, IManager
     public void SwitchMapToMobile()
     {
         inputMap=InputMap.MOBILE;
-        playerInput.SwitchCurrentActionMap("Mobile");
+
+        playerInput.SwitchCurrentActionMap("UI");
     }
     public void StartManager()
     {

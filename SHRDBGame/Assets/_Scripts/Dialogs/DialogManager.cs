@@ -42,7 +42,7 @@ public class DialogManager : ASingleton<DialogManager>, IManager
             Debug.LogWarning("[DialogManager] No se puede iniciar un nuevo dialogo mientras otro está en curso.");
         }
     }
-    public void ReadInputValue(bool input)
+    public void ReadInputValue(bool input=true)
     {
         InputPressed = input;
         //Debug.Log("Input de dialogo recibido" + input);
