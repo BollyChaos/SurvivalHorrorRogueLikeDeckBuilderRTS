@@ -23,6 +23,8 @@ public class UIManager : ASingleton<UIManager>, IManager
     [Header("Player")]
     [SerializeField]
     GameObject PlayerHUD;
+    [SerializeField]
+    GameObject MobileHUD;
 
 
     #region UICards
@@ -214,6 +216,16 @@ public class UIManager : ASingleton<UIManager>, IManager
     }
     #endregion
     #region PLAYERUI
+    public void ShowMobileInput()
+    {
+        
+        PlayerHUD.transform.Find("MobileInput").gameObject.SetActive(true);
+    }
+    public void HideMobileInput()
+    {
+        PlayerHUD.transform.Find("MobileInput").gameObject.SetActive(false);
+        
+    }
     public void ShowSkipTutorialButton()
     {
         Button skipButton = PlayerHUD.transform.Find("Skip").GetComponent<Button>();
@@ -627,6 +639,8 @@ public class UIManager : ASingleton<UIManager>, IManager
     {
         //TODO eliminar cartas de player hud(o quizas guardarlas para la proxima partida?->otro metodo para guardar preguntar si se quiere guardar partida antes de salir)
         //quitar cartas de player HUD
+        //0. desactivar segun la plataforma
+        EndUIPlatform();
         previousInGameState=InGameStates.INGAME;
         inGameStates=InGameStates.INGAME;
         //quitar pausa al acabar juego
@@ -707,11 +721,24 @@ public void PrepareUIPlatform()
         switch (GameManager.Instance.gamePlatform)
         {
             case GamePlatform.WebGL_Mobile:
+            HideMobileInput();
             ShowMobileInput();
+            break;
+            case GamePlatform.WebGL_PC:
+            case GamePlatform.Standalone:
+            HideMobileInput();
             break;
         }
     }
-public void ShowMobileInput(){}
+public void EndUIPlatform()
+    {
+        switch (GameManager.Instance.gamePlatform)
+        {
+            case GamePlatform.WebGL_Mobile:
+            HideMobileInput();
+            break;
+        } 
+    }
     public void SaveData()
     {
         throw new System.NotImplementedException();

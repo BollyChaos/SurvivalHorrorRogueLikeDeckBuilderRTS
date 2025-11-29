@@ -51,6 +51,10 @@ public class Interactor : MonoBehaviour
 
 
     }
+    public void ButtonInteract()
+    {
+        isInteracting=true;
+    }
 
     void Update()
     {

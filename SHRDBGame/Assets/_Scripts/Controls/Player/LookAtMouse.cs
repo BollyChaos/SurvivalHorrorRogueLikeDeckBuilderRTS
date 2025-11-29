@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem; // Necesario para PlayerInput
 using Cinemachine;
+using Managers;
 
 public class LookAtMouseOrGamepad : MonoBehaviour
 {
@@ -12,15 +13,15 @@ public class LookAtMouseOrGamepad : MonoBehaviour
     private Vector2 lookInput; // se rellena desde PlayerInput
 
     [SerializeField] private CinemachineVirtualCamera vcam;
-   private CinemachineFramingTransposer framingTransposer;
+    private CinemachineFramingTransposer framingTransposer;
 
 
     private Vector2 offsetCurrent = new Vector2(0.5f, 0.5f);
     private Vector2 offsetVelocity;
     [SerializeField]
-    private  float maxOffset = 0.1f;   // máximo +/- 0.1 desde el centro
+    private float maxOffset = 0.1f;   // máximo +/- 0.1 desde el centro
     [SerializeField]
-    private  float springTime = 0.12f; // suavidad del muelle
+    private float springTime = 0.12f; // suavidad del muelle
 
     private void Start()
     {
@@ -32,7 +33,7 @@ public class LookAtMouseOrGamepad : MonoBehaviour
         }
         enabled = false;
         enabled = true;
-    framingTransposer = vcam.GetCinemachineComponent<CinemachineFramingTransposer>();
+        framingTransposer = vcam.GetCinemachineComponent<CinemachineFramingTransposer>();
 
 
     }
@@ -53,7 +54,7 @@ public class LookAtMouseOrGamepad : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Gamepad.current != null && lookInput != Vector2.zero) // Si hay mando conectado
+        if (Gamepad.current != null && lookInput != Vector2.zero||GameManager.Instance.gamePlatform==GamePlatform.WebGL_Mobile) // Si hay mando conectado
         {
             HandleGamepadLook();
         }
@@ -64,62 +65,62 @@ public class LookAtMouseOrGamepad : MonoBehaviour
         HandleCameraOffset();
 
     }
-  private void HandleCameraOffset()
-{
-    if (framingTransposer == null) return;
+    private void HandleCameraOffset()
+    {
+        if (framingTransposer == null) return;
 
-    // Input normalizado (-1..1)
-    
-    Vector2 input ;
+        // Input normalizado (-1..1)
+
+        Vector2 input;
         if (Gamepad.current == null)
         {
-input=GetMouseInputNormalized();
+            input = GetMouseInputNormalized();
         }
         else
         {
-    input= lookInput.normalized;
-            
+            input = lookInput.normalized;
+
         }
 
-    // Calculamos el target offset según el input y límite máximo
-//    Debug.Log(input);
-    Vector2 cameraInput=new Vector2(-input.x,input.y);
-    Vector2 targetOffset2D = offsetCurrent+cameraInput * maxOffset;
-    
+        // Calculamos el target offset según el input y límite máximo
+        //    Debug.Log(input);
+        Vector2 cameraInput = new Vector2(-input.x, input.y);
+        Vector2 targetOffset2D = offsetCurrent + cameraInput * maxOffset;
 
-    // Suavizamos el offset con un muelle (SmoothDamp)
-    Vector2 cameraOffset = Vector2.SmoothDamp(
-        offsetCurrent,
-        targetOffset2D,
-        ref offsetVelocity,
-        springTime
-    );
 
-    // Aplicamos al FramingTransposer
-    framingTransposer.m_ScreenX=cameraOffset.x;
-    framingTransposer.m_ScreenY=cameraOffset.y;
-    // Vector3 trackedObjectOffset = framingTransposer.m_TrackedObjectOffset;
-    // trackedObjectOffset.x = offsetCurrent.x;
-    // trackedObjectOffset.y = offsetCurrent.y;
+        // Suavizamos el offset con un muelle (SmoothDamp)
+        Vector2 cameraOffset = Vector2.SmoothDamp(
+            offsetCurrent,
+            targetOffset2D,
+            ref offsetVelocity,
+            springTime
+        );
 
-    // framingTransposer.m_TrackedObjectOffset = trackedObjectOffset;
-}
-private Vector2 GetMouseInputNormalized()
-{
-    // Obtener posición del ratón en pixeles
-    Vector2 mousePos = Input.mousePosition;
+        // Aplicamos al FramingTransposer
+        framingTransposer.m_ScreenX = cameraOffset.x;
+        framingTransposer.m_ScreenY = cameraOffset.y;
+        // Vector3 trackedObjectOffset = framingTransposer.m_TrackedObjectOffset;
+        // trackedObjectOffset.x = offsetCurrent.x;
+        // trackedObjectOffset.y = offsetCurrent.y;
 
-    // Centro de la pantalla
-    Vector2 screenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
+        // framingTransposer.m_TrackedObjectOffset = trackedObjectOffset;
+    }
+    private Vector2 GetMouseInputNormalized()
+    {
+        // Obtener posición del ratón en pixeles
+        Vector2 mousePos = Input.mousePosition;
 
-    // Offset desde el centro, normalizado en rango [-1, 1]
-    Vector2 normalized = new Vector2(
-        Mathf.Clamp((mousePos.x - screenCenter.x) / screenCenter.x, -1f, 1f),
-        Mathf.Clamp((mousePos.y - screenCenter.y) / screenCenter.y, -1f, 1f)
-    );
+        // Centro de la pantalla
+        Vector2 screenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
 
-    return normalized;
-}
+        // Offset desde el centro, normalizado en rango [-1, 1]
+        Vector2 normalized = new Vector2(
+            Mathf.Clamp((mousePos.x - screenCenter.x) / screenCenter.x, -1f, 1f),
+            Mathf.Clamp((mousePos.y - screenCenter.y) / screenCenter.y, -1f, 1f)
+        );
+
+        return normalized;
+    }
 
 
 
@@ -128,6 +129,7 @@ private Vector2 GetMouseInputNormalized()
     private void HandleMouseLook()
     {
         if (InputManager.Instance.inputMap == InputManager.InputMap.UI) return;
+
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit, 100f, floorLayer))
         {
