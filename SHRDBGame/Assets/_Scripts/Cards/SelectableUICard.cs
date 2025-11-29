@@ -1,36 +1,41 @@
 ﻿using System;
 using System.IO;
 using System.Xml.Linq;
+using Managers;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class SelectableUICard : Toggle
 {
+    public enum CardPhase { SELECTION, INGAME }
+    [SerializeField]
+    private CardPhase cardPhase = CardPhase.SELECTION;
     [SerializeField] private Image image;
     [SerializeField] private Color selectedColor = Color.yellow;
     [SerializeField] private Color normalColor = Color.white;
 
 
     [Header("Cards Animation")]
-    
+
     [SerializeField] private float offsetY = 40f;
     [SerializeField] private float duration = 1f;
     [SerializeField] private float curveAmplitude = 50f;
     [SerializeField] private float wiggleAmount = 50f;
     [SerializeField] private float wiggleSpeed = 0.2f;
     [SerializeField] private float moveDownDuration = 0.3f;
-    public LTDescr wiggleTween=null;
+    public LTDescr wiggleTween = null;
     Vector3 originalPos = Vector3.zero;
     public bool lockTogle = false;
     void Awake()
     {
         base.Awake();
-        if (image==null) image = GetComponent<Image>();
+        if (image == null) image = GetComponent<Image>();
     }
     protected override void OnEnable()
     {
-        if(!interactable) return;
+        if (!interactable) return;
         base.OnEnable();
         LookForUIManager();
 
@@ -38,7 +43,7 @@ public class SelectableUICard : Toggle
     private void LookForUIManager()
     {
 
-        UIManager manager=UIManager.Instance;
+        UIManager manager = UIManager.Instance;
         if (manager != null)
         {
             var card = GetComponent<CardObject>();
@@ -66,7 +71,7 @@ public class SelectableUICard : Toggle
     public void LockCardSelection()
     {
         //si esta on no se puede bloquear
-        if(!isOn) lockTogle = true;
+        if (!isOn) lockTogle = true;
         else lockTogle = false;
     }
     public void UnLockCardSelection()
@@ -76,40 +81,61 @@ public class SelectableUICard : Toggle
     public override void OnPointerClick(PointerEventData eventData)
     {
         if (!interactable) return;
-        if (lockTogle) return;//si ya esta hecha la seleccion volver
-
-        base.OnPointerClick(eventData);//de por si la base pone el valor de on
-
-        Debug.Log($"{name} {(isOn ? "Seleccionado" : "Deseleccionado")}");
-
-        EventSystem.current.SetSelectedGameObject(gameObject);
-
-        //si el toggle es on avisar a cardmanager, cuando card manager llegue a las tres cartas necesarias se activa el evento para darselas al jugador
-        CardManager.Instance.SelectCards(isOn);
-
-        if (isOn)
+        switch (cardPhase)
         {
-            MoveOffsetY(1);
+
+            case CardPhase.SELECTION:
+                if (lockTogle) return;//si ya esta hecha la seleccion volver
+
+                base.OnPointerClick(eventData);//de por si la base pone el valor de on
+
+                Debug.Log($"{name} {(isOn ? "Seleccionado" : "Deseleccionado")}");
+
+                EventSystem.current.SetSelectedGameObject(gameObject);
+
+                //si el toggle es on avisar a cardmanager, cuando card manager llegue a las tres cartas necesarias se activa el evento para darselas al jugador
+                CardManager.Instance.SelectCards(isOn);
+
+                if (isOn)
+                {
+                    MoveOffsetY(1);
+
+                }
+                else
+                {
+                    MoveOffsetY(-1);
+                }
+                break;
+            case CardPhase.INGAME:
+                //Debug.Log(name + " carta seleccionada");
+                FindObjectOfType<CardUser>().SetCardType = (GetComponent<CardObject>().card.cardType);
+                FindObjectOfType<CardUser>().ReadInputCardMobile();
+                break;
+        }
+    }
+    public void NextCardPhase()
+    {
+        cardPhase = CardPhase.INGAME;
+        if (GameManager.Instance.gamePlatform != GamePlatform.WebGL_Mobile)
+        {
+            interactable = false;
 
         }
-        else
-        {
-            MoveOffsetY(-1);
-        }
+        isOn = false;
     }
     #region CardAnimations
     void MoveOffsetY(int upDown)
     {
         RectTransform rectTransform = GetComponent<RectTransform>();
 
-        LeanTween.move(rectTransform.gameObject, rectTransform.position + new Vector3(0f, upDown*offsetY, 0f), 0.3f)
+        LeanTween.move(rectTransform.gameObject, rectTransform.position + new Vector3(0f, upDown * offsetY, 0f), 0.3f)
                  .setEase(LeanTweenType.easeInOutQuad);
     }
     public void MoveToCurve(Vector3 targetPosition)
     {
         // Posición inicial
 
-        RectTransform rectTransform= GetComponent<RectTransform>();
+        RectTransform rectTransform = GetComponent<RectTransform>();
 
         Vector3 startPos = rectTransform.position;
 
@@ -135,7 +161,7 @@ public class SelectableUICard : Toggle
     public void Scale(float scale)
     {
         RectTransform rectTransform = GetComponent<RectTransform>();
-        LeanTween.scale(rectTransform.gameObject, new Vector3(scale,scale), duration)
+        LeanTween.scale(rectTransform.gameObject, new Vector3(scale, scale), duration)
                  .setEase(LeanTweenType.easeOutBack);
     }
     public void StartIdle()
@@ -168,7 +194,7 @@ public class SelectableUICard : Toggle
             Debug.Log("Cancelando");
         }
 
-        
+
     }
 
     private void MoveToOriginalPos()

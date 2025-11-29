@@ -50,6 +50,8 @@ public class GameEventsManager : ASingleton<GameEventsManager>, IManager
     [Header("Debug")]
     [SerializeField]
     bool debug = true;
+    [SerializeField,ShowIf("debug")]
+    bool showPlatform=true;
     [SerializeField, ShowIf("debug")]
     private GameEvent fixedTimeEvent;
     #region MANAGERLOGIC
@@ -215,6 +217,7 @@ public class GameEventsManager : ASingleton<GameEventsManager>, IManager
     {
         Debug.Log($"[{name}]:Empezando juego");
         LevelManager.Instance.onNightStateChanged.AddListener(OnNightStateChanged);
+        UIManager.Instance.ShowGameEventForAWhile("Plataforma:"+GameManager.Instance.GetPlatform());
 
     }
     public void OnNightStateChanged(bool isNight)

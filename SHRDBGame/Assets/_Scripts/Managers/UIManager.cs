@@ -122,7 +122,7 @@ public class UIManager : ASingleton<UIManager>, IManager
         }
         foreach (var card in UICards)
         {
-            card.GetComponent<SelectableUICard>().interactable = false;
+            card.GetComponent<SelectableUICard>().NextCardPhase();
             if (card.GetComponent<SelectableUICard>().isOn)
             {
                 switch (card.card.cardType) //primero emparentar los seccionados

@@ -31,6 +31,10 @@ public class InputManager : ASingleton<InputManager>, IManager
     //si esta en mitad de un dialogo, volver al dialogo
     public void OnEscape(InputAction.CallbackContext ctx)
     {
+        EscapeAction();
+    }
+    public void EscapeAction()
+    {
         //TODO LOGICA DE LA PAUSA  
         switch (GameManager.Instance.CurrentState)
         {
@@ -119,22 +123,7 @@ public class InputManager : ASingleton<InputManager>, IManager
           break; 
         }
     }
-    // private void SwitchUIModule(string map) no funciona
-    // {
-         
-    //     Debug.Log($"UI InputModule usando mapa: {map}");
-    //     playerInput.actions.FindActionMap(map)?.Enable();
-
-    //     uiModule.point = InputActionReference.Create(playerInput.actions.FindAction($"{map}/Point"));
-    //     uiModule.leftClick = InputActionReference.Create(playerInput.actions.FindAction($"{map}/Click",throwIfNotFound: false));
-    //     uiModule.middleClick = InputActionReference.Create(playerInput.actions.FindAction($"{map}/MiddleClick",throwIfNotFound: false));
-    //     uiModule.rightClick = InputActionReference.Create(playerInput.actions.FindAction($"{map}/RightClick",throwIfNotFound: false));
-    //     uiModule.scrollWheel = InputActionReference.Create(playerInput.actions.FindAction($"{map}/Scroll", throwIfNotFound: false));
-    //     uiModule.submit = InputActionReference.Create(playerInput.actions.FindAction($"{map}/Submit"));
-    //     uiModule.cancel = InputActionReference.Create(playerInput.actions.FindAction($"{map}/Cancel", throwIfNotFound: false));
-    //     uiModule.move = InputActionReference.Create(playerInput.actions.FindAction($"{map}/Navigate", throwIfNotFound: false));
-
-    // }
+   
     public void SaveData()
     {
         throw new System.NotImplementedException();

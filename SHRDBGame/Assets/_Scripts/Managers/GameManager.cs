@@ -30,6 +30,7 @@ namespace Managers
         #region DEBUGGING
         [Header("DebugGame")]
         public bool DebugGame = true;
+         [ShowIf("DebugGame")]
         public bool DebugPlatform = true;
         [ShowIf("DebugGame", "DebugPlatform")]
         [SerializeField]

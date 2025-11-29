@@ -39,6 +39,7 @@ public class CardDrop : MonoBehaviour, IInteractable
 
         if (cardObject.card != null)
             cardObject.BuildCard();
+        cardWorldUI.GetComponent<SelectableUICard>().NextCardPhase();
 
     }
 

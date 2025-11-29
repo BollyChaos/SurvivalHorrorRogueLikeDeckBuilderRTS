@@ -24,6 +24,14 @@ public class CardUser : MonoBehaviour
     [SerializeField]
     CardType currentCardType = CardType.Attack;
     CardType previousCardType = CardType.Attack;
+    public CardType SetCardType
+    {
+        set
+        {
+            previousCardType=currentCardType;
+            currentCardType=value;
+        }
+    }
     public bool HasAnyCards
     {
         get
@@ -264,6 +272,10 @@ public class CardUser : MonoBehaviour
         else
             cardPressed = false;
     }
+    public void ReadInputCardMobile()
+    {
+        cardPressed=true;
+    }
 
     #endregion
 
@@ -336,7 +348,7 @@ public class CardUser : MonoBehaviour
     {
         if (cardPressed)
         {
-
+cardPressed=false;
 
             if (canUseCard)
             {
