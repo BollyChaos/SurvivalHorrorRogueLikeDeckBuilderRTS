@@ -50,8 +50,8 @@ public class GameEventsManager : ASingleton<GameEventsManager>, IManager
     [Header("Debug")]
     [SerializeField]
     bool debug = true;
-    [SerializeField,ShowIf("debug")]
-    bool showPlatform=true;
+    [SerializeField, ShowIf("debug")]
+    bool showPlatform = true;
     [SerializeField, ShowIf("debug")]
     private GameEvent fixedTimeEvent;
     #region MANAGERLOGIC
@@ -105,8 +105,8 @@ public class GameEventsManager : ASingleton<GameEventsManager>, IManager
                 HealthRain();
                 break;
             case GameEvent.SPAWNCARD:
-            SpawnCard();
-            break;
+                SpawnCard();
+                break;
         }
     }
 
@@ -145,7 +145,7 @@ public class GameEventsManager : ASingleton<GameEventsManager>, IManager
     }
     private void SpawnCard()
     {
-        InstantiateDropsInRandomRoom(cardDropPrefab,1,cardTime);
+        InstantiateDropsInRandomRoom(cardDropPrefab, 1, cardTime);
     }
 
     private void InstantiateDropsInRandomRoom(GameObject prefab, int nDrops, float timeToDestroy)
@@ -166,7 +166,7 @@ public class GameEventsManager : ASingleton<GameEventsManager>, IManager
 
                 break;
             case GameEvent.SPAWNCARD:
-                 Debug.Log("Va a aparecer una carta en la sala " + rooms[nRoom].roomName + " durante " + timeToDestroy);
+                Debug.Log("Va a aparecer una carta en la sala " + rooms[nRoom].roomName + " durante " + timeToDestroy);
                 UIManager.Instance.ShowGameEventForAWhile("Va a aparecer una carta en la sala: " + rooms[nRoom].roomName + " durante " + timeToDestroy);
                 break;
         }
@@ -175,10 +175,10 @@ public class GameEventsManager : ASingleton<GameEventsManager>, IManager
         {
             Vector3 spawnPos = GetRandomPointInBox(rooms[nRoom].GetComponent<BoxCollider>());
             spawnPos += Vector3.up * 8;
-            GameObject prefabInstantiated = Instantiate(prefab,transform);
+            GameObject prefabInstantiated = Instantiate(prefab, transform);
             prefabInstantiated.transform.localPosition = spawnPos;
-            prefabInstantiated.transform.localEulerAngles = new Vector3(0,90,0);
-            
+            prefabInstantiated.transform.localEulerAngles = new Vector3(0, 90, 0);
+
             Destroy(prefabInstantiated, timeToDestroy);
         }
     }
@@ -217,7 +217,8 @@ public class GameEventsManager : ASingleton<GameEventsManager>, IManager
     {
         Debug.Log($"[{name}]:Empezando juego");
         LevelManager.Instance.onNightStateChanged.AddListener(OnNightStateChanged);
-        UIManager.Instance.ShowGameEventForAWhile("Plataforma:"+GameManager.Instance.GetPlatform());
+        if (showPlatform && debug)
+            UIManager.Instance.ShowGameEventForAWhile("Plataforma:" + GameManager.Instance.GetPlatform());
 
     }
     public void OnNightStateChanged(bool isNight)
