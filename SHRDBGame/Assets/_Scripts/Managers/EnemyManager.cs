@@ -52,10 +52,9 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
 
     public void OnStartGame()
     {
-        vecinosSpawner = GameObject.FindAnyObjectByType<Spawner>();
+        vecinosSpawner = FindAnyObjectByType<Spawner>();
         vecinosSpawner.NVecinos = _nVecinos;
         vecinosSpawner.TimeBetweenSpawns = spawnRate;
-
     }
     void CreateEnemies()
     {
@@ -64,6 +63,7 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
             if (_abuelo.activeSelf == false)
             {
                 _abuelo.SetActive(true);
+                _abuelo.GetComponent<AbueloController>().OnReset();
             }
         }
         else
@@ -129,6 +129,7 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
             foreach(var padre in _padres)
             {
                 padre.SetActive(true);
+                padre.GetComponent<PadreBehaviour>().OnReset();
                 padre.transform.position=vecinosSpawner.GetRandomSpawnPoint().position;
             }
         }

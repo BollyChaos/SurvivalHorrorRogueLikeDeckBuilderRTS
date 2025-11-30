@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -7,7 +8,7 @@ using UnityEngine.AI;
 public class AbueloController : EnemyController
 {
     //Atributos
-     private List<Transform> waypoints = new List<Transform>();
+    private List<Transform> waypoints = new List<Transform>();
     private bool _salonAbierto = false;
     [SerializeField] private float hearingRange = 50f;
     private Vector3? lastHeardSoundPosition = null;
@@ -23,33 +24,40 @@ public class AbueloController : EnemyController
     }
     void Start()
     {
-        
-           Transform waypointsContainer = GameObject.Find("WaypointsAbuelo").transform;
-           waypoints.Clear();
-//           Debug.Log(":"+waypointsContainer.childCount);
+
+        Transform waypointsContainer = GameObject.Find("WaypointsAbuelo").transform;
+        waypoints.Clear();
+        //Debug.Log(":"+waypointsContainer.childCount);
         if (waypointsContainer != null)
         {
-           
-           
-                foreach(Transform child in waypointsContainer)
-                {
-                      waypoints.Add(child);
-                }
-              
-            
+
+
+            foreach (Transform child in waypointsContainer)
+            {
+                waypoints.Add(child);
+            }
+
+
             //Debug.Log($"Abuelo: {waypoints.Count} waypoints cargados desde {waypointsContainer.name}");
-               transform.position = waypoints[2].position;
-                //Debug.Log("Spawneando en:"+waypoints[0].localPosition);
+            transform.position = waypoints[2].position;
+            //Debug.Log("Spawneando en:"+waypoints[0].localPosition);
         }
         else
         {
             Debug.LogError("No se encontró el GameObject 'WaypointsAbuelo' en la escena");
         }
-         SetState(new AbueloPatrolling(this));
+        // 🔥 IMPORTANTE: Resetear estados y valores internos
+        lastHeardSoundPosition = null;
+        currentWaypointIndex = 0;
+
+        // ❗ Vuelve al estado base
+        SetState(new AbueloPatrolling(this));
+
     }
-   
+
     #region Waypoints
-    public override Transform GetCurrentWaypoint() {
+    public override Transform GetCurrentWaypoint()
+    {
 
         return waypoints[currentWaypointIndex];
     }
@@ -116,5 +124,36 @@ public class AbueloController : EnemyController
         Destroy(sPrefab, 1f);
     }
     #endregion
-    
+    public void OnReset()
+    {
+        Transform waypointsContainer = GameObject.Find("WaypointsAbuelo").transform;
+        waypoints.Clear();
+        //Debug.Log(":"+waypointsContainer.childCount);
+        if (waypointsContainer != null)
+        {
+
+
+            foreach (Transform child in waypointsContainer)
+            {
+                waypoints.Add(child);
+            }
+
+
+            //Debug.Log($"Abuelo: {waypoints.Count} waypoints cargados desde {waypointsContainer.name}");
+            transform.position = waypoints[2].position;
+            currentWaypointIndex = 0;
+            //Debug.Log("Spawneando en:"+waypoints[0].localPosition);
+        }
+        else
+        {
+            Debug.LogError("No se encontró el GameObject 'WaypointsAbuelo' en la escena");
+        }
+        // IMPORTANTE: Resetear estados y valores internos
+        lastHeardSoundPosition = null;
+        currentWaypointIndex = 0;
+
+        // Vuelve al estado base
+        SetState(new AbueloPatrolling(this));
+    }
+
 }

@@ -15,6 +15,8 @@ public class PadreBehaviour : MonoBehaviour
     private NavMeshAgent _agent;
     private float roomChangeTimer = 0f;
     private float roomChangeDelay = 7f;
+    private Coroutine aiCoroutine;
+
 
 
     // Start is called before the first frame update
@@ -32,7 +34,7 @@ public class PadreBehaviour : MonoBehaviour
                 rooms.Add(child.gameObject);
             }
             currentRoom = rooms[2];
-            StartCoroutine(AILoop());
+            aiCoroutine = StartCoroutine(AILoop());
         }
         else
         {
@@ -235,5 +237,29 @@ public class PadreBehaviour : MonoBehaviour
         return roomName == "Tienda" ||
                roomName == "SalaSecreta" ||
                roomName == "Recibidor";
+    }
+    public void OnReset()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+        Transform roomsContainer = GameObject.Find("RoomTriggers").transform;
+        rooms.Clear();
+        if (roomsContainer != null)
+        {
+            foreach (Transform child in roomsContainer)
+            {
+                rooms.Add(child.gameObject);
+            }
+            currentRoom = rooms[2];
+        }
+        else
+        {
+            Debug.LogError("No se encontró el GameObject 'RoomTriggers' en la escena");
+        }
+        // 2. Detener IA anterior (si existe)
+        if (aiCoroutine != null)
+            StopCoroutine(aiCoroutine);
+
+        // 3. Arrancar IA limpia
+        aiCoroutine = StartCoroutine(AILoop());
     }
 }
