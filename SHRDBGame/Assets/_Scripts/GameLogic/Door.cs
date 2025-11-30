@@ -4,26 +4,29 @@ using UnityEngine;
 
 public class Door : MonoBehaviour, IInteractable
 {
-    [SerializeField] private Collider triggerInside;
-    [SerializeField] private Collider triggerOutside;
+    [SerializeField] protected Collider triggerInside;
+    [SerializeField] protected Collider triggerOutside;
 
     [SerializeField]
-    float openInsideDegrees;
+    protected float openInsideDegrees;
     [SerializeField]
-    float closedDegrees;
+    protected float closedDegrees;
     [SerializeField]
-    float openOutsideDegrees;
+    protected float openOutsideDegrees;
 
     public bool IsInteractable => isInteractable;
     private bool isInteractable = false;
     public bool isOpen = false;
-    private LTDescr currentTween;
+    protected LTDescr currentTween;
 
     [Header("Audio")]
-    [SerializeField] private ASoundPlayer soundPlayer;
-    [SerializeField] private int openSoundIndex = 0;
-    [SerializeField] private int closeSoundIndex = 1;
-
+    [SerializeField] protected ASoundPlayer soundPlayer;
+    [SerializeField] protected int openSoundIndex = 0;//se puede hacer enum pero vale
+    [SerializeField] protected int closeSoundIndex = 1;
+    void Start()
+    {
+        soundPlayer = GetComponent<ASoundPlayer>();
+    }
     [ContextMenu("Poner Grados")]
     public void SetDegrees()
     {
@@ -37,7 +40,7 @@ public class Door : MonoBehaviour, IInteractable
         return "Pulsa E";
     }
 
-    public void RotateDoor(Vector3 referencePos)
+    public virtual void RotateDoor(Vector3 referencePos)
     {
         // Dirección 
         Vector3 dir = (referencePos - transform.position).normalized;

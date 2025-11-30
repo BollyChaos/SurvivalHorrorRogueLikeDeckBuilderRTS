@@ -11,20 +11,16 @@ public class DayNightCycle : MonoBehaviour
     [SerializeField] private float maxIntensity = 1f;
 
     [Header("Rotación del Sol")]
-    [Tooltip("Rotación total del sol (360° normalmente)")]
     [SerializeField] private float fullRotationDegrees = 360f;
-    [Tooltip("Inclinación del sol cuando está en su punto más alto (día)")]
     [SerializeField, Range(0f, 90f)] private float dayInclination = 45f;
-    [Tooltip("Inclinación del sol cuando está más bajo (noche)")]
     [SerializeField, Range(-90f, 0f)] private float nightInclination = -15f;
 
     [Header("Day Control")]
-    public bool isDayCondition; // Cambia según el estado del juego
-
-    private bool isDayActive;
-    private float transitionTimer;
-    private float currentT;
-    private float rotationY; // Rotación Y acumulada, se mantiene estable
+    public bool isDayCondition; // objetivo actual: día o noche
+    private bool startTransition = false; // se activa desde evento
+    private float transitionTime; // duración de la transición
+    private float currentT;       // 0 = noche, 1 = día
+    private float rotationY;
 
     void Start()
     {
@@ -35,56 +31,47 @@ public class DayNightCycle : MonoBehaviour
             return;
         }
 
-        // Empieza de noche
-        isDayActive = false;
-        currentT = 0f;
-        rotationY = 0f;
-        ApplyLighting(0f);
+        // Inicializamos según estado actual
+        currentT = isDayCondition ? 1f : 0f;
+        rotationY = currentT * fullRotationDegrees;
+        ApplyLighting(currentT);
 
-        LevelManager.Instance.onNightStateChanged.AddListener((isNight) =>
-        {
-            isDayCondition = !isNight;
-        });
+        // Suscribirse al evento
+        LevelManager.Instance.onNightStateChanged.AddListener(OnNightStateChanged);
+    }
 
-        dayTransitionDuration = LevelManager.Instance.NightDuration;
+    void OnNightStateChanged(bool isNight)
+    {
+        isDayCondition = !isNight;
+        startTransition = true;
+        transitionTime = isDayCondition ? dayTransitionDuration : nightTransitionDuration;
     }
 
     void Update()
     {
-        // Detectar cambio de estado
-        if (isDayCondition != isDayActive)
+        if (startTransition)
         {
-            isDayActive = isDayCondition;
-            transitionTimer = 0f;
+            float targetT = isDayCondition ? 1f : 0f;
+            currentT = Mathf.MoveTowards(currentT, targetT, Time.deltaTime / transitionTime);
+
+            // Actualizar rotación
+            rotationY = currentT * fullRotationDegrees;
+            ApplyLighting(currentT);
+
+            if (Mathf.Approximately(currentT, targetT))
+            {
+                startTransition = false;
+            }
         }
-
-        // Calcular duración según transición
-        float duration = isDayActive ? dayTransitionDuration : nightTransitionDuration;
-
-        // Avanzar transición (solo si no ha terminado)
-        if (transitionTimer < duration)
-        {
-            transitionTimer += Time.deltaTime;
-            float t = Mathf.Clamp01(transitionTimer / duration);
-            currentT = isDayActive ? t : 1f - t;
-
-            // Durante la transición, actualizar la rotación Y
-            rotationY = (currentT * fullRotationDegrees) % 360f;
-        }
-
-        ApplyLighting(currentT);
     }
 
     private void ApplyLighting(float t)
     {
-        // Color e intensidad
         Color skyColor = skyGradient.Evaluate(t);
         float intensity = intensityCurve.Evaluate(t) * maxIntensity;
-
-        // Rotación: inclinación interpolada + rotación Y estable
         float inclination = Mathf.Lerp(nightInclination, dayInclination, t);
-        directionalLight.transform.rotation = Quaternion.Euler(inclination, rotationY, 0f);
 
+        directionalLight.transform.rotation = Quaternion.Euler(inclination, rotationY, 0f);
         directionalLight.color = skyColor;
         directionalLight.intensity = intensity;
 
