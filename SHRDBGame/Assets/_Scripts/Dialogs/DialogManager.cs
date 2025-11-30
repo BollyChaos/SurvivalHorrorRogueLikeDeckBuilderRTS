@@ -34,6 +34,10 @@ public class DialogManager : ASingleton<DialogManager>, IManager
 
         if (RunningDialog == null)
         {
+            if (GameManager.Instance.gamePlatform == GamePlatform.WebGL_Mobile)
+            {
+                UIManager.Instance.HideJoystick();  
+            }
             Debug.Log("[DialogManager] Iniciando dialogo: "+dialogName);
             RunningDialog = StartCoroutine(PlayDialog(dialogName));
         }

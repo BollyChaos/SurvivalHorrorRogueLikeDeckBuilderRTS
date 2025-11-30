@@ -226,6 +226,16 @@ public class UIManager : ASingleton<UIManager>, IManager
         MobileHUD.SetActive(false);
         
     }
+    public void HideJoystick()
+    {
+        MobileHUD.transform.Find("LeftStick").gameObject.SetActive(false);
+        DialogManager.Instance.onEndDialog.AddListener(ShowJoystick);
+    }
+    public void ShowJoystick()
+    {
+        MobileHUD.transform.Find("LeftStick").gameObject.SetActive(true);
+        DialogManager.Instance.onEndDialog.RemoveListener(ShowJoystick);
+    }
     public void ShowSkipTutorialButton()
     {
         Button skipButton = PlayerHUD.transform.Find("Skip").GetComponent<Button>();
@@ -534,7 +544,6 @@ public class UIManager : ASingleton<UIManager>, IManager
             Debug.Log("Volviendo a dialogo");
             previousInGameState = inGameStates;
             PlayerHUD.SetActive(true);
-            SaveTemporalData();
 
             inGameStates = InGameStates.INDIALOG;
         }
@@ -543,7 +552,7 @@ public class UIManager : ASingleton<UIManager>, IManager
 
             Debug.Log("Volviendo a ingame");
             previousInGameState = inGameStates;
-            SaveTemporalData();
+            
 
             inGameStates = InGameStates.INGAME;
             PlayerHUD.SetActive(true);
@@ -554,6 +563,7 @@ public class UIManager : ASingleton<UIManager>, IManager
         {
             Debug.LogError("Estado no reconocido en pausa");
         }
+        SaveTemporalData();
 
 
 
@@ -574,6 +584,7 @@ public class UIManager : ASingleton<UIManager>, IManager
     public void HideTabCanvasInMainMenu()
     {
         PauseMenu.SetActive(false);
+        SaveTemporalData();
     }
    
     public void ShowTabCanvas()

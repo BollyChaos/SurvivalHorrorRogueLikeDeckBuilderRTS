@@ -18,171 +18,171 @@ MonoBehaviour:
     - name: UseButtons
       type: 0
       value:
-        rid: 8930830745894125824
+        rid: 8930831168124223508
   - fieldName: ViewPort
     entries:
     - name: Brightness
       type: 1
       value:
-        rid: 8930830745894125825
+        rid: 8930831168124223509
     - name: Contrast
       type: 1
       value:
-        rid: 8930830745894125826
+        rid: 8930831168124223510
     - name: LightIntensity
       type: 1
       value:
-        rid: 8930830745894125827
+        rid: 8930831168124223511
     - name: FlashLightIntensity
       type: 1
       value:
-        rid: 8930830745894125828
+        rid: 8930831168124223512
   - fieldName: Sound
     entries:
     - name: Mute
       type: 0
       value:
-        rid: 8930830745894125829
+        rid: 8930831168124223513
     - name: MasterVolume
       type: 1
       value:
-        rid: 8930830745894125830
+        rid: 8930831168124223514
     - name: MusicVolume
       type: 1
       value:
-        rid: 8930830745894125831
+        rid: 8930831168124223515
     - name: SFXVolume
       type: 1
       value:
-        rid: 8930830745894125832
+        rid: 8930831168124223516
     - name: InterfaceVolume
       type: 1
       value:
-        rid: 8930830745894125833
+        rid: 8930831168124223517
   - fieldName: Game
     entries:
     - name: Invincible
       type: 0
       value:
-        rid: 8930830745894125834
+        rid: 8930831168124223518
     - name: UnlimitedMoney
       type: 0
       value:
-        rid: 8930830745894125835
+        rid: 8930831168124223519
     - name: UnlimitedDamage
       type: 0
       value:
-        rid: 8930830745894125836
+        rid: 8930831168124223520
     - name: PlayerHealth
       type: 1
       value:
-        rid: 8930830745894125837
+        rid: 8930831168124223521
     - name: PlayerSpeed
       type: 1
       value:
-        rid: 8930830745894125838
+        rid: 8930831168124223522
     - name: EnemyAgresivity
       type: 1
       value:
-        rid: 8930830745894125839
+        rid: 8930831168124223523
     - name: StartingCards
       type: 1
       value:
-        rid: 8930830745894125840
+        rid: 8930831168124223524
   - fieldName: Accesibility
     entries:
     - name: CameraShake
       type: 0
       value:
-        rid: 8930830745894125841
+        rid: 8930831168124223525
     - name: InterfaceSize
       type: 1
       value:
-        rid: 8930830745894125842
+        rid: 8930831168124223526
     - name: DialogSize
       type: 1
       value:
-        rid: 8930830745894125843
+        rid: 8930831168124223527
   references:
     version: 2
     RefIds:
-    - rid: 8930830745894125824
+    - rid: 8930831168124223508
       type: {class: BoolSettingValue, ns: , asm: Assembly-CSharp}
       data:
         value: 0
-    - rid: 8930830745894125825
+    - rid: 8930831168124223509
       type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
       data:
         value: 0.41780427
-    - rid: 8930830745894125826
+    - rid: 8930831168124223510
       type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
       data:
         value: 0.33190247
-    - rid: 8930830745894125827
+    - rid: 8930831168124223511
       type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
       data:
         value: 1
-    - rid: 8930830745894125828
+    - rid: 8930831168124223512
       type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
       data:
         value: 1
-    - rid: 8930830745894125829
+    - rid: 8930831168124223513
       type: {class: BoolSettingValue, ns: , asm: Assembly-CSharp}
       data:
         value: 0
-    - rid: 8930830745894125830
+    - rid: 8930831168124223514
       type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
       data:
         value: 0.2470514
-    - rid: 8930830745894125831
+    - rid: 8930831168124223515
       type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
       data:
         value: 0.6667989
-    - rid: 8930830745894125832
+    - rid: 8930831168124223516
       type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
       data:
         value: 0.60116756
-    - rid: 8930830745894125833
+    - rid: 8930831168124223517
       type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
       data:
         value: 0.47
-    - rid: 8930830745894125834
+    - rid: 8930831168124223518
       type: {class: BoolSettingValue, ns: , asm: Assembly-CSharp}
       data:
         value: 0
-    - rid: 8930830745894125835
-      type: {class: BoolSettingValue, ns: , asm: Assembly-CSharp}
-      data:
-        value: 1
-    - rid: 8930830745894125836
+    - rid: 8930831168124223519
       type: {class: BoolSettingValue, ns: , asm: Assembly-CSharp}
       data:
         value: 0
-    - rid: 8930830745894125837
+    - rid: 8930831168124223520
+      type: {class: BoolSettingValue, ns: , asm: Assembly-CSharp}
+      data:
+        value: 0
+    - rid: 8930831168124223521
       type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
       data:
-        value: 0.5143951
-    - rid: 8930830745894125838
+        value: 100
+    - rid: 8930831168124223522
       type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
       data:
-        value: 0.53049296
-    - rid: 8930830745894125839
-      type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
-      data:
-        value: 0.5
-    - rid: 8930830745894125840
+        value: 10
+    - rid: 8930831168124223523
       type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
       data:
         value: 1
-    - rid: 8930830745894125841
+    - rid: 8930831168124223524
+      type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
+      data:
+        value: 8
+    - rid: 8930831168124223525
       type: {class: BoolSettingValue, ns: , asm: Assembly-CSharp}
       data:
         value: 1
-    - rid: 8930830745894125842
+    - rid: 8930831168124223526
       type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
       data:
         value: 0.79999995
-    - rid: 8930830745894125843
+    - rid: 8930831168124223527
       type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
       data:
         value: 0.79999995

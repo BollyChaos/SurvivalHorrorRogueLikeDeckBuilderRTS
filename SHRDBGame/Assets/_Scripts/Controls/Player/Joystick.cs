@@ -64,4 +64,9 @@ public UnityEvent<Vector3> onMove;
     {
         return new Vector3(Direction.x, 0f, Direction.y);
     }
+    void OnDisable()
+    {
+        ResetHandle();
+        onMove.Invoke(Vector2.zero);
+    }
 }

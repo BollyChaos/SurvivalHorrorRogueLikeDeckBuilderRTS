@@ -101,7 +101,7 @@ public class ALoader : MonoBehaviour
     // ---------------------------------------------------------------------------------------
     // JSON LOAD
     // ---------------------------------------------------------------------------------------
-    void LoadFromJsonFile()
+    protected virtual void LoadFromJsonFile()
     {
         string path = GetJsonPath();
 
@@ -124,7 +124,7 @@ public class ALoader : MonoBehaviour
     // ---------------------------------------------------------------------------------------
     // JSON SAVE
     // ---------------------------------------------------------------------------------------
-    void SaveToJsonFile()
+    protected virtual void SaveToJsonFile()
     {
         string path = GetJsonPath();
 
