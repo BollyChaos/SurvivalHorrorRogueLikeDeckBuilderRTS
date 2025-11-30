@@ -147,11 +147,16 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
         {
             
             _abuelo.SetActive(false);
+            _hija.SetActive(false);
             
         }
         foreach(var tio in _tios)
         {
             tio.SetActive(false);
+        }
+        foreach(var padre in _padres)
+        {
+            padre.SetActive(false);
         }
     }
     [ContextMenu("PararEnemigos")]

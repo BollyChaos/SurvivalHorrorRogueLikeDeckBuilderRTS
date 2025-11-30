@@ -16,7 +16,7 @@ public class Door : MonoBehaviour, IInteractable
 
     public bool IsInteractable => isInteractable;
     private bool isInteractable = false;
-    bool isOpen = false;
+    public bool isOpen = false;
     private LTDescr currentTween;
 
     [Header("Audio")]

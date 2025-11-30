@@ -23,6 +23,8 @@ public class ASoundPlayer : MonoBehaviour
     {
         if (audioClips == null || audioClips.Count == 0) return;
 
+        if (audioSource.isPlaying) return;
+
         soundIndex = Mathf.Clamp(soundidx, 0, audioClips.Count - 1);
         audioSource.pitch = Random.Range(1 - pitchVariation, 1 + pitchVariation);
         audioSource.PlayOneShot(audioClips[soundIndex]);
@@ -31,6 +33,8 @@ public class ASoundPlayer : MonoBehaviour
     public void PlayRandomSound()
     {
         if (audioClips == null || audioClips.Count == 0) return;
+
+        if (audioSource.isPlaying) return;
 
         soundIndex = Random.Range(0, audioClips.Count);
         audioSource.pitch = Random.Range(1 - pitchVariation, 1 + pitchVariation);

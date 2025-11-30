@@ -8,7 +8,8 @@ public class RoomTrigger : MonoBehaviour
     public string roomName;
     [SerializeField]
     LayerMask interactorLayer;
-    public Door door;
+    public List<Door> door;
+    private bool playerInRoom;
     void OnTriggerEnter(Collider other)
     {
         if (((1 << other.gameObject.layer) & interactorLayer) != 0)
@@ -16,6 +17,10 @@ public class RoomTrigger : MonoBehaviour
             UIManager.Instance.ShowRoomText(roomName);
         }
 
+        if (other.CompareTag("Player"))
+        {
+            playerInRoom = true;
+        }
     }
     void OnTriggerExit(Collider other)
     {
@@ -23,9 +28,27 @@ public class RoomTrigger : MonoBehaviour
         {
             UIManager.Instance.HideRoomText(roomName);
         }
+        if (other.CompareTag("Player"))
+        {
+            playerInRoom = false;
+        }
     }
-    public void CerrarPuerta()
+    public void CerrarPuertas()
     {
-        door.RotateDoor(transform.position);
+        if (door != null)
+        {
+            for (int i = 0; i < door.Count; i++)
+            {
+                if (door[i].isOpen == true)
+                {
+                    door[i].RotateDoor(transform.position);
+                }
+            }
+        }
+
+    }
+    public bool IsPlayerInRoom()
+    {
+        return playerInRoom;
     }
 }

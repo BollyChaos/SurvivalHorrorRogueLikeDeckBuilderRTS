@@ -315,7 +315,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8091c049a97777242a5dd8b0b3fc5707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioClips: []
+  audioClips:
+  - {fileID: 8300000, guid: 05167c3833206e741ae00d997ec41d93, type: 3}
+  - {fileID: 8300000, guid: ede2a5b16ea82fa4780eeb2eec876bd9, type: 3}
+  - {fileID: 8300000, guid: 1343c10ba7609eb4282951fe5efdba08, type: 3}
+  - {fileID: 8300000, guid: f4547171f1b0bc9489da8fd6d07ff243, type: 3}
   pitchVariation: 0.1
 --- !u!1 &6096165178637644623
 GameObject:

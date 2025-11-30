@@ -7298,7 +7298,9 @@ MonoBehaviour:
   interactorLayer:
     serializedVersion: 2
     m_Bits: 256
-  door: {fileID: 2013575806}
+  door:
+  - {fileID: 2013575806}
+  - {fileID: 1314316965}
 --- !u!114 &129454029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7501,7 +7503,7 @@ GameObject:
   - component: {fileID: 139818147}
   - component: {fileID: 139818148}
   m_Layer: 0
-  m_Name: SalaSecreta
+  m_Name: "Ba\xF1o1"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7555,11 +7557,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afd7ce879eb0c6d49a6214f6a04b0a02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomName: Sala secreta
+  roomName: "Ba\xF1o"
   interactorLayer:
     serializedVersion: 2
     m_Bits: 256
-  door: {fileID: 1314316965}
+  door:
+  - {fileID: 1314316965}
 --- !u!1 &143245903
 GameObject:
   m_ObjectHideFlags: 0
@@ -7889,7 +7892,7 @@ GameObject:
   - component: {fileID: 173177971}
   - component: {fileID: 173177972}
   m_Layer: 0
-  m_Name: "Ba\xF1o1"
+  m_Name: SalaSecreta
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7943,11 +7946,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afd7ce879eb0c6d49a6214f6a04b0a02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomName: "Ba\xF1o"
+  roomName: Sala Secreta
   interactorLayer:
     serializedVersion: 2
     m_Bits: 256
-  door: {fileID: 0}
+  door: []
 --- !u!1001 &173214614
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8861,7 +8864,8 @@ MonoBehaviour:
   interactorLayer:
     serializedVersion: 2
     m_Bits: 256
-  door: {fileID: 0}
+  door:
+  - {fileID: 1334300969}
 --- !u!65 &232712100
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11580,7 +11584,7 @@ GameObject:
   - component: {fileID: 413375180}
   - component: {fileID: 413375181}
   m_Layer: 0
-  m_Name: Habitacion2
+  m_Name: HabitacionHija
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11638,7 +11642,11 @@ MonoBehaviour:
   interactorLayer:
     serializedVersion: 2
     m_Bits: 256
-  door: {fileID: 1222420250}
+  door:
+  - {fileID: 1083445334}
+  - {fileID: 1222420250}
+  - {fileID: 1986874622}
+  - {fileID: 1208081139}
 --- !u!114 &413375181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14204,7 +14212,8 @@ MonoBehaviour:
   interactorLayer:
     serializedVersion: 2
     m_Bits: 256
-  door: {fileID: 2026898808}
+  door:
+  - {fileID: 2026898808}
 --- !u!1001 &497073168
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15114,7 +15123,9 @@ MonoBehaviour:
   interactorLayer:
     serializedVersion: 2
     m_Bits: 256
-  door: {fileID: 1480200009}
+  door:
+  - {fileID: 1480200009}
+  - {fileID: 1083445334}
 --- !u!1001 &556269544
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21277,7 +21288,8 @@ MonoBehaviour:
   interactorLayer:
     serializedVersion: 2
     m_Bits: 256
-  door: {fileID: 0}
+  door:
+  - {fileID: 2089430996}
 --- !u!1 &641608382
 GameObject:
   m_ObjectHideFlags: 0
@@ -22035,7 +22047,8 @@ MonoBehaviour:
   interactorLayer:
     serializedVersion: 2
     m_Bits: 256
-  door: {fileID: 2089430996}
+  door:
+  - {fileID: 2089430996}
 --- !u!1 &681758656
 GameObject:
   m_ObjectHideFlags: 0
@@ -22873,7 +22886,9 @@ MonoBehaviour:
   interactorLayer:
     serializedVersion: 2
     m_Bits: 256
-  door: {fileID: 0}
+  door:
+  - {fileID: 1552891563}
+  - {fileID: 1687294763}
 --- !u!1 &706569841
 GameObject:
   m_ObjectHideFlags: 0
@@ -23940,7 +23955,8 @@ MonoBehaviour:
   interactorLayer:
     serializedVersion: 2
     m_Bits: 256
-  door: {fileID: 1552891563}
+  door:
+  - {fileID: 1552891563}
 --- !u!1 &775089061
 GameObject:
   m_ObjectHideFlags: 0
@@ -24408,7 +24424,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 150445957618350327, guid: fd9ab94c9730a0e40ae666e569da9b68, type: 3}
       propertyPath: m_Name
-      value: Puerta Despensa
+      value: PuertaDespensa
       objectReference: {fileID: 0}
     - target: {fileID: 7494780699656678371, guid: fd9ab94c9730a0e40ae666e569da9b68, type: 3}
       propertyPath: m_LocalPosition.x
@@ -24530,7 +24546,10 @@ MonoBehaviour:
   interactorLayer:
     serializedVersion: 2
     m_Bits: 256
-  door: {fileID: 0}
+  door:
+  - {fileID: 1687294763}
+  - {fileID: 1707617620}
+  - {fileID: 1986874622}
 --- !u!1 &808255750
 GameObject:
   m_ObjectHideFlags: 0
@@ -24854,7 +24873,7 @@ MonoBehaviour:
   interactorLayer:
     serializedVersion: 2
     m_Bits: 256
-  door: {fileID: 0}
+  door: []
 --- !u!1 &824841253
 GameObject:
   m_ObjectHideFlags: 0
@@ -29729,7 +29748,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 150445957618350327, guid: fd9ab94c9730a0e40ae666e569da9b68, type: 3}
       propertyPath: m_Name
-      value: Puerta (5)
+      value: "PuertaHabitaci\xF3nHija1"
       objectReference: {fileID: 0}
     - target: {fileID: 1454418619656236318, guid: fd9ab94c9730a0e40ae666e569da9b68, type: 3}
       propertyPath: m_Center.x
@@ -29801,6 +29820,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7494780699656678371, guid: fd9ab94c9730a0e40ae666e569da9b68, type: 3}
   m_PrefabInstance: {fileID: 1083445332}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1083445334 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7156361133301809708, guid: fd9ab94c9730a0e40ae666e569da9b68, type: 3}
+  m_PrefabInstance: {fileID: 1083445332}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50e894cdf9ba679498275f978fbae6a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1107017121
 GameObject:
   m_ObjectHideFlags: 0
@@ -32036,7 +32066,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 150445957618350327, guid: fd9ab94c9730a0e40ae666e569da9b68, type: 3}
       propertyPath: m_Name
-      value: Puerta (8)
+      value: PuertaHabitacionHija4
       objectReference: {fileID: 0}
     - target: {fileID: 1454418619656236318, guid: fd9ab94c9730a0e40ae666e569da9b68, type: 3}
       propertyPath: m_Center.x
@@ -32108,6 +32138,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7494780699656678371, guid: fd9ab94c9730a0e40ae666e569da9b68, type: 3}
   m_PrefabInstance: {fileID: 1208081137}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1208081139 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7156361133301809708, guid: fd9ab94c9730a0e40ae666e569da9b68, type: 3}
+  m_PrefabInstance: {fileID: 1208081137}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50e894cdf9ba679498275f978fbae6a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1209052371
 GameObject:
   m_ObjectHideFlags: 0
@@ -32334,7 +32375,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 150445957618350327, guid: fd9ab94c9730a0e40ae666e569da9b68, type: 3}
       propertyPath: m_Name
-      value: PuertaHabitacionHija
+      value: PuertaHabitacionHija2
       objectReference: {fileID: 0}
     - target: {fileID: 7156361133301809708, guid: fd9ab94c9730a0e40ae666e569da9b68, type: 3}
       propertyPath: closedDegrees
@@ -34508,7 +34549,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 150445957618350327, guid: fd9ab94c9730a0e40ae666e569da9b68, type: 3}
       propertyPath: m_Name
-      value: Puerta (14)
+      value: "PuertaBa\xF1o1"
       objectReference: {fileID: 0}
     - target: {fileID: 7156361133301809708, guid: fd9ab94c9730a0e40ae666e569da9b68, type: 3}
       propertyPath: closedDegrees
@@ -34820,7 +34861,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 150445957618350327, guid: fd9ab94c9730a0e40ae666e569da9b68, type: 3}
       propertyPath: m_Name
-      value: Puerta (1)
+      value: PuertaTienda
       objectReference: {fileID: 0}
     - target: {fileID: 7494780699656678371, guid: fd9ab94c9730a0e40ae666e569da9b68, type: 3}
       propertyPath: m_LocalPosition.x
@@ -34872,6 +34913,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7494780699656678371, guid: fd9ab94c9730a0e40ae666e569da9b68, type: 3}
   m_PrefabInstance: {fileID: 1334300967}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1334300969 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7156361133301809708, guid: fd9ab94c9730a0e40ae666e569da9b68, type: 3}
+  m_PrefabInstance: {fileID: 1334300967}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50e894cdf9ba679498275f978fbae6a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1346951677
 GameObject:
   m_ObjectHideFlags: 0
@@ -38483,7 +38535,8 @@ MonoBehaviour:
   interactorLayer:
     serializedVersion: 2
     m_Bits: 256
-  door: {fileID: 1852107999}
+  door:
+  - {fileID: 1852107999}
 --- !u!1001 &1541327093
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42011,7 +42064,7 @@ MonoBehaviour:
   interactorLayer:
     serializedVersion: 2
     m_Bits: 256
-  door: {fileID: 0}
+  door: []
 --- !u!1001 &1637424262
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42643,7 +42696,9 @@ MonoBehaviour:
   interactorLayer:
     serializedVersion: 2
     m_Bits: 256
-  door: {fileID: 1162466977}
+  door:
+  - {fileID: 1162466977}
+  - {fileID: 1208081139}
 --- !u!1 &1679468181
 GameObject:
   m_ObjectHideFlags: 0
@@ -42989,6 +43044,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7494780699656678371, guid: fd9ab94c9730a0e40ae666e569da9b68, type: 3}
   m_PrefabInstance: {fileID: 1687294761}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1687294763 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7156361133301809708, guid: fd9ab94c9730a0e40ae666e569da9b68, type: 3}
+  m_PrefabInstance: {fileID: 1687294761}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50e894cdf9ba679498275f978fbae6a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1689345989 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 8815f18a9815c5646a3fa1134d7b5e4f, type: 3}
@@ -43542,7 +43608,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 150445957618350327, guid: fd9ab94c9730a0e40ae666e569da9b68, type: 3}
       propertyPath: m_Name
-      value: Puerta (9)
+      value: PuertaSalon
       objectReference: {fileID: 0}
     - target: {fileID: 7156361133301809708, guid: fd9ab94c9730a0e40ae666e569da9b68, type: 3}
       propertyPath: closedDegrees
@@ -43606,6 +43672,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7494780699656678371, guid: fd9ab94c9730a0e40ae666e569da9b68, type: 3}
   m_PrefabInstance: {fileID: 1707617618}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1707617620 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7156361133301809708, guid: fd9ab94c9730a0e40ae666e569da9b68, type: 3}
+  m_PrefabInstance: {fileID: 1707617618}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50e894cdf9ba679498275f978fbae6a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1710391027
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -44042,7 +44119,8 @@ MonoBehaviour:
   interactorLayer:
     serializedVersion: 2
     m_Bits: 256
-  door: {fileID: 0}
+  door:
+  - {fileID: 0}
 --- !u!1 &1715911351
 GameObject:
   m_ObjectHideFlags: 0
@@ -48277,7 +48355,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 150445957618350327, guid: fd9ab94c9730a0e40ae666e569da9b68, type: 3}
       propertyPath: m_Name
-      value: Puerta (10)
+      value: PuertaHabitacionHija3
       objectReference: {fileID: 0}
     - target: {fileID: 7156361133301809708, guid: fd9ab94c9730a0e40ae666e569da9b68, type: 3}
       propertyPath: closedDegrees
@@ -48341,6 +48419,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7494780699656678371, guid: fd9ab94c9730a0e40ae666e569da9b68, type: 3}
   m_PrefabInstance: {fileID: 1986874620}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1986874622 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7156361133301809708, guid: fd9ab94c9730a0e40ae666e569da9b68, type: 3}
+  m_PrefabInstance: {fileID: 1986874620}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50e894cdf9ba679498275f978fbae6a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1990325506
 GameObject:
   m_ObjectHideFlags: 0
@@ -49384,7 +49473,7 @@ MonoBehaviour:
   interactorLayer:
     serializedVersion: 2
     m_Bits: 256
-  door: {fileID: 0}
+  door: []
 --- !u!1001 &2033158983
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -51872,7 +51961,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 150445957618350327, guid: fd9ab94c9730a0e40ae666e569da9b68, type: 3}
       propertyPath: m_Name
-      value: Puerta Oficina
+      value: PuertaOficina
       objectReference: {fileID: 0}
     - target: {fileID: 7494780699656678371, guid: fd9ab94c9730a0e40ae666e569da9b68, type: 3}
       propertyPath: m_LocalPosition.x

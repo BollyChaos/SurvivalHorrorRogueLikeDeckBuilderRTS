@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Security;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,11 +11,7 @@ public class PadreBehaviour : MonoBehaviour
     private GameObject player;
     private List<GameObject> rooms;
     private GameObject currentRoom;
-    private int currentRoomIndex;
-    private GameObject targetRoom;
-    private bool seenByPlayer = false;
-    private bool playerInRoom = false;
-    private bool doorOpen = false;
+    private bool seenByPlayer;
     private NavMeshAgent _agent;
     private float roomChangeTimer = 0f;
     private float roomChangeDelay = 7f;
@@ -34,14 +31,30 @@ public class PadreBehaviour : MonoBehaviour
             {
                 rooms.Add(child.gameObject);
             }
-            currentRoom = rooms[0];
-            currentRoomIndex = 0;
-            targetRoom = currentRoom;
+            currentRoom = rooms[2];
             StartCoroutine(AILoop());
         }
         else
         {
-            Debug.LogError("No se encontró el GameObject 'WaypointsAbuelo' en la escena");
+            Debug.LogError("No se encontró el GameObject 'RoomTriggers' en la escena");
+        }
+    }
+    void Update()
+    {
+        if (Vector3.Distance(transform.position, player.transform.position) < 6f)
+        {
+            LookAt(player.transform.position);
+        }
+        seenByPlayer = SeenByPlayer();
+    }
+    public void LookAt(Vector3 target)
+    {
+        Vector3 direction = (target - transform.position).normalized;
+
+        if (direction != Vector3.zero)
+        {
+            Quaternion lookRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * 10f);
         }
     }
 
@@ -52,26 +65,23 @@ public class PadreBehaviour : MonoBehaviour
             // 1. ¿Lo ve el jugador?
             if (seenByPlayer)
             {
+                yield return new WaitForSeconds(0.5f);
                 HideFromPlayer();
-                yield return new WaitForSeconds(1f);
                 continue;
             }
 
             // 2. ¿Jug. en la sala?
-            if (playerInRoom)
+            RoomTrigger roomTrigger = currentRoom.GetComponent<RoomTrigger>();
+            if (roomTrigger.IsPlayerInRoom())
             {
-                int rnd = Random.RandomRange(0, 1);
+                int rnd = Random.Range(0, 2);
                 if (rnd == 0)
                 {
                     DoCreepySounds();
                 }
                 if (rnd == 1)
                 {
-                    // 2.a. Cerrar puerta si está abierta
-                    if (doorOpen)
-                    {
-                        CloseRoomDoor();
-                    }
+                    CloseRoomDoors();
                 }
 
                 yield return new WaitForSeconds(1f);
@@ -95,6 +105,7 @@ public class PadreBehaviour : MonoBehaviour
     {
         Debug.Log("Padre → Me vio el jugador, me escondo");
 
+
         // Puedes moverlo a un hotspot oculto
         //Vector3 randomOffset = Random.insideUnitSphere * 2f;
         ChangeToRandomRoom();
@@ -104,7 +115,7 @@ public class PadreBehaviour : MonoBehaviour
     {
         Debug.Log("Padre → Haciendo sonidos dentro de la sala…");
 
-         // Reproducir sonido
+        // Reproducir sonido
         ASoundPlayer audioSource = GetComponent<ASoundPlayer>();
         if (audioSource != null)
         {
@@ -112,13 +123,12 @@ public class PadreBehaviour : MonoBehaviour
         }
     }
 
-    private void CloseRoomDoor()
+    private void CloseRoomDoors()
     {
         Debug.Log("Padre → Cierro la puerta de la sala");
-        RoomTrigger roomTrigger = rooms[currentRoomIndex].GetComponent<RoomTrigger>();
-        roomTrigger.CerrarPuerta();
+        RoomTrigger roomTrigger = currentRoom.GetComponent<RoomTrigger>();
+        roomTrigger.CerrarPuertas();
         // Aquí activas tu animación o lógica de cerradura
-        doorOpen = false;
 
         // Y si tienes NavMeshObstacle:
         // puertaObstacle.carving = true;
@@ -127,9 +137,26 @@ public class PadreBehaviour : MonoBehaviour
     {
         Debug.Log("Padre → Me cambio de sala");
 
-        int random  = Random.Range(0, rooms.Count);
+        int random = Random.Range(0, rooms.Count);
 
-        GameObject randomRoom = rooms[random];
+        GameObject randomRoom = null;
+
+        // --- 1. Buscar una sala válida ---
+        int safety = 30; // para evitar bucles infinitos
+        do
+        {
+            randomRoom = rooms[Random.Range(0, rooms.Count)];
+            safety--;
+
+        } while (IsForbiddenRoom(randomRoom.name) && safety > 0);
+
+        if (safety <= 0)
+        {
+            Debug.LogWarning("No se encontró ninguna sala válida, usando una por defecto.");
+            randomRoom = rooms[0];
+        }
+
+        // --- 2. Conseguir punto aleatorio dentro del box collider ---
         BoxCollider box = randomRoom.GetComponent<BoxCollider>();
 
         if (box == null)
@@ -140,10 +167,20 @@ public class PadreBehaviour : MonoBehaviour
 
         Vector3 randomPoint = GetRandomPointInsideBox(box);
 
-        targetRoom = randomRoom;
-        transform.position = randomPoint;
-        currentRoomIndex = random;
-        
+        // --- 3. Ajustar al NavMesh ---
+        if (NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, 4f, NavMesh.AllAreas))
+        {
+            randomPoint = hit.position;
+        }
+        else
+        {
+            randomPoint = box.bounds.center; // fallback
+        }
+
+        // --- 4. Cambiar sala ---
+        currentRoom = randomRoom;
+        _agent.Warp(randomPoint);
+
     }
     private Vector3 GetRandomPointInsideBox(BoxCollider box)
     {
@@ -157,34 +194,46 @@ public class PadreBehaviour : MonoBehaviour
         return new Vector3(x, y, z);
     }
 
-    public void SetSeenByPlayer(bool value)
+    private bool SeenByPlayer()
     {
-        seenByPlayer = value;
+        if (player == null) return false;
+
+        // Vector desde el jugador hacia el enemigo
+        Vector3 directionToEnemy = (transform.position - player.transform.position).normalized;
+
+        // Distancia entre jugador y enemigo
+        float distanceToEnemy = Vector3.Distance(player.transform.position, transform.position);
+
+        // Comprobar distancia máxima
+        if (distanceToEnemy > 10f)
+        {
+            SetChildrenActive(false);
+            return false;
+        }
+        // Ángulo entre la dirección forward del jugador y la dirección hacia el enemigo
+        float angle = Vector3.Angle(player.transform.forward, directionToEnemy);
+
+        // Comprobar si está dentro del cono (30 grados para cada lado = 60 grados totales)
+        if (angle <= 30f)
+        {
+            SetChildrenActive(true);
+            return true;
+        }
+
+        SetChildrenActive(false);
+        return false;
     }
-
-
-    public void PlayerEnterRoom(bool value)
+    private void SetChildrenActive(bool state)
     {
-        playerInRoom = value;
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(state);
+        }
     }
-
-    public void OnDoorStateChanged(bool isOpen)
+    private bool IsForbiddenRoom(string roomName)
     {
-        doorOpen = isOpen;
+        return roomName == "Tienda" ||
+               roomName == "SalaSecreta" ||
+               roomName == "Recibidor";
     }
-
-
-    // Update is called once per frame
-    // void Update()
-    // {
-    //     if(seenByPlayer)
-    //     {
-    //         Debug.Log("Padre: Me vió el jugador!");
-    //     }
-    //     if(playerInRoom)
-    //     {
-    //         Debug.Log("Padre: El jugador está en mi habitación!");
-    //     }
-
-    // }
 }
