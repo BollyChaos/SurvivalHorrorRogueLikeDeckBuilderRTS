@@ -2610,7 +2610,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gamePlatform: 0
   DebugGame: 1
-  DebugPlatform: 0
+  DebugPlatform: 1
   debugGamePlatform: 2
   ChangeInitalScene: 1
   startingDebugScene: 2

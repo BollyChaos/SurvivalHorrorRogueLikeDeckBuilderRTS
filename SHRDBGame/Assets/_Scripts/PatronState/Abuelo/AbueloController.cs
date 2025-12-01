@@ -39,7 +39,7 @@ public class AbueloController : EnemyController
 
 
             //Debug.Log($"Abuelo: {waypoints.Count} waypoints cargados desde {waypointsContainer.name}");
-            transform.position = waypoints[2].position;
+            transform.localPosition = new Vector3(-26.79f,0,9);
             //Debug.Log("Spawneando en:"+waypoints[0].localPosition);
         }
         else
