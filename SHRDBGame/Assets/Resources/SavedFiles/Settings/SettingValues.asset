@@ -149,7 +149,7 @@ MonoBehaviour:
     - rid: 8930831168124223518
       type: {class: BoolSettingValue, ns: , asm: Assembly-CSharp}
       data:
-        value: 0
+        value: 1
     - rid: 8930831168124223519
       type: {class: BoolSettingValue, ns: , asm: Assembly-CSharp}
       data:

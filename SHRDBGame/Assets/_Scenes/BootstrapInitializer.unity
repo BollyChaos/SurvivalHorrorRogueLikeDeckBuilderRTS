@@ -688,8 +688,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Padding: {x: 0, y: 60, z: 0, w: 70}
-  m_Softness: {x: 0, y: 170}
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 500}
 --- !u!114 &77401778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2183,7 +2183,7 @@ MonoBehaviour:
   _abueloPrefab: {fileID: 2405132392736585338, guid: 31456fbe6a2b7a14e8b888d6b35c6d0d, type: 3}
   _hijaPrefab: {fileID: 7739205641307531646, guid: c791c191480819e4690184b5a8a7a57e, type: 3}
   vecinosSpawner: {fileID: 0}
-  _nVecinos: 3
+  _nVecinos: 20
   _tioPrefab: {fileID: 6823851821172519275, guid: 07e45468502ca82498ad4c1a97e98b51, type: 3}
   _tios: []
   _nTios: 3
@@ -7197,7 +7197,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -8487,8 +8487,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Padding: {x: 0, y: 60, z: 0, w: 70}
-  m_Softness: {x: 0, y: 170}
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 500}
 --- !u!114 &756744420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9855,8 +9855,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Padding: {x: 0, y: 60, z: 0, w: 70}
-  m_Softness: {x: 0, y: 170}
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 500}
 --- !u!114 &821898118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12500,8 +12500,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Padding: {x: 0, y: 60, z: 0, w: 70}
-  m_Softness: {x: 0, y: 170}
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 500}
 --- !u!114 &1062985342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16830,8 +16830,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Padding: {x: 0, y: 60, z: 0, w: 70}
-  m_Softness: {x: 0, y: 170}
+  m_Padding: {x: 0, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 500}
 --- !u!114 &1417357819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22843,7 +22843,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 0
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
