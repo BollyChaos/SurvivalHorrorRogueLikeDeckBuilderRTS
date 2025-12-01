@@ -104,7 +104,7 @@ public class Interactor : MonoBehaviour
         {
             var i = interactablesInRange[j];
 
-            if (i == null ||i.GetTransform()==null|| !i.GetTransform().gameObject.activeSelf)
+            if (i == null ||i.GetTransform()==null|| !i.GetTransform().gameObject.activeSelf||(i.GetTransform().position - transform.position).sqrMagnitude > interactionRadius * interactionRadius)
             {
                 UIManager.Instance.HideInteractionText();
                 interactablesInRange.RemoveAt(j); // eliminar inactivo o null
