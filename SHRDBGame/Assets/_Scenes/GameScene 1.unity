@@ -23862,6 +23862,8 @@ MonoBehaviour:
   onTriggerEnterEvent:
     m_PersistentCalls:
       m_Calls: []
+  targetTag: 
+  destroyOnTrigger: 0
 --- !u!65 &1481683559
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -29174,6 +29176,8 @@ MonoBehaviour:
   onTriggerEnterEvent:
     m_PersistentCalls:
       m_Calls: []
+  targetTag: 
+  destroyOnTrigger: 0
 --- !u!1 &1791873124
 GameObject:
   m_ObjectHideFlags: 0
@@ -30883,6 +30887,8 @@ MonoBehaviour:
   onTriggerEnterEvent:
     m_PersistentCalls:
       m_Calls: []
+  targetTag: 
+  destroyOnTrigger: 0
 --- !u!65 &1928583465
 BoxCollider:
   m_ObjectHideFlags: 0
