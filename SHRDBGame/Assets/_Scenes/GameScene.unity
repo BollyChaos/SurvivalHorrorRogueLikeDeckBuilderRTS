@@ -51839,6 +51839,14 @@ PrefabInstance:
       propertyPath: _player
       value: 
       objectReference: {fileID: 3013159173255241254}
+    - target: {fileID: 1770486781325925485, guid: c791c191480819e4690184b5a8a7a57e, type: 3}
+      propertyPath: enfadoMax
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1770486781325925485, guid: c791c191480819e4690184b5a8a7a57e, type: 3}
+      propertyPath: aburrimientoMax
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 5964562361717300378, guid: c791c191480819e4690184b5a8a7a57e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 33.3423
