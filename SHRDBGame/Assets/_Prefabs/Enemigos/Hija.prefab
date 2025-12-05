@@ -368,8 +368,8 @@ MonoBehaviour:
   enfado: 0
   aburrimiento: 0
   ganasDeLlorar: 0
-  enfadoMax: 10
-  aburrimientoMax: 10
+  enfadoMax: 100
+  aburrimientoMax: 100
   llorarUmbral: 0.6
 --- !u!114 &98376841491413578
 MonoBehaviour:

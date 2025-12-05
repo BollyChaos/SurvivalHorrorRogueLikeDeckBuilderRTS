@@ -16,6 +16,7 @@ public class PadreBehaviour : MonoBehaviour
     private float roomChangeTimer = 0f;
     private float roomChangeDelay = 7f;
     private Coroutine aiCoroutine;
+    private EnemyManager enemyManager;
 
 
 
@@ -23,6 +24,7 @@ public class PadreBehaviour : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        enemyManager = GameObject.FindObjectOfType<EnemyManager>();
         rooms = new List<GameObject>();
         _agent = GetComponent<NavMeshAgent>();
         Transform roomsContainer = GameObject.Find("RoomTriggers").transform;
@@ -105,7 +107,7 @@ public class PadreBehaviour : MonoBehaviour
 
     private void HideFromPlayer()
     {
-        Debug.Log("Padre → Me vio el jugador, me escondo");
+        //Debug.Log("Padre → Me vio el jugador, me escondo");
 
 
         // Puedes moverlo a un hotspot oculto
@@ -115,19 +117,20 @@ public class PadreBehaviour : MonoBehaviour
 
     private void DoCreepySounds()
     {
-        Debug.Log("Padre → Haciendo sonidos dentro de la sala…");
+        //Debug.Log("Padre → Haciendo sonidos dentro de la sala…");
 
         // Reproducir sonido
         ASoundPlayer audioSource = GetComponent<ASoundPlayer>();
         if (audioSource != null)
         {
             audioSource.PlayRandomSound();
+            enemyManager.OnSoundHeard(transform.position);
         }
     }
 
     private void CloseRoomDoors()
     {
-        Debug.Log("Padre → Cierro la puerta de la sala");
+        //Debug.Log("Padre → Cierro la puerta de la sala");
         RoomTrigger roomTrigger = currentRoom.GetComponent<RoomTrigger>();
         roomTrigger.CerrarPuertas();
         // Aquí activas tu animación o lógica de cerradura
@@ -137,7 +140,7 @@ public class PadreBehaviour : MonoBehaviour
     }
     private void ChangeToRandomRoom()
     {
-        Debug.Log("Padre → Me cambio de sala");
+        //Debug.Log("Padre → Me cambio de sala");
 
         int random = Random.Range(0, rooms.Count);
 

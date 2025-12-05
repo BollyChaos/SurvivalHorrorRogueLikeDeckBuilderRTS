@@ -77,6 +77,7 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
             if (_hija.activeSelf == false)
             {
                 _hija.SetActive(true);
+                _hija.GetComponent<HijaController>().OnReset();
             }
         }
         else

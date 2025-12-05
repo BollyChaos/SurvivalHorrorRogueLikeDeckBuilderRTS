@@ -150,5 +150,21 @@ public class HijaController : EnemyController
     {
         timeSinceGift = 0f;
     }
+    public void OnReset()
+    {
+        _player = GameObject.FindGameObjectWithTag("Player");
+        talkable = true;
+        _salonAbierto = false;
+        _missionsCompleted = false;
+        Crying = false;
+        waitingForGift = false;
+        timeSinceGift = 0f;  // TSR
+        timeSinceSeen = 0f;  // TSJ
+        enfado = 0f;
+        aburrimiento = 0f;
+        ganasDeLlorar = 0f;
+        SetState(new HijaWaiting(this));
+    }
     #endregion
+    
 }
