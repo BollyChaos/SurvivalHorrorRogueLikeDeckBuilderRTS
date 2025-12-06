@@ -2,7 +2,7 @@
 
 namespace PixelPlay.OffScreenIndicator
 {
-    public class OffScreenIndicatorCore
+    public static class OffScreenIndicatorCore
     {
         /// <summary>
         /// Gets the position of the target mapped to screen cordinates.

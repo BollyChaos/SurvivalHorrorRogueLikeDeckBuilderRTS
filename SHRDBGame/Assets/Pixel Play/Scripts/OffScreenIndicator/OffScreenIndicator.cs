@@ -14,6 +14,7 @@ public class OffScreenIndicator : MonoBehaviour
     [Tooltip("Distance offset of the indicators from the centre of the screen")]
     [SerializeField] private float screenBoundOffset = 0.9f;
 
+
     private Camera mainCamera;
     private Vector3 screenCentre;
     private Vector3 screenBounds;
@@ -28,6 +29,10 @@ public class OffScreenIndicator : MonoBehaviour
         screenCentre = new Vector3(Screen.width, Screen.height, 0) / 2;
         screenBounds = screenCentre * screenBoundOffset;
         TargetStateChanged += HandleTargetStateChanged;
+    }
+    public void SetCamera(Camera cam)
+    {
+        mainCamera = cam;
     }
 
     void LateUpdate()

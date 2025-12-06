@@ -691,6 +691,8 @@ public class UIManager : ASingleton<UIManager>, IManager
         Debug.Log($"[{name}]Empezando juego");
         PauseMenu?.SetActive(false);
         PlayerHUD?.SetActive(true);
+        //fijar la camara en offscreenindicator
+        FindAnyObjectByType<OffScreenIndicator>().SetCamera(FindAnyObjectByType<CameraController>().PlayerCamera);
         EndGameCavas?.SetActive(false);
 
         //2.UI Cards
