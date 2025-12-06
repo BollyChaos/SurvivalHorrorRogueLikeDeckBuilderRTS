@@ -38,43 +38,46 @@ public class CardInventory : MonoBehaviour
     }
     public void AddCard(CardObject pCard)
     {
-        try{
-        switch (pCard.card.cardType)
+        try
         {
-            case CardType.Attack:
-                if (!attackCards.Contains(pCard))
-                {
-                    attackCards.Push(pCard);
-                    if (!GetComponent<CardUser>().HasAttackCards)
+            switch (pCard.card.cardType)
+            {
+                case CardType.Attack:
+                    if (!attackCards.Contains(pCard))
                     {
-                        GetComponent<CardUser>().ReceiveAttackCard(GiveCard(CardType.Attack));
+                        attackCards.Push(pCard);
+                        if (!GetComponent<CardUser>().HasAttackCards)
+                        {
+                            GetComponent<CardUser>().ReceiveAttackCard(GiveCard(CardType.Attack));
+                        }
                     }
-                }
-                break;
-            case CardType.Defense:
-                if (!defenseCards.Contains(pCard))
-                {
-                    defenseCards.Push(pCard);
-                    if (!GetComponent<CardUser>().HasDefenseCards)
+                    break;
+                case CardType.Defense:
+                    if (!defenseCards.Contains(pCard))
                     {
-                        GetComponent<CardUser>().ReceiveDefenseCard(GiveCard(CardType.Defense));
+                        defenseCards.Push(pCard);
+                        if (!GetComponent<CardUser>().HasDefenseCards)
+                        {
+                            GetComponent<CardUser>().ReceiveDefenseCard(GiveCard(CardType.Defense));
+                        }
                     }
-                }
-                break;
-            case CardType.Utility:
-                if (!utilityCards.Contains(pCard))
-                {
-                    utilityCards.Push(pCard);
-                    if (!GetComponent<CardUser>().HasUtilityCards)
+                    break;
+                case CardType.Utility:
+                    if (!utilityCards.Contains(pCard))
                     {
-                        GetComponent<CardUser>().ReceiveUtilityCard(GiveCard(CardType.Utility));
+                        utilityCards.Push(pCard);
+                        if (!GetComponent<CardUser>().HasUtilityCards)
+                        {
+                            GetComponent<CardUser>().ReceiveUtilityCard(GiveCard(CardType.Utility));
+                        }
                     }
-                }
-                break;
-        }}catch(Exception e)
+                    break;
+            }
+        }
+        catch (Exception e)
         {
-            Debug.LogError("La carta que me ha llegado es null: "+pCard==null);
-            Debug.LogError(e.Message);   
+            Debug.LogError("La carta que me ha llegado es null: " + pCard == null);
+            Debug.LogError(e.Message);
         }
 
     }
@@ -144,27 +147,35 @@ public class CardInventory : MonoBehaviour
 
     public CardObject GiveCard(CardType cardType)
     {
-        //quitar una carta y añadir otra si hay
+        CardObject card = null;
+
         switch (cardType)
         {
             case CardType.Attack:
                 if (attackCards.Count > 0)
-                    return attackCards.Pop();
-
-
+                    card = attackCards.Pop();
                 break;
+
             case CardType.Defense:
                 if (defenseCards.Count > 0)
-                    return defenseCards.Pop();
-
+                    card = defenseCards.Pop();
                 break;
+
             case CardType.Utility:
                 if (utilityCards.Count > 0)
-                    return utilityCards.Pop();
-
+                    card = utilityCards.Pop();
                 break;
         }
-        return null;
+
+        if (card != null && card.transform.parent != null)
+        {
+            var parent = card.transform.parent;
+
+            if (card.transform.GetSiblingIndex() != parent.childCount - 1)
+                card.transform.SetAsLastSibling();
+        }
+
+        return card;
     }
     public void OnEndGame()
     {

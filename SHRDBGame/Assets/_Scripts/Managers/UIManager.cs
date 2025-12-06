@@ -103,48 +103,39 @@ public class UIManager : ASingleton<UIManager>, IManager
         //mover el resto cartas al inventario, emparentar, ver el orden y ordenar
         foreach (var card in UICards)
         {
-            if (!card.GetComponent<SelectableUICard>().isOn)
-            {
-                switch (card.card.cardType)
-                {
-                    case CardType.Attack:
-                        EmparentCard("CardsDisplay/LeftCard", card.gameObject);
-                        break;
-                    case CardType.Defense:
-                        EmparentCard("CardsDisplay/CenterCard", card.gameObject);
-                        break;
-                    case CardType.Utility:
-                        EmparentCard("CardsDisplay/RightCard", card.gameObject);
-                        break;
-                }
-            }
-
+            card.GetComponent<SelectableUICard>().NextCardPhase();
         }
+
         foreach (var card in UICards)
         {
-            card.GetComponent<SelectableUICard>().NextCardPhase();
-            if (card.GetComponent<SelectableUICard>().isOn)
+            string path = "";
+            var ui = card.GetComponent<SelectableUICard>();
+            Transform parent = PlayerHUD.transform.Find("CardsDisplay");
+            
+            switch (card.card.cardType)
             {
-                switch (card.card.cardType) //primero emparentar los seccionados
-                {
-                    case CardType.Attack:
-                        EmparentCard("CardsDisplay/LeftCard", card.gameObject);
-                        break;
-                    case CardType.Defense:
-                        EmparentCard("CardsDisplay/CenterCard", card.gameObject);
-                        break;
-                    case CardType.Utility:
-                        EmparentCard("CardsDisplay/RightCard", card.gameObject);
-                        break;
-                }
-
-
+                case CardType.Attack:
+                    path = "CardsDisplay/LeftCard";
+                    break;
+                case CardType.Defense:
+                    path = "CardsDisplay/CenterCard";
+                    break;
+                case CardType.Utility:
+                    path = "CardsDisplay/RightCard";
+                    break;
             }
+
+            if (!ui.isOn)
+                EmparentCard(path, card.gameObject, 0);
+            else
+                EmparentCard(path, card.gameObject, parent.childCount);
+
             card.GetComponent<SelectableUICard>().MoveToCurve(card.transform.parent.position);
             card.GetComponent<SelectableUICard>().Scale(2f);
-
-
         }
+
+
+
         //decirle al CardManager que cartas va a usar el jugador, una de cada tipo
         CardManager.Instance.GiveCardToPlayer(FindLastCard("CardsDisplay/LeftCard"));
         CardManager.Instance.GiveCardToPlayer(FindLastCard("CardsDisplay/CenterCard"));
@@ -190,19 +181,26 @@ public class UIManager : ASingleton<UIManager>, IManager
         card.GetComponent<CardAnimation>().Scale(card.GetComponent<RectTransform>(), 2f);
         card.GetComponent<CardAnimation>().RotateXValue(card.GetComponent<RectTransform>(), 0f);
     }
-    void EmparentCard(string objectName, GameObject objectToMove)
+    void EmparentCard(string objectName, GameObject objectToMove, int siblingIndex = -1)
     {
-        Transform leftCard = PlayerHUD.transform.Find(objectName);
+        Transform parent = PlayerHUD.transform.Find(objectName);
 
-        if (leftCard != null && objectToMove != null)
+        if (parent != null && objectToMove != null)
         {
-            objectToMove.transform.SetParent(leftCard, true); // false = adopta la posici�n local del nuevo padre
+            objectToMove.transform.SetParent(parent, true);
+
+            // Si siblingIndex >= 0, lo aplicamos
+            if (siblingIndex >= 0)
+            {
+                objectToMove.transform.SetSiblingIndex(siblingIndex);
+            }
         }
         else
         {
-            Debug.LogWarning($"No se encontr� '{objectName}' o 'objectToMove' no est� asignado");
+            Debug.LogWarning($"No se encontró '{objectName}' o 'objectToMove' no está asignado");
         }
     }
+
     CardObject FindLastCard(string objectName)
     {
         Transform parent = PlayerHUD.transform.Find(objectName); // o el que necesites
@@ -218,13 +216,13 @@ public class UIManager : ASingleton<UIManager>, IManager
     #region PLAYERUI
     public void ShowMobileInput()
     {
-        
+
         MobileHUD.SetActive(true);
     }
     public void HideMobileInput()
     {
         MobileHUD.SetActive(false);
-        
+
     }
     public void HideJoystick()
     {
@@ -390,7 +388,7 @@ public class UIManager : ASingleton<UIManager>, IManager
     internal void LookForMainMenuCanvas()
     {
         PlayButton = GameObject.Find("CanvasMainMenu/PanelMainMenu/Buttons/PlayButton").GetComponent<Button>();
-        Credits= GameObject.Find("CanvasMainMenu/Credits");
+        Credits = GameObject.Find("CanvasMainMenu/Credits");
         Credits.transform.SetAsLastSibling();
         Credits.SetActive(false);
         GameObject.Find("CanvasMainMenu/PanelMainMenu/Buttons/OptionsButton").GetComponent<Button>().onClick.AddListener(ShowTabCanvasInMainMenu);
@@ -407,16 +405,16 @@ public class UIManager : ASingleton<UIManager>, IManager
             InputManager.Instance.ResetUIInPutModule(PlayButton.gameObject);
         }
     }
-     public void HideCredits()
+    public void HideCredits()
     {
         GameManager.Instance.OutCredits();
-       Credits.gameObject.SetActive(false);
+        Credits.gameObject.SetActive(false);
     }
     public void ShowCredits()
     {
-         GameManager.Instance.InCredits();
-       Credits.gameObject.SetActive(true);
-        
+        GameManager.Instance.InCredits();
+        Credits.gameObject.SetActive(true);
+
     }
     public void QuitApplication()
     {
@@ -552,7 +550,7 @@ public class UIManager : ASingleton<UIManager>, IManager
 
             Debug.Log("Volviendo a ingame");
             previousInGameState = inGameStates;
-            
+
 
             inGameStates = InGameStates.INGAME;
             PlayerHUD.SetActive(true);
@@ -586,7 +584,7 @@ public class UIManager : ASingleton<UIManager>, IManager
         PauseMenu.SetActive(false);
         SaveTemporalData();
     }
-   
+
     public void ShowTabCanvas()
     {
         PlayerHUD.SetActive(false);
@@ -652,8 +650,8 @@ public class UIManager : ASingleton<UIManager>, IManager
         //quitar cartas de player HUD
         //0. desactivar segun la plataforma
         EndUIPlatform();
-        previousInGameState=InGameStates.INGAME;
-        inGameStates=InGameStates.INGAME;
+        previousInGameState = InGameStates.INGAME;
+        inGameStates = InGameStates.INGAME;
         //quitar pausa al acabar juego
         OnPauseUI(false);
         //quitar la interfaz de usuario
@@ -727,28 +725,28 @@ public class UIManager : ASingleton<UIManager>, IManager
         }
         PlayerHUD.transform.Find(parent).gameObject.SetActive(false);
     }
-public void PrepareUIPlatform()
+    public void PrepareUIPlatform()
     {
         switch (GameManager.Instance.gamePlatform)
         {
             case GamePlatform.WebGL_Mobile:
-            HideMobileInput();
-            ShowMobileInput();
-            break;
+                HideMobileInput();
+                ShowMobileInput();
+                break;
             case GamePlatform.WebGL_PC:
             case GamePlatform.Standalone:
-            HideMobileInput();
-            break;
+                HideMobileInput();
+                break;
         }
     }
-public void EndUIPlatform()
+    public void EndUIPlatform()
     {
         switch (GameManager.Instance.gamePlatform)
         {
             case GamePlatform.WebGL_Mobile:
-            HideMobileInput();
-            break;
-        } 
+                HideMobileInput();
+                break;
+        }
     }
     public void SaveData()
     {
