@@ -53,6 +53,7 @@ public class InputManager : ASingleton<InputManager>, IManager
             //cerrar creditos
             break;
         }
+        CursorManager.Instance.SetBase();
     }
     // public void OnSaveChanges(InputAction.CallbackContext ctx)
     // {
@@ -135,6 +136,7 @@ public class InputManager : ASingleton<InputManager>, IManager
         
         inputMap = InputMap.PLAYER;
         playerInput.SwitchCurrentActionMap("Player");
+        CursorManager.Instance.SetGameplayMode(true);
 
     }
     [ContextMenu("Cambiar a mapa de accion UI")]
@@ -143,6 +145,8 @@ public class InputManager : ASingleton<InputManager>, IManager
     {
         inputMap = InputMap.UI;
         playerInput.SwitchCurrentActionMap("UI");
+        CursorManager.Instance.SetGameplayMode(false);
+
 
     }
     public void SwitchMapToMobile()

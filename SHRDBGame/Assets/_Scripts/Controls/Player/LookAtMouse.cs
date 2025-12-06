@@ -73,6 +73,19 @@ public class LookAtMouseOrGamepad : MonoBehaviour
     private void HandleCameraOffset()
     {
         if (framingTransposer == null) return;
+        if(InputManager.Instance.inputMap == InputManager.InputMap.UI|| InputManager.Instance.inputMap == InputManager.InputMap.MOBILE)
+        {
+            // Volvemos al centro si estamos en UI o Mobile
+            offsetCurrent = Vector2.SmoothDamp(
+            offsetCurrent,
+            new Vector2(0.5f, 0.5f),
+            ref offsetVelocity,
+            springTime
+        );
+            framingTransposer.m_ScreenX = offsetCurrent.x;
+            framingTransposer.m_ScreenY = offsetCurrent.y;
+            return;
+        }
 
         // Input normalizado (-1..1)
 

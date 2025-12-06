@@ -114,6 +114,7 @@ namespace Managers
                 case (int)SceneIds.MAINMENUSCENE:
                     gameState = GameState.INMAINMENU;
                     UIManager.Instance.LookForMainMenuCanvas();
+                    InputManager.Instance.SwitchMapToUI();
                     break;
                 case (int)SceneIds.GAMESCENE:
                     gameState = GameState.INGAME;
