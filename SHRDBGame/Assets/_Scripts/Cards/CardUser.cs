@@ -39,6 +39,10 @@ public class CardUser : MonoBehaviour
             return HasAttackCards || HasDefenseCards || HasUtilityCards;
         }
     }
+    public CardObject GetAttackCard()
+    {
+        return AttackCard;
+    }
     public bool HasAttackCards
     {
         get
@@ -46,12 +50,20 @@ public class CardUser : MonoBehaviour
             return AttackCard != null;
         }
     }
+    public CardObject GetDefenseCard()
+    {
+        return DefenseCard;
+    }
     public bool HasDefenseCards
     {
         get
         {
             return DefenseCard != null;
         }
+    }
+    public CardObject GetUtilityCard()
+    {
+        return UtilityCard;
     }
     public bool HasUtilityCards
     {

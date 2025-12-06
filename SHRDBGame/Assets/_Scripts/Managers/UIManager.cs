@@ -111,7 +111,7 @@ public class UIManager : ASingleton<UIManager>, IManager
             string path = "";
             var ui = card.GetComponent<SelectableUICard>();
             Transform parent = PlayerHUD.transform.Find("CardsDisplay");
-            
+
             switch (card.card.cardType)
             {
                 case CardType.Attack:
@@ -218,12 +218,18 @@ public class UIManager : ASingleton<UIManager>, IManager
     {
 
         MobileHUD.SetActive(true);
+        ShowJoystick();
     }
     public void HideMobileInput()
     {
         MobileHUD.SetActive(false);
 
     }
+    public void HideJoystickEndGame()
+    {
+        MobileHUD.transform.Find("LeftStick").gameObject.SetActive(false);
+    }
+
     public void HideJoystick()
     {
         MobileHUD.transform.Find("LeftStick").gameObject.SetActive(false);
@@ -364,6 +370,7 @@ public class UIManager : ASingleton<UIManager>, IManager
             EndGameCavas.transform.Find("EndGameText").GetComponent<TextMeshProUGUI>().text = "¡Has muerto!";
 
         }
+        HideJoystick();
         ShowEndGameCanvas();
     }
     internal void ShowEndGameCanvas()
@@ -437,9 +444,9 @@ public class UIManager : ASingleton<UIManager>, IManager
             DontDestroyOnLoad(PauseMenu);
             PauseMenu.SetActive(false);
             //Asignar funciones a los botones del menu de pausa(selectionCanvas)
-            PauseMenu.transform.Find("SelectionCanvas/Continue").GetComponent<Button>().onClick.AddListener(GameManager.Instance.UnPauseGame);
-            PauseMenu.transform.Find("SelectionCanvas/Settings").GetComponent<Button>().onClick.AddListener(ShowTabCanvas);
-            PauseMenu.transform.Find("SelectionCanvas/Quit").GetComponent<Button>().onClick.AddListener(GoBackToMainMenu);
+            PauseMenu.transform.Find("SelectionCanvas/Buttons/Continue").GetComponent<Button>().onClick.AddListener(GameManager.Instance.UnPauseGame);
+            PauseMenu.transform.Find("SelectionCanvas/Buttons/Settings").GetComponent<Button>().onClick.AddListener(ShowTabCanvas);
+            PauseMenu.transform.Find("SelectionCanvas/Buttons/Quit").GetComponent<Button>().onClick.AddListener(GoBackToMainMenu);
             uiElements.AddRange(PauseMenu.transform.GetComponentsInChildren<UISettingsElement>(true));
             foreach (var element in uiElements)
             {
@@ -510,7 +517,7 @@ public class UIManager : ASingleton<UIManager>, IManager
         PauseMenu.SetActive(isPaused);
         if (isPaused)
         {
-            EventSystem.current.SetSelectedGameObject(PauseMenu.transform.Find("SelectionCanvas/Continue").gameObject);
+            EventSystem.current.SetSelectedGameObject(PauseMenu.transform.Find("SelectionCanvas/Buttons/Continue").gameObject);
         }
         //si en pausa:
         //sacar seleccion de tres
@@ -573,6 +580,56 @@ public class UIManager : ASingleton<UIManager>, IManager
         isSettingsCanvasDirty = false;
         PauseMenu.transform.Find("SelectionCanvas").gameObject.SetActive(true);
         PauseMenu.transform.Find("TabCanvas").gameObject.SetActive(false);
+        //cartas
+        ShowActiveCards();
+    }
+    void ShowActiveCards()
+    {
+        CardUser playerCardUser = FindAnyObjectByType<CardUser>();
+        if (playerCardUser.HasAnyCards)
+        {
+            Debug.Log("El jugador tiene cartas");
+            if (playerCardUser.HasAttackCards)
+            {
+                Debug.Log("El jugador tiene carta de ataque");
+                CardObject attackCard = playerCardUser.GetAttackCard();
+                PauseMenu.transform.Find("SelectionCanvas/Cards/UICardAttack").GetComponent<CardObject>().card = attackCard.card;
+                PauseMenu.transform.Find("SelectionCanvas/Cards/UICardAttack").GetComponent<CardObject>().BuildCard();
+                PauseMenu.transform.Find("SelectionCanvas/Cards/UICardAttack").gameObject.SetActive(true);
+            }
+            else
+            {
+                PauseMenu.transform.Find("SelectionCanvas/Cards/UICardAttack").gameObject.SetActive(false);
+            }
+            if (playerCardUser.HasDefenseCards)
+            {
+                CardObject defenseCard = playerCardUser.GetDefenseCard();
+                PauseMenu.transform.Find("SelectionCanvas/Cards/UICardDefense").GetComponent<CardObject>().card = defenseCard.card;
+                PauseMenu.transform.Find("SelectionCanvas/Cards/UICardDefense").GetComponent<CardObject>().BuildCard();
+                PauseMenu.transform.Find("SelectionCanvas/Cards/UICardDefense").gameObject.SetActive(true);
+            }
+            else
+            {
+                PauseMenu.transform.Find("SelectionCanvas/Cards/UICardDefense").gameObject.SetActive(false);
+            }
+            if (playerCardUser.HasUtilityCards)
+            {
+                CardObject utilityCard = playerCardUser.GetUtilityCard();
+                PauseMenu.transform.Find("SelectionCanvas/Cards/UICardUtility").GetComponent<CardObject>().card = utilityCard.card;
+                PauseMenu.transform.Find("SelectionCanvas/Cards/UICardUtility").GetComponent<CardObject>().BuildCard();
+                PauseMenu.transform.Find("SelectionCanvas/Cards/UICardUtility").gameObject.SetActive(true);
+            }
+            else
+            {
+                PauseMenu.transform.Find("SelectionCanvas/Cards/UICardUtility").gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            PauseMenu.transform.Find("SelectionCanvas/Cards/UICardAttack").gameObject.SetActive(false);
+            PauseMenu.transform.Find("SelectionCanvas/Cards/UICardDefense").gameObject.SetActive(false);
+            PauseMenu.transform.Find("SelectionCanvas/Cards/UICardUtility").gameObject.SetActive(false);
+        }
     }
     public void ShowTabCanvasInMainMenu()
     {
