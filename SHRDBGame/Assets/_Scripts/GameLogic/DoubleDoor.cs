@@ -15,7 +15,7 @@ public class DoubleDoor : Door
 
     public override void RotateDoor(Vector3 referencePos)
     {
-        if (isLocked)
+        if (isLocked&&!isOpen)
         {
             soundPlayer.PlaySound(closeSoundIndex);
         return;

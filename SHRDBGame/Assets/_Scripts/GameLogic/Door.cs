@@ -38,16 +38,27 @@ public class Door : MonoBehaviour, IInteractable
     public string GetInteractionText()
     {
         if (!isInteractable) return "";
-        if(isLocked) return "Bloqueada";
+        if (isLocked) return "Bloqueada";
         return "Pulsa E";
     }
-
+    public void UnLockDoor()
+    {
+        isLocked = false;
+    }
+    public void LockDoor()
+    {
+        isLocked = true;
+        if(isOpen)
+        {
+            RotateDoor(FindAnyObjectByType<SimplePlayerController>().transform.position);
+        }
+    }
     public virtual void RotateDoor(Vector3 referencePos)
     {
-        if (isLocked)
+        if (isLocked&&!isOpen)
         {
             soundPlayer.PlaySound(closeSoundIndex);
-        return;
+            return;
         }
         // Dirección 
         Vector3 dir = (referencePos - transform.position).normalized;

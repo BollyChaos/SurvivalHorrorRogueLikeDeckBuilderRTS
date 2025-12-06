@@ -17,6 +17,7 @@ public class LevelManager : ASingleton<LevelManager>, IManager
     public float NightDuration { get { return nightDuration; } }
     private float nightTimer = 0f;
     [SerializeField] private bool isNightActive = false;
+    public bool IsNightActive { get { return isNightActive; } }
     [SerializeField] public UnityEvent<bool> onNightStateChanged;
     // Update is called once per frame
     void Update()

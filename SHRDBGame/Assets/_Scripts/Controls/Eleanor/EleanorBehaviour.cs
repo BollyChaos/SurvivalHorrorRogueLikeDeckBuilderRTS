@@ -31,6 +31,8 @@ public class EleanorBehaviour : MonoBehaviour, IInteractable
     Transform EleanorBackWall;
     [SerializeField]
     Transform EntranceDoor;
+    [SerializeField]
+    Door EntranceRealDoor;
     public void Start()
     {
         cardSelectionTrigger.gameObject.SetActive(false);
@@ -128,6 +130,7 @@ public class EleanorBehaviour : MonoBehaviour, IInteractable
                 DialogManager.Instance.onEndDialog.AddListener(onEndDialog);
 
                 EntranceDoor.gameObject.SetActive(true);
+                EntranceRealDoor.LockDoor();
 
                 phase = EleanorPhase.GETCARDS;
 
