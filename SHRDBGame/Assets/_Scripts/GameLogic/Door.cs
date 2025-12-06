@@ -13,6 +13,7 @@ public class Door : MonoBehaviour, IInteractable
     protected float closedDegrees;
     [SerializeField]
     protected float openOutsideDegrees;
+    [SerializeField] protected bool isLocked = false;
 
     public bool IsInteractable => isInteractable;
     private bool isInteractable = false;
@@ -37,11 +38,17 @@ public class Door : MonoBehaviour, IInteractable
     public string GetInteractionText()
     {
         if (!isInteractable) return "";
+        if(isLocked) return "Bloqueada";
         return "Pulsa E";
     }
 
     public virtual void RotateDoor(Vector3 referencePos)
     {
+        if (isLocked)
+        {
+            soundPlayer.PlaySound(closeSoundIndex);
+        return;
+        }
         // Dirección 
         Vector3 dir = (referencePos - transform.position).normalized;
 

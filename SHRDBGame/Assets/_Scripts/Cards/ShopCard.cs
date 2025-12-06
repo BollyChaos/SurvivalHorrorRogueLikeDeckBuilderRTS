@@ -25,7 +25,10 @@ public class ShopCard : MonoBehaviour, IInteractable
 
     // [SerializeField] private ASoundPlayer failSound;
     // [SerializeField] private int failClipIndex = 0;
-
+    public void OnEnable()
+    {
+         GetComponent<Target>().enabled = true;
+    }
     public void CreateCard()
     {
         // Crear UI de la carta
@@ -97,6 +100,7 @@ public class ShopCard : MonoBehaviour, IInteractable
 
         if (instantiatedCardUI != null)
         {
+            GetComponent<Target>().enabled = false;
             if (value)
                 instantiatedCardUI.SetActive(true);
             else

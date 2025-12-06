@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Managers;
@@ -199,7 +200,21 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
 
     public void StartManager()
     {
+        LevelManager.Instance.onNightStateChanged.AddListener(HandleDayNightCycleChanged);
     }
+
+    private void HandleDayNightCycleChanged(bool isNight)
+    {
+        if (isNight)
+        {
+            InitEnemies();
+        }
+        else
+        {
+            StopEnemies();
+        }
+    }
+
     public void OnSoundHeard(Vector3 soundPosition)
     {
         _abuelo.GetComponent<AbueloController>().OnSoundHeard(soundPosition);

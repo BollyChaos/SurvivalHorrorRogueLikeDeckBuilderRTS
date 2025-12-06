@@ -12,8 +12,14 @@ public class DoubleDoor : Door
     [SerializeField] float openInsideDegreesLeft;
     [SerializeField] float closedDegreesLeft;
     [SerializeField] float openOutsideDegreesLeft;
+
     public override void RotateDoor(Vector3 referencePos)
     {
+        if (isLocked)
+        {
+            soundPlayer.PlaySound(closeSoundIndex);
+        return;
+        }
         // Dirección jugador → puerta
         Vector3 dir = (referencePos - transform.position).normalized;
 
@@ -24,16 +30,17 @@ public class DoubleDoor : Door
 
         float targetYRight = isOpen ? closedDegrees : (dot > 0 ? openOutsideDegrees : openInsideDegrees);
 
-        // Activar/desactivar triggers
-        triggerInside.enabled = !isOpen && dot > 0;   // ejemplo, se ajusta según lógica
-        triggerOutside.enabled = !isOpen && dot <= 0;
+        // // Activar/desactivar triggers
+        // triggerInside.enabled = !isOpen && dot > 0;   // ejemplo, se ajusta según lógica
+        // triggerOutside.enabled = !isOpen && dot <= 0;
 
         // Animar puerta izquierda
         if (currentLeftTween != null) LeanTween.cancel(currentLeftTween.id);
 
         float startYLeft = leftDoor.transform.localEulerAngles.y;
         float deltaLeft = Mathf.DeltaAngle(startYLeft, targetYLeft);
-    Debug.LogWarning("Moviendo puerta izquierda de "+ startYLeft + " a "+ targetYLeft + " delta: "+ deltaLeft);
+        // Debug.LogWarning("Moviendo puerta izquierda de " + startYLeft + " a " + targetYLeft + " delta: " + deltaLeft);
+
         currentLeftTween = LeanTween.value(leftDoor, 0f, deltaLeft, 0.5f)
             .setEase(LeanTweenType.easeInOutSine)
             .setOnUpdate((float d) =>
