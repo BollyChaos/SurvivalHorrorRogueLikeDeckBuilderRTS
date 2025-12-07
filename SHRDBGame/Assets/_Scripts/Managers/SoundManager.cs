@@ -6,7 +6,9 @@ namespace Managers
 {
     public class SoundManager : ASingleton<SoundManager>, IManager
     {
-        private enum SoundTrack { MENU, INTRO, DAY, NIGHT,DEATH, CREDITS }
+        public enum SoundTrack { MENU, INTRO, DAY, NIGHT,DEATH, CREDITS }
+        [SerializeField]
+        private SoundTrack currentTrack;
         [SerializeField] private AudioSource musicSource;
         [SerializeField] private AudioSource sfxSource;
         [SerializeField] private List<AudioClip> audioClips;
@@ -34,7 +36,13 @@ namespace Managers
         {
             Debug.Log($"[{name}]:Iniciando...");
             PlayMusic(audioClips[(int)SoundTrack.MENU]);//voy a poner uno para que el recolector de basura no lo borre por no hacer nada
+            currentTrack = SoundTrack.MENU;
             LoadData();
+        }
+        public void PlayTrack(SoundTrack track, bool loop = true)
+        {
+            PlayMusic(audioClips[(int)track], loop);
+            currentTrack = track;
         }
 
         public void LoadData()
@@ -49,7 +57,7 @@ namespace Managers
 
         public void OnEndGame()
         {
-            OnEnd();
+           
         }
 
         public void OnEnd()
@@ -60,12 +68,14 @@ namespace Managers
 
         public void OnStartGame()
         {
-            PlayMusic(audioClips[1]);
+            PlayMusic(audioClips[(int)SoundTrack.INTRO], false);
+            currentTrack = SoundTrack.INTRO;
             LevelManager.Instance.onNightStateChanged.AddListener(OnNightChange);
         }
         public void OnPlayerDeath()
         {
-            PlayMusic(audioClips[(int)SoundTrack.DEATH]);//voy a poner uno para que el recolector de basura no lo borre por no hacer nada
+            PlayMusic(audioClips[(int)SoundTrack.DEATH]);
+            currentTrack = SoundTrack.DEATH;
             
         }
         public void OnNightChange(bool isNight)
@@ -74,10 +84,12 @@ namespace Managers
                 if (isNight)
                 {
                     PlayMusic(audioClips[(int)SoundTrack.NIGHT]);
+                    currentTrack = SoundTrack.NIGHT;
                 }
                 else
                 {
                     PlayMusic(audioClips[(int)SoundTrack.DAY]);
+                    currentTrack = SoundTrack.DAY;
                 }
             
         }   

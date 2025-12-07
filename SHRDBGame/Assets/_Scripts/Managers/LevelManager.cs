@@ -93,6 +93,8 @@ public class LevelManager : ASingleton<LevelManager>, IManager
 
     public void OnStartGame()
     {
+        currentNight = 1;
+        nightTimer = 0f;
     }
 
     public void SaveData()

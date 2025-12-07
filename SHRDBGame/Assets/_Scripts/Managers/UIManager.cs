@@ -275,6 +275,16 @@ public class UIManager : ASingleton<UIManager>, IManager
         PlayerHUD.transform.Find("InteractionText").gameObject.SetActive(false);
 
     }
+    public void HideCardsDialog()
+    {
+        PlayerHUD.transform.Find("CardsDisplay").gameObject.SetActive(false);
+        DialogManager.Instance.onEndDialog.AddListener(ShowCardsDialog);
+    }
+    public void ShowCardsDialog()
+    {
+        PlayerHUD.transform.Find("CardsDisplay").gameObject.SetActive(true);
+        DialogManager.Instance.onEndDialog.RemoveListener(ShowCardsDialog);
+    }
     public void ShowRoomText(string roomText)
     {
         PlayerHUD.transform.Find("RoomText").GetComponent<TextMeshProUGUI>().text = roomText;
@@ -416,11 +426,13 @@ public class UIManager : ASingleton<UIManager>, IManager
     {
         GameManager.Instance.OutCredits();
         Credits.gameObject.SetActive(false);
+        SoundManager.Instance.PlayTrack(SoundManager.SoundTrack.MENU);
     }
     public void ShowCredits()
     {
         GameManager.Instance.InCredits();
         Credits.gameObject.SetActive(true);
+        SoundManager.Instance.PlayTrack(SoundManager.SoundTrack.CREDITS);
 
     }
     public void QuitApplication()
