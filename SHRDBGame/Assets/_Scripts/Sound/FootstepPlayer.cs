@@ -7,11 +7,11 @@ public class FootstepPlayer : MonoBehaviour
     public AudioClip[] footstepClips;
 
     [Header("Paso")]
-    public float stepDelay = 0.4f;       // Delay base entre pasos
-    public float boostPitch = 1.5f;      // Pitch de pasos durante boost
+    public float stepDelay = 0.4f;
+    public float boostPitch = 1.5f;
 
     [HideInInspector]
-    public bool boostActive = false;     // Activado por el buff
+    public bool boostActive = false;
 
     private int currentStepIndex = 0;
     private float lastStepTime;
@@ -58,7 +58,7 @@ public class FootstepPlayer : MonoBehaviour
 
         audioSource.PlayOneShot(footstepClips[currentStepIndex]);
 
-        currentStepIndex=(currentStepIndex+1)%footstepClips.Length;//te ahorras el if :)
+        currentStepIndex=(currentStepIndex+1)%footstepClips.Length;
        
     }
 }

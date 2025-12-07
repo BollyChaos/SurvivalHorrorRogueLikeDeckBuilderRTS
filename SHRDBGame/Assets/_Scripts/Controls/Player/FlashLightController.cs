@@ -2,27 +2,26 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(ASoundPlayer))]
 public class FlashLightController : MonoBehaviour
 {
     [SerializeField] private GameObject flashLight;
+
     [SerializeField] private float minBlinkInterval = 5f;
     [SerializeField] private float maxBlinkInterval = 10f;
     [SerializeField] private float blinkDuration = 0.1f;
 
+    [Header("Audio")]
+    [SerializeField] private ASoundPlayer soundPlayer;
+
     private bool isFlashLightActive = true;
     private Coroutine flickerRoutine;
 
-    private ASoundPlayer soundPlayer;
-
     void Start()
     {
-        soundPlayer = GetComponent<ASoundPlayer>();
-
-        LookForInput();
-
         if (flashLight != null)
             flickerRoutine = StartCoroutine(FlickerRoutine());
+
+        LookForInput();
     }
 
     public void LookForInput()
@@ -42,9 +41,9 @@ public class FlashLightController : MonoBehaviour
         if (soundPlayer != null)
         {
             if (isFlashLightActive)
-                soundPlayer.PlaySound(0); // sonido de encendido
+                soundPlayer.PlaySound(0);
             else
-                soundPlayer.PlaySound(1); // sonido de apagado
+                soundPlayer.PlaySound(1);
         }
     }
 

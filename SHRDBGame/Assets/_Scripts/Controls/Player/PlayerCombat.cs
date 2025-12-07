@@ -16,10 +16,16 @@ public class PlayerCombat : MonoBehaviour
     public UnityEvent<bool> OnChangeHealth;
 
     [Header("Audio")]
-    [SerializeField] private ASoundPlayer deathAudioPlayer; // OBJETO EXTERNO, NO EL JUGADOR
+    [SerializeField] private ASoundPlayer deathAudioPlayer;
     [SerializeField] private int deathClipIndex = 0;
 
+    [Header("Low Health Audio")]
+    [SerializeField] private ASoundPlayer lowHealthAudioPlayer;
+    [SerializeField] private int lowHealthClipIndex = 0;
+    [SerializeField] private float lowHealthThreshold = 30f;
+
     private bool alreadyDied = false;
+    private bool lowHealthSoundPlaying = false;
 
     private void Start()
     {
@@ -63,16 +69,19 @@ public class PlayerCombat : MonoBehaviour
 
         OnChangeHealth.Invoke(true);
 
+        CheckLowHealthSound();
+
         if (!stats.IsAlive())
         {
             alreadyDied = true;
 
-            // 1º - Sale la pantalla Game Over
             LevelManager.Instance.EndGame();
 
-            // 2º - Y AHORA suena el audio en el objeto persistente
             if (deathAudioPlayer != null)
                 deathAudioPlayer.PlaySound(deathClipIndex);
+
+            if (lowHealthAudioPlayer != null)
+                lowHealthAudioPlayer.StopLoop();
         }
 
         UIManager.Instance.SetPlayerHealthUI(stats.CurrentHealth / stats.MaxHealth);
@@ -83,5 +92,38 @@ public class PlayerCombat : MonoBehaviour
         stats.Heal(amount);
         UIManager.Instance.SetPlayerHealthUI(stats.CurrentHealth / stats.MaxHealth);
         OnChangeHealth.Invoke(false);
+
+        CheckLowHealthSound();
+    }
+
+    private void CheckLowHealthSound()
+    {
+        if (stats.CurrentHealth <= lowHealthThreshold)
+        {
+            if (!lowHealthSoundPlaying && lowHealthAudioPlayer != null)
+            {
+                lowHealthAudioPlayer.PlayLoop(lowHealthClipIndex);
+                lowHealthSoundPlaying = true;
+            }
+        }
+        else
+        {
+            if (lowHealthSoundPlaying && lowHealthAudioPlayer != null)
+            {
+                lowHealthAudioPlayer.StopLoop();
+                lowHealthSoundPlaying = false;
+            }
+        }
+    }
+    public void ActivateTemporaryInvincibility(float duration)
+    {
+        StartCoroutine(TempInvincibility(duration));
+    }
+
+    private IEnumerator TempInvincibility(float duration)
+    {
+        godStatus = true;
+        yield return new WaitForSeconds(duration);
+        godStatus = false;
     }
 }

@@ -27,7 +27,6 @@ public class WildFireCardAction : MonoBehaviour, ICardAction
         SpawnAround();
         cardObj.UsingCard = false;
 
-        // reproducir audio en bucle mientras exista al menos un WildFire
         if (soundPlayer != null && activeFires.Count > 0)
         {
             soundPlayer.PlayLoop();
@@ -37,6 +36,7 @@ public class WildFireCardAction : MonoBehaviour, ICardAction
     public void SpawnAround()
     {
         Vector3 center = playerTransform.position;
+
         for (int i = 0; i < nWildFires; i++)
         {
             float angle = i * Mathf.PI * 2f / nWildFires;
@@ -52,16 +52,15 @@ public class WildFireCardAction : MonoBehaviour, ICardAction
 
             wildFire.GetComponent<Orbit>().InitOrbit(playerTransform, radius, speed);
 
-            // añadir a la lista de activos
             activeFires.Add(wildFire);
 
-            // cuando se destruya, lo eliminamos de la lista
             WildFireInstance wf = wildFire.AddComponent<WildFireInstance>();
             wf.Init(this, wildFire);
+
+            Destroy(wildFire, 20f);
         }
     }
 
-    // llamado por cada WildFire cuando se destruye
     public void NotifyFireDestroyed(GameObject fire)
     {
         if (activeFires.Contains(fire))
@@ -69,7 +68,6 @@ public class WildFireCardAction : MonoBehaviour, ICardAction
             activeFires.Remove(fire);
         }
 
-        // si ya no queda ninguna, detener el loop
         if (activeFires.Count == 0 && soundPlayer != null)
         {
             soundPlayer.StopLoop();
@@ -77,7 +75,6 @@ public class WildFireCardAction : MonoBehaviour, ICardAction
     }
 }
 
-// helper para notificar destrucción
 public class WildFireInstance : MonoBehaviour
 {
     private WildFireCardAction parent;
