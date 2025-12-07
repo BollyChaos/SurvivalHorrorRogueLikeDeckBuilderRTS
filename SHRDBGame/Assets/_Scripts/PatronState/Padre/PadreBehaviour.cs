@@ -123,8 +123,9 @@ public class PadreBehaviour : MonoBehaviour
         ASoundPlayer audioSource = GetComponent<ASoundPlayer>();
         if (audioSource != null)
         {
+            Debug.Log("Padre → Reproduciendo sonido creepy");
             audioSource.PlayRandomSound();
-            enemyManager.OnSoundHeard(transform.position);
+            enemyManager.OnSoundHeard(new Vector3(transform.position.x + 1f, 0, transform.position.z));
         }
     }
 

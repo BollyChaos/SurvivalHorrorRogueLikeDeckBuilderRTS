@@ -150,6 +150,8 @@ public class HijaController : EnemyController
     {
         timeSinceGift = 0f;
     }
+    
+    #endregion
     public void OnReset()
     {
         _player = GameObject.FindGameObjectWithTag("Player");
@@ -165,6 +167,10 @@ public class HijaController : EnemyController
         ganasDeLlorar = 0f;
         SetState(new HijaWaiting(this));
     }
-    #endregion
+
+    public void ChangePosition(Vector3 newPosition)
+    {
+        GetAgent().Warp(newPosition);
+    }
     
 }

@@ -39,7 +39,7 @@ public class AbueloController : EnemyController
 
 
             //Debug.Log($"Abuelo: {waypoints.Count} waypoints cargados desde {waypointsContainer.name}");
-            transform.localPosition = new Vector3(-26.79f,0,9);
+            //transform.localPosition=new Vector3(-25.7000008f,0,6.9000001f);
             //Debug.Log("Spawneando en:"+waypoints[0].localPosition);
         }
         else
@@ -140,7 +140,7 @@ public class AbueloController : EnemyController
 
 
             //Debug.Log($"Abuelo: {waypoints.Count} waypoints cargados desde {waypointsContainer.name}");
-            transform.position = waypoints[2].position;
+            //transform.localPosition=new Vector3(-25.7000008f,0,6.9000001f);
             currentWaypointIndex = 0;
             //Debug.Log("Spawneando en:"+waypoints[0].localPosition);
         }
@@ -154,6 +154,11 @@ public class AbueloController : EnemyController
 
         // Vuelve al estado base
         SetState(new AbueloPatrolling(this));
+    }
+
+    public void ChangePosition(Vector3 newPosition)
+    {
+        GetAgent().Warp(newPosition);
     }
 
 }

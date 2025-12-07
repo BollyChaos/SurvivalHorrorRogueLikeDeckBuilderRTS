@@ -28,9 +28,7 @@ public class TioController : EnemyController
     {
         SetChaseSpeed(12);
         SetPatrolSpeed(3);
-        base.Awake();
-        SetState(new TioPatrolling(this));
-
+        
         soundPlayer = GetComponent<ASoundPlayer>();
         audioSource = GetComponent<AudioSource>();
 
@@ -41,10 +39,15 @@ public class TioController : EnemyController
         audioSource.playOnAwake = false;
 
         roamingSoundTimer = Random.Range(0f, roamingSoundInterval);
+
+        base.Awake();
+        SetState(new TioPatrolling(this));
+
     }
 
     private void Update()
     {
+        base.Update();
         if (hasDetectedPlayer) return;
 
         roamingSoundTimer += Time.deltaTime;

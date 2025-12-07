@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Door : MonoBehaviour, IInteractable
 {
     [SerializeField] protected Collider triggerInside;
     [SerializeField] protected Collider triggerOutside;
 
+    [SerializeField] private NavMeshObstacle[] obstacle;
     [SerializeField]
     protected float openInsideDegrees;
     [SerializeField]
@@ -103,6 +105,14 @@ public class Door : MonoBehaviour, IInteractable
         AnimateDoor(targetY);
 
         isOpen = !isOpen;
+        // Actualizar NavMeshObstacle
+        if (obstacle != null)
+        {
+            foreach (var obs in obstacle)
+            {
+                obs.carving = !isOpen;
+            }
+        }
     }
 
     public void Interact()

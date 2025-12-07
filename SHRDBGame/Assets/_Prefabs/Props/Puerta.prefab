@@ -124,9 +124,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   triggerInside: {fileID: 2308078747181320677}
   triggerOutside: {fileID: 3246072814975506561}
+  obstacle:
+  - {fileID: 4999993494708799193}
   openInsideDegrees: -180
   closedDegrees: -90
   openOutsideDegrees: 0
+  isLocked: 0
+  isOpen: 0
   soundPlayer: {fileID: 9010292749048366987}
   openSoundIndex: 0
   closeSoundIndex: 1
@@ -374,6 +378,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8815f18a9815c5646a3fa1134d7b5e4f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1454418619656236318}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8815f18a9815c5646a3fa1134d7b5e4f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4999993494708799193}
   m_SourcePrefab: {fileID: 100100000, guid: 8815f18a9815c5646a3fa1134d7b5e4f, type: 3}
 --- !u!1 &4714600952071704948 stripped
 GameObject:
@@ -401,6 +408,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.0098550115, y: 0.025450513, z: 0.0020000006}
   m_Center: {x: -0.0049658646, y: 0.012274778, z: 0.0022000181}
+--- !u!208 &4999993494708799193
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4714600952071704948}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.005, y: 0.0125, z: 0.001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 0
+  m_Center: {x: -0.005, y: 0.013, z: 0.0013}
+  m_TimeToStationary: 0.5
 --- !u!4 &5343081405138308046 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8815f18a9815c5646a3fa1134d7b5e4f, type: 3}

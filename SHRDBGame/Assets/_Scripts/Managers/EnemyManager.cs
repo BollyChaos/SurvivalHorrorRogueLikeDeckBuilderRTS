@@ -65,12 +65,16 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
             {
                 _abuelo.SetActive(true);
                 _abuelo.GetComponent<AbueloController>().OnReset();
+                var agent = _abuelo.GetComponent<NavMeshAgent>();
+                agent.Warp(new Vector3(-25.7f, 0f, 6.9f));
             }
         }
         else
         {
             _abuelo=Instantiate(_abueloPrefab,transform);
-            //_abuelo.SetActive(true);
+            _abuelo.SetActive(true);
+            var agent = _abuelo.GetComponent<NavMeshAgent>();
+            agent.Warp(new Vector3(-25.7f, 0f, 6.9f));
             
         }
         if (_hija != null)
@@ -79,13 +83,17 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
             {
                 _hija.SetActive(true);
                 _hija.GetComponent<HijaController>().OnReset();
+
+                var agent = _hija.GetComponent<NavMeshAgent>();
+                agent.Warp(new Vector3(33.3423004f,0,146.146515f));
             }
         }
         else
         {
             _hija=Instantiate(_hijaPrefab,transform);
             _hija.SetActive(true);
-            _hija.transform.localPosition=new Vector3(20.5f,0f,73.6999969f);
+            var agent = _hija.GetComponent<NavMeshAgent>();
+            agent.Warp(new Vector3(33.3423004f,0,146.146515f));
         }
     CreateTios();
     CreatePadres();
@@ -99,7 +107,8 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
                 GameObject tio=Instantiate(_tioPrefab,transform);
                 _tios.Add(tio);
                 tio.SetActive(true);
-                tio.transform.position=vecinosSpawner.GetRandomSpawnPoint().position;
+                var agent = tio.GetComponent<NavMeshAgent>();
+                agent.Warp(vecinosSpawner.GetRandomSpawnPoint().position);
             }
 
         }
@@ -108,7 +117,8 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
             foreach(var tio in _tios)
             {
                 tio.SetActive(true);
-                tio.transform.position=vecinosSpawner.GetRandomSpawnPoint().position;
+                var agent = tio.GetComponent<NavMeshAgent>();
+                agent.Warp(vecinosSpawner.GetRandomSpawnPoint().position);
             }
         }
         
@@ -123,7 +133,8 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
                 GameObject padre=Instantiate(_padrePrefab,transform);
                 _padres.Add(padre);
                 padre.SetActive(true);
-                padre.transform.position=vecinosSpawner.GetRandomSpawnPoint().position;
+                var agent = padre.GetComponent<NavMeshAgent>();
+                agent.Warp(vecinosSpawner.GetRandomSpawnPoint().position);
             }
 
         }
@@ -133,7 +144,8 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
             {
                 padre.SetActive(true);
                 padre.GetComponent<PadreBehaviour>().OnReset();
-                padre.transform.position=vecinosSpawner.GetRandomSpawnPoint().position;
+                var agent = padre.GetComponent<NavMeshAgent>();
+                agent.Warp(vecinosSpawner.GetRandomSpawnPoint().position);
             }
         }
         

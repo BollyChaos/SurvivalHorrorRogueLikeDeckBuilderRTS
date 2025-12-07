@@ -85,7 +85,7 @@ public class EnemyController : MonoBehaviour, IEnemy
     #endregion
 
     #region update y fixedupdate
-    void Update()
+    protected void Update()
     {
         currentState.Update();
     }

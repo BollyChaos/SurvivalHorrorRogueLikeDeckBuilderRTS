@@ -52,6 +52,7 @@ public class VecinoController : EnemyController
 
     private void Update()
     {
+        base.Update();
         soundTimer += Time.deltaTime;
 
         if (soundTimer >= soundInterval)
