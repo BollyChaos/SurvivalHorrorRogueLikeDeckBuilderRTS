@@ -107,6 +107,8 @@ public class PrefabDamage : MonoBehaviour
         if (enemy != null)
         {
             enemy.TakeDamage(damage);
+             Debug.Log("dando daño soy "+name);
+              particleCollision=false;
             // Reproduce sonido de impacto
             if (soundPlayer != null)
             {
@@ -115,8 +117,9 @@ public class PrefabDamage : MonoBehaviour
             return;
         }
 
-          //  Debug.Log("dando daño soy "+name);
-           other.GetComponentInParent<EnemyCombat>().TakeDamage(Damage);
+         
+       //    other.GetComponentInParent<EnemyCombat>().TakeDamage(Damage);
+          
 
         }
     }
