@@ -15,23 +15,20 @@ public class ShopCard : MonoBehaviour, IInteractable
     [SerializeField] private GameObject cardParticles;
     [SerializeField] private GameObject cardBoughtEffect;
 
+    [Header("Audio")]
+    [SerializeField] private ASoundPlayer purchaseSound;
+
     private bool lockItem = false;
     private bool isInteractable = false;
     public bool IsInteractable { get => isInteractable; set => isInteractable = value; }
 
-    // [Header("Audio")]
-    // [SerializeField] private ASoundPlayer purchaseSound;
-    // [SerializeField] private int purchaseClipIndex = 0;
-
-    // [SerializeField] private ASoundPlayer failSound;
-    // [SerializeField] private int failClipIndex = 0;
     public void OnEnable()
     {
-         GetComponent<Target>().enabled = true;
+        GetComponent<Target>().enabled = true;
     }
+
     public void CreateCard()
     {
-        // Crear UI de la carta
         instantiatedCardUI = GameObject.Instantiate(cardWorldUI, transform.Find("CardUIWorldCanvas"));
         cardWorldUI.SetActive(false);
         instantiatedCardUI.transform.localPosition = new Vector3(0.05f, 8.38f, 0.23f);
@@ -60,8 +57,7 @@ public class ShopCard : MonoBehaviour, IInteractable
 
         if (canBuy)
         {
-            // Reproducir sonido solo si se compra
-            // purchaseSound?.PlaySound(purchaseClipIndex);
+            purchaseSound?.PlaySound(0);
 
             Debug.Log($"[{name}] Card Bought!");
             lockItem = true;
@@ -77,8 +73,6 @@ public class ShopCard : MonoBehaviour, IInteractable
         }
         else
         {
-            // Sonido si no hay dinero
-            // failSound?.PlaySound(failClipIndex);
             Debug.Log($"[{name}] Not enough coins to buy the card!");
         }
     }

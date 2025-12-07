@@ -50,7 +50,6 @@ public class EnemyCombat : MonoBehaviour
         if (!stats.IsAlive())
         {
             if (tioController != null)
-                tioController.StopDetectionLoop();
 
             gameObject.GetComponent<EnemyController>().ShootDrops();
             gameObject.SetActive(false);

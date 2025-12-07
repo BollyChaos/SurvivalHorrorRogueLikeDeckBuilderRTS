@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(ASoundPlayer))]
-[RequireComponent(typeof(AudioSource))]
 public class TioController : EnemyController
 {
     [Header("IA Audio")]
     [SerializeField] private float hearingRange = 18f;
 
-    private ASoundPlayer soundPlayer;
-    private AudioSource audioSource;
+    [Header("ASoundPlayers separados")]
+    [SerializeField] private ASoundPlayer detectionSoundPlayer;
+    [SerializeField] private ASoundPlayer attackSoundPlayer;
 
     private Vector3? lastHeardSoundPosition;
     private bool hasDetectedPlayer = false;
@@ -25,28 +25,16 @@ public class TioController : EnemyController
         SetChaseSpeed(12);
         SetPatrolSpeed(3);
 
-        soundPlayer = GetComponent<ASoundPlayer>();
-        audioSource = GetComponent<AudioSource>();
-
-        audioSource.spatialBlend = 1f;
-        audioSource.minDistance = 2f;
-        audioSource.maxDistance = hearingRange;
-        audioSource.rolloffMode = AudioRolloffMode.Logarithmic;
-        audioSource.playOnAwake = false;
-
         base.Awake();
         SetState(new TioPatrolling(this));
-    }
-
-    private void OnDisable()
-    {
-        StopDetectionLoop();
     }
 
     #region sonidos IA
 
     public void OnSoundHeard(Vector3 soundPosition)
     {
+        if (!gameObject.activeInHierarchy || health <= 0) return;
+
         float distance = Vector3.Distance(transform.position, soundPosition);
 
         if (distance <= hearingRange)
@@ -57,11 +45,22 @@ public class TioController : EnemyController
             {
                 hasDetectedPlayer = true;
 
-                if (soundPlayer != null)
-                    soundPlayer.PlayLoop(0);
+                if (detectionSoundPlayer != null)
+                {
+                    detectionSoundPlayer.PlayLoop(0);
+                }
             }
 
             SetState(new TioChasing(this, soundPosition));
+        }
+    }
+
+    public void StopDetectionSound()
+    {
+        if (detectionSoundPlayer != null && hasDetectedPlayer)
+        {
+            detectionSoundPlayer.StopLoop();
+            hasDetectedPlayer = false;
         }
     }
 
@@ -70,32 +69,16 @@ public class TioController : EnemyController
         return lastHeardSoundPosition;
     }
 
-    public void PlayDetectionLoop()
-    {
-        if (soundPlayer != null && !hasDetectedPlayer)
-        {
-            hasDetectedPlayer = true;
-            soundPlayer.PlayLoop(0);
-        }
-    }
-
-    public void StopDetectionLoop()
-    {
-        if (soundPlayer != null)
-        {
-            hasDetectedPlayer = false;
-            soundPlayer.StopLoop();
-        }
-    }
-
     #endregion
 
     #region ataque
 
     public override void AttackPlayer()
     {
-        if (soundPlayer != null)
-            soundPlayer.PlaySound(1);
+        if (attackSoundPlayer != null)
+        {
+            attackSoundPlayer.PlaySound(0);
+        }
 
         GameObject sPrefab = Instantiate(
             slashPrefab,
@@ -118,12 +101,4 @@ public class TioController : EnemyController
     }
 
     #endregion
-
-    public void OnReset()
-    {
-        lastHeardSoundPosition = null;
-        hasDetectedPlayer = false;
-        StopDetectionLoop();
-        SetState(new TioPatrolling(this));
-    }
 }

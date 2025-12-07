@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Collider))]
 public class EnemyVisionTrigger : MonoBehaviour
 {
     [SerializeField] private EnemyController enemyController;
@@ -20,7 +21,7 @@ public class EnemyVisionTrigger : MonoBehaviour
 
             if (enemyController is TioController tio)
             {
-                tio.PlayDetectionLoop();
+                tio.OnSoundHeard(other.transform.position);
             }
         }
     }
@@ -28,9 +29,7 @@ public class EnemyVisionTrigger : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player"))
-        {
             enemyController?.OnPlayerStayVision(other.gameObject);
-        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -38,11 +37,6 @@ public class EnemyVisionTrigger : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             enemyController?.OnPlayerExitVision();
-
-            if (enemyController is TioController tio)
-            {
-                tio.StopDetectionLoop();
-            }
         }
     }
 }

@@ -2756,7 +2756,7 @@ MonoBehaviour:
   startingDebugScene: 2
   SkipPhase: 0
   SkipCardSelectionPhase: 0
-  MakeNightsShorter: 0
+  MakeNightsShorter: 1
 --- !u!4 &277794896
 Transform:
   m_ObjectHideFlags: 0

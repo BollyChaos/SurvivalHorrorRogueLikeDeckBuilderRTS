@@ -117,7 +117,6 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
             foreach(var tio in _tios)
             {
                 tio.SetActive(true);
-                tio.GetComponent<TioController>().OnReset();
                 var agent = tio.GetComponent<NavMeshAgent>();
                 agent.Warp(vecinosSpawner.GetRandomSpawnPoint().position);
             }

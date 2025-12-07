@@ -82,6 +82,7 @@ MonoBehaviour:
   cardMesh: {fileID: 6921551217348174101}
   cardParticles: {fileID: 5410280143741939869}
   cardBoughtEffect: {fileID: 2118676470680394831}
+  purchaseSound: {fileID: 0}
 --- !u!54 &2009332194664094456
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1112,11 +1113,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 305138056773681375, guid: 82f09d02938667b48b1b8a6b706467c1, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4169457652848656816, guid: 82f09d02938667b48b1b8a6b706467c1, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6158477342661042851, guid: 82f09d02938667b48b1b8a6b706467c1, type: 3}
       propertyPath: popupDuration
@@ -1124,11 +1125,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6679806994006144435, guid: 82f09d02938667b48b1b8a6b706467c1, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7170668755326146522, guid: 82f09d02938667b48b1b8a6b706467c1, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
