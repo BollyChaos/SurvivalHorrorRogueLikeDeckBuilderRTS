@@ -118,4 +118,12 @@ public class TioController : EnemyController
     }
 
     #endregion
+
+    public void OnReset()
+    {
+        lastHeardSoundPosition = null;
+        hasDetectedPlayer = false;
+        StopDetectionLoop();
+        SetState(new TioPatrolling(this));
+    }
 }

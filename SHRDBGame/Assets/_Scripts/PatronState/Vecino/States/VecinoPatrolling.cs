@@ -43,6 +43,7 @@ public class VecinoPatrolling : AEnemyState
         {
             // Forzar un nuevo destino seguro
             _hasDestination = false;
+            enemy.GetAgent().SetDestination(_currentTransform.position);
         }
         if (enemy.PlayerAtSight() != null) //Si detecta al jugador
         {

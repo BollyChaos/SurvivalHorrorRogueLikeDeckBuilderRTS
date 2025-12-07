@@ -6,7 +6,7 @@ namespace Managers
 {
     public class SoundManager : ASingleton<SoundManager>, IManager
     {
-        private enum SoundTrack { MENU, INTRO, DAY, NIGHT,DEATH }
+        private enum SoundTrack { MENU, INTRO, DAY, NIGHT,DEATH, CREDITS }
         [SerializeField] private AudioSource musicSource;
         [SerializeField] private AudioSource sfxSource;
         [SerializeField] private List<AudioClip> audioClips;
