@@ -55188,30 +55188,6 @@ PrefabInstance:
       propertyPath: _player
       value: 
       objectReference: {fileID: 3013159173255241254}
-    - target: {fileID: 1770486781325925485, guid: c791c191480819e4690184b5a8a7a57e, type: 3}
-      propertyPath: enfadoMax
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 1770486781325925485, guid: c791c191480819e4690184b5a8a7a57e, type: 3}
-      propertyPath: aburrimientoMax
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 4740539461317872295, guid: c791c191480819e4690184b5a8a7a57e, type: 3}
-      propertyPath: audioClips.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4740539461317872295, guid: c791c191480819e4690184b5a8a7a57e, type: 3}
-      propertyPath: audioClips.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: 69f172aa74536174f8a9b47751f2c026, type: 3}
-    - target: {fileID: 4740539461317872295, guid: c791c191480819e4690184b5a8a7a57e, type: 3}
-      propertyPath: audioClips.Array.data[1]
-      value: 
-      objectReference: {fileID: 8300000, guid: e253f9c8be7912a478d18c24bd72a07a, type: 3}
-    - target: {fileID: 4740539461317872295, guid: c791c191480819e4690184b5a8a7a57e, type: 3}
-      propertyPath: audioClips.Array.data[2]
-      value: 
-      objectReference: {fileID: 8300000, guid: 066f0faf78f34044393ec20be98a1968, type: 3}
     - target: {fileID: 5964562361717300378, guid: c791c191480819e4690184b5a8a7a57e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 33.3423
@@ -55255,34 +55231,6 @@ PrefabInstance:
     - target: {fileID: 7739205641307531646, guid: c791c191480819e4690184b5a8a7a57e, type: 3}
       propertyPath: m_Name
       value: Hija
-      objectReference: {fileID: 0}
-    - target: {fileID: 7739205641307531646, guid: c791c191480819e4690184b5a8a7a57e, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8151008499732429219, guid: c791c191480819e4690184b5a8a7a57e, type: 3}
-      propertyPath: Loop
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8151008499732429219, guid: c791c191480819e4690184b5a8a7a57e, type: 3}
-      propertyPath: m_Volume
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8151008499732429219, guid: c791c191480819e4690184b5a8a7a57e, type: 3}
-      propertyPath: MaxDistance
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 8151008499732429219, guid: c791c191480819e4690184b5a8a7a57e, type: 3}
-      propertyPath: MinDistance
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8151008499732429219, guid: c791c191480819e4690184b5a8a7a57e, type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8151008499732429219, guid: c791c191480819e4690184b5a8a7a57e, type: 3}
-      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

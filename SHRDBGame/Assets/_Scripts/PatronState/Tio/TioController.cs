@@ -9,10 +9,6 @@ public class TioController : EnemyController
     [Header("IA Audio")]
     [SerializeField] private float hearingRange = 18f;
 
-    [Header("Sonidos del Enemigo")]
-    [SerializeField] private float roamingSoundInterval = 15f;
-
-    private float roamingSoundTimer;
     private ASoundPlayer soundPlayer;
     private AudioSource audioSource;
 
@@ -28,7 +24,7 @@ public class TioController : EnemyController
     {
         SetChaseSpeed(12);
         SetPatrolSpeed(3);
-        
+
         soundPlayer = GetComponent<ASoundPlayer>();
         audioSource = GetComponent<AudioSource>();
 
@@ -38,29 +34,13 @@ public class TioController : EnemyController
         audioSource.rolloffMode = AudioRolloffMode.Logarithmic;
         audioSource.playOnAwake = false;
 
-        roamingSoundTimer = Random.Range(0f, roamingSoundInterval);
-
         base.Awake();
         SetState(new TioPatrolling(this));
-
     }
 
-    private void Update()
+    private void OnDisable()
     {
-        base.Update();
-        if (hasDetectedPlayer) return;
-
-        roamingSoundTimer += Time.deltaTime;
-
-        if (roamingSoundTimer >= roamingSoundInterval)
-        {
-            roamingSoundTimer = 0f;
-
-            if (soundPlayer != null)
-            {
-                soundPlayer.PlaySound(0);
-            }
-        }
+        StopDetectionLoop();
     }
 
     #region sonidos IA
@@ -68,6 +48,7 @@ public class TioController : EnemyController
     public void OnSoundHeard(Vector3 soundPosition)
     {
         float distance = Vector3.Distance(transform.position, soundPosition);
+
         if (distance <= hearingRange)
         {
             lastHeardSoundPosition = soundPosition;
@@ -77,9 +58,7 @@ public class TioController : EnemyController
                 hasDetectedPlayer = true;
 
                 if (soundPlayer != null)
-                {
-                    soundPlayer.PlaySound(1);
-                }
+                    soundPlayer.PlayLoop(0);
             }
 
             SetState(new TioChasing(this, soundPosition));
@@ -91,14 +70,39 @@ public class TioController : EnemyController
         return lastHeardSoundPosition;
     }
 
+    public void PlayDetectionLoop()
+    {
+        if (soundPlayer != null && !hasDetectedPlayer)
+        {
+            hasDetectedPlayer = true;
+            soundPlayer.PlayLoop(0);
+        }
+    }
+
+    public void StopDetectionLoop()
+    {
+        if (soundPlayer != null)
+        {
+            hasDetectedPlayer = false;
+            soundPlayer.StopLoop();
+        }
+    }
+
     #endregion
 
     #region ataque
 
     public override void AttackPlayer()
     {
-        /// Se Crea el slash para que el enemigo ataque
-        GameObject sPrefab = Instantiate(slashPrefab, transform.position + transform.forward * 2, transform.rotation);
+        if (soundPlayer != null)
+            soundPlayer.PlaySound(1);
+
+        GameObject sPrefab = Instantiate(
+            slashPrefab,
+            transform.position + transform.forward * 2,
+            transform.rotation
+        );
+
         sPrefab.SetActive(true);
 
         ParticleSystem ps = sPrefab.GetComponent<ParticleSystem>();

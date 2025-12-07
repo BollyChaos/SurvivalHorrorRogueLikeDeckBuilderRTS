@@ -359,7 +359,6 @@ MonoBehaviour:
   HealthDropPrefab: {fileID: 7501142099102665056, guid: b0147d9cb31c1a54487feceedd4cdc7f, type: 3}
   MoneyDropPrefab: {fileID: 9006538771556817521, guid: 4381609bd111e7b448a88deb5032e77e, type: 3}
   hearingRange: 50
-  roamingSoundInterval: 15
   slashPrefab: {fileID: 6019284606097982153, guid: f7967d5cc29259345b339191a31d1b7c, type: 3}
 --- !u!195 &7819391543183099995
 NavMeshAgent:
@@ -459,7 +458,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -512,8 +511,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioClips:
-  - {fileID: 8300000, guid: 70a24ae49ece5834083a318bcea67819, type: 3}
   - {fileID: 8300000, guid: 8fc4c4f253770354b8c4b9c237184dc9, type: 3}
+  - {fileID: 8300000, guid: 01aa971e1f75df247b2c97801ad1e291, type: 3}
   pitchVariation: 0.1
 --- !u!167 &162926543590483090
 AudioReverbZone:
@@ -522,9 +521,9 @@ AudioReverbZone:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6823851821172519275}
-  m_Enabled: 1
+  m_Enabled: 0
   m_MinDistance: 10
-  m_MaxDistance: 15
+  m_MaxDistance: 20
   m_ReverbPreset: 13
   m_Room: -1000
   m_RoomHF: -300

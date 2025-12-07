@@ -21,7 +21,7 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
     private Spawner vecinosSpawner;
     [SerializeField]
     private int _nVecinos = 5;
-    private float spawnRate = 60f;
+    private float spawnRate = 30f;
     public int NVecinos => _nVecinos;
     [SerializeField]
     //respawn en la siguiente noche

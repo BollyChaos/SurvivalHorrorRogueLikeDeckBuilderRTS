@@ -323,7 +323,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5964562361717300378
 Transform:
   m_ObjectHideFlags: 0
@@ -436,17 +436,17 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 4574885540612182250, guid: 48073a528e47b2542a5cc7f1e576b898, type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
+  m_PlayOnAwake: 0
+  m_Volume: 0.5
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 0.5
+  MaxDistance: 10
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -481,7 +481,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -534,6 +534,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioClips:
+  - {fileID: 8300000, guid: 69f172aa74536174f8a9b47751f2c026, type: 3}
+  - {fileID: 8300000, guid: e253f9c8be7912a478d18c24bd72a07a, type: 3}
+  - {fileID: 8300000, guid: 066f0faf78f34044393ec20be98a1968, type: 3}
   - {fileID: 8300000, guid: 1120899cbbf934e4591f17888fc95d69, type: 3}
   pitchVariation: 0.1
 --- !u!135 &3674660271777509151

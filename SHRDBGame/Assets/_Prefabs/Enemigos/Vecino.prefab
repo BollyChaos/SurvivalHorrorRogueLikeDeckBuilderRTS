@@ -343,7 +343,7 @@ MonoBehaviour:
   HealthDropPrefab: {fileID: 7501142099102665056, guid: b0147d9cb31c1a54487feceedd4cdc7f, type: 3}
   MoneyDropPrefab: {fileID: 9006538771556817521, guid: 4381609bd111e7b448a88deb5032e77e, type: 3}
   hearingRange: 50
-  soundInterval: 10
+  soundInterval: 0
   slashPrefab: {fileID: 6019284606097982153, guid: f7967d5cc29259345b339191a31d1b7c, type: 3}
 --- !u!195 &2261900835802368192
 NavMeshAgent:
@@ -408,7 +408,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 0.5
-  MaxDistance: 15
+  MaxDistance: 10
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -506,8 +506,8 @@ AudioReverbZone:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6030719545769491451}
   m_Enabled: 1
-  m_MinDistance: 10
-  m_MaxDistance: 15
+  m_MinDistance: 5
+  m_MaxDistance: 10
   m_ReverbPreset: 13
   m_Room: -1000
   m_RoomHF: -300

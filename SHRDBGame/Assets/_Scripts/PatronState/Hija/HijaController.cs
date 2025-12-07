@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(ASoundPlayer))]
 public class HijaController : EnemyController
 {
     //atributos
@@ -16,6 +17,7 @@ public class HijaController : EnemyController
     [SerializeField] GameObject _player;
     private bool Crying = false;
     public bool waitingForGift = false;
+
     [Header("Utility System")]
     public float timeSinceGift = 0f;  // TSR
     public float timeSinceSeen = 0f;  // TSJ
@@ -27,20 +29,37 @@ public class HijaController : EnemyController
     [SerializeField] public float enfadoMax = 100f;
     [SerializeField] public float aburrimientoMax = 100f;
     [SerializeField] public float llorarUmbral = 0.6f;
-    // Estado del trigger del salón
+
     private bool playerInRoom = false;
 
-    //metodos
+    private ASoundPlayer soundPlayer;
+    private bool enfadoSoundPlayed = false;
+
     public void Awake()
     {
         base.Awake();
         _player = GameObject.FindGameObjectWithTag("Player");
         SetState(new HijaWaiting(this));
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
 
+        soundPlayer = GetComponent<ASoundPlayer>();
+    }
+
+    void Start() { }
+
+    void Update()
+    {
+        if (enfado >= enfadoMax && !enfadoSoundPlayed)
+        {
+            if (soundPlayer != null)
+                soundPlayer.PlaySound(3);
+
+            enfadoSoundPlayed = true;
+        }
+
+        if (enfado < enfadoMax)
+        {
+            enfadoSoundPlayed = false;
+        }
     }
 
     #region salon
@@ -75,10 +94,10 @@ public class HijaController : EnemyController
         return _missionsCompleted;
     }
     #endregion
+
     #region ataque
     public override void AttackPlayer()
     {
-        ///Se Crea el slash para que el enemigo ataque
         GameObject sPrefab = Instantiate(slashPrefab, transform.position + transform.forward * 2, transform.rotation);
         sPrefab.SetActive(true);
         ParticleSystem ps = sPrefab.GetComponent<ParticleSystem>();
@@ -91,9 +110,9 @@ public class HijaController : EnemyController
         }
         Destroy(sPrefab, 1f);
     }
+
     public override void RangeAttackPlayer()
     {
-        ///Se Crea el slash para que el enemigo ataque
         GameObject sPrefab = Instantiate(BulletPrefab, transform.position + transform.forward * 2, transform.rotation);
         sPrefab.SetActive(true);
         sPrefab.GetComponent<MoveInDirection>().direction = transform.forward;
@@ -108,12 +127,13 @@ public class HijaController : EnemyController
         Destroy(sPrefab, 5f);
     }
     #endregion
+
     #region player
     public override GameObject GetPlayer()
     {
         return _player;
     }
-    // Se llama desde trigger del salón
+
     public override void PlayerEnteredRoom()
     {
         playerInRoom = true;
@@ -129,14 +149,17 @@ public class HijaController : EnemyController
         return playerInRoom;
     }
     #endregion
+
     public override void SetCrying(bool estado)
     {
         Crying = estado;
     }
+
     public override bool IsCrying()
     {
         return Crying;
     }
+
     #region regalo
     public override bool IsWaitingForGift()
     {
@@ -150,8 +173,8 @@ public class HijaController : EnemyController
     {
         timeSinceGift = 0f;
     }
-    
     #endregion
+
     public void OnReset()
     {
         _player = GameObject.FindGameObjectWithTag("Player");
@@ -160,11 +183,13 @@ public class HijaController : EnemyController
         _missionsCompleted = false;
         Crying = false;
         waitingForGift = false;
-        timeSinceGift = 0f;  // TSR
-        timeSinceSeen = 0f;  // TSJ
+        timeSinceGift = 0f;
+        timeSinceSeen = 0f;
         enfado = 0f;
         aburrimiento = 0f;
         ganasDeLlorar = 0f;
+        enfadoSoundPlayed = false;
+
         SetState(new HijaWaiting(this));
     }
 
@@ -172,5 +197,4 @@ public class HijaController : EnemyController
     {
         GetAgent().Warp(newPosition);
     }
-    
 }

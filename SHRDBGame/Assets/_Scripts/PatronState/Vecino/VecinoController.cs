@@ -89,7 +89,6 @@ public class VecinoController : EnemyController
 
     public override void AttackPlayer()
     {
-        /// Se Crea el slash para que el enemigo ataque
         GameObject sPrefab = Instantiate(slashPrefab, transform.position + transform.forward * 2, transform.rotation);
         sPrefab.SetActive(true);
 
