@@ -104,7 +104,9 @@ public class EleanorBehaviour : MonoBehaviour, IInteractable
     private void goToShop()
     {
         phase = EleanorPhase.ONSHOP;
-        transform.position = shopSpot;
+        GetComponent<FloatAnimation>()._startLocalPos=shopSpot;
+        //transform.position = shopSpot;
+        
         LevelManager.Instance.StartNight();
         isInteractionLocked = false;
 

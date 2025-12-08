@@ -9,7 +9,7 @@ public class FloatAnimation : MonoBehaviour
     public float time = 1.5f;
 
     private LTDescr _floatTween;
-    private Vector3 _startLocalPos;
+    public Vector3 _startLocalPos;
 
     private void Awake()
     {
