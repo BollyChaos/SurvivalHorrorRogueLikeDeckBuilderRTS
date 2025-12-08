@@ -2751,7 +2751,7 @@ MonoBehaviour:
   gamePlatform: 0
   DebugGame: 1
   DebugPlatform: 0
-  debugGamePlatform: 1
+  debugGamePlatform: 2
   ChangeInitalScene: 1
   startingDebugScene: 2
   SkipPhase: 0
@@ -6180,7 +6180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   laserEyesPrefab: {fileID: 2379924842260245575}
-  laserSound: {fileID: 0}
+  laserSound: {fileID: 512725476}
 --- !u!114 &512725476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17241,7 +17241,7 @@ MonoBehaviour:
   canVarySize: 0
   cardDropPrefab: {fileID: 7723569488581496489, guid: 12f9340b5eed37445b189c545dbbc120, type: 3}
   cardTime: 30
-  debug: 0
+  debug: 1
   showPlatform: 0
   fixedTimeEvent: 7
 --- !u!4 &1336401728
@@ -18712,7 +18712,6 @@ MonoBehaviour:
   cursorClick: {fileID: 21300000, guid: 0660e88b80f5e4b40990eeb1626f6098, type: 3}
   cursorUI: {fileID: 19939319}
   useGameplayCursor: 0
-  confineCursor: 1
 --- !u!1 &1462739147
 GameObject:
   m_ObjectHideFlags: 0
