@@ -32,7 +32,7 @@ public class LaserEyesCardAction : MonoBehaviour, ICardAction
     {
         GameObject laserEyesLeft = Instantiate(
             laserEyesPrefab,
-            playerTransform.position + playerTransform.forward * 1 + playerTransform.right * 0.5f,
+            playerTransform.position + playerTransform.forward * 1 + playerTransform.right * 0.3f,
             playerTransform.rotation
         );
 
@@ -44,7 +44,7 @@ public class LaserEyesCardAction : MonoBehaviour, ICardAction
 
         GameObject laserEyesRight = Instantiate(
             laserEyesPrefab,
-            playerTransform.position + playerTransform.forward * 1 - playerTransform.right * 0.5f,
+            playerTransform.position + playerTransform.forward * 1 - playerTransform.right * 0.3f,
             playerTransform.rotation
         );
 

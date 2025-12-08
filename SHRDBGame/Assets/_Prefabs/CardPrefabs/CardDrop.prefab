@@ -114,6 +114,7 @@ GameObject:
   - component: {fileID: 7352536437080369601}
   - component: {fileID: 1584420254089032421}
   - component: {fileID: 3078530987664769960}
+  - component: {fileID: 8894942280738250730}
   m_Layer: 6
   m_Name: CardDrop
   m_TagString: Purchaseable
@@ -205,6 +206,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &8894942280738250730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7723569488581496489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 411060de4483b5e4c9847cd3cbc18554, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetColor: {r: 1, g: 0, b: 0.97053766, a: 1}
+  needBoxIndicator: 1
+  needArrowIndicator: 1
+  needDistanceText: 0
+  indicator: {fileID: 0}
 --- !u!1 &8180333853319588182
 GameObject:
   m_ObjectHideFlags: 0

@@ -89,10 +89,13 @@ public class CardDrop : MonoBehaviour, IInteractable
 
         if (instantiatedCardUI != null)
         {
-            if (value)
+            if (value){
                 instantiatedCardUI.SetActive(true);
+                }
             else
                 instantiatedCardUI.GetComponent<PopUp>().Hide();
+
+            GetComponent<Target>().enabled = !value;
         }
     }
 
