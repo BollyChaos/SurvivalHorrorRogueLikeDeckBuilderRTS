@@ -12,7 +12,7 @@ public static class DynamicProbability
 
    public static void SetSeed(int seed)
     {
-        
+        rand = new System.Random(seed);
     }
     public static void SetWeights(float[] wgts, float[]dFactor)
     {

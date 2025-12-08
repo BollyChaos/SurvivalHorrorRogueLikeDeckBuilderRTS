@@ -32,6 +32,8 @@ public class CardShuffler : MonoBehaviour
 
     public void Awake()
     {
+        DynamicProbability.SetSeed(DateTime.Now.Millisecond + DateTime.Now.Second * 1000);
+
         allCardsFromFolder = new List<CardsSO>(Resources.LoadAll<CardsSO>(cardsFolderName));
         foreach (var card in allCardsFromFolder)
         {

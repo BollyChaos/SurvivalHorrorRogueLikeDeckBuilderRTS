@@ -13471,7 +13471,7 @@ MonoBehaviour:
   - {fileID: 1136538086}
   - {fileID: 1674117415}
   - {fileID: 512725473}
-  debug: 1
+  debug: 0
   cardToUseAlways: OjosLaser
 --- !u!1 &1100893903
 GameObject:
