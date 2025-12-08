@@ -10,19 +10,21 @@ public class Spawner : MonoBehaviour
     //*los enemigos no se destruyen en una object pool, de eso se trata el patron, de tocar lo menos posible la memoria
     //Falta tambien controlar cuantos enemigos deben existir en la escena
     [SerializeField] private Transform[] spawnPoints;
+    [SerializeField] private Transform[] spawnPointsSalonAbierto;
+    public bool SalonAbierto = false;
     int nVecinos = 5;
     public int NVecinos { get => nVecinos; set => nVecinos = value; }
     [SerializeField] private float timeBetweenSpawns = 1;
-    public float TimeBetweenSpawns{get=>timeBetweenSpawns;set=>timeBetweenSpawns=value;}
+    public float TimeBetweenSpawns { get => timeBetweenSpawns; set => timeBetweenSpawns = value; }
     private float counter = 0f;
-    public bool CanSpawnEnemies=false;
+    public bool CanSpawnEnemies = false;
 
     [SerializeField] private GameObject enemyPrefab;
     public List<GameObject> vecinos;
     void Update()
     {
 
-        if(!CanSpawnEnemies)return;
+        if (!CanSpawnEnemies) return;
         if (counter >= timeBetweenSpawns)
         {
             counter = 0;
@@ -51,55 +53,61 @@ public class Spawner : MonoBehaviour
 
     void CreateEnemy()
     {
-
         GameObject vecino = GetFirstDisabled();
-Transform randomSpawnPoint=GetRandomSpawnPoint();
-        if (vecino == null&&vecinos.Count<nVecinos)
+        Transform randomSpawnPoint = GetRandomSpawnPoint();
+        if (vecino == null && vecinos.Count < nVecinos)
         {
 
-            GameObject enemy = Instantiate(enemyPrefab,transform);
+            GameObject enemy = Instantiate(enemyPrefab, transform);
             enemy.transform.position = randomSpawnPoint.position;
             enemy.SetActive(true);
             vecinos.Add(enemy);
         }
-        else if(vecino!=null)
+        else if (vecino != null)
         {
             vecino.SetActive(true);
             vecino.transform.position = randomSpawnPoint.position;
         }
-
     }
-public void StopEnemies()
+    public void StopEnemies()
     {
-        CanSpawnEnemies=false;
-        foreach(var vecino in vecinos)
+        CanSpawnEnemies = false;
+        foreach (var vecino in vecinos)
         {
             vecino.gameObject.SetActive(false);
         }
     }
-public Transform GetRandomSpawnPoint()
+    public Transform GetRandomSpawnPoint()
     {
-       return  spawnPoints[Random.Range(0, spawnPoints.Length)];
-         
+        if (!SalonAbierto){
+            return spawnPoints[Random.Range(0, spawnPoints.Length)];
+        }
+        else
+        {
+            return spawnPointsSalonAbierto[Random.Range(0, spawnPointsSalonAbierto.Length)];
+        }
+
     }
 
     internal void OnDialogEnemies()
     {
-       CanSpawnEnemies=false;
-          foreach(var vecino in vecinos)
+        CanSpawnEnemies = false;
+        foreach (var vecino in vecinos)
         {
-            if (vecino.activeSelf){
-            vecino.GetComponent<NavMeshAgent>().isStopped=true;
+            if (vecino.activeSelf)
+            {
+                vecino.GetComponent<NavMeshAgent>().isStopped = true;
             }
         }
     }
-     internal void OnDialogEnemiesEnd()
+    internal void OnDialogEnemiesEnd()
     {
-       CanSpawnEnemies=true;
-          foreach(var vecino in vecinos)
+        CanSpawnEnemies = true;
+        foreach (var vecino in vecinos)
         {
-            if (vecino.activeSelf){
-            vecino.GetComponent<NavMeshAgent>().isStopped=false;
+            if (vecino.activeSelf)
+            {
+                vecino.GetComponent<NavMeshAgent>().isStopped = false;
             }
         }
     }

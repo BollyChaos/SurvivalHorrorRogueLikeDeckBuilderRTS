@@ -50374,10 +50374,16 @@ MonoBehaviour:
   - {fileID: 252046319}
   - {fileID: 725064929}
   - {fileID: 544548583}
+  spawnPointsSalonAbierto:
+  - {fileID: 620933068}
+  - {fileID: 252046319}
+  - {fileID: 725064929}
+  - {fileID: 544548583}
   - {fileID: 1523970205}
   - {fileID: 1673414224}
   - {fileID: 703528940}
   - {fileID: 2141139225}
+  SalonAbierto: 0
   timeBetweenSpawns: 5
   CanSpawnEnemies: 0
   enemyPrefab: {fileID: 1198936802}
