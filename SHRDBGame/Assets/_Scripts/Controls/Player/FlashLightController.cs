@@ -32,10 +32,9 @@ public class FlashLightController : MonoBehaviour
             input.actions["FlashLightButton"].started += ReadFlashLightInput;
         }
     }
-
-    public void ReadFlashLightInput(InputAction.CallbackContext ctx)
+public void ReadFlashLightInput()
     {
-        isFlashLightActive = !isFlashLightActive;
+         isFlashLightActive = !isFlashLightActive;
         flashLight.SetActive(isFlashLightActive);
 
         if (soundPlayer != null)
@@ -45,6 +44,10 @@ public class FlashLightController : MonoBehaviour
             else
                 soundPlayer.PlaySound(1);
         }
+    }
+    public void ReadFlashLightInput(InputAction.CallbackContext ctx)
+    {
+       ReadFlashLightInput();
     }
 
     private IEnumerator FlickerRoutine()
