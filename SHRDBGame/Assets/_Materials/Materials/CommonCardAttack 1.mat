@@ -29,10 +29,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Intensity: 1
+    - _Intensity: 0.35
     - _ShineAngle: 0.3
     - _ShineSpeed: 1
-    - _ShineWidth: 0.2
+    - _ShineWidth: 0.098
     m_Colors:
     - _Color: {r: 0.61006284, g: 0.2743364, b: 0.2743364, a: 1}
     - _Direction: {r: 1, g: 1, b: -1, a: -1}
