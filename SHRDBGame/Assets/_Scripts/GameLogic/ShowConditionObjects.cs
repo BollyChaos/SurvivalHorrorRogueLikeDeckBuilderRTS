@@ -28,6 +28,10 @@ void Awake()
         {
           conditionObjects[2].SetActive(true);
         }
+        if(GameManager.Instance.GetValue<float>("NEnemiesKilled")>=10)
+        {
+          conditionObjects[3].SetActive(true);
+        }
        
     }
 

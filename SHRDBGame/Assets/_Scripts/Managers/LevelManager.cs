@@ -99,7 +99,7 @@ public class LevelManager : ASingleton<LevelManager>, IManager
     {
         //Llamar al game manager para que aumente el contador de cartas usadas
         totalCardsUsed++;
-        GameManager.Instance.SetValue<float>("NCardsUsed",GameManager.Instance.GetValue<float>("NCardsUsed")+totalCardsUsed);
+        GameManager.Instance.SetValue<float>("NCardsUsed",GameManager.Instance.GetValue<float>("NCardsUsed")+1);
     }
     public void AddDeathCount()
     {
