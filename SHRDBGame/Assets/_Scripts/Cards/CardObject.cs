@@ -8,31 +8,10 @@ using UnityEngine.UI;
 public class CardObject : MonoBehaviour
 {
 
+    [Header("Card Data")]
     [SerializeField]
     public
     CardsSO card;
-    [Header("Materials")]
-    [Header("ComonCards")]
-    [SerializeField]
-    Material commonCardMatAttack;
-    [SerializeField]
-    Material commonCardMatDefense;
-    [SerializeField]
-    Material commonCardMatUtility;
-    [Header("RareCards")]
-    [SerializeField]
-    Material rareCardMatAttack;
-    [SerializeField]
-    Material rareCardMatDefense;
-    [SerializeField]
-    Material rareCardMatUtility;
-    [Header("SpecialCards")]
-    [SerializeField]
-    Material specialCardMatAttack;
-    [SerializeField]
-    Material specialCardMatDefense;
-    [SerializeField]
-    Material specialCardMatUtility;
     [SerializeField] private int cardNUses;//va a ser la copia del numero de usos de la carta
     public int CardNUses { get => cardNUses; }
     [SerializeField]
@@ -46,100 +25,16 @@ public class CardObject : MonoBehaviour
 
     //Aqui se pueden a�adir materiales distintos para luego las rarezas
 
-    [ContextMenu("BuildCard")]
     public void BuildCard()
     {
 
         cardNUses = card.nUses;
 
-        // StartCoroutine(BuildCardCoroutine());
-
-        Image cardSprite = null;
-        foreach (Transform child in transform)
-        {
-            cardSprite = child.GetComponentInChildren<Image>();
-            if (cardSprite != null)
-                break;
-        }
-
-        if (card != null)
-            switch (card.cardRarity)//no me juzgueis por esto, soy humano
-            {
-                case CardRarity.Common:
-                    switch (card.cardType)
-                    {
-
-                        case CardType.Attack:
-                            cardSprite.GetComponentInChildren<Image>().material = commonCardMatAttack;
-
-                            break;
-                        case CardType.Defense:
-                            cardSprite.GetComponentInChildren<Image>().material = commonCardMatDefense;
-                            break;
-                        case CardType.Utility:
-                            cardSprite.GetComponentInChildren<Image>().material = commonCardMatUtility;
-                            break;
-
-                    }
-
-                    break;
-                case CardRarity.Rare:
-                       switch (card.cardType)
-                    {
-
-                        case CardType.Attack:
-                            cardSprite.GetComponentInChildren<Image>().material = rareCardMatAttack;
-
-                            break;
-                        case CardType.Defense:
-                            cardSprite.GetComponentInChildren<Image>().material = rareCardMatDefense;
-                            break;
-                        case CardType.Utility:
-                            cardSprite.GetComponentInChildren<Image>().material = rareCardMatUtility;
-                            break;
-
-                    }
-                    break;
-                case CardRarity.Special:
-      switch (card.cardType)
-                    {
-
-                        case CardType.Attack:
-                            cardSprite.GetComponentInChildren<Image>().material = specialCardMatAttack;
-
-                            break;
-                        case CardType.Defense:
-                            cardSprite.GetComponentInChildren<Image>().material = specialCardMatDefense;
-                            break;
-                        case CardType.Utility:
-                            cardSprite.GetComponentInChildren<Image>().material = specialCardMatUtility;
-                            break;
-
-                    }
-                    break;
-            }
-
-        //Los hijos cardtitle y carddesccription contienen el titulo y la descripcion respectivamente
-        Transform cardChild = transform.Find("CardTitle");
-        if (cardChild != null)
-        {
-            var comp = cardChild.GetComponent<TextMeshProUGUI>();
-            comp.text = card.CardName;
-        }
-        cardChild = transform.Find("CardDescription");
-        if (cardChild != null)
-        {
-            var comp = cardChild.GetComponent<TextMeshProUGUI>();
-            comp.text = card.Description;
-        }
-        cardChild = transform.Find("NCardUses");
-        if (cardChild != null)
-        {
-            var comp = cardChild.GetComponent<TextMeshProUGUI>();
-            comp.text = $"{card.nUses}";
-        }
+        //Ahora esta clase construye las cartas
+        CardManager.Instance.GetComponent<CardBuilder>().BuildCard(this);
+        
     }
-   
+
     public void UseCard()
     {
         if (usingCard) return;

@@ -12690,6 +12690,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   totalCardsUsed: 0
+  totalEnemiesKilled: 0
 --- !u!1 &1038368172
 GameObject:
   m_ObjectHideFlags: 0
@@ -13491,6 +13492,7 @@ GameObject:
   - component: {fileID: 1077143936}
   - component: {fileID: 1077143935}
   - component: {fileID: 1077143938}
+  - component: {fileID: 1077143939}
   m_Layer: 0
   m_Name: CardManager
   m_TagString: Untagged
@@ -13605,6 +13607,45 @@ MonoBehaviour:
   - {fileID: 512725473}
   debug: 0
   cardToUseAlways: OjosLaser
+--- !u!114 &1077143939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1077143934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a77ce1b8ad94ca489ea5ecefbe55c99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  commonCardMatAttack: {fileID: 2100000, guid: 66e6aff1288d62241bbc0d7568516e69, type: 2}
+  commonCardMatDefense: {fileID: 2100000, guid: cfd2d5b70b5d1d446a3992e0a7718701, type: 2}
+  commonCardMatUtility: {fileID: 2100000, guid: f4c42ee4ac2c81848bdb3a0a5320f103, type: 2}
+  rareCardMatAttack: {fileID: 2100000, guid: 4f56e215d3fb2af4899e84141662d4ba, type: 2}
+  rareCardMatDefense: {fileID: 2100000, guid: 35cf48ad3628bd5459ca532e48c29f46, type: 2}
+  rareCardMatUtility: {fileID: 2100000, guid: 27c7fb3611348db449452d647568c791, type: 2}
+  specialCardMatAttack: {fileID: 2100000, guid: ae4d48b5d6b80c7488b0aced049fec6a, type: 2}
+  specialCardMatDefense: {fileID: 2100000, guid: 9278f0dbda42d6d44a50a99679345c2f, type: 2}
+  specialCardMatUtility: {fileID: 2100000, guid: e1ee3aa486a622f43bf41ab8e9dca4ec, type: 2}
+  cardSprites:
+  - {fileID: 21300000, guid: 18dca91936c834c41b29b7c04797574d, type: 3}
+  - {fileID: 21300000, guid: 1b6eb6881e92d744f8ac89bbffc1b8bc, type: 3}
+  - {fileID: 21300000, guid: d5d3c0c669b2df24aa35b0ae37a0b701, type: 3}
+  - {fileID: 21300000, guid: 7feb9b4168f87c547bc4dffba8aa3014, type: 3}
+  - {fileID: 21300000, guid: 907e1afa7e4ebeb49b5a1369e3f19225, type: 3}
+  - {fileID: 21300000, guid: 8d9083dbf2d54674b9719374a840180f, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &1100893903
 GameObject:
   m_ObjectHideFlags: 0
