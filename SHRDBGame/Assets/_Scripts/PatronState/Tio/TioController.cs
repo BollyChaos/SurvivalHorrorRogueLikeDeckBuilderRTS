@@ -45,10 +45,10 @@ public class TioController : EnemyController
             {
                 hasDetectedPlayer = true;
 
-                if (detectionSoundPlayer != null)
-                {
-                    detectionSoundPlayer.PlayLoop(0);
-                }
+                // if (detectionSoundPlayer != null)
+                // {
+                //     detectionSoundPlayer.PlaySound(0);
+                // }
             }
 
             SetState(new TioChasing(this, soundPosition));
