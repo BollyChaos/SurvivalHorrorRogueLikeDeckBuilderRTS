@@ -9,12 +9,12 @@ public class EnemyCombat : MonoBehaviour
     public float damageCooldown = 1f;
     private float lastAttackTime = 0f;
 
-    private TioController tioController;
+    private EnemyController enemyController;
 
     protected void OnEnable()
     {
         stats.ResetStats();
-        tioController = GetComponent<TioController>();
+        enemyController = GetComponent<EnemyController>();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -36,9 +36,9 @@ public class EnemyCombat : MonoBehaviour
         {
             player.TakeDamage(stats.Attack);
 
-            if (tioController != null)
+            if (enemyController != null)
             {
-                tioController.AttackPlayer();
+                enemyController.AttackPlayer();
             }
         }
     }
@@ -49,9 +49,10 @@ public class EnemyCombat : MonoBehaviour
 
         if (!stats.IsAlive())
         {
-            if (tioController != null)
+            if (enemyController != null)
+                gameObject.GetComponent<EnemyController>().ShootDrops();
 
-            gameObject.GetComponent<EnemyController>().ShootDrops();
+            LevelManager.Instance.AddEnemyKill();
             gameObject.SetActive(false);
         }
     }

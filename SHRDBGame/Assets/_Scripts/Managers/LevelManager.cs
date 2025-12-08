@@ -24,6 +24,8 @@ public class LevelManager : ASingleton<LevelManager>, IManager
     [SerializeField] private
     int totalCardsUsed = 0;
     public int TotalCardsUsed { get { return totalCardsUsed; } }
+    [SerializeField] private int totalEnemiesKilled = 0;
+    public int TotalEnemiesKilled { get { return totalEnemiesKilled; } }
     // Update is called once per frame
     void Update()
     {
@@ -101,6 +103,12 @@ public class LevelManager : ASingleton<LevelManager>, IManager
         totalCardsUsed++;
         GameManager.Instance.SetValue<float>("NCardsUsed",GameManager.Instance.GetValue<float>("NCardsUsed")+1);
     }
+    public void AddEnemyKill()
+    {
+        //Llamar al game manager para que aumente el contador de enemigos eliminados
+        totalEnemiesKilled++;
+        GameManager.Instance.SetValue<float>("NEnemiesKilled", GameManager.Instance.GetValue<float>("NEnemiesKilled") + 1);
+    }
     public void AddDeathCount()
     {
         //Llamar al game manager para que aumente el contador de muertes
@@ -130,6 +138,7 @@ public class LevelManager : ASingleton<LevelManager>, IManager
         currentNight = 1;
         nightTimer = 0f;
         totalCardsUsed = 0; 
+        totalEnemiesKilled = 0;
     }
 
     public void SaveData()

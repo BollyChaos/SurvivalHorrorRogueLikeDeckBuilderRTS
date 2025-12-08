@@ -30,6 +30,13 @@
                     "value": {
                         "rid": 1003
                     }
+                },
+                {
+                    "name": "NEnemiesKilled",
+                    "type": 1,
+                    "value": {
+                        "rid": 1004
+                    }
                 }
             ]
         }
@@ -45,7 +52,7 @@
                     "asm": "Assembly-CSharp"
                 },
                 "data": {
-                    "value": 1.0
+                    "value": 0.0
                 }
             },
             {
@@ -78,7 +85,18 @@
                     "asm": "Assembly-CSharp"
                 },
                 "data": {
-                    "value": 0.0
+                    "value": 20.0
+                }
+            },
+            {
+                "rid": 1004,
+                "type": {
+                    "class": "FloatSettingValue",
+                    "ns": "",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "value": 2.0
                 }
             }
         ]

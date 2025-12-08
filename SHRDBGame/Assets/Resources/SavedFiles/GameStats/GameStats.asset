@@ -18,43 +18,43 @@ MonoBehaviour:
     - name: NTimesWon
       type: 1
       value:
-        rid: 9179061911027449940
+        rid: 9179061911027449963
     - name: NTimesDied
       type: 1
       value:
-        rid: 9179061911027449941
-    - name: NEnemiesKilled
-      type: 1
-      value:
-        rid: 9179061911027449945
+        rid: 9179061911027449964
     - name: GivenTeddyBear
       type: 0
       value:
-        rid: 9179061911027449942
+        rid: 9179061911027449965
     - name: NCardsUsed
       type: 1
       value:
-        rid: 9179061911027449943
+        rid: 9179061911027449966
+    - name: NEnemiesKilled
+      type: 1
+      value:
+        rid: 9179061911027449967
   references:
     version: 2
     RefIds:
-    - rid: 9179061911027449940
+    - rid: 9179061911027449963
       type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
       data:
         value: 1
-    - rid: 9179061911027449941
+    - rid: 9179061911027449964
       type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
       data:
         value: 0
-    - rid: 9179061911027449942
+    - rid: 9179061911027449965
       type: {class: BoolSettingValue, ns: , asm: Assembly-CSharp}
       data:
         value: 1
-    - rid: 9179061911027449943
+    - rid: 9179061911027449966
       type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
       data:
-        value: 0
-    - rid: 9179061911027449945
+        value: 27
+    - rid: 9179061911027449967
       type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
       data:
-        value: 0
+        value: 3
