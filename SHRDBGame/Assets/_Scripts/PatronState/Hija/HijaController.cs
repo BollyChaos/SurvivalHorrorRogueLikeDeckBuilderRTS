@@ -46,22 +46,6 @@ public class HijaController : EnemyController
 
     void Start() { }
 
-    void Update()
-    {
-        if (enfado >= enfadoMax && !enfadoSoundPlayed)
-        {
-            if (soundPlayer != null)
-                soundPlayer.PlaySound(3);
-
-            enfadoSoundPlayed = true;
-        }
-
-        if (enfado < enfadoMax)
-        {
-            enfadoSoundPlayed = false;
-        }
-    }
-
     #region salon
     public override void SetSalonAbierto(bool estado)
     {

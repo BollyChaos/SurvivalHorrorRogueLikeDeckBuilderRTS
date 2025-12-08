@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed47826758172a541837b1c1f3f61262, type: 3}
   m_Name: YesTeddy
   m_EditorClassIdentifier: 
-  ConvName: 
+  ConvName: YesTeddy
   phrases:
   - {fileID: 11400000, guid: a0c000b92bb7e9e47ba0b94b17954355, type: 2}
   - {fileID: 11400000, guid: b1557a5b208e18643b81cb1a9b025a08, type: 2}
