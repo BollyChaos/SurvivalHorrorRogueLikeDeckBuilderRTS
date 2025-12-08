@@ -7332,6 +7332,8 @@ MonoBehaviour:
   door:
   - {fileID: 2013575806}
   - {fileID: 1314316965}
+  soundPlayer: {fileID: 0}
+  soundIndex: 0
 --- !u!1 &133702289 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 8815f18a9815c5646a3fa1134d7b5e4f, type: 3}
@@ -7527,6 +7529,8 @@ MonoBehaviour:
     m_Bits: 256
   door:
   - {fileID: 1314316965}
+  soundPlayer: {fileID: 0}
+  soundIndex: 0
 --- !u!1 &143245903
 GameObject:
   m_ObjectHideFlags: 0
@@ -8257,6 +8261,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   door: []
+  soundPlayer: {fileID: 0}
+  soundIndex: 0
 --- !u!1001 &173214614
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9422,6 +9428,8 @@ MonoBehaviour:
     m_Bits: 256
   door:
   - {fileID: 1334300969}
+  soundPlayer: {fileID: 0}
+  soundIndex: 0
 --- !u!65 &232712100
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12862,6 +12870,8 @@ MonoBehaviour:
   - {fileID: 1222420250}
   - {fileID: 1986874622}
   - {fileID: 1208081139}
+  soundPlayer: {fileID: 0}
+  soundIndex: 0
 --- !u!114 &413375181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15549,6 +15559,8 @@ MonoBehaviour:
     m_Bits: 256
   door:
   - {fileID: 2026898808}
+  soundPlayer: {fileID: 0}
+  soundIndex: 0
 --- !u!1001 &497073168
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15702,6 +15714,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1715643920}
+  - {fileID: 1568159215}
   - {fileID: 1538679736}
   - {fileID: 232712098}
   - {fileID: 2028335223}
@@ -16600,6 +16613,8 @@ MonoBehaviour:
   door:
   - {fileID: 1480200009}
   - {fileID: 1083445334}
+  soundPlayer: {fileID: 0}
+  soundIndex: 0
 --- !u!1001 &556269544
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23371,6 +23386,8 @@ MonoBehaviour:
   door:
   - {fileID: 2089430996}
   - {fileID: 914955715}
+  soundPlayer: {fileID: 0}
+  soundIndex: 0
 --- !u!1 &641608382
 GameObject:
   m_ObjectHideFlags: 0
@@ -24139,6 +24156,8 @@ MonoBehaviour:
     m_Bits: 256
   door:
   - {fileID: 2089430996}
+  soundPlayer: {fileID: 0}
+  soundIndex: 0
 --- !u!1 &681758656
 GameObject:
   m_ObjectHideFlags: 0
@@ -24955,6 +24974,8 @@ MonoBehaviour:
   door:
   - {fileID: 1552891563}
   - {fileID: 1687294763}
+  soundPlayer: {fileID: 0}
+  soundIndex: 0
 --- !u!1 &703528939
 GameObject:
   m_ObjectHideFlags: 0
@@ -26138,6 +26159,8 @@ MonoBehaviour:
     m_Bits: 256
   door:
   - {fileID: 1552891563}
+  soundPlayer: {fileID: 0}
+  soundIndex: 0
 --- !u!1 &768151025
 GameObject:
   m_ObjectHideFlags: 0
@@ -27251,6 +27274,8 @@ MonoBehaviour:
   - {fileID: 1707617620}
   - {fileID: 1986874622}
   - {fileID: 152546502}
+  soundPlayer: {fileID: 0}
+  soundIndex: 0
 --- !u!1 &808255750
 GameObject:
   m_ObjectHideFlags: 0
@@ -27835,6 +27860,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   door: []
+  soundPlayer: {fileID: 0}
+  soundIndex: 0
 --- !u!1 &824841253
 GameObject:
   m_ObjectHideFlags: 0
@@ -43666,6 +43693,8 @@ MonoBehaviour:
     m_Bits: 256
   door:
   - {fileID: 1852107999}
+  soundPlayer: {fileID: 0}
+  soundIndex: 0
 --- !u!1001 &1541327093
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -44126,6 +44155,193 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50e894cdf9ba679498275f978fbae6a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1568159214
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1568159215}
+  - component: {fileID: 1568159217}
+  - component: {fileID: 1568159216}
+  - component: {fileID: 1568159219}
+  - component: {fileID: 1568159218}
+  m_Layer: 0
+  m_Name: Fuera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1568159215
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1568159214}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.1, y: 1.2, z: -66.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 497296894}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1568159216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1568159214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afd7ce879eb0c6d49a6214f6a04b0a02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: Fuera
+  interactorLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  door:
+  - {fileID: 0}
+  soundPlayer: {fileID: 1568159218}
+  soundIndex: 0
+--- !u!65 &1568159217
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1568159214}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 99.676605, y: 3, z: 103.973724}
+  m_Center: {x: -2.0920486, y: 0, z: 1.9868622}
+--- !u!114 &1568159218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1568159214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8091c049a97777242a5dd8b0b3fc5707, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClips:
+  - {fileID: 8300000, guid: f14e8bfdac498dd4f82766090b48e582, type: 3}
+  pitchVariation: 0.1
+--- !u!82 &1568159219
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1568159214}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 4574885540612182250, guid: 48073a528e47b2542a5cc7f1e576b898, type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 0.69
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1568508514
 GameObject:
   m_ObjectHideFlags: 0
@@ -47347,6 +47563,8 @@ MonoBehaviour:
   door:
   - {fileID: 277744095}
   - {fileID: 914955715}
+  soundPlayer: {fileID: 0}
+  soundIndex: 0
 --- !u!1001 &1633378258
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -48028,6 +48246,8 @@ MonoBehaviour:
   door:
   - {fileID: 1162466977}
   - {fileID: 1208081139}
+  soundPlayer: {fileID: 0}
+  soundIndex: 0
 --- !u!1 &1679468181
 GameObject:
   m_ObjectHideFlags: 0
@@ -49245,6 +49465,8 @@ MonoBehaviour:
     m_Bits: 256
   door:
   - {fileID: 0}
+  soundPlayer: {fileID: 0}
+  soundIndex: 0
 --- !u!1 &1715911351
 GameObject:
   m_ObjectHideFlags: 0
@@ -55581,6 +55803,8 @@ MonoBehaviour:
     m_Bits: 256
   door:
   - {fileID: 269988317}
+  soundPlayer: {fileID: 0}
+  soundIndex: 0
 --- !u!1001 &2031274405
 PrefabInstance:
   m_ObjectHideFlags: 0
