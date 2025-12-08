@@ -21,10 +21,10 @@ public class EleanorBehaviour : MonoBehaviour, IInteractable
     private bool isInteractionLocked = false;
     [SerializeField]
     Vector3 shopSpot = new Vector3(26.3400002f, 6.92999983f, -8.78999996f);
-    [SerializeField]
-    Transform playerTransform;
-    [SerializeField]
-    float radius = 5f;
+    // [SerializeField]
+    // Transform playerTransform;
+    // [SerializeField]
+    // float radius = 5f;
     [SerializeField]
     Transform cardSelectionTrigger;
     [SerializeField]
@@ -226,11 +226,11 @@ public class EleanorBehaviour : MonoBehaviour, IInteractable
                 break;
         }
     }
-    public void Update()
-    {
-        if ((transform.position - playerTransform.position).magnitude > radius) return;
-        transform.LookAt(playerTransform);
-    }
+    // public void Update()
+    // {
+    //     if ((transform.position - playerTransform.position).magnitude > radius) return;
+    //     transform.LookAt(playerTransform);
+    // }
     public void SetInteractable(bool value)
     {
         //throw new System.NotImplementedException();
