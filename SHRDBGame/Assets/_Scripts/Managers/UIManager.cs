@@ -125,10 +125,10 @@ public class UIManager : ASingleton<UIManager>, IManager
                     break;
             }
 
-            if (!ui.isOn)
+            if (ui.isOn)
                 EmparentCard(path, card.gameObject, 0);
             else
-                EmparentCard(path, card.gameObject, parent.childCount);
+                EmparentCard(path, card.gameObject);
 
             card.GetComponent<SelectableUICard>().MoveToCurve(card.transform.parent.position);
             card.GetComponent<SelectableUICard>().Scale(2f);
