@@ -17,6 +17,8 @@ public class VecinoController : EnemyController
     [SerializeField] private ASoundPlayer attackSound;
     [SerializeField] private int attackSoundIndex = 0;
 
+    private Animator _animator;
+
     private float soundTimer;
     private ASoundPlayer soundPlayer;
     private AudioSource audioSource;
@@ -37,6 +39,7 @@ public class VecinoController : EnemyController
 
     private void Awake()
     {
+        _animator = GetComponentInChildren<Animator>();
         SetChaseSpeed(7);
         SetPatrolSpeed(3);
 
@@ -56,7 +59,12 @@ public class VecinoController : EnemyController
         if (attackSound == null)
             attackSound = GetComponent<ASoundPlayer>();
     }
+    private void Update()
+    {
+        _animator.SetFloat("Speed", GetAgent().velocity.magnitude);
+        base.Update();
 
+    }
     #region sonidos
 
     public void OnSoundHeard(Vector3 soundPosition)
@@ -88,7 +96,7 @@ public class VecinoController : EnemyController
             transform.position + transform.forward * 2,
             transform.rotation
         );
-
+        _animator.SetBool("Attack", true);
         sPrefab.SetActive(true);
 
         ParticleSystem ps = sPrefab.GetComponent<ParticleSystem>();
@@ -101,6 +109,7 @@ public class VecinoController : EnemyController
         }
 
         Destroy(sPrefab, 1f);
+        _animator.SetBool("Attack", false);
     }
 
     #endregion
