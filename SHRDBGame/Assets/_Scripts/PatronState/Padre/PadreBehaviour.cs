@@ -253,7 +253,7 @@ public class PadreBehaviour : MonoBehaviour
             {
                 rooms.Add(child.gameObject);
             }
-            currentRoom = rooms[2];
+            currentRoom = rooms[4];
         }
         else
         {
