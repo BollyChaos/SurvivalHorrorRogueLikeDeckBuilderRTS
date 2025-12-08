@@ -10,7 +10,10 @@ public static class DynamicProbability
     private static float[] decayFactor = { 0.6f,0.1f,0.1f }; // cu�nto disminuye el peso del elegido (0.5 = 50%)
   
 
-   
+   public static void SetSeed(int seed)
+    {
+        
+    }
     public static void SetWeights(float[] wgts, float[]dFactor)
     {
         weights=wgts;
