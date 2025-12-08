@@ -18,10 +18,10 @@ public class DayUnlockDoor : MonoBehaviour, IDoorUnlocker
 
     private void CheckDayToUnlock(bool isNight)
     {
-       if (isNight)
+        if (isNight)
         {
             nDaysToUnlock--;
-            if(nDaysToUnlock<=0)
+            if (nDaysToUnlock <= 0)
             {
                 UnlockDoor();
                 LevelManager.Instance.onNightStateChanged.RemoveListener(CheckDayToUnlock);
@@ -31,7 +31,17 @@ public class DayUnlockDoor : MonoBehaviour, IDoorUnlocker
 
     public void UnlockDoor()
     {
-       GetComponent<Door>().UnLockDoor();
+        GetComponent<Door>().UnLockDoor();
+        if (GetComponent<Target>() != null)
+        {
+            GetComponent<Target>().enabled = true;
+            StartCoroutine(DisableTarget());
+        }
+    }
+    IEnumerator DisableTarget()
+    {
+        yield return new WaitForSeconds(20f);
+        GetComponent<Target>().enabled = false;
     }
     void OnDisable()
     {
