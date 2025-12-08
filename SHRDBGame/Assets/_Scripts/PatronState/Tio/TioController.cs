@@ -101,4 +101,10 @@ public class TioController : EnemyController
     }
 
     #endregion
+
+    public void OnReset()
+    {
+        base.OnReset();
+        SetState(new TioPatrolling(this));
+    }
 }

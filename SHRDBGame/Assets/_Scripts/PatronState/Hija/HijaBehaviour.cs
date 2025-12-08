@@ -94,6 +94,7 @@ public class HijaBehaviour : MonoBehaviour, IInteractable
     {
         phase = HijaPhase.BERFOREGIFT;
         _isInteractable = true;
+        Ositos = GameObject.Find("ObjetosNiña");
         foreach (Transform child in Ositos.transform)
         {
             child.gameObject.SetActive(false);

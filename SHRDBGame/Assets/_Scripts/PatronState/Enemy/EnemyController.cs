@@ -190,6 +190,12 @@ public class EnemyController : MonoBehaviour, IEnemy
     }
     #endregion
 
+    public void OnReset()
+    {
+        // Reiniciar cualquier estado o variable necesaria para el enemigo
+        _agent = GetComponent<NavMeshAgent>();
+    }
+
     #region abuelo
     public virtual Transform GetCurrentWaypoint()
     {

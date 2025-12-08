@@ -88,7 +88,9 @@ public Transform GetRandomSpawnPoint()
        CanSpawnEnemies=false;
           foreach(var vecino in vecinos)
         {
+            if (vecino.activeSelf){
             vecino.GetComponent<NavMeshAgent>().isStopped=true;
+            }
         }
     }
      internal void OnDialogEnemiesEnd()
@@ -96,7 +98,9 @@ public Transform GetRandomSpawnPoint()
        CanSpawnEnemies=true;
           foreach(var vecino in vecinos)
         {
+            if (vecino.activeSelf){
             vecino.GetComponent<NavMeshAgent>().isStopped=false;
+            }
         }
     }
     // private IObjectPool<VecinoController> enemyPool;
