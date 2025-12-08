@@ -22526,7 +22526,7 @@ GameObject:
   m_Component:
   - component: {fileID: 632910581}
   m_Layer: 0
-  m_Name: Props Pack - Cobwebs
+  m_Name: Cobwebs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25042,6 +25042,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1929194019264007463, guid: 07e45468502ca82498ad4c1a97e98b51, type: 3}
+      propertyPath: detectionSoundPlayer
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3696420041013151392, guid: 07e45468502ca82498ad4c1a97e98b51, type: 3}
       propertyPath: m_LocalPosition.x
       value: -39.617462
@@ -25085,10 +25089,6 @@ PrefabInstance:
     - target: {fileID: 6823851821172519275, guid: 07e45468502ca82498ad4c1a97e98b51, type: 3}
       propertyPath: m_Name
       value: Tio
-      objectReference: {fileID: 0}
-    - target: {fileID: 6823851821172519275, guid: 07e45468502ca82498ad4c1a97e98b51, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -40957,10 +40957,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Vecino
       objectReference: {fileID: 0}
-    - target: {fileID: 6030719545769491451, guid: 77af28352866ea44ca4aea93c25bb1f8, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -55577,10 +55573,6 @@ PrefabInstance:
     - target: {fileID: 7739205641307531646, guid: c791c191480819e4690184b5a8a7a57e, type: 3}
       propertyPath: m_Name
       value: Hija
-      objectReference: {fileID: 0}
-    - target: {fileID: 7739205641307531646, guid: c791c191480819e4690184b5a8a7a57e, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
