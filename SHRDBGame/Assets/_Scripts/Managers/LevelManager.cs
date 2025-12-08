@@ -9,6 +9,7 @@ using Unity.VisualScripting;
 public class LevelManager : ASingleton<LevelManager>, IManager
 {
     public IManager.GameStartMode StartMode => IManager.GameStartMode.NORMAL;
+    [Header("Night Settings")]
     [SerializeField] private int nNights = 5;
     [SerializeField] private int currentNight = 1;
     public int CurrentNigh { get => currentNight; }
@@ -19,6 +20,10 @@ public class LevelManager : ASingleton<LevelManager>, IManager
     [SerializeField] private bool isNightActive = false;
     public bool IsNightActive { get { return isNightActive; } }
     [SerializeField] public UnityEvent<bool> onNightStateChanged;
+    [Header("Game Settings")]
+    [SerializeField] private
+    int totalCardsUsed = 0;
+    public int TotalCardsUsed { get { return totalCardsUsed; } }
     // Update is called once per frame
     void Update()
     {
@@ -72,6 +77,7 @@ public class LevelManager : ASingleton<LevelManager>, IManager
     public void EndGame()
     {
         Debug.Log("Fin de la partida");
+        AddDeathCount();
         InputManager.Instance.SwitchMapToUI();
         //llamar al uimanager tambien
 
@@ -83,11 +89,28 @@ public class LevelManager : ASingleton<LevelManager>, IManager
     public void WinGame()
     {
         Debug.Log("Fin de la partida");
+        AddWinCount();
         InputManager.Instance.SwitchMapToUI();
         //llamar al uimanager tambien
 
         UIManager.Instance.EndGame(true);
     }
+    public void AddCardUse()
+    {
+        //Llamar al game manager para que aumente el contador de cartas usadas
+        totalCardsUsed++;
+        GameManager.Instance.SetValue<float>("NCardsUsed",GameManager.Instance.GetValue<float>("NCardsUsed")+totalCardsUsed);
+    }
+    public void AddDeathCount()
+    {
+        //Llamar al game manager para que aumente el contador de muertes
+        GameManager.Instance.SetValue<float>("NDeaths", GameManager.Instance.GetValue<float>("NDeaths") + 1);
+    }
+    public void AddWinCount()
+    {
+        //Llamar al game manager para que aumente el contador de victorias
+        GameManager.Instance.SetValue<float>("NWins", GameManager.Instance.GetValue<float>("NWins") + 1);
+    }   
     #region MANAGERLOGIC
     public void LoadData()
     {
@@ -106,6 +129,7 @@ public class LevelManager : ASingleton<LevelManager>, IManager
     {
         currentNight = 1;
         nightTimer = 0f;
+        totalCardsUsed = 0; 
     }
 
     public void SaveData()

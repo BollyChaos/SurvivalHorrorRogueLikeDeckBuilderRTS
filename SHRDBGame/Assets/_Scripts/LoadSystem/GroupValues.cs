@@ -142,6 +142,29 @@ public class GroupValues : ScriptableObject
 
     return true;
 }
+public void ResetToDefaults()
+{
+    foreach (var field in fields)
+    {
+        foreach (var entry in field.entries)
+        {
+            switch (entry.type)
+            {
+                case VALUE_TYPE.BOOL:
+                    entry.value.SetValue(false);
+                    break;
+
+                case VALUE_TYPE.FLOAT:
+                    entry.value.SetValue(0f);
+                    break;
+
+                case VALUE_TYPE.STRING:
+                    entry.value.SetValue("");
+                    break;
+            }
+        }
+    }
+}
 
 }
 #region INDIVIDUALELEMENT
@@ -224,6 +247,7 @@ public class StringSettingValue : SettingValue
         if (obj is BoolSettingValue other) return value.Equals(other.value);
         return false;
     }
+    
 }
 [Serializable]
 public class SettingEntry

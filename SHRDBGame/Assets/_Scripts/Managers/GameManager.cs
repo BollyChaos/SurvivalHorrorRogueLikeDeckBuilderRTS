@@ -151,11 +151,26 @@ namespace Managers
         {
             gameState = GameState.INGAME;
         }
-
-
+        public void SetValue<T>(string key, T value)
+        {
+            GetComponent<ALoader>().SetValue<T>(key, value);
+        }
+        public T GetValue<T>(string key)
+        {
+            return GetComponent<ALoader>().GetValue<T>(key);
+        }
+        [ContextMenu("Reset to default values")]
+        public void ResetToDefaultValues()
+        {
+            GetComponent<ALoader>().ResetDefaultValues();
+        }
+    public void SaveData()
+        {
+            GetComponent<ALoader>().SaveValues();
+        }
         public void LoadData()
         {
-
+            GetComponent<ALoader>().LoadValues();
         }
 
         public void OnEnd()
@@ -177,13 +192,11 @@ namespace Managers
             {
                 manager.OnEndGame();
             }
+            SaveData();
 
         }
 
-        public void SaveData()
-        {
-            throw new System.NotImplementedException();
-        }
+       
         private IEnumerator DelayedStartGame(Scene scene)
         {
             yield return new WaitForEndOfFrame();

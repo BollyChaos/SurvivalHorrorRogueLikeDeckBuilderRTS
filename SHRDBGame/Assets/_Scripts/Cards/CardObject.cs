@@ -144,6 +144,7 @@ public class CardObject : MonoBehaviour
     {
         if (usingCard) return;
         Debug.Log($"Usando la carta:{card.CardName}");
+        LevelManager.Instance.AddCardUse();
         usingCard = true;
         //llamar a cardlogichandler y decir su nombre
         --cardNUses;

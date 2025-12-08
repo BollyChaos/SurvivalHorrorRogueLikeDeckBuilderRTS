@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using System;
+
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -86,8 +88,10 @@ public class ALoader : MonoBehaviour
         SaveToJsonFile();
     }
 
-    public void SaveValues(GroupValues valuesToSave)
+    public void SaveValues(GroupValues valuesToSave=null)
     {
+        if (valuesToSave == null)
+            valuesToSave = values;
         if (values.IsTheSame(valuesToSave))
         {
             Debug.Log("[Loader] El dato introducido es el mismo");
@@ -96,6 +100,12 @@ public class ALoader : MonoBehaviour
 
         values = valuesToSave.Clone();
         SaveToJsonFile();
+    }
+    public void ResetDefaultValues()
+    {
+        values.ResetToDefaults();
+        SaveToJsonFile();
+      
     }
 
     // ---------------------------------------------------------------------------------------
@@ -178,6 +188,17 @@ public class ALoader : MonoBehaviour
         File.WriteAllText(fullPath, json);
 
         Debug.Log($"[Loader] JSON creado en: {fullPath}");
+    }
+
+    internal void SetValue<T>(string key, T value)
+    {
+        if (values == null) return;
+        values.SetValue<T>(key, value);
+    }
+
+    internal T GetValue<T>(string key)
+    {
+        return values.GetValue<T>(key);
     }
 }
 

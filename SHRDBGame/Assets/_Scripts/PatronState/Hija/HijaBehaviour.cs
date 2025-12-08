@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Managers;
 using UnityEngine;
 
 public class HijaBehaviour : MonoBehaviour, IInteractable
@@ -59,7 +60,7 @@ public class HijaBehaviour : MonoBehaviour, IInteractable
                     _isInteractable = false;
                     DialogManager.Instance.PlayDialogRequest("YesTeddy");
                     DialogManager.Instance.onEndDialog.AddListener(onEndDialog);
-
+                    GameManager.Instance.SetValue<bool>("GivenTeddyBear", true);
                     inv.SoltarObjeto();
                     hija.SetWaitingForGift(false);
                     hija.GiftReceived();
