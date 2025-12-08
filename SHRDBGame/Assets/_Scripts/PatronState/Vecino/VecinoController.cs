@@ -50,22 +50,6 @@ public class VecinoController : EnemyController
         soundTimer = Random.Range(0f, soundInterval);
     }
 
-    private void Update()
-    {
-        base.Update();
-        soundTimer += Time.deltaTime;
-
-        if (soundTimer >= soundInterval)
-        {
-            soundTimer = 0f;
-
-            if (soundPlayer != null)
-            {
-                soundPlayer.PlayRandomSound();
-            }
-        }
-    }
-
     #region sonidos
 
     public void OnSoundHeard(Vector3 soundPosition)

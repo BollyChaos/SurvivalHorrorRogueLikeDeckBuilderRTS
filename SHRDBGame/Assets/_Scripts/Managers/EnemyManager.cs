@@ -83,7 +83,8 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
             {
                 _hija.SetActive(true);
                 _hija.GetComponent<HijaController>().OnReset();
-
+                _hija.GetComponent<HijaBehaviour>().OnReset();
+                
                 var agent = _hija.GetComponent<NavMeshAgent>();
                 agent.Warp(new Vector3(33.3423004f,0,146.146515f));
             }

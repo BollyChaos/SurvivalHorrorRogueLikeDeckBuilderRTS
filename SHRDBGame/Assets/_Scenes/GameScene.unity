@@ -33894,7 +33894,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1173339085
 Transform:
   m_ObjectHideFlags: 0
@@ -36041,12 +36041,12 @@ GameObject:
   - component: {fileID: 1260990105}
   - component: {fileID: 1260990109}
   m_Layer: 6
-  m_Name: Comba
+  m_Name: Osito3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1260990104
 Transform:
   m_ObjectHideFlags: 0
@@ -45821,12 +45821,12 @@ GameObject:
   - component: {fileID: 1644057724}
   - component: {fileID: 1644057728}
   m_Layer: 6
-  m_Name: Pelota
+  m_Name: Osito2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1644057723
 Transform:
   m_ObjectHideFlags: 0

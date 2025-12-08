@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0177bdbc8a56b2419a35c6521f4235a, type: 3}
-  m_Name: TalkingGirlFirst5
+  m_Name: MissionsCompleted
   m_EditorClassIdentifier: 
-  speaker: 0
-  text: "Calma ni\xF1a, que vas a hacer que nos maten."
+  speaker: 3
+  text: "Gracias por traerme mi osito, ya no te molestar\xE9 m\xE1s."
   textDuration: 2.5

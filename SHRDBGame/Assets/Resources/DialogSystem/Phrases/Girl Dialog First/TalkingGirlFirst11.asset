@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: TalkingGirlFirst11
   m_EditorClassIdentifier: 
   speaker: 0
-  text: Con que un oso de peluche, espero que no me lleve mucho tiempo.
+  text: "\xBFUn oso de peluche?, espero que no me lleve mucho tiempo."
   textDuration: 2.5
