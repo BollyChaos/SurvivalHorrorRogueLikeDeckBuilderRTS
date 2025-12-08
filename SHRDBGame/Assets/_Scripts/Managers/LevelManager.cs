@@ -32,6 +32,17 @@ public class LevelManager : ASingleton<LevelManager>, IManager
 
     public void StartNight()
     {
+        if (currentNight >=4)
+        {
+            //activar salon abierto en el spawner
+            Spawner spawner = FindAnyObjectByType<Spawner>();
+            spawner.SalonAbierto = true;
+        }else
+        {
+            Spawner spawner = FindAnyObjectByType<Spawner>();
+            spawner.SalonAbierto = false;
+        }
+
         isNightActive = true;
         onNightStateChanged?.Invoke(isNightActive);
         UIManager.Instance.ShowGameEventForAWhile("Noche " + currentNight);
@@ -71,7 +82,7 @@ public class LevelManager : ASingleton<LevelManager>, IManager
     }
     public void WinGame()
     {
-          Debug.Log("Fin de la partida");
+        Debug.Log("Fin de la partida");
         InputManager.Instance.SwitchMapToUI();
         //llamar al uimanager tambien
 

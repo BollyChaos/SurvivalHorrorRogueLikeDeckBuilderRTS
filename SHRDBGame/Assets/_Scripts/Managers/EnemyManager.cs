@@ -48,7 +48,7 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
 
     public void OnEndGame()
     {
-       StopEnemies();
+        StopEnemies();
     }
 
     public void OnStartGame()
@@ -71,11 +71,11 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
         }
         else
         {
-            _abuelo=Instantiate(_abueloPrefab,transform);
+            _abuelo = Instantiate(_abueloPrefab, transform);
             _abuelo.SetActive(true);
             var agent = _abuelo.GetComponent<NavMeshAgent>();
             agent.Warp(new Vector3(-25.7f, 0f, 6.9f));
-            
+
         }
         if (_hija != null)
         {
@@ -84,28 +84,28 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
                 _hija.SetActive(true);
                 _hija.GetComponent<HijaController>().OnReset();
                 _hija.GetComponent<HijaBehaviour>().OnReset();
-                
+
                 var agent = _hija.GetComponent<NavMeshAgent>();
-                agent.Warp(new Vector3(33.3423004f,0,146.146515f));
+                agent.Warp(new Vector3(33.3423004f, 0, 146.146515f));
             }
         }
         else
         {
-            _hija=Instantiate(_hijaPrefab,transform);
+            _hija = Instantiate(_hijaPrefab, transform);
             _hija.SetActive(true);
             var agent = _hija.GetComponent<NavMeshAgent>();
-            agent.Warp(new Vector3(33.3423004f,0,146.146515f));
+            agent.Warp(new Vector3(33.3423004f, 0, 146.146515f));
         }
-    CreateTios();
-    CreatePadres();
+        CreateTios();
+        CreatePadres();
     }
     void CreateTios()
     {
-        if (_tios.Count==0)
+        if (_tios.Count == 0)
         {
-            for(int i = 0; i < _nTios; i++)
+            for (int i = 0; i < _nTios; i++)
             {
-                GameObject tio=Instantiate(_tioPrefab,transform);
+                GameObject tio = Instantiate(_tioPrefab, transform);
                 _tios.Add(tio);
                 tio.SetActive(true);
                 var agent = tio.GetComponent<NavMeshAgent>();
@@ -115,23 +115,24 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
         }
         else
         {
-            foreach(var tio in _tios)
+            foreach (var tio in _tios)
             {
                 tio.SetActive(true);
+                tio.GetComponent<TioController>().OnReset();
                 var agent = tio.GetComponent<NavMeshAgent>();
                 agent.Warp(vecinosSpawner.GetRandomSpawnPoint().position);
             }
         }
-        
+
     }
-    
+
     void CreatePadres()
     {
-        if (_padres.Count==0)
+        if (_padres.Count == 0)
         {
-            for(int i = 0; i < _nPadres; i++)
+            for (int i = 0; i < _nPadres; i++)
             {
-                GameObject padre=Instantiate(_padrePrefab,transform);
+                GameObject padre = Instantiate(_padrePrefab, transform);
                 _padres.Add(padre);
                 padre.SetActive(true);
                 var agent = padre.GetComponent<NavMeshAgent>();
@@ -141,7 +142,7 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
         }
         else
         {
-            foreach(var padre in _padres)
+            foreach (var padre in _padres)
             {
                 padre.SetActive(true);
                 padre.GetComponent<PadreBehaviour>().OnReset();
@@ -149,7 +150,7 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
                 agent.Warp(vecinosSpawner.GetRandomSpawnPoint().position);
             }
         }
-        
+
     }
     public void InitEnemies()
     {
@@ -162,16 +163,16 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
         vecinosSpawner.StopEnemies();
         if (_abuelo != null)
         {
-            
+
             _abuelo.SetActive(false);
             _hija.SetActive(false);
-            
+
         }
-        foreach(var tio in _tios)
+        foreach (var tio in _tios)
         {
             tio.SetActive(false);
         }
-        foreach(var padre in _padres)
+        foreach (var padre in _padres)
         {
             padre.SetActive(false);
         }
@@ -179,31 +180,37 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
     [ContextMenu("PararEnemigos")]
     public void OnDialogEnemies()
     {
-         vecinosSpawner.OnDialogEnemies();
-        if (_abuelo != null)
+        vecinosSpawner.OnDialogEnemies();
+        if (_abuelo != null && _abuelo.activeSelf)
         {
-            
-                _abuelo.GetComponent<NavMeshAgent>().isStopped=true;
-            
+
+            _abuelo.GetComponent<NavMeshAgent>().isStopped = true;
+
         }
-        foreach(var tio in _tios)
+        foreach (var tio in _tios)
         {
-            tio.GetComponent<NavMeshAgent>().isStopped=true;
+            if (tio.activeSelf)
+            {
+                tio.GetComponent<NavMeshAgent>().isStopped = true;
+            }
         }
         DialogManager.Instance.onEndDialog.AddListener(OnDialogEnemiesEnd);
     }
     void OnDialogEnemiesEnd()
     {
-           vecinosSpawner.OnDialogEnemiesEnd();
-        if (_abuelo != null)
+        vecinosSpawner.OnDialogEnemiesEnd();
+        if (_abuelo != null && _abuelo.activeSelf)
         {
-            
-                _abuelo.GetComponent<NavMeshAgent>().isStopped=false;
-            
+
+            _abuelo.GetComponent<NavMeshAgent>().isStopped = false;
+
         }
-        foreach(var tio in _tios)
+        foreach (var tio in _tios)
         {
-            tio.GetComponent<NavMeshAgent>().isStopped=false;
+            if (tio.activeSelf)
+            {
+                tio.GetComponent<NavMeshAgent>().isStopped = false;
+            }
         }
         DialogManager.Instance.onEndDialog.RemoveListener(OnDialogEnemiesEnd);
     }

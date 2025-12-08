@@ -5,9 +5,10 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(ASoundPlayer))]
+[RequireComponent(typeof(AudioSource))]
 public class AbueloController : EnemyController
 {
-    //Atributos
     private List<Transform> waypoints = new List<Transform>();
     private bool _salonAbierto = false;
     [SerializeField] private float hearingRange = 50f;
@@ -16,10 +17,12 @@ public class AbueloController : EnemyController
     private float _restDuration = 1.5f;
     private float damage = 40f;
     [SerializeField] GameObject slashPrefab;
-    //Metodos
+
+    [SerializeField] private ASoundPlayer attackSound;
+    [SerializeField] private int attackSoundIndex = 0;
+
     private void Awake()
     {
-
         base.Awake();
     }
     void Start()
@@ -53,6 +56,8 @@ public class AbueloController : EnemyController
         // ❗ Vuelve al estado base
         SetState(new AbueloPatrolling(this));
 
+        if (attackSound == null)
+            attackSound = GetComponent<ASoundPlayer>();
     }
 
     #region Waypoints
@@ -110,6 +115,9 @@ public class AbueloController : EnemyController
     #region ataque
     public override void AttackPlayer()
     {
+        if (attackSound != null)
+            attackSound.PlaySound(attackSoundIndex);
+
         ///Se Crea el slash para que el enemigo ataque
         GameObject sPrefab = Instantiate(slashPrefab, transform.position + transform.forward * 2, transform.rotation);
         sPrefab.SetActive(true);
@@ -160,5 +168,4 @@ public class AbueloController : EnemyController
     {
         GetAgent().Warp(newPosition);
     }
-
 }

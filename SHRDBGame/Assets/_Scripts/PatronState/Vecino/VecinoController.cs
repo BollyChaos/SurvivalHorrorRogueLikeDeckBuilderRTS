@@ -13,6 +13,10 @@ public class VecinoController : EnemyController
     [Header("Sonidos del Enemigo")]
     [SerializeField] private float soundInterval = 15f;
 
+    [Header("Sonido de Ataque")]
+    [SerializeField] private ASoundPlayer attackSound;
+    [SerializeField] private int attackSoundIndex = 0;
+
     private float soundTimer;
     private ASoundPlayer soundPlayer;
     private AudioSource audioSource;
@@ -48,6 +52,9 @@ public class VecinoController : EnemyController
         audioSource.rolloffMode = AudioRolloffMode.Logarithmic;
 
         soundTimer = Random.Range(0f, soundInterval);
+
+        if (attackSound == null)
+            attackSound = GetComponent<ASoundPlayer>();
     }
 
     #region sonidos
@@ -73,7 +80,15 @@ public class VecinoController : EnemyController
 
     public override void AttackPlayer()
     {
-        GameObject sPrefab = Instantiate(slashPrefab, transform.position + transform.forward * 2, transform.rotation);
+        if (attackSound != null)
+            attackSound.PlaySound(attackSoundIndex);
+
+        GameObject sPrefab = Instantiate(
+            slashPrefab,
+            transform.position + transform.forward * 2,
+            transform.rotation
+        );
+
         sPrefab.SetActive(true);
 
         ParticleSystem ps = sPrefab.GetComponent<ParticleSystem>();

@@ -100,16 +100,12 @@ public class UIManager : ASingleton<UIManager>, IManager
         ContinueButton.gameObject.SetActive(false);
         previousInGameState = inGameStates;
         inGameStates = InGameStates.INGAME;
-        //mover el resto cartas al inventario, emparentar, ver el orden y ordenar
-        foreach (var card in UICards)
-        {
-            card.GetComponent<SelectableUICard>().NextCardPhase();
-        }
+
 
         foreach (var card in UICards)
         {
             string path = "";
-            var ui = card.GetComponent<SelectableUICard>();
+
             Transform parent = PlayerHUD.transform.Find("CardsDisplay");
 
             switch (card.card.cardType)
@@ -125,13 +121,34 @@ public class UIManager : ASingleton<UIManager>, IManager
                     break;
             }
 
-            if (ui.isOn)
-                EmparentCard(path, card.gameObject, 0);
-            else
-                EmparentCard(path, card.gameObject);
+
+
+            EmparentCard(path, card.gameObject);
 
             card.GetComponent<SelectableUICard>().MoveToCurve(card.transform.parent.position);
             card.GetComponent<SelectableUICard>().Scale(2f);
+        }
+        foreach (var card in UICards)//poner delante las seleccionadas
+        {
+            var ui = card.GetComponent<SelectableUICard>();
+            if (ui.isOn)
+            {
+                string path = "";
+                switch (card.card.cardType)
+                {
+                    case CardType.Attack:
+                        path = "CardsDisplay/LeftCard";
+                        break;
+                    case CardType.Defense:
+                        path = "CardsDisplay/CenterCard";
+                        break;
+                    case CardType.Utility:
+                        path = "CardsDisplay/RightCard";
+                        break;
+                }
+                EmparentCard(path, card.gameObject, 0);
+            }
+            card.GetComponent<SelectableUICard>().NextCardPhase();
         }
 
 
@@ -190,9 +207,9 @@ public class UIManager : ASingleton<UIManager>, IManager
             objectToMove.transform.SetParent(parent, true);
 
             // Si siblingIndex >= 0, lo aplicamos
-            if (siblingIndex >= 0)
+            if (siblingIndex == 0)
             {
-                objectToMove.transform.SetSiblingIndex(siblingIndex);
+                objectToMove.transform.SetAsLastSibling();
             }
         }
         else

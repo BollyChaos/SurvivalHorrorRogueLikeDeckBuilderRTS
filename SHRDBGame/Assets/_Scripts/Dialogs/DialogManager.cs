@@ -39,7 +39,7 @@ public class DialogManager : ASingleton<DialogManager>, IManager
                 UIManager.Instance.HideJoystick();  
             }
             UIManager.Instance.HideCardsDialog();
-            EnemyManager.Instance.OnDialogEnemies();
+            EnemyManager.Instance?.OnDialogEnemies();
             Debug.Log("[DialogManager] Iniciando dialogo: "+dialogName);
             RunningDialog = StartCoroutine(PlayDialog(dialogName));
         }

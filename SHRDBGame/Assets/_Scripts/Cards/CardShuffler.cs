@@ -32,6 +32,7 @@ public class CardShuffler : MonoBehaviour
 
     public void Awake()
     {
+        
         allCardsFromFolder = new List<CardsSO>(Resources.LoadAll<CardsSO>(cardsFolderName));
         foreach (var card in allCardsFromFolder)
         {

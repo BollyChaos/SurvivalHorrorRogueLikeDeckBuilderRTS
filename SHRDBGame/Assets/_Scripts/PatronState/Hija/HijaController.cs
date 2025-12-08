@@ -32,7 +32,7 @@ public class HijaController : EnemyController
 
     private bool playerInRoom = false;
 
-    private ASoundPlayer soundPlayer;
+    [SerializeField] private ASoundPlayer soundPlayer;
     private bool enfadoSoundPlayed = false;
 
     public void Awake()
@@ -41,7 +41,8 @@ public class HijaController : EnemyController
         _player = GameObject.FindGameObjectWithTag("Player");
         SetState(new HijaWaiting(this));
 
-        soundPlayer = GetComponent<ASoundPlayer>();
+        if (soundPlayer == null)
+            soundPlayer = GetComponent<ASoundPlayer>();
     }
 
     void Start() { }
@@ -82,6 +83,9 @@ public class HijaController : EnemyController
     #region ataque
     public override void AttackPlayer()
     {
+        if (soundPlayer != null)
+            soundPlayer.PlaySound(0);
+
         GameObject sPrefab = Instantiate(slashPrefab, transform.position + transform.forward * 2, transform.rotation);
         sPrefab.SetActive(true);
         ParticleSystem ps = sPrefab.GetComponent<ParticleSystem>();
@@ -97,6 +101,9 @@ public class HijaController : EnemyController
 
     public override void RangeAttackPlayer()
     {
+        if (soundPlayer != null)
+            soundPlayer.PlaySound(1);
+
         GameObject sPrefab = Instantiate(BulletPrefab, transform.position + transform.forward * 2, transform.rotation);
         sPrefab.SetActive(true);
         sPrefab.GetComponent<MoveInDirection>().direction = transform.forward;

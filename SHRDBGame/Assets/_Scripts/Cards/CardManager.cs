@@ -34,6 +34,7 @@ public class CardManager : ASingleton<CardManager>,IManager
     {
         Debug.Log($"[{name}]:Empezando juego");
         playerCardsCounter = 0;
+        DynamicProbability.SetSeed(DateTime.Now.Millisecond + DateTime.Now.Second * 1000);//poner una nueva semilla para las cartas al inicio de cada partida
 
 
 
