@@ -101,12 +101,12 @@ public class HijaMisions : AEnemyState
     public IEnumerator CryCoroutine()
     {
         enemy.SetCrying(true);
-
+        enemy.GetAnimator().SetTrigger("Cry");
         // Reproducir sonido
         ASoundPlayer audioSource = enemy.GetGameObject().GetComponent<ASoundPlayer>();
         if (audioSource != null)
         {
-            audioSource.PlayRandomSound();
+            audioSource.PlaySound(4);
         }
         Debug.Log("La niña está llorando...");
 

@@ -31,18 +31,26 @@ public class HijaController : EnemyController
     [SerializeField] public float llorarUmbral = 0.6f;
 
     private bool playerInRoom = false;
+    private Animator _animator;
 
     [SerializeField] private ASoundPlayer soundPlayer;
     private bool enfadoSoundPlayed = false;
 
     public void Awake()
     {
+        _animator = GetComponentInChildren<Animator>();
         base.Awake();
         _player = GameObject.FindGameObjectWithTag("Player");
         SetState(new HijaWaiting(this));
 
         if (soundPlayer == null)
             soundPlayer = GetComponent<ASoundPlayer>();
+    }
+    private void Update()
+    {
+        _animator.SetFloat("Speed", GetAgent().velocity.magnitude);
+        base.Update();
+
     }
 
     void Start() { }
@@ -87,6 +95,7 @@ public class HijaController : EnemyController
             soundPlayer.PlaySound(0);
 
         GameObject sPrefab = Instantiate(slashPrefab, transform.position + transform.forward * 2, transform.rotation);
+        _animator.SetTrigger("Attacking");
         sPrefab.SetActive(true);
         ParticleSystem ps = sPrefab.GetComponent<ParticleSystem>();
         ps.Play();
@@ -105,6 +114,7 @@ public class HijaController : EnemyController
             soundPlayer.PlaySound(1);
 
         GameObject sPrefab = Instantiate(BulletPrefab, transform.position + transform.forward * 2, transform.rotation);
+        _animator.SetTrigger("Attacking");
         sPrefab.SetActive(true);
         sPrefab.GetComponent<MoveInDirection>().direction = transform.forward;
         ParticleSystem ps = sPrefab.GetComponent<ParticleSystem>();
@@ -149,6 +159,10 @@ public class HijaController : EnemyController
     public override bool IsCrying()
     {
         return Crying;
+    }
+    public override Animator GetAnimator()
+    {
+        return _animator;
     }
 
     #region regalo

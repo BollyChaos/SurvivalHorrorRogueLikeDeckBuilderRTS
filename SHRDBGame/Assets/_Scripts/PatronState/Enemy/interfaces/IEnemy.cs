@@ -45,6 +45,7 @@ namespace State.Interfaces
         public bool IsWaitingForGift();
         public void SetWaitingForGift(bool estado);
         public void GiftReceived();
+        public Animator GetAnimator();
         //Poner de aqui en adelante fucniones que puedan realizar los enemigos, ej: Detectar jugador, moverse...
     }
 }

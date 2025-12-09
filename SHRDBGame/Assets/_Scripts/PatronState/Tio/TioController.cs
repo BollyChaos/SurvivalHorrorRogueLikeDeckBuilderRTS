@@ -11,6 +11,7 @@ public class TioController : EnemyController
     [Header("ASoundPlayers separados")]
     [SerializeField] private ASoundPlayer detectionSoundPlayer;
     [SerializeField] private ASoundPlayer attackSoundPlayer;
+    private Animator _animator;
 
     private Vector3? lastHeardSoundPosition;
     private bool hasDetectedPlayer = false;
@@ -22,11 +23,18 @@ public class TioController : EnemyController
 
     private void Awake()
     {
+        _animator = GetComponentInChildren<Animator>();
         SetChaseSpeed(12);
         SetPatrolSpeed(3);
 
         base.Awake();
         SetState(new TioPatrolling(this));
+    }
+    private void Update()
+    {
+        _animator.SetFloat("Speed", GetAgent().velocity.magnitude);
+        base.Update();
+
     }
 
     #region sonidos IA
@@ -98,6 +106,7 @@ public class TioController : EnemyController
         }
 
         Destroy(sPrefab, 1f);
+        _animator.SetTrigger("Attacking");
     }
 
     #endregion

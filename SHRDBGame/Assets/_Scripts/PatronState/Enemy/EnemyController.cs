@@ -292,6 +292,10 @@ public class EnemyController : MonoBehaviour, IEnemy
     {
         throw new System.NotImplementedException();
     }
+    public virtual Animator GetAnimator()
+    {
+        throw new System.NotImplementedException();
+    }
 
     #endregion
 

@@ -96,7 +96,7 @@ public class VecinoController : EnemyController
             transform.position + transform.forward * 2,
             transform.rotation
         );
-        _animator.SetBool("Attack", true);
+        _animator.SetTrigger("Attacking");
         sPrefab.SetActive(true);
 
         ParticleSystem ps = sPrefab.GetComponent<ParticleSystem>();
@@ -109,7 +109,6 @@ public class VecinoController : EnemyController
         }
 
         Destroy(sPrefab, 1f);
-        _animator.SetBool("Attack", false);
     }
 
     #endregion
