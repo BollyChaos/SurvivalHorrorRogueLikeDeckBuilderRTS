@@ -100,7 +100,7 @@ public class InputManager : ASingleton<InputManager>, IManager
         {
          case GamePlatform.Standalone:
          case GamePlatform.WebGL_PC:
-        SwitchMapToPlayer();
+        //SwitchMapToPlayer();
         SwitchUIModule();
          break;   
          case GamePlatform.WebGL_Mobile:

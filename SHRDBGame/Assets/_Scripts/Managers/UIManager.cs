@@ -25,6 +25,8 @@ public class UIManager : ASingleton<UIManager>, IManager
     GameObject PlayerHUD;
     [SerializeField]
     GameObject MobileHUD;
+    [SerializeField]
+    GameObject begginingImage;  
 
 
     #region UICards
@@ -233,7 +235,7 @@ public class UIManager : ASingleton<UIManager>, IManager
     #region PLAYERUI
     public void HideBeginningImage()
     {
-        PlayerHUD.transform.Find("BeginningImage").gameObject.SetActive(false);
+        begginingImage.gameObject.SetActive(false);
         DialogManager.Instance.onEndDialog.RemoveListener(HideBeginningImage);
     }
     public void ShowMobileInput()
@@ -782,6 +784,7 @@ public class UIManager : ASingleton<UIManager>, IManager
         Debug.Log($"[{name}]Empezando juego");
         PauseMenu?.SetActive(false);
         PlayerHUD?.SetActive(true);
+        begginingImage?.SetActive(true);
         //fijar la camara en offscreenindicator
         FindAnyObjectByType<OffScreenIndicator>().SetCamera(FindAnyObjectByType<CameraController>().PlayerCamera);
         EndGameCavas?.SetActive(false);

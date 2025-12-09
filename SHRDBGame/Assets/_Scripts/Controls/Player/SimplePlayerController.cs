@@ -5,7 +5,7 @@ public class SimplePlayerController : MonoBehaviour
 {
     [SerializeField] float speed = 2f;
     private Vector2 inputDir = Vector2.zero;
-    public Vector2 Direction{get=>inputDir;}
+    public Vector2 Direction { get => inputDir; }
     private Vector2 inputLook = Vector2.zero;
 
     private Vector2 _smoothedMovementInput;
@@ -17,12 +17,12 @@ public class SimplePlayerController : MonoBehaviour
         LookForInput();
         SettingsManager.Instance.onSettingsChange.AddListener(onSettingsChange);
         onSettingsChange();
-        GetComponent<Animator>().speed=0f;
+        GetComponent<Animator>().speed = 0f;
     }
     void onSettingsChange()
     {
         speed = SettingsManager.Instance.GetValue<float>("PlayerSpeed");
-        
+
     }
     public void LookForInput()
     {
@@ -32,27 +32,33 @@ public class SimplePlayerController : MonoBehaviour
         {
             if (GameManager.Instance.gamePlatform == GamePlatform.WebGL_Mobile)
             {
-                GameObject.Find("MobileHUD/LeftStick").GetComponent<Joystick>().onMove.AddListener(OnMoveMobile);
+                DialogManager.Instance.onEndDialog.AddListener(SuscribeMobileMovement);
+
             }
             else
             {
-                
-            
-            input.actions["Move"].started += OnMove;
-            input.actions["Move"].performed += OnMove;
-            input.actions["Move"].canceled += OnMove;
+
+
+                input.actions["Move"].started += OnMove;
+                input.actions["Move"].performed += OnMove;
+                input.actions["Move"].canceled += OnMove;
             }
 
             Debug.Log("InputManager encontrado");
         }
     }
+    public void SuscribeMobileMovement()
+    {
+        GameObject.Find("MobileHUD/LeftStick")?.GetComponent<Joystick>().onMove.AddListener(OnMoveMobile);
+        DialogManager.Instance.onEndDialog.RemoveListener(SuscribeMobileMovement);
+    }
     public void OnMoveMobile(Vector3 dir)
     {
-        inputDir=dir;
-         GetComponent<Animator>().speed=1.25f;
+        inputDir = dir;
+        GetComponent<Animator>().speed = 1.25f;
         if (inputDir.magnitude < 0.001)
         {
-              GetComponent<Animator>().speed=0f;
+            GetComponent<Animator>().speed = 0f;
         }
 
     }
@@ -60,11 +66,11 @@ public class SimplePlayerController : MonoBehaviour
     {
         inputDir = ctx.ReadValue<Vector2>();
 
-        GetComponent<Animator>().speed=1.25f;
-        
+        GetComponent<Animator>().speed = 1.25f;
+
         if (ctx.canceled)
         {
-            GetComponent<Animator>().speed=0f;
+            GetComponent<Animator>().speed = 0f;
         }
     }
     public void OnLook(InputAction.CallbackContext ctx)
@@ -83,14 +89,14 @@ public class SimplePlayerController : MonoBehaviour
 
         Vector3 lookDir = new Vector3(inputLook.x, 0, inputLook.y);
 
-if (lookDir.sqrMagnitude > 0.0001f)  // evita el warning
-{
-    transform.rotation = Quaternion.LookRotation(lookDir);
-}
+        if (lookDir.sqrMagnitude > 0.0001f)  // evita el warning
+        {
+            transform.rotation = Quaternion.LookRotation(lookDir);
+        }
     }
     private void OnDestroy()
     {
-           PlayerInput input = InputManager.Instance.Input;
+        PlayerInput input = InputManager.Instance.Input;
         if (input != null)
         {
             input.actions["Move"].started -= OnMove;

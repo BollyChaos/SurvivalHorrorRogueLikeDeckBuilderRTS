@@ -116,7 +116,7 @@ public class DialogManager : ASingleton<DialogManager>, IManager
        currentDialog.Reset();
         RunningDialog = null;
         dialogCanvas.EndOfDialog();
-        dialogCanvas.gameObject.SetActive(false);
+        //dialogCanvas.gameObject.SetActive(false);
         InputManager.Instance.SwitchMapToPlayer();
         UIManager.Instance.CloseDialog();
         onEndDialog.Invoke();
@@ -155,7 +155,7 @@ public void InterruptDialog()
 
     public void OnStartGame()
     {
-        dialogCanvas.gameObject.SetActive(false);
+        dialogCanvas.gameObject.SetActive(true);
         PlayDialogRequest("LetterDialog");
         onEndDialog.AddListener(UIManager.Instance.HideBeginningImage);
     }

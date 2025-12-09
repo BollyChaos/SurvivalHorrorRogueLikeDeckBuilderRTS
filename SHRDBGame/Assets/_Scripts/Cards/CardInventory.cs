@@ -92,7 +92,7 @@ public class CardInventory : MonoBehaviour
     {
         Stack<CardObject> targetStack = null;
 
-        // 1️⃣ Seleccionar la pila correspondiente según el tipo de carta
+        // 1Seleccionar la pila correspondiente según el tipo de carta
         switch (lCard.card.cardType)
         {
             case CardType.Attack:
@@ -109,11 +109,11 @@ public class CardInventory : MonoBehaviour
         if (targetStack == null)
             return;
 
-        // 2️⃣ Evitar duplicados
+        // 2 Evitar duplicados
         if (targetStack.Contains(lCard))
             return;
 
-        // 3️⃣ Usar una pila auxiliar para insertar al fondo
+        // 3Usar una pila auxiliar para insertar al fondo
         Stack<CardObject> aux = new Stack<CardObject>();
 
         while (targetStack.Count > 0)
