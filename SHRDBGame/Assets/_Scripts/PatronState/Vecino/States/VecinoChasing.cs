@@ -11,11 +11,11 @@ public class VecinoChasing : AEnemyState
     private Vector3 _destination;
     private NavMeshAgent _agent;
     private float chaseSpeed;
-    
+
     private Coroutine _restCoroutine; // referencia a la coroutine activa
 
     //Metodos
-    public VecinoChasing(IEnemy enemy,Vector3 SoundPos) : base(enemy)
+    public VecinoChasing(IEnemy enemy, Vector3 SoundPos) : base(enemy)
     {
         _destination = SoundPos;
     }
@@ -29,17 +29,24 @@ public class VecinoChasing : AEnemyState
 
         // Configurar agente
         _agent.speed = chaseSpeed;
-        _agent.isStopped = false;
+        if (_agent != null && _agent.isOnNavMesh)
+        {
+            _agent.speed = chaseSpeed;
+            _agent.isStopped = false;
+        }
     }
 
     public override void Exit()
     {
-        //_agent.isStopped = false;
+        if (_agent != null && _agent.isOnNavMesh)
+        {
+            _agent.isStopped = false;
+        }
     }
 
     public override void FixedUpdate()
     {
-        if (enemy.PlayerAtSight()!=null)
+        if (enemy.PlayerAtSight() != null)
         {
             enemy.SetState(new VecinoBattling(enemy));
             return;
@@ -57,7 +64,7 @@ public class VecinoChasing : AEnemyState
         }
     }
 
-    
+
     public override void Update()
     {
 
