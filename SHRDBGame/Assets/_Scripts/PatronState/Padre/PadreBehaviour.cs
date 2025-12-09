@@ -130,7 +130,7 @@ public class PadreBehaviour : MonoBehaviour
     {
         //Debug.Log("Padre → Cierro la puerta de la sala");
         RoomTrigger roomTrigger = currentRoom.GetComponent<RoomTrigger>();
-        roomTrigger.CerrarPuertas();
+        roomTrigger.AbrirPuertas();
         // Aquí activas tu animación o lógica de cerradura
 
         // Y si tienes NavMeshObstacle:
@@ -237,7 +237,8 @@ public class PadreBehaviour : MonoBehaviour
     {
         return roomName == "Tienda" ||
                roomName == "SalaSecreta" ||
-               roomName == "Recibidor";
+               roomName == "Recibidor"||
+               roomName == "Fuera";
     }
     public void OnReset()
     {

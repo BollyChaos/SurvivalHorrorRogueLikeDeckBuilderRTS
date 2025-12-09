@@ -46,13 +46,13 @@ public class RoomTrigger : MonoBehaviour
         }
     }
 
-    public void CerrarPuertas()
+    public void AbrirPuertas()
     {
         if (door != null)
         {
             for (int i = 0; i < door.Count; i++)
             {
-                if (door[i].isOpen == true)
+                if (door[i].isOpen == false)
                 {
                     door[i].RotateDoor(transform.position);
                 }
