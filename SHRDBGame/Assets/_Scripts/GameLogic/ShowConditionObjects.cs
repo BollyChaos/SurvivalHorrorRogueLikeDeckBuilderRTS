@@ -32,6 +32,10 @@ void Awake()
         {
           conditionObjects[3].SetActive(true);
         }
+        if(GameManager.Instance.GetValue<bool>("EnteredSecretRoom"))
+        {
+          conditionObjects[4].SetActive(true);
+        }
        
     }
 

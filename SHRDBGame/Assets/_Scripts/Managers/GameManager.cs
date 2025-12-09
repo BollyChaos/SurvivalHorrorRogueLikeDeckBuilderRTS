@@ -269,7 +269,10 @@ namespace Managers
                     DialogManager.Instance.PlayDialogRequest("EnteringMansion");
                 }
             );
-
+            GameObject.Find("SalaSecreta").GetComponent<TriggerEvent>().onTriggerEnterEvent.AddListener(() =>
+            {
+                SetValue<bool>("EnteredSecretRoom", true);
+            });
             //Logica de empezar el juego ya del gamemanager, que ocurre primero, de momento se empieza con la seleccion de cartas
             if (!(DebugGame && SkipPhase && SkipCardSelectionPhase))
             {
