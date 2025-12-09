@@ -123,7 +123,7 @@ public class EnemyCombat : MonoBehaviour
         Time.timeScale =0;
 
         // Esperar en tiempo REAL
-        yield return new WaitForSeconds(hitStopDuration);
+        yield return new WaitForSecondsRealtime(hitStopDuration);
 
         // Restaurar tiempo
         Time.timeScale = originalTimeScale;
