@@ -7323,7 +7323,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 810
   m_TargetDisplay: 0
 --- !u!224 &584935088
 RectTransform:
@@ -13096,7 +13096,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -14695,7 +14695,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -18771,6 +18771,7 @@ MonoBehaviour:
   inGameStates: 0
   PlayerHUD: {fileID: 1725973893}
   MobileHUD: {fileID: 584935084}
+  begginingImage: {fileID: 0}
   CardPrefab: {fileID: 9150616657987557661, guid: a69101c32481abf4eaadcaa42b4f860e, type: 3}
   UICards: []
   ContinueButton: {fileID: 1187974092}
