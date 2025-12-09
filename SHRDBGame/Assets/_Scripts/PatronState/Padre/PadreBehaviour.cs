@@ -45,10 +45,7 @@ public class PadreBehaviour : MonoBehaviour
     }
     void Update()
     {
-        if (Vector3.Distance(transform.position, player.transform.position) < 6f)
-        {
-            LookAt(player.transform.position);
-        }
+        LookAt(player.transform.position);
         seenByPlayer = SeenByPlayer();
     }
     public void LookAt(Vector3 target)
