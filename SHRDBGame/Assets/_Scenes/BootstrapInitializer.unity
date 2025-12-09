@@ -13630,23 +13630,23 @@ MonoBehaviour:
   specialCardMatDefense: {fileID: 2100000, guid: 291358b55cdcbc842b296c0acd2a8b5b, type: 2}
   specialCardMatUtility: {fileID: 2100000, guid: 4c925168054c1e342a9e73532ec65efd, type: 2}
   cardSprites:
-  - {fileID: 21300000, guid: 18dca91936c834c41b29b7c04797574d, type: 3}
-  - {fileID: 21300000, guid: 1b6eb6881e92d744f8ac89bbffc1b8bc, type: 3}
-  - {fileID: 21300000, guid: d5d3c0c669b2df24aa35b0ae37a0b701, type: 3}
-  - {fileID: 21300000, guid: 7feb9b4168f87c547bc4dffba8aa3014, type: 3}
-  - {fileID: 21300000, guid: 907e1afa7e4ebeb49b5a1369e3f19225, type: 3}
-  - {fileID: 21300000, guid: 8d9083dbf2d54674b9719374a840180f, type: 3}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: 8670b94fed5397440af24cfdfe5746e8, type: 3}
+  - {fileID: 21300000, guid: 9a08e5ab9aea548488982e6cf4955de3, type: 3}
+  - {fileID: 21300000, guid: cfa545df6a5e84c44a753d384acf96cf, type: 3}
+  - {fileID: 21300000, guid: 7f5f0b544dc257e4fbf7e7ce1ab422c0, type: 3}
+  - {fileID: 21300000, guid: c199ea54d6be18c4fbb1e2eee9c16fbc, type: 3}
+  - {fileID: 21300000, guid: 19fc0d28e4f15064cbf83917de9e2b07, type: 3}
+  - {fileID: 21300000, guid: 362a38ce811ec394c97dbe260affa2da, type: 3}
+  - {fileID: 21300000, guid: 825e2e3464dff3f4a82217beb2756524, type: 3}
+  - {fileID: 21300000, guid: 9d93110e4b50e8242bac03a9e0193584, type: 3}
+  - {fileID: 21300000, guid: 246bbda5f1c460f429ac64a9a447ba65, type: 3}
+  - {fileID: 21300000, guid: 914d4e7db32b8104abed2c3a0402521f, type: 3}
+  - {fileID: 21300000, guid: 847c60bd32aa59544b5f71845f701cf6, type: 3}
+  - {fileID: 21300000, guid: c63f85420b1a091438864f7576caaa41, type: 3}
+  - {fileID: 21300000, guid: 67ff9b5f2cb5c004a8042792df731d20, type: 3}
+  - {fileID: 21300000, guid: 4fa74a6fcf9e19d4b9d91aa66c55cc15, type: 3}
+  - {fileID: 21300000, guid: ed85531f765890d4aa59f977f46c8e9d, type: 3}
+  - {fileID: 21300000, guid: a28c81aa4149aa547bac98677e6df797, type: 3}
 --- !u!1 &1100893903
 GameObject:
   m_ObjectHideFlags: 0
@@ -15316,7 +15316,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1202749012
 RectTransform:
   m_ObjectHideFlags: 0

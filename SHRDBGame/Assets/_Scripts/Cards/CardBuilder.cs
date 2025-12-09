@@ -120,5 +120,17 @@ public class CardBuilder : MonoBehaviour
             var comp = cardChild.GetComponent<TextMeshProUGUI>();
             comp.text = $"{cardObj.card.nUses}";
         }
+        cardChild = cardObj.transform.Find("CardIcon");
+        if (cardChild != null)
+        {
+            var comp = cardChild.GetComponent<Image>();
+            var sprite = cardSprites.Find(s => s.name == cardObj.card.CardName);
+           
+            if(sprite!=null)
+            {
+               comp.enabled = true;
+                comp.sprite = sprite;
+            }
+        }
     }
 }

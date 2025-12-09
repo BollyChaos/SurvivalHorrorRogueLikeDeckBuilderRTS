@@ -84,17 +84,17 @@ public class GameEventsManager : ASingleton<GameEventsManager>, IManager
     {
         switch (currentEvent)
         {
-            case GameEvent.NONE:
-                break;
-            case GameEvent.ENEMIESAGRO:
-                UIManager.Instance.ShowGameEventForAWhile("Agresividad de los enemigos aumentada(no implementado)");
-                break;
-            case GameEvent.SPAWNMONSTERS:
-                UIManager.Instance.ShowGameEventForAWhile("Van a aparecer enemigos en la sala(no implementado)");
-                break;
-            case GameEvent.GOTORANDOMROOM:
-                UIManager.Instance.ShowGameEventForAWhile("Ve a la sala (no implementado) en x segundos o muere");
-                break;
+            // case GameEvent.NONE:
+            //     break;
+            // case GameEvent.ENEMIESAGRO:
+            //     UIManager.Instance.ShowGameEventForAWhile("Agresividad de los enemigos aumentada(no implementado)");
+            //     break;
+            // case GameEvent.SPAWNMONSTERS:
+            //     UIManager.Instance.ShowGameEventForAWhile("Van a aparecer enemigos en la sala(no implementado)");
+            //     break;
+            // case GameEvent.GOTORANDOMROOM:
+            //     UIManager.Instance.ShowGameEventForAWhile("Ve a la sala (no implementado) en x segundos o muere");
+            //     break;
             case GameEvent.LIGHTSOUT:
                 StartCoroutine(LightsEvent());
                 break;
@@ -104,6 +104,7 @@ public class GameEventsManager : ASingleton<GameEventsManager>, IManager
             case GameEvent.HEALTHRAIN:
                 HealthRain();
                 break;
+                default:
             case GameEvent.SPAWNCARD:
                 SpawnCard();
                 break;
@@ -165,6 +166,7 @@ public class GameEventsManager : ASingleton<GameEventsManager>, IManager
                 UIManager.Instance.ShowGameEventForAWhile("Va a aparecer dinero en la sala: " + rooms[nRoom].roomName + " durante " + timeToDestroy);
 
                 break;
+            
             case GameEvent.SPAWNCARD:
                 Debug.Log("Va a aparecer una carta en la sala " + rooms[nRoom].roomName + " durante " + timeToDestroy);
                 UIManager.Instance.ShowGameEventForAWhile("Va a aparecer una carta en la sala: " + rooms[nRoom].roomName + " durante " + timeToDestroy);
