@@ -118,14 +118,17 @@ public class EnemyCombat : MonoBehaviour
     {
         // Guardar valores originales
         float originalTimeScale = Time.timeScale;
+        //float originalFixedDeltaTime = Time.fixedDeltaTime;
 
         // Ralentizar tiempo
-        Time.timeScale =0;
+        Time.timeScale =0.02f;
+        //Time.fixedDeltaTime = 0.02f * Time.timeScale;
 
         // Esperar en tiempo REAL
         yield return new WaitForSecondsRealtime(hitStopDuration);
 
         // Restaurar tiempo
         Time.timeScale = originalTimeScale;
+        //Time.fixedDeltaTime = originalFixedDeltaTime;
     }
 }
