@@ -2789,6 +2789,7 @@ MonoBehaviour:
   soName: GameStats.asset
   jsonFileName: Game.json
   values: {fileID: 0}
+  WEB_KEY: web_game_group_values
 --- !u!1 &291003571
 GameObject:
   m_ObjectHideFlags: 0
@@ -15308,6 +15309,7 @@ GameObject:
   - component: {fileID: 1202749012}
   - component: {fileID: 1202749014}
   - component: {fileID: 1202749013}
+  - component: {fileID: 1202749015}
   m_Layer: 5
   m_Name: BeginningImage
   m_TagString: Untagged
@@ -15372,6 +15374,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1202749011}
   m_CullTransparentMesh: 1
+--- !u!225 &1202749015
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202749011}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1203308831
 GameObject:
   m_ObjectHideFlags: 0
@@ -27246,6 +27260,7 @@ MonoBehaviour:
   soName: SettingValues.asset
   jsonFileName: Settings.json
   values: {fileID: 0}
+  WEB_KEY: web_settings_group_values
 --- !u!1 &2129473883
 GameObject:
   m_ObjectHideFlags: 0

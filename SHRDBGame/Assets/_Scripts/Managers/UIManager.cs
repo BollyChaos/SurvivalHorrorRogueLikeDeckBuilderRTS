@@ -235,9 +235,26 @@ public class UIManager : ASingleton<UIManager>, IManager
     #region PLAYERUI
     public void HideBeginningImage()
     {
-        begginingImage.gameObject.SetActive(false);
+        //begginingImage.gameObject.SetActive(false);
+        StartCoroutine(FadeOut(begginingImage, 1.5f));
         DialogManager.Instance.onEndDialog.RemoveListener(HideBeginningImage);
     }
+    public IEnumerator FadeOut(GameObject gameObject,float fadeDuration=1f)
+        {
+            CanvasGroup canvasGroup = gameObject.GetComponent<CanvasGroup>();
+            float t = 0f;
+            canvasGroup.alpha = 1f;
+            Debug.Log("Fading out...");
+            while (t < fadeDuration)
+            {
+                t += Time.deltaTime;
+                canvasGroup.alpha = Mathf.Lerp(1f, 0f, t / fadeDuration);
+                yield return null;
+            }
+
+            canvasGroup.alpha = 0f;
+            canvasGroup.blocksRaycasts = false;
+        }
     public void ShowMobileInput()
     {
 
@@ -785,6 +802,7 @@ public class UIManager : ASingleton<UIManager>, IManager
         PauseMenu?.SetActive(false);
         PlayerHUD?.SetActive(true);
         begginingImage?.SetActive(true);
+        begginingImage.GetComponent<CanvasGroup>().alpha = 1f;
         //fijar la camara en offscreenindicator
         FindAnyObjectByType<OffScreenIndicator>().SetCamera(FindAnyObjectByType<CameraController>().PlayerCamera);
         EndGameCavas?.SetActive(false);
