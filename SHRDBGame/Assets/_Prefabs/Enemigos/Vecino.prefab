@@ -317,8 +317,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7816286791176074444}
   - {fileID: 680785495912941035}
@@ -390,6 +390,9 @@ MonoBehaviour:
     attackMultiplier: 1
     speedMultiplier: 1
   damageCooldown: 1
+  hitStopDuration: 0.1
+  slowTimeScale: 0.1
+  damageColorDuration: 0.25
 --- !u!82 &7306781367367356530
 AudioSource:
   m_ObjectHideFlags: 0
