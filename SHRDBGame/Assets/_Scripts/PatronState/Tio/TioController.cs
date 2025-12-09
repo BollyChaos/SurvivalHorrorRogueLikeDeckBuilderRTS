@@ -33,6 +33,17 @@ public class TioController : EnemyController
     private void Update()
     {
         _animator.SetFloat("Speed", GetAgent().velocity.magnitude);
+        if(GetComponent<Animator>() != null)
+        {
+        if (GetAgent().velocity.magnitude < 0.1f)
+        {
+            GetComponent<Animator>().speed = 0f;
+        }
+        else
+        { 
+            GetComponent<Animator>().speed = 1f;
+        }
+        }
         base.Update();
 
     }

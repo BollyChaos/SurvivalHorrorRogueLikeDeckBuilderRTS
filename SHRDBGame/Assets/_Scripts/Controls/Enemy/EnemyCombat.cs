@@ -10,11 +10,21 @@ public class EnemyCombat : MonoBehaviour
     private float lastAttackTime = 0f;
 
     private EnemyController enemyController;
+    private List<Renderer> renderers = new List<Renderer>();
+    private MaterialPropertyBlock block;
+    private Coroutine flashRoutine;
+
+    // Duración del efecto de color rojo (en segundos)
+    public float damageColorDuration = 0.25f;
 
     protected void OnEnable()
     {
         stats.ResetStats();
         enemyController = GetComponent<EnemyController>();
+        renderers.Clear();
+        GetComponentsInChildren(renderers);
+
+        block = new MaterialPropertyBlock();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -47,6 +57,12 @@ public class EnemyCombat : MonoBehaviour
     {
         stats.TakeDamage(amount);
 
+        // 💡 Iniciar el efecto de color al recibir daño
+        if (renderers != null)
+        {
+            StartCoroutine(FlashRed());
+        }
+
         if (!stats.IsAlive())
         {
             if (enemyController != null)
@@ -54,6 +70,24 @@ public class EnemyCombat : MonoBehaviour
 
             LevelManager.Instance.AddEnemyKill();
             gameObject.SetActive(false);
+        }
+    }
+    private IEnumerator FlashRed()
+    {
+        foreach (Renderer r in renderers)
+        {
+            r.GetPropertyBlock(block);
+            block.SetFloat("_ColorValue", 0.6f);
+            r.SetPropertyBlock(block);
+        }
+
+        yield return new WaitForSeconds(damageColorDuration);
+
+        foreach (Renderer r in renderers)
+        {
+            r.GetPropertyBlock(block);
+            block.SetFloat("_ColorValue", 0f);
+            r.SetPropertyBlock(block);
         }
     }
 }

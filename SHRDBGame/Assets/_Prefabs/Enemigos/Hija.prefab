@@ -319,7 +319,7 @@ GameObject:
   - component: {fileID: 3674660271777509151}
   m_Layer: 6
   m_Name: Hija
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -407,6 +407,7 @@ MonoBehaviour:
     attackMultiplier: 1
     speedMultiplier: 1
   damageCooldown: 1
+  damageColorDuration: 0.25
 --- !u!195 &8108782464156233921
 NavMeshAgent:
   m_ObjectHideFlags: 0
