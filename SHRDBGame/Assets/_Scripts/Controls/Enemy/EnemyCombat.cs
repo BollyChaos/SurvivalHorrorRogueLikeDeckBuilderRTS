@@ -16,7 +16,7 @@ public class EnemyCombat : MonoBehaviour
     private Coroutine hitStopRoutine;
 
     [Header("Hit Stop")]
-    public float hitStopDuration = 0.5f;   // cuanto dura el impacto
+    public float hitStopDuration = 0.1f;   // cuanto dura el impacto
     public float slowTimeScale = 0.1f;      // 10% de la velocidad normal
     // Duración del efecto de color rojo (en segundos)
     public float damageColorDuration = 0.25f;
