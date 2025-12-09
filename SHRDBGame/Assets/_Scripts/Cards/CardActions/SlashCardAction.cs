@@ -65,7 +65,7 @@ public class SlashCardAction : MonoBehaviour, ICardAction
             // slash.SetImpactClips(impactSoundsAxe);
         }
 
-        Destroy(sPrefab, 1f);
+        Destroy(sPrefab, 0.5f);
     }
 
     private void KnifeAttack()
@@ -82,7 +82,7 @@ public class SlashCardAction : MonoBehaviour, ICardAction
             // slash.SetImpactClips(impactSoundsKnife);
         }
 
-        Destroy(sPrefab, 1f);
+        Destroy(sPrefab, 0.5f);
     }
 
     // private void PlaySwingSound()
