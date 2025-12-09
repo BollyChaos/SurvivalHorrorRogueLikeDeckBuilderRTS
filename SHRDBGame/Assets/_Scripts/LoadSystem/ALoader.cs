@@ -198,6 +198,7 @@ public class ALoader : MonoBehaviour
 
     internal T GetValue<T>(string key)
     {
+        if (values == null) return default(T);
         return values.GetValue<T>(key);
     }
 }

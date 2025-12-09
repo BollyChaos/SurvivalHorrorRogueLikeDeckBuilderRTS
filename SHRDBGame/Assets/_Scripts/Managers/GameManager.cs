@@ -153,10 +153,18 @@ namespace Managers
         }
         public void SetValue<T>(string key, T value)
         {
+            if(gamePlatform==GamePlatform.WebGL_Mobile||gamePlatform==GamePlatform.WebGL_PC)
+            {
+               return;
+            }
             GetComponent<ALoader>().SetValue<T>(key, value);
         }
         public T GetValue<T>(string key)
         {
+            if(gamePlatform==GamePlatform.WebGL_Mobile||gamePlatform==GamePlatform.WebGL_PC)
+            {
+               return(T)default;
+            }   
             return GetComponent<ALoader>().GetValue<T>(key);
         }
         [ContextMenu("Reset to default values")]

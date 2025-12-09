@@ -112,7 +112,7 @@ public class LevelManager : ASingleton<LevelManager>, IManager
     public void AddDeathCount()
     {
         //Llamar al game manager para que aumente el contador de muertes
-        GameManager.Instance.SetValue<float>("NTimesDied", GameManager.Instance.GetValue<float>("NDeaths") + 1);
+        GameManager.Instance.SetValue<float>("NTimesDied", GameManager.Instance.GetValue<float>("NTimesDied") + 1);
     }
     public void AddWinCount()
     {

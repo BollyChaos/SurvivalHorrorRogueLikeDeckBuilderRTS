@@ -55,7 +55,8 @@ public class GroupValues : ScriptableObject
             }
         }
         // Si quieres, aqu� podr�as lanzar excepci�n o log si no se encontr� el nombre
-        throw new KeyNotFoundException($"No se encontr� ning�n valor con el nombre '{name}' en los campos.");
+        Debug.LogError($"[GroupValues] No se encontr� ning�n valor con el nombre '{name}' en los campos.");
+                throw new KeyNotFoundException($"No se encontr� ning�n valor con el nombre '{name}' en los campos.");
     }
     public void SetEntryValue(SettingEntry newEntry)
     {

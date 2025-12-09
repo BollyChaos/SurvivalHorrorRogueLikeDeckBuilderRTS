@@ -37,6 +37,7 @@ public class CursorManager : MonoBehaviour
         UpdateModeFromInputMap();
         ApplySpriteForCurrentMode();
     }
+    #if UNITY_EDITOR
 public static void ApplyWebGLCursor(Sprite cursorSprite)
     {
         if (cursorSprite == null)
@@ -61,6 +62,7 @@ public static void ApplyWebGLCursor(Sprite cursorSprite)
         AssetDatabase.SaveAssets();
         Debug.Log("Cursor por defecto para WebGL_PC aplicado correctamente.");
     }
+#endif
 
     void Update()
     {
