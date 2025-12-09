@@ -227,11 +227,11 @@ public class CardUser : MonoBehaviour
 
 
         if (AttackCard != null)
-            AttackCard?.GetComponent<CardAnimation>().CancelAnimations(AttackCard?.GetComponent<RectTransform>());
+            AttackCard?.GetComponent<CardAnimation>().CancelDisplayAnimations(AttackCard?.GetComponent<RectTransform>());
         if (DefenseCard != null)
-            DefenseCard?.GetComponent<CardAnimation>().CancelAnimations(DefenseCard?.GetComponent<RectTransform>());
+            DefenseCard?.GetComponent<CardAnimation>().CancelDisplayAnimations(DefenseCard?.GetComponent<RectTransform>());
         if (UtilityCard != null)
-            UtilityCard?.GetComponent<CardAnimation>().CancelAnimations(UtilityCard?.GetComponent<RectTransform>());
+            UtilityCard?.GetComponent<CardAnimation>().CancelDisplayAnimations(UtilityCard?.GetComponent<RectTransform>());
         switch (currentCardType)
         {
             case CardType.Attack:

@@ -26,7 +26,7 @@ public class UIManager : ASingleton<UIManager>, IManager
     [SerializeField]
     GameObject MobileHUD;
     [SerializeField]
-    GameObject begginingImage;  
+    GameObject begginingImage;
 
 
     #region UICards
@@ -196,8 +196,13 @@ public class UIManager : ASingleton<UIManager>, IManager
                 break;
         }
         card.transform.SetAsFirstSibling();
+
         card.GetComponent<CardAnimation>().MoveToCurve(card.GetComponent<RectTransform>(), card.transform.parent.position);
-        card.GetComponent<CardAnimation>().Scale(card.GetComponent<RectTransform>(), 2f);
+        Debug.Log("Moviendo carta a pos UI:" + card.transform.parent.position);
+
+        //    card.GetComponent<CardAnimation>().Scale(card.GetComponent<RectTransform>(), 2f);
+        card.GetComponent<CardAnimation>().initialScale = new Vector3(2, 2, 2);
+        card.transform.localScale = card.GetComponent<CardAnimation>().initialScale;
         card.GetComponent<CardAnimation>().RotateXValue(card.GetComponent<RectTransform>(), 0f);
     }
     void EmparentCard(string objectName, GameObject objectToMove, int siblingIndex = -1)
@@ -239,22 +244,22 @@ public class UIManager : ASingleton<UIManager>, IManager
         StartCoroutine(FadeOut(begginingImage, 1.5f));
         DialogManager.Instance.onEndDialog.RemoveListener(HideBeginningImage);
     }
-    public IEnumerator FadeOut(GameObject gameObject,float fadeDuration=1f)
+    public IEnumerator FadeOut(GameObject gameObject, float fadeDuration = 1f)
+    {
+        CanvasGroup canvasGroup = gameObject.GetComponent<CanvasGroup>();
+        float t = 0f;
+        canvasGroup.alpha = 1f;
+        Debug.Log("Fading out...");
+        while (t < fadeDuration)
         {
-            CanvasGroup canvasGroup = gameObject.GetComponent<CanvasGroup>();
-            float t = 0f;
-            canvasGroup.alpha = 1f;
-            Debug.Log("Fading out...");
-            while (t < fadeDuration)
-            {
-                t += Time.deltaTime;
-                canvasGroup.alpha = Mathf.Lerp(1f, 0f, t / fadeDuration);
-                yield return null;
-            }
-
-            canvasGroup.alpha = 0f;
-            canvasGroup.blocksRaycasts = false;
+            t += Time.deltaTime;
+            canvasGroup.alpha = Mathf.Lerp(1f, 0f, t / fadeDuration);
+            yield return null;
         }
+
+        canvasGroup.alpha = 0f;
+        canvasGroup.blocksRaycasts = false;
+    }
     public void ShowMobileInput()
     {
 
