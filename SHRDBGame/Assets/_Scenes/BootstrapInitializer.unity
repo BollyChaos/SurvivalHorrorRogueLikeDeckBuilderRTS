@@ -17389,7 +17389,7 @@ MonoBehaviour:
   canVarySize: 0
   cardDropPrefab: {fileID: 7723569488581496489, guid: 12f9340b5eed37445b189c545dbbc120, type: 3}
   cardTime: 30
-  debug: 1
+  debug: 0
   showPlatform: 0
   fixedTimeEvent: 7
 --- !u!4 &1336401728

@@ -8,7 +8,7 @@ using UnityEngine;
 public class GameEventsManager : ASingleton<GameEventsManager>, IManager
 {
     public IManager.GameStartMode StartMode => IManager.GameStartMode.NORMAL;
-    public enum GameEvent { NONE, LIGHTSOUT, ENEMIESAGRO, SPAWNMONSTERS, GOTORANDOMROOM, MONEYRAIN, HEALTHRAIN, SPAWNCARD, }
+    public enum GameEvent { NONE, LIGHTSOUT,/* ENEMIESAGRO, SPAWNMONSTERS, GOTORANDOMROOM,*/ MONEYRAIN, HEALTHRAIN, SPAWNCARD, }
     [Header("Events")]
 
     [SerializeField]
@@ -104,7 +104,7 @@ public class GameEventsManager : ASingleton<GameEventsManager>, IManager
             case GameEvent.HEALTHRAIN:
                 HealthRain();
                 break;
-                default:
+            default:
             case GameEvent.SPAWNCARD:
                 SpawnCard();
                 break;
@@ -166,7 +166,7 @@ public class GameEventsManager : ASingleton<GameEventsManager>, IManager
                 UIManager.Instance.ShowGameEventForAWhile("Va a aparecer dinero en la sala: " + rooms[nRoom].roomName + " durante " + timeToDestroy);
 
                 break;
-            
+
             case GameEvent.SPAWNCARD:
                 Debug.Log("Va a aparecer una carta en la sala " + rooms[nRoom].roomName + " durante " + timeToDestroy);
                 UIManager.Instance.ShowGameEventForAWhile("Va a aparecer una carta en la sala: " + rooms[nRoom].roomName + " durante " + timeToDestroy);
