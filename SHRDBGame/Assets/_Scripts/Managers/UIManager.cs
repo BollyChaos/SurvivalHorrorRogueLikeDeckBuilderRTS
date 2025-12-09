@@ -198,7 +198,7 @@ public class UIManager : ASingleton<UIManager>, IManager
         card.transform.SetAsFirstSibling();
 
         card.GetComponent<CardAnimation>().MoveToCurve(card.GetComponent<RectTransform>(), card.transform.parent.position);
-        Debug.Log("Moviendo carta a pos UI:" + card.transform.parent.position);
+        //Debug.Log("Moviendo carta a pos UI:" + card.transform.parent.position);
 
         //    card.GetComponent<CardAnimation>().Scale(card.GetComponent<RectTransform>(), 2f);
         card.GetComponent<CardAnimation>().initialScale = new Vector3(2, 2, 2);

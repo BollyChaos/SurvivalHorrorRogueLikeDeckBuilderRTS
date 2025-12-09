@@ -13,7 +13,7 @@ public class DayUnlockDoor : MonoBehaviour, IDoorUnlocker
     }
     public void CreateUnlockContidion()
     {
-        LevelManager.Instance.onNightStateChanged.AddListener(CheckDayToUnlock);
+        LevelManager.Instance?.onNightStateChanged.AddListener(CheckDayToUnlock);
     }
 
     private void CheckDayToUnlock(bool isNight)

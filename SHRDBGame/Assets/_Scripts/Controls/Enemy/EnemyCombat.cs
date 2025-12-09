@@ -44,8 +44,13 @@ public class EnemyCombat : MonoBehaviour
             StopCoroutine(flashRoutine);
             flashRoutine = null;
         }
-        
-        Time.timeScale = 1f;
+        if(hitStopRoutine!=null)
+        {
+            StopCoroutine(hitStopRoutine);
+            hitStopRoutine = null;
+             Time.timeScale = 1f;
+        }
+       
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -84,7 +89,8 @@ public class EnemyCombat : MonoBehaviour
             flashRoutine = StartCoroutine(FlashRed());
         }
         //  Iniciar el efecto de hit stop
-        hitStopRoutine = StartCoroutine(HitStop());
+        if(hitStopRoutine==null)
+            hitStopRoutine = StartCoroutine(HitStop());
 
         if (!stats.IsAlive())
         {
@@ -130,5 +136,6 @@ public class EnemyCombat : MonoBehaviour
         // Restaurar tiempo
         Time.timeScale = originalTimeScale;
         //Time.fixedDeltaTime = originalFixedDeltaTime;
+        hitStopRoutine = null;
     }
 }
