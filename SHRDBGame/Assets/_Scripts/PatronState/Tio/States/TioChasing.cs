@@ -35,7 +35,7 @@ public class TioChasing : AEnemyState
 
     public override void Exit()
     {
-        _agent.isStopped = false;
+        //_agent.isStopped = false;
     }
 
     public override void FixedUpdate()

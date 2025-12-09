@@ -13,7 +13,11 @@ public class EnemyCombat : MonoBehaviour
     private List<Renderer> renderers = new List<Renderer>();
     private MaterialPropertyBlock block;
     private Coroutine flashRoutine;
+    private Coroutine hitStopRoutine;
 
+    [Header("Hit Stop")]
+    public float hitStopDuration = 0.1f;   // cuanto dura el impacto
+    public float slowTimeScale = 0.1f;      // 10% de la velocidad normal
     // Duración del efecto de color rojo (en segundos)
     public float damageColorDuration = 0.25f;
 
@@ -25,6 +29,23 @@ public class EnemyCombat : MonoBehaviour
         GetComponentsInChildren(renderers);
 
         block = new MaterialPropertyBlock();
+        foreach (Renderer r in renderers)
+        {
+            r.GetPropertyBlock(block);
+            block.SetFloat("_ColorValue", 0.0f);
+            r.SetPropertyBlock(block);
+        }
+    }
+    protected void OnDisable()
+    {
+        // Detener cualquier corrutina activa al desactivar el objeto
+        if (flashRoutine != null)
+        {
+            StopCoroutine(flashRoutine);
+            flashRoutine = null;
+        }
+        
+        Time.timeScale = 1f;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -57,11 +78,13 @@ public class EnemyCombat : MonoBehaviour
     {
         stats.TakeDamage(amount);
 
-        // 💡 Iniciar el efecto de color al recibir daño
+        //  Iniciar el efecto de color al recibir daño
         if (renderers != null)
         {
-            StartCoroutine(FlashRed());
+            flashRoutine = StartCoroutine(FlashRed());
         }
+        //  Iniciar el efecto de hit stop
+        hitStopRoutine = StartCoroutine(HitStop());
 
         if (!stats.IsAlive())
         {
@@ -89,5 +112,23 @@ public class EnemyCombat : MonoBehaviour
             block.SetFloat("_ColorValue", 0f);
             r.SetPropertyBlock(block);
         }
+    }
+
+    private IEnumerator HitStop()
+    {
+        // Guardar valores originales
+        float originalTimeScale = Time.timeScale;
+        //float originalFixedDeltaTime = Time.fixedDeltaTime;
+
+        // Ralentizar tiempo
+        Time.timeScale =0.02f;
+        //Time.fixedDeltaTime = 0.02f * Time.timeScale;
+
+        // Esperar en tiempo REAL
+        yield return new WaitForSeconds(hitStopDuration * 0.02f);
+
+        // Restaurar tiempo
+        Time.timeScale = originalTimeScale;
+        //Time.fixedDeltaTime = originalFixedDeltaTime;
     }
 }
