@@ -36111,9 +36111,17 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6345285779419725671, guid: 9182f77bd79e3a74a84eebe2e040c36f, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9182f77bd79e3a74a84eebe2e040c36f, type: 3}
       propertyPath: m_Name
       value: Armario2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9182f77bd79e3a74a84eebe2e040c36f, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
