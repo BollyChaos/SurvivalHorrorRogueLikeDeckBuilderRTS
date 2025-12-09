@@ -36,6 +36,10 @@ void Awake()
         {
           conditionObjects[4].SetActive(true);
         }
+        if(GameManager.Instance.GetValue<float>("FlashLightSeconds")>=600)
+        {
+          conditionObjects[5].SetActive(true);
+        }
        
     }
 

@@ -44,6 +44,13 @@
                     "value": {
                         "rid": 1005
                     }
+                },
+                {
+                    "name": "FlashLightSeconds",
+                    "type": 1,
+                    "value": {
+                        "rid": 1006
+                    }
                 }
             ]
         }
@@ -114,7 +121,18 @@
                     "asm": "Assembly-CSharp"
                 },
                 "data": {
-                    "value": true
+                    "value": false
+                }
+            },
+            {
+                "rid": 1006,
+                "type": {
+                    "class": "FloatSettingValue",
+                    "ns": "",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "value": 0.0
                 }
             }
         ]

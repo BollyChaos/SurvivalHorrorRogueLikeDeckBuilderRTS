@@ -39,6 +39,10 @@ MonoBehaviour:
       type: 0
       value:
         rid: 9179061911027449984
+    - name: FlashLightSeconds
+      type: 1
+      value:
+        rid: 9179061911027450003
   references:
     version: 2
     RefIds:
@@ -64,5 +68,9 @@ MonoBehaviour:
         value: 0
     - rid: 9179061911027449984
       type: {class: BoolSettingValue, ns: , asm: Assembly-CSharp}
+      data:
+        value: 0
+    - rid: 9179061911027450003
+      type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
       data:
         value: 0

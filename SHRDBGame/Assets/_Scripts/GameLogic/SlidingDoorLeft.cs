@@ -57,6 +57,7 @@ public class SlidingDoorLeft : MonoBehaviour, IInteractable
         SlideDoor();
     }
 
+[ContextMenu("Mover Puerta")]
     public void SlideDoor()
     {
         if (isLocked && !isOpen)
@@ -68,6 +69,7 @@ public class SlidingDoorLeft : MonoBehaviour, IInteractable
         Vector3 targetPos = isOpen
             ? closedPos
             : closedPos + openOffset;
+            Debug.Log("Moviendose puerta a " + targetPos);
 
         // Sonidos
         if (!isOpen)
@@ -114,7 +116,7 @@ public class SlidingDoorLeft : MonoBehaviour, IInteractable
             });
     }
 
-    public void SetInteractable(bool value) => isInteractable = value;
+    public void SetInteractable(bool value){isInteractable = value;}
 
     public Transform GetTransform() => transform;
 }

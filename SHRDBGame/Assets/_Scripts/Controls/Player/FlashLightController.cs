@@ -1,4 +1,5 @@
 using System.Collections;
+using Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -56,7 +57,7 @@ public void ReadFlashLightInput()
         {
             float waitTime = Random.Range(minBlinkInterval, maxBlinkInterval);
             yield return new WaitForSeconds(waitTime);
-
+            GameManager.Instance.SetValue<float>("FlashLightSeconds", GameManager.Instance.GetValue<float>("FlashLightSeconds") + waitTime);
             if (isFlashLightActive && flashLight.activeSelf)
             {
                 flashLight.SetActive(false);
