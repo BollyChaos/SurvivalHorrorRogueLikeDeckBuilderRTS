@@ -231,6 +231,11 @@ public class UIManager : ASingleton<UIManager>, IManager
     }
     #endregion
     #region PLAYERUI
+    public void HideBeginningImage()
+    {
+        PlayerHUD.transform.Find("BeginningImage").gameObject.SetActive(false);
+        DialogManager.Instance.onEndDialog.RemoveListener(HideBeginningImage);
+    }
     public void ShowMobileInput()
     {
 

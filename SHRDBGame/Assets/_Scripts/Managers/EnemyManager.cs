@@ -180,7 +180,7 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
     [ContextMenu("PararEnemigos")]
     public void OnDialogEnemies()
     {
-        vecinosSpawner.OnDialogEnemies();
+        vecinosSpawner?.OnDialogEnemies();
         if (_abuelo != null && _abuelo.activeSelf)
         {
 
