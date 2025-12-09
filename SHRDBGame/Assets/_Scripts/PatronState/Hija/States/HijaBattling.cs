@@ -27,6 +27,7 @@ public class HijaBattling : AEnemyState
         enemy.SetTalkable(false);
         _agent.isStopped = false;
         _canAttack = true;
+        enemy.SetTalkable(false);
         Debug.Log("Enter State HijaBattling");
     }
 

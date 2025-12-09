@@ -20,6 +20,10 @@ public class HijaBehaviour : MonoBehaviour, IInteractable
 
     public string GetInteractionText()
     {
+        if (!GetComponent<HijaController>().IsTalkable()){
+            return "";
+        }
+        
         return "Pulsa E para hablar con la Hija";
     }
 
@@ -39,6 +43,7 @@ public class HijaBehaviour : MonoBehaviour, IInteractable
         HijaController hija = GetComponent<HijaController>();
         PlayerInventory inv = FindObjectOfType<PlayerInventory>();
 
+        
         switch (phase)
         {
             case HijaPhase.BERFOREGIFT:
