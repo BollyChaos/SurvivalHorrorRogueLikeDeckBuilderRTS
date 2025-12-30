@@ -61,19 +61,19 @@ public class EnemyController : MonoBehaviour, IEnemy
         currentState = state;
         currentState.Enter();
     }
-    public int GetChaseSpeed()
+    public virtual int GetChaseSpeed()
     {
         return chaseSpeed;
     }
-    public void SetChaseSpeed(int speed)
+    public virtual void SetChaseSpeed(int speed)
     {
         chaseSpeed = speed;
     }
-    public int GetPatrolSpeed()
+    public virtual int GetPatrolSpeed()
     {
         return patrolSpeed;
     }
-    public void SetPatrolSpeed(int speed)
+    public virtual void SetPatrolSpeed(int speed)
     {
         patrolSpeed = speed;
     }
@@ -297,6 +297,42 @@ public class EnemyController : MonoBehaviour, IEnemy
         throw new System.NotImplementedException();
     }
 
+    #endregion
+
+    #region hijo
+
+    public virtual void PhaseTwo()
+    {
+        throw new System.NotImplementedException();
+    }
+    public virtual void PhaseThree()
+    {
+        throw new System.NotImplementedException();
+    }
+    public virtual float GetCurrentHealth()
+    {
+        throw new System.NotImplementedException();
+    }
+    public virtual float GetMaxHealth()
+    {
+        throw new System.NotImplementedException();
+    }
+    public virtual void RecordAttack()
+    {
+        
+    }
+    public virtual void ClearAttackRecords()
+    {
+        throw new System.NotImplementedException();
+    }
+    public virtual void PopAttack()
+    {
+        throw new System.NotImplementedException();
+    }
+    public virtual int NAttacksRecieved()
+    {
+        throw new System.NotImplementedException();
+    }
     #endregion
 
 }

@@ -71,7 +71,11 @@ public class EnemyCombat : MonoBehaviour
     public void TakeDamage(float amount)
     {
         stats.TakeDamage(amount);
-
+        if (enemyController != null)
+        {
+            enemyController.RecordAttack();
+        }
+        
         //  Iniciar el efecto de color al recibir daño
         if (renderers != null)
         {
