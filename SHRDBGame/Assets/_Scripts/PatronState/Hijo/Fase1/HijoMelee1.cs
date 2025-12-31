@@ -20,7 +20,7 @@ public class HijoMelee1 : AEnemyState
         _player = enemy.PlayerAtSight();
         _currentTransform = enemy.GetGameObject().transform;
         _agent = enemy.GetNavMeshAgent();
-        enemy.AttackPlayer();
+
         _cdCoroutine = enemy.GetGameObject().GetComponent<MonoBehaviour>().StartCoroutine(CD());
         //meleeSpeed = enemy.GetMeleeSpeed();
         //Debug.Log("ENTERING MELEE STATE");
@@ -51,6 +51,8 @@ public class HijoMelee1 : AEnemyState
     private IEnumerator CD()
     {
         _agent.isStopped = true;
+
+        enemy.AttackPlayer();
 
         yield return new WaitForSeconds(1f);
     

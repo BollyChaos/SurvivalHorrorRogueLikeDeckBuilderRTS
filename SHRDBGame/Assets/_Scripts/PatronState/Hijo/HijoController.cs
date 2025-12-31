@@ -9,13 +9,16 @@ public class HijoController : EnemyController
     private float _maxHealth;
     private bool canPhaseTwo = true;
     private bool canPhaseThree = true;
-    
-    [SerializeField]private float damage = 50f;
-    [SerializeField]private float rangeDamage = 20f;
-    [SerializeField]private int speed = 5;
-    private int attacksRecieved=0;
+
+    [SerializeField] private float damage = 50f;
+    [SerializeField] private float rangeDamage = 20f;
+    [SerializeField] private int speed = 5;
+    private int attacksRecieved = 0;
     [SerializeField] GameObject slashPrefab;
     [SerializeField] GameObject BulletPrefab;
+    private GameObject _player;
+    private bool canRangeAttack = true;
+    [SerializeField] private float rangeAttackCooldown = 1.5f;
     private void Awake()
     {
         base.Awake();
@@ -24,7 +27,8 @@ public class HijoController : EnemyController
     {
         _currentHealth = GetComponent<EnemyCombat>().stats.CurrentHealth;
         _maxHealth = GetComponent<EnemyCombat>().stats.MaxHealth;
-        //SetState(new HijoPatrolling(this));
+        _player = GameObject.FindGameObjectWithTag("Player");
+        SetState(new HijoIdle(this));
     }
     void Update()
     {
@@ -48,7 +52,7 @@ public class HijoController : EnemyController
                 PhaseThree();
                 canPhaseThree = false;
             }
-            
+
         }
     }
     public override void PhaseTwo()
@@ -68,6 +72,12 @@ public class HijoController : EnemyController
     {
         return _maxHealth;
     }
+
+    public override GameObject GetPlayer()
+    {
+        return _player;
+    }
+
 
     public override void AttackPlayer()
     {
@@ -113,16 +123,29 @@ public class HijoController : EnemyController
     {
         attacksRecieved = 0;
     }
-    public override void PopAttack()
+    public override void ConsumeRangeAttack()
     {
-        if (attacksRecieved > 0)
-        {
-            attacksRecieved--;
-        }
+        if (attacksRecieved <= 0 || !canRangeAttack) return;
+
+        attacksRecieved--;
+        canRangeAttack = false;
+        StartCoroutine(RangeAttackCooldown());
     }
+
     public override int NAttacksRecieved()
     {
         return attacksRecieved;
+    }
+
+    public override bool CanDoRangeAttack()
+    {
+        return canRangeAttack && attacksRecieved > 0;
+    }
+
+    private IEnumerator RangeAttackCooldown()
+    {
+        yield return new WaitForSeconds(rangeAttackCooldown);
+        canRangeAttack = true;
     }
 
 }

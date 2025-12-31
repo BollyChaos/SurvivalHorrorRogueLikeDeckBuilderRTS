@@ -325,11 +325,15 @@ public class EnemyController : MonoBehaviour, IEnemy
     {
         throw new System.NotImplementedException();
     }
-    public virtual void PopAttack()
+    public virtual void ConsumeRangeAttack()
     {
         throw new System.NotImplementedException();
     }
     public virtual int NAttacksRecieved()
+    {
+        throw new System.NotImplementedException();
+    }
+    public virtual bool CanDoRangeAttack()
     {
         throw new System.NotImplementedException();
     }

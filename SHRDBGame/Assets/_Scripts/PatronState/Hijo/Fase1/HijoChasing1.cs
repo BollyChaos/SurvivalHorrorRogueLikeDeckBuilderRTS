@@ -12,17 +12,15 @@ public class HijoChasing1 : AEnemyState
     private float distanceToPlayer;
     private float _currentHealth;
     private float _maxHealth;
-    private bool canRangeAttack = true;
     private int lastHealthStep = 0;
     private NavMeshAgent _agent;
-    private Coroutine _cdCoroutine;
     public HijoChasing1(IEnemy enemy) : base(enemy)
     {
     }
 
     public override void Enter()
     {
-        _player = enemy.PlayerAtSight();
+        _player = enemy.GetPlayer();
         _currentTransform = enemy.GetGameObject().transform;
         chaseSpeed = enemy.GetChaseSpeed();
         _currentHealth = enemy.GetCurrentHealth();
@@ -31,20 +29,19 @@ public class HijoChasing1 : AEnemyState
         //Debug.Log("ENTERING CHASING STATE");
         //Debug.Log("Entering Chasing Player State");
         lastHealthStep = Mathf.FloorToInt((_maxHealth - _currentHealth) / (_maxHealth * 0.1f));
+
+        
+        enemy.GetNavMeshAgent().speed = chaseSpeed;
     }
 
     public override void Exit()
     {
         //Debug.Log("EXITING CHASING STATE");
-        if (_cdCoroutine != null)
-        {
-            enemy.GetGameObject().GetComponent<MonoBehaviour>().StopCoroutine(_cdCoroutine); // Detiene solo esta, no todas
-            _cdCoroutine = null;
-        }
     }
 
     public override void FixedUpdate()
     {
+        enemy.GetNavMeshAgent().SetDestination(_player.transform.position);
         _currentHealth = enemy.GetCurrentHealth();
         int currentStep = Mathf.FloorToInt((_maxHealth - _currentHealth) / (_maxHealth * 0.1f));
         if (currentStep > lastHealthStep)
@@ -54,18 +51,17 @@ public class HijoChasing1 : AEnemyState
         }
         enemy.LookAt(_player.transform.position);
         float distanceToPlayer = Vector3.Distance(_currentTransform.position, _player.transform.position);
-        enemy.GetNavMeshAgent().speed = chaseSpeed;
-        enemy.GetNavMeshAgent().SetDestination(_player.transform.position);
+
+        //Comprobar si puede hacer ataque a distancia viendo si ha recibido ataques
         if (enemy.NAttacksRecieved() > 0)
         {
-            if (canRangeAttack)
+            if (enemy.CanDoRangeAttack())
             {
-                canRangeAttack = false;
                 enemy.RangeAttackPlayer();
-                enemy.PopAttack();
-                _cdCoroutine = enemy.GetGameObject().GetComponent<MonoBehaviour>().StartCoroutine(CD());
+                enemy.ConsumeRangeAttack();
             }
         }
+
         if (distanceToPlayer < 3f)
         {
             enemy.SetState(new HijoMelee1(enemy));
@@ -75,13 +71,6 @@ public class HijoChasing1 : AEnemyState
 
     public override void Update()
     {
-
-    }
-    private IEnumerator CD()
-    {
-
-        yield return new WaitForSeconds(1.5f);
-        canRangeAttack = true;
 
     }
 

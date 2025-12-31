@@ -53,7 +53,8 @@ namespace State.Interfaces
         public float GetMaxHealth();
         public void RecordAttack();
         public void ClearAttackRecords();
-        public void PopAttack();
+        public void ConsumeRangeAttack();
         public int NAttacksRecieved();
+        public bool CanDoRangeAttack();
     }
 }
