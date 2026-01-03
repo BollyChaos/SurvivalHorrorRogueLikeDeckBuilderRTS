@@ -301,14 +301,6 @@ public class EnemyController : MonoBehaviour, IEnemy
 
     #region hijo
 
-    public virtual void PhaseTwo()
-    {
-        throw new System.NotImplementedException();
-    }
-    public virtual void PhaseThree()
-    {
-        throw new System.NotImplementedException();
-    }
     public virtual float GetCurrentHealth()
     {
         throw new System.NotImplementedException();
@@ -333,7 +325,19 @@ public class EnemyController : MonoBehaviour, IEnemy
     {
         throw new System.NotImplementedException();
     }
+    public virtual void SetCanReciveAttacks(bool b)
+    {
+        throw new System.NotImplementedException();
+    }
+    public virtual bool CanReciveAttacks()
+    {
+        return false;
+    }
     public virtual bool CanDoRangeAttack()
+    {
+        throw new System.NotImplementedException();
+    }
+    public virtual void Flashbang()
     {
         throw new System.NotImplementedException();
     }

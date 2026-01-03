@@ -47,14 +47,15 @@ namespace State.Interfaces
         public void GiftReceived();
         public Animator GetAnimator();
         //Poner de aqui en adelante fucniones que puedan realizar los enemigos, ej: Detectar jugador, moverse...
-        public void PhaseTwo();
-        public void PhaseThree();
         public float GetCurrentHealth();
         public float GetMaxHealth();
         public void RecordAttack();
         public void ClearAttackRecords();
         public void ConsumeRangeAttack();
         public int NAttacksRecieved();
+        public void SetCanReciveAttacks(bool b);
+        public bool CanReciveAttacks();
         public bool CanDoRangeAttack();
+        public void Flashbang();
     }
 }

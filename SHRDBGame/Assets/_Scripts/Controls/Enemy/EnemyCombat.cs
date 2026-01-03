@@ -71,7 +71,7 @@ public class EnemyCombat : MonoBehaviour
     public void TakeDamage(float amount)
     {
         stats.TakeDamage(amount);
-        if (enemyController != null)
+        if (enemyController != null && enemyController.CanReciveAttacks())
         {
             enemyController.RecordAttack();
         }

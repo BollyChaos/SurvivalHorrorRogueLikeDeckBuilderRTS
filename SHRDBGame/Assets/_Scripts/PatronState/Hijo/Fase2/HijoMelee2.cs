@@ -4,14 +4,15 @@ using State.Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class HijoRange1 : AEnemyState
+public class HijoMelee2 : AEnemyState
 {
     private Transform _currentTransform;
     private GameObject _player;
     private float distanceToPlayer;
     private Coroutine _cdCoroutine;
     private NavMeshAgent _agent;
-    public HijoRange1(IEnemy enemy) : base(enemy)
+    public 
+    HijoMelee2(IEnemy enemy) : base(enemy)
     {
     }
 
@@ -51,18 +52,13 @@ public class HijoRange1 : AEnemyState
     private IEnumerator CD()
     {
         _agent.isStopped = true;
-        enemy.SetCanReciveAttacks(true);
-        yield return new WaitForSeconds(0.5f);
-        enemy.RangeAttackPlayer();
-        yield return new WaitForSeconds(0.7f);
-        enemy.RangeAttackPlayer();
-        yield return new WaitForSeconds(0.7f);
-        enemy.RangeAttackPlayer();
-        yield return new WaitForSeconds(0.5f);
+
+        enemy.AttackPlayer();
+
+        yield return new WaitForSeconds(1f);
+    
         _agent.isStopped = false;
-        enemy.SetCanReciveAttacks(false);
-        enemy.SetState(new HijoChasing1(enemy));
+        enemy.SetState(new HijoChasing2(enemy));
 
     }
-    
 }

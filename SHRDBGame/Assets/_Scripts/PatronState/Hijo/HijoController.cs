@@ -14,8 +14,10 @@ public class HijoController : EnemyController
     [SerializeField] private float rangeDamage = 20f;
     [SerializeField] private int speed = 5;
     private int attacksRecieved = 0;
+    private bool canReciveAttacks = false;
     [SerializeField] GameObject slashPrefab;
     [SerializeField] GameObject BulletPrefab;
+    [SerializeField] GameObject flashbangLightPrefab;
     private GameObject _player;
     private bool canRangeAttack = true;
     [SerializeField] private float rangeAttackCooldown = 1.5f;
@@ -27,6 +29,7 @@ public class HijoController : EnemyController
     {
         _currentHealth = GetComponent<EnemyCombat>().stats.CurrentHealth;
         _maxHealth = GetComponent<EnemyCombat>().stats.MaxHealth;
+        flashbangLightPrefab.SetActive(false);
         _player = GameObject.FindGameObjectWithTag("Player");
         SetState(new HijoIdle(this));
     }
@@ -39,7 +42,7 @@ public class HijoController : EnemyController
             if (canPhaseTwo)
             {
                 // Cambiar a fase 2
-                PhaseTwo();
+                StartCoroutine(PhaseTwo());
 
                 canPhaseTwo = false;
             }
@@ -49,19 +52,29 @@ public class HijoController : EnemyController
             if (canPhaseThree)
             {
                 // Cambiar a fase 3
-                PhaseThree();
+                StartCoroutine(PhaseThree());
                 canPhaseThree = false;
             }
 
         }
     }
-    public override void PhaseTwo()
+    private IEnumerator PhaseTwo()
     {
-        //SetState(new HijoPhaseTwo(this));
+        Debug.Log("Entering Phase Two");
+        GetAgent().isStopped = true;
+        yield return new WaitForSeconds(1.5f);
+        GetAgent().isStopped = false;
+        SetCanReciveAttacks(true);
+        SetState(new HijoChasing2(this));
     }
-    public override void PhaseThree()
+    private IEnumerator PhaseThree()
     {
-        //SetState(new HijoPhaseThree(this));
+        Debug.Log("Entering Phase Three");
+        GetAgent().isStopped = true;
+        yield return new WaitForSeconds(1.5f);
+        GetAgent().isStopped = false;
+        SetCanReciveAttacks(true);
+        //SetState(new HijoChasing2(this));
     }
 
     public override float GetCurrentHealth()
@@ -110,6 +123,12 @@ public class HijoController : EnemyController
         Destroy(sPrefab, 5f);
     }
 
+    public override void Flashbang()
+    {
+        // Implementar efecto de flashbang si es necesario
+        StartCoroutine(FlashbangRoutine());
+    }
+
     public override int GetChaseSpeed()
     {
         return speed;
@@ -136,6 +155,14 @@ public class HijoController : EnemyController
     {
         return attacksRecieved;
     }
+    public override bool CanReciveAttacks()
+    {
+        return canReciveAttacks;
+    }
+    public override void SetCanReciveAttacks(bool b)
+    {
+        canReciveAttacks = b;
+    }
 
     public override bool CanDoRangeAttack()
     {
@@ -144,8 +171,38 @@ public class HijoController : EnemyController
 
     private IEnumerator RangeAttackCooldown()
     {
+        yield return new WaitForSeconds(0.7f);
+        RangeAttackPlayer();
         yield return new WaitForSeconds(rangeAttackCooldown);
         canRangeAttack = true;
     }
+    
+    private IEnumerator FlashbangRoutine()
+{;
+    float flashInitialIntensity = 1000000f;
+    float flashDuration = 2f;
+    float flashRange = 20f;
+    // Instanciar luz
+    flashbangLightPrefab.SetActive(true);
+    Light flash =  flashbangLightPrefab.GetComponent<Light>();
+
+    flash.intensity = flashInitialIntensity;
+    flash.range = flashRange;
+
+    float elapsed = 0f;
+
+    while (elapsed < flashDuration)
+    {
+        elapsed += Time.deltaTime;
+
+        float t = elapsed / flashDuration;
+        flash.intensity = flashInitialIntensity * Mathf.Exp(-t * 6f);
+
+        yield return null;
+    }
+
+    flash.intensity = 0f;
+    flashbangLightPrefab.SetActive(false);
+}
 
 }

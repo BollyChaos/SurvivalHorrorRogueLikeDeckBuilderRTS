@@ -4,7 +4,7 @@ using State.Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class HijoChasing1 : AEnemyState
+public class HijoChasing2 : AEnemyState
 {
     private Transform _currentTransform;
     private GameObject _player;
@@ -14,7 +14,7 @@ public class HijoChasing1 : AEnemyState
     private float _maxHealth;
     private int lastHealthStep = 0;
     private NavMeshAgent _agent;
-    public HijoChasing1(IEnemy enemy) : base(enemy)
+    public HijoChasing2(IEnemy enemy) : base(enemy)
     {
     }
 
@@ -28,9 +28,9 @@ public class HijoChasing1 : AEnemyState
         _agent = enemy.GetNavMeshAgent();
         //Debug.Log("ENTERING CHASING STATE");
         //Debug.Log("Entering Chasing Player State");
-        lastHealthStep = Mathf.FloorToInt((_maxHealth - _currentHealth) / (_maxHealth * 0.1f));
+        lastHealthStep = Mathf.FloorToInt((_maxHealth - _currentHealth) / (_maxHealth * 0.15f));
 
-        
+
         enemy.GetNavMeshAgent().speed = chaseSpeed;
     }
 
@@ -43,27 +43,28 @@ public class HijoChasing1 : AEnemyState
     {
         enemy.GetNavMeshAgent().SetDestination(_player.transform.position);
         _currentHealth = enemy.GetCurrentHealth();
-        int currentStep = Mathf.FloorToInt((_maxHealth - _currentHealth) / (_maxHealth * 0.1f));
+        int currentStep = Mathf.FloorToInt((_maxHealth - _currentHealth) / (_maxHealth * 0.15f));
         if (currentStep > lastHealthStep)
         {
-            enemy.SetState(new HijoRange1(enemy));
-            lastHealthStep = currentStep;
+            if (enemy.NAttacksRecieved() % 2 == 0)
+            {
+                enemy.SetState(new HijoFlash2(enemy));
+                lastHealthStep = currentStep;
+            }
+            else
+            {
+                enemy.SetState(new HijoFlash2(enemy));
+                lastHealthStep = currentStep;
+            }
         }
         enemy.LookAt(_player.transform.position);
         float distanceToPlayer = Vector3.Distance(_currentTransform.position, _player.transform.position);
 
         //Comprobar si puede hacer ataque a distancia viendo si ha recibido ataques
-        if (enemy.NAttacksRecieved() > 0)
-        {
-            if (enemy.CanDoRangeAttack())
-            {
-                enemy.ConsumeRangeAttack();
-            }
-        }
 
         if (distanceToPlayer < 3f)
         {
-            enemy.SetState(new HijoMelee1(enemy));
+            enemy.SetState(new HijoMelee2(enemy));
             return;
         }
     }
