@@ -18,6 +18,9 @@ public class HijoController : EnemyController
     [SerializeField] GameObject slashPrefab;
     [SerializeField] GameObject BulletPrefab;
     [SerializeField] GameObject flashbangLightPrefab;
+    [SerializeField] GameObject firePrefab;
+    [SerializeField] RoomTrigger roomTrigger;
+    private BoxCollider boxCollider;
     private GameObject _player;
     private bool canRangeAttack = true;
     [SerializeField] private float rangeAttackCooldown = 1.5f;
@@ -30,6 +33,7 @@ public class HijoController : EnemyController
         _currentHealth = GetComponent<EnemyCombat>().stats.CurrentHealth;
         _maxHealth = GetComponent<EnemyCombat>().stats.MaxHealth;
         flashbangLightPrefab.SetActive(false);
+        boxCollider = roomTrigger.GetComponent<BoxCollider>();
         _player = GameObject.FindGameObjectWithTag("Player");
         SetState(new HijoIdle(this));
     }
@@ -115,10 +119,10 @@ public class HijoController : EnemyController
         ParticleSystem ps = sPrefab.GetComponent<ParticleSystem>();
         ps.Play();
 
-        PrefabDamage slash = sPrefab.GetComponent<PrefabDamage>();
-        if (slash != null)
+        PrefabDamage bullet = sPrefab.GetComponent<PrefabDamage>();
+        if (bullet != null)
         {
-            slash.Initialize(rangeDamage, "Player");
+            bullet.Initialize(rangeDamage, "Player");
         }
         Destroy(sPrefab, 5f);
     }
@@ -127,6 +131,11 @@ public class HijoController : EnemyController
     {
         // Implementar efecto de flashbang si es necesario
         StartCoroutine(FlashbangRoutine());
+    }
+    public override void FireAttack()
+    {
+        // Implementar efecto de fuego si es necesario
+        StartCoroutine(FireRoutine());
     }
 
     public override int GetChaseSpeed()
@@ -169,6 +178,18 @@ public class HijoController : EnemyController
         return canRangeAttack && attacksRecieved > 0;
     }
 
+    public override Vector3 GetRandomPointInsideBox(BoxCollider box)
+    {
+        Vector3 center = box.bounds.center;
+        Vector3 size = box.bounds.size;
+
+        float x = Random.Range(center.x - size.x / 2f, center.x + size.x / 2f);
+        float y = transform.position.y; // Mantener la misma altura del enemigo
+        float z = Random.Range(center.z - size.z / 2f, center.z + size.z / 2f);
+
+        return new Vector3(x, y, z);
+    }
+
     private IEnumerator RangeAttackCooldown()
     {
         yield return new WaitForSeconds(0.7f);
@@ -176,33 +197,55 @@ public class HijoController : EnemyController
         yield return new WaitForSeconds(rangeAttackCooldown);
         canRangeAttack = true;
     }
-    
+
     private IEnumerator FlashbangRoutine()
-{;
-    float flashInitialIntensity = 1000000f;
-    float flashDuration = 2f;
-    float flashRange = 20f;
-    // Instanciar luz
-    flashbangLightPrefab.SetActive(true);
-    Light flash =  flashbangLightPrefab.GetComponent<Light>();
-
-    flash.intensity = flashInitialIntensity;
-    flash.range = flashRange;
-
-    float elapsed = 0f;
-
-    while (elapsed < flashDuration)
     {
-        elapsed += Time.deltaTime;
+        float flashInitialIntensity = 1000000f;
+        float flashDuration = 2f;
+        float flashRange = 20f;
+        // Instanciar luz
+        flashbangLightPrefab.SetActive(true);
+        Light flash = flashbangLightPrefab.GetComponent<Light>();
 
-        float t = elapsed / flashDuration;
-        flash.intensity = flashInitialIntensity * Mathf.Exp(-t * 6f);
+        flash.intensity = flashInitialIntensity;
+        flash.range = flashRange;
 
-        yield return null;
+        float elapsed = 0f;
+
+        while (elapsed < flashDuration)
+        {
+            elapsed += Time.deltaTime;
+
+            float t = elapsed / flashDuration;
+            flash.intensity = flashInitialIntensity * Mathf.Exp(-t * 6f);
+
+            yield return null;
+        }
+
+        flash.intensity = 0f;
+        flashbangLightPrefab.SetActive(false);
     }
 
-    flash.intensity = 0f;
-    flashbangLightPrefab.SetActive(false);
-}
+    private IEnumerator FireRoutine()
+    {
+        GetAgent().isStopped = true;
+        yield return new WaitForSeconds(1f);
+        GetAgent().isStopped = false;
+        GameObject[] fire = new GameObject[10];
+        for (int i = 0; i < 10; i++)
+        {
+            Vector3 randomPoint = GetRandomPointInsideBox(boxCollider);
+            fire[i] = Instantiate(firePrefab, randomPoint, Quaternion.identity);
+            fire[i].SetActive(true);
+            PrefabDamage firepre = fire[i].GetComponent<PrefabDamage>();
+            if (firepre != null)
+            {
+                firepre.Initialize(rangeDamage, "Player");
+            }
+            Destroy(fire[i], Random.Range(3f, 5f));
+            yield return new WaitForSeconds(0.5f);
+        }
+        GetAgent().isStopped = false;
+    }
 
 }

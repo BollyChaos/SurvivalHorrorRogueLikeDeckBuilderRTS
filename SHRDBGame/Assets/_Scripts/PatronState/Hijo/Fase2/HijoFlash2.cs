@@ -20,6 +20,8 @@ public class HijoFlash2 : AEnemyState
         _player = enemy.PlayerAtSight();
         _currentTransform = enemy.GetGameObject().transform;
         _agent = enemy.GetNavMeshAgent();
+        enemy.Flashbang();
+        enemy.SetState(new HijoChasing2(enemy));
     }
 
     public override void Exit()
@@ -30,8 +32,7 @@ public class HijoFlash2 : AEnemyState
     public override void FixedUpdate()
     {
 
-        enemy.Flashbang();
-        enemy.SetState(new HijoChasing2(enemy));
+        
     }
 
     public override void Update()

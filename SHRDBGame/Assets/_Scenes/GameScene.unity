@@ -40739,28 +40739,6 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
---- !u!1 &734103848 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2503471619330757306, guid: 8999a9da950ac4e768dbf963c2203617, type: 3}
-  m_PrefabInstance: {fileID: 2100149186}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &734103852
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 734103848}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IsGlobal: 1
-  priority: 0
-  blendDistance: 0
-  weight: 1
-  sharedProfile: {fileID: 0}
 --- !u!1001 &734799302
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -90542,14 +90520,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2503471619330757306, guid: 8999a9da950ac4e768dbf963c2203617, type: 3}
-      propertyPath: m_Name
-      value: Flash
-      objectReference: {fileID: 0}
-    - target: {fileID: 2503471619330757306, guid: 8999a9da950ac4e768dbf963c2203617, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
+    - target: {fileID: 2465131274253577205, guid: 8999a9da950ac4e768dbf963c2203617, type: 3}
+      propertyPath: roomTrigger
+      value: 
+      objectReference: {fileID: 1715643922}
     - target: {fileID: 8516829565936684267, guid: 8999a9da950ac4e768dbf963c2203617, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.91
@@ -90597,10 +90571,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2503471619330757306, guid: 8999a9da950ac4e768dbf963c2203617, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 734103852}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8999a9da950ac4e768dbf963c2203617, type: 3}
 --- !u!1 &2101531277
 GameObject:

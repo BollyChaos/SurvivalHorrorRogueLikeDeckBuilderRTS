@@ -57,5 +57,7 @@ namespace State.Interfaces
         public bool CanReciveAttacks();
         public bool CanDoRangeAttack();
         public void Flashbang();
+        public void FireAttack();
+        public Vector3 GetRandomPointInsideBox(BoxCollider box);
     }
 }

@@ -53,7 +53,7 @@ public class HijoChasing2 : AEnemyState
             }
             else
             {
-                enemy.SetState(new HijoFlash2(enemy));
+                enemy.SetState(new HijoFire2(enemy));
                 lastHealthStep = currentStep;
             }
         }

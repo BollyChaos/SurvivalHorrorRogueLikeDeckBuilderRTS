@@ -11,21 +11,22 @@ public class HijoFire2 : AEnemyState
 
     public override void Enter()
     {
-        throw new System.NotImplementedException();
+        enemy.FireAttack();
+        enemy.SetState(new HijoChasing2(enemy));
     }
 
     public override void Exit()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public override void FixedUpdate()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public override void Update()
     {
-        throw new System.NotImplementedException();
+        
     }
 }
