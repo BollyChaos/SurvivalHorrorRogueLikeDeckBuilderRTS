@@ -90524,6 +90524,10 @@ PrefabInstance:
       propertyPath: roomTrigger
       value: 
       objectReference: {fileID: 1715643922}
+    - target: {fileID: 3095314675416965435, guid: 8999a9da950ac4e768dbf963c2203617, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 8516829565936684267, guid: 8999a9da950ac4e768dbf963c2203617, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.91
