@@ -345,6 +345,10 @@ public class EnemyController : MonoBehaviour, IEnemy
     {
         throw new System.NotImplementedException();
     }
+    public virtual void MeteorAttackPlayer()
+    {
+        throw new System.NotImplementedException();
+    }
     public virtual Vector3 GetRandomPointInsideBox(BoxCollider box)
     {
         throw new System.NotImplementedException();

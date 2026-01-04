@@ -24471,7 +24471,7 @@ GameObject:
   - component: {fileID: 523012865760810032}
   - component: {fileID: 3989717829950661634}
   m_Layer: 0
-  m_Name: Charge slash red
+  m_Name: ChargeSlashRed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

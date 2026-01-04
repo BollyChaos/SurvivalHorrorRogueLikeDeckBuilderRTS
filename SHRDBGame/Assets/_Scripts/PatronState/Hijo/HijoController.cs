@@ -17,8 +17,10 @@ public class HijoController : EnemyController
     private bool canReciveAttacks = false;
     [SerializeField] GameObject slashPrefab;
     [SerializeField] GameObject BulletPrefab;
+    [SerializeField] GameObject MeteorPrefab;
     [SerializeField] GameObject flashbangLightPrefab;
     [SerializeField] GameObject firePrefab;
+    [SerializeField] GameObject PhasingAuraPrefab;
     [SerializeField] RoomTrigger roomTrigger;
     private BoxCollider boxCollider;
     private GameObject _player;
@@ -66,7 +68,17 @@ public class HijoController : EnemyController
     {
         Debug.Log("Entering Phase Two");
         GetAgent().isStopped = true;
-        yield return new WaitForSeconds(1.5f);
+        GetState().Exit();
+        yield return new WaitForSeconds(0.5f);
+
+        //Aura de fase
+        GameObject sPrefab = Instantiate(PhasingAuraPrefab, transform.position, transform.rotation);
+        sPrefab.SetActive(true);
+        ParticleSystem ps = sPrefab.GetComponent<ParticleSystem>();
+        ps.Play();
+
+        yield return new WaitForSeconds(2f);
+        Destroy(sPrefab);
         GetAgent().isStopped = false;
         SetCanReciveAttacks(true);
         SetState(new HijoChasing2(this));
@@ -75,10 +87,20 @@ public class HijoController : EnemyController
     {
         Debug.Log("Entering Phase Three");
         GetAgent().isStopped = true;
-        yield return new WaitForSeconds(1.5f);
+        GetState().Exit();
+        yield return new WaitForSeconds(0.5f);
+
+        //Aura de fase
+        GameObject sPrefab = Instantiate(PhasingAuraPrefab, transform.position, transform.rotation);
+        sPrefab.SetActive(true);
+        ParticleSystem ps = sPrefab.GetComponent<ParticleSystem>();
+        ps.Play();
+
+        yield return new WaitForSeconds(2f);
+        Destroy(sPrefab);
         GetAgent().isStopped = false;
         SetCanReciveAttacks(true);
-        //SetState(new HijoChasing2(this));
+        //SetState(new HijoChasing3(this));
     }
 
     public override float GetCurrentHealth()
@@ -94,7 +116,6 @@ public class HijoController : EnemyController
     {
         return _player;
     }
-
 
     public override void AttackPlayer()
     {
@@ -125,6 +146,20 @@ public class HijoController : EnemyController
             bullet.Initialize(rangeDamage, "Player");
         }
         Destroy(sPrefab, 5f);
+    }
+    public override void MeteorAttackPlayer()
+    {
+        GameObject sPrefab = Instantiate(MeteorPrefab, _player.transform.position, Quaternion.identity);
+        sPrefab.SetActive(true);
+        ParticleSystem ps = sPrefab.GetComponent<ParticleSystem>();
+        ps.Play();
+
+        PrefabDamage meteor = sPrefab.GetComponent<PrefabDamage>();
+        if (meteor != null)
+        {
+            meteor.Initialize(rangeDamage , "Player");
+        }
+        Destroy(sPrefab, 2f);
     }
 
     public override void Flashbang()
@@ -193,7 +228,8 @@ public class HijoController : EnemyController
     private IEnumerator RangeAttackCooldown()
     {
         yield return new WaitForSeconds(0.7f);
-        RangeAttackPlayer();
+        //Debug.Log("Creando meteorito desde HijoController");
+        MeteorAttackPlayer();
         yield return new WaitForSeconds(rangeAttackCooldown);
         canRangeAttack = true;
     }

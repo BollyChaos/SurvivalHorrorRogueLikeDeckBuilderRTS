@@ -58,6 +58,7 @@ namespace State.Interfaces
         public bool CanDoRangeAttack();
         public void Flashbang();
         public void FireAttack();
+        public void MeteorAttackPlayer();
         public Vector3 GetRandomPointInsideBox(BoxCollider box);
     }
 }

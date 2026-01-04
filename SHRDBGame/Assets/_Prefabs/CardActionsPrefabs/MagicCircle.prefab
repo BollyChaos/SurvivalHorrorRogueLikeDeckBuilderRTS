@@ -14728,7 +14728,7 @@ GameObject:
   - component: {fileID: 1601506141239540749}
   - component: {fileID: 5574110145886096913}
   m_Layer: 0
-  m_Name: Magic circle 2
+  m_Name: MagicCircle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

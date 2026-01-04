@@ -233,7 +233,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1098594926191812542}
   - {fileID: 6227572535122130616}
@@ -260,8 +260,10 @@ MonoBehaviour:
   speed: 5
   slashPrefab: {fileID: 6019284606097982153, guid: f7967d5cc29259345b339191a31d1b7c, type: 3}
   BulletPrefab: {fileID: 7320806799341754823, guid: 18f6324a221c1bd458ab5c231ed2b796, type: 3}
+  MeteorPrefab: {fileID: 8378648546881499446, guid: 8b36e0d385aab7f49b1a62f06eff048e, type: 3}
   flashbangLightPrefab: {fileID: 2503471619330757306}
   firePrefab: {fileID: 7320806799341754823, guid: 65df9b3cacaa8c74f9e87c2157a08dc6, type: 3}
+  PhasingAuraPrefab: {fileID: 3377181292992421420, guid: ed544ce1863b40841973f97acd1345f0, type: 3}
   roomTrigger: {fileID: 0}
   rangeAttackCooldown: 1.5
 --- !u!114 &4505001820895095910

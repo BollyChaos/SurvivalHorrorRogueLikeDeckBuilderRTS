@@ -53,11 +53,14 @@ public class HijoRange1 : AEnemyState
         _agent.isStopped = true;
         enemy.SetCanReciveAttacks(true);
         yield return new WaitForSeconds(0.5f);
-        enemy.RangeAttackPlayer();
+        //Debug.Log("Creando meteorito desde HijoRange1");
+        enemy.MeteorAttackPlayer();
         yield return new WaitForSeconds(0.7f);
-        enemy.RangeAttackPlayer();
+        //Debug.Log("Creando meteorito desde HijoRange1");
+        enemy.MeteorAttackPlayer();
         yield return new WaitForSeconds(0.7f);
-        enemy.RangeAttackPlayer();
+        //Debug.Log("Creando meteorito desde HijoRange1");
+        enemy.MeteorAttackPlayer();
         yield return new WaitForSeconds(0.5f);
         _agent.isStopped = false;
         enemy.SetCanReciveAttacks(false);
