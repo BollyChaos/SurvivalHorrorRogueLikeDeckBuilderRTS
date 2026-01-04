@@ -4,14 +4,15 @@ using State.Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class HijoMelee2 : AEnemyState
+public class HijoDisableCards3 : AEnemyState
 {
-    private Transform _currentTransform;
+     private Transform _currentTransform;
     private GameObject _player;
     private float distanceToPlayer;
     private Coroutine _cdCoroutine;
     private NavMeshAgent _agent;
-    public HijoMelee2(IEnemy enemy) : base(enemy)
+
+    public HijoDisableCards3(IEnemy enemy) : base(enemy)
     {
     }
 
@@ -31,7 +32,7 @@ public class HijoMelee2 : AEnemyState
 
     public override void Exit()
     {
-        //Debug.Log("EXITING MELEE STATE");
+                //Debug.Log("EXITING MELEE STATE");
         if (_cdCoroutine != null)
         {
             enemy.GetGameObject().GetComponent<MonoBehaviour>().StopCoroutine(_cdCoroutine); // Detiene solo esta, no todas
@@ -41,7 +42,7 @@ public class HijoMelee2 : AEnemyState
 
     public override void FixedUpdate()
     {
-        
+       
     }
 
     public override void Update()
@@ -52,12 +53,12 @@ public class HijoMelee2 : AEnemyState
     {
         _agent.isStopped = true;
 
-        enemy.AttackPlayer();
+        // Aquí va la lógica para deshabilitar las cartas del jugador ADRIAN :)
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.1f);
     
         _agent.isStopped = false;
-        enemy.SetState(new HijoChasing2(enemy));
+        enemy.SetState(new HijoChasing3(enemy));
 
     }
 }

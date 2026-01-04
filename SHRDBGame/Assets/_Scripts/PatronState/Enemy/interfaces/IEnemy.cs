@@ -59,6 +59,7 @@ namespace State.Interfaces
         public void Flashbang();
         public void FireAttack();
         public void MeteorAttackPlayer();
+        public void SpearAttackPlayer();
         public Vector3 GetRandomPointInsideBox(BoxCollider box);
     }
 }

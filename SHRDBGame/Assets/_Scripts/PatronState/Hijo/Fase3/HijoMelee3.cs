@@ -4,14 +4,14 @@ using State.Interfaces;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class HijoMelee2 : AEnemyState
+public class HijoMelee3 : AEnemyState
 {
     private Transform _currentTransform;
     private GameObject _player;
     private float distanceToPlayer;
     private Coroutine _cdCoroutine;
     private NavMeshAgent _agent;
-    public HijoMelee2(IEnemy enemy) : base(enemy)
+    public HijoMelee3(IEnemy enemy) : base(enemy)
     {
     }
 
@@ -52,12 +52,12 @@ public class HijoMelee2 : AEnemyState
     {
         _agent.isStopped = true;
 
-        enemy.AttackPlayer();
+        enemy.SpearAttackPlayer();
 
         yield return new WaitForSeconds(1f);
     
         _agent.isStopped = false;
-        enemy.SetState(new HijoChasing2(enemy));
+        enemy.SetState(new HijoChasing3(enemy));
 
     }
 }

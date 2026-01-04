@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class HijoController : EnemyController
@@ -10,7 +11,7 @@ public class HijoController : EnemyController
     private bool canPhaseTwo = true;
     private bool canPhaseThree = true;
 
-    [SerializeField] private float damage = 50f;
+    [SerializeField] private float damage = 40f;
     [SerializeField] private float rangeDamage = 20f;
     [SerializeField] private int speed = 5;
     private int attacksRecieved = 0;
@@ -21,11 +22,14 @@ public class HijoController : EnemyController
     [SerializeField] GameObject flashbangLightPrefab;
     [SerializeField] GameObject firePrefab;
     [SerializeField] GameObject PhasingAuraPrefab;
+    [SerializeField] GameObject FireAuraPrefab;
+    [SerializeField] GameObject spearSlashPrefab;
     [SerializeField] RoomTrigger roomTrigger;
     private BoxCollider boxCollider;
     private GameObject _player;
     private bool canRangeAttack = true;
     [SerializeField] private float rangeAttackCooldown = 1.5f;
+    private Animator _animator;
     private void Awake()
     {
         base.Awake();
@@ -37,10 +41,23 @@ public class HijoController : EnemyController
         flashbangLightPrefab.SetActive(false);
         boxCollider = roomTrigger.GetComponent<BoxCollider>();
         _player = GameObject.FindGameObjectWithTag("Player");
+        _animator = GetComponentInChildren<Animator>();
         SetState(new HijoIdle(this));
     }
     void Update()
     {
+        if(_animator != null)
+        {
+            Debug.Log("Velocity: " + GetAgent().velocity.magnitude);
+            if (GetAgent().velocity.magnitude < 0.1f)
+            {
+                _animator.speed = 0f;
+            }
+            else
+            {
+                _animator.speed = 1f;
+            }
+        }
         base.Update();
         _currentHealth = GetComponent<EnemyCombat>().stats.CurrentHealth;
         if (_currentHealth <= _maxHealth * 0.6f && _currentHealth > _maxHealth * 0.2f)
@@ -72,7 +89,7 @@ public class HijoController : EnemyController
         yield return new WaitForSeconds(0.5f);
 
         //Aura de fase
-        GameObject sPrefab = Instantiate(PhasingAuraPrefab, transform.position, transform.rotation);
+        GameObject sPrefab = Instantiate(PhasingAuraPrefab, transform.position, transform.rotation,transform);
         sPrefab.SetActive(true);
         ParticleSystem ps = sPrefab.GetComponent<ParticleSystem>();
         ps.Play();
@@ -91,7 +108,7 @@ public class HijoController : EnemyController
         yield return new WaitForSeconds(0.5f);
 
         //Aura de fase
-        GameObject sPrefab = Instantiate(PhasingAuraPrefab, transform.position, transform.rotation);
+        GameObject sPrefab = Instantiate(PhasingAuraPrefab, transform.position, transform.rotation, transform);
         sPrefab.SetActive(true);
         ParticleSystem ps = sPrefab.GetComponent<ParticleSystem>();
         ps.Play();
@@ -100,7 +117,7 @@ public class HijoController : EnemyController
         Destroy(sPrefab);
         GetAgent().isStopped = false;
         SetCanReciveAttacks(true);
-        //SetState(new HijoChasing3(this));
+        SetState(new HijoDisableCards3(this));
     }
 
     public override float GetCurrentHealth()
@@ -132,6 +149,7 @@ public class HijoController : EnemyController
         }
         Destroy(sPrefab, 1f);
     }
+
     public override void RangeAttackPlayer()
     {
         GameObject sPrefab = Instantiate(BulletPrefab, transform.position + transform.forward * 2, transform.rotation);
@@ -160,6 +178,21 @@ public class HijoController : EnemyController
             meteor.Initialize(rangeDamage , "Player");
         }
         Destroy(sPrefab, 2f);
+    }
+    public override void SpearAttackPlayer()
+    {
+        ///Se Crea el slash para que el enemigo ataque
+        GameObject sPrefab = Instantiate(spearSlashPrefab, transform.position + transform.forward * 2, transform.rotation);
+        sPrefab.SetActive(true);
+        ParticleSystem ps = sPrefab.GetComponent<ParticleSystem>();
+        ps.Play();
+
+        PrefabDamage slash = sPrefab.GetComponent<PrefabDamage>();
+        if (slash != null)
+        {
+            slash.Initialize(damage+10, "Player");
+        }
+        Destroy(sPrefab, 1.3f);
     }
 
     public override void Flashbang()
@@ -265,7 +298,16 @@ public class HijoController : EnemyController
     private IEnumerator FireRoutine()
     {
         GetAgent().isStopped = true;
+
+        //Aura de fase
+        GameObject sPrefab = Instantiate(FireAuraPrefab, transform.position, transform.rotation, transform);
+        sPrefab.SetActive(true);
+        ParticleSystem ps = sPrefab.GetComponent<ParticleSystem>();
+        ps.Play();
+
         yield return new WaitForSeconds(1f);
+
+        Destroy(sPrefab);
         GetAgent().isStopped = false;
         GameObject[] fire = new GameObject[10];
         for (int i = 0; i < 10; i++)
