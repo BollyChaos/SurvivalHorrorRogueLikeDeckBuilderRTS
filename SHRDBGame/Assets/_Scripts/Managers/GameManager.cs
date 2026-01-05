@@ -46,6 +46,9 @@ namespace Managers
         [ShowIf("SkipPhase", "DebugGame")]
         public bool SkipCardSelectionPhase = true;
         [ShowIf("DebugGame")]
+        [Range(1,5)]
+        public int startingNight=1;
+        [ShowIf("DebugGame")]
         public bool MakeNightsShorter = true;
 
 

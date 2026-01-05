@@ -254,6 +254,8 @@ public class HijoController : EnemyController
     public override void DisableCards()
     {
         //Aqui implementas lo de las cartas Adri, tienes la referencia a player, no se si necesitas algo más
+        CardManager.Instance.RemoveAllCardsFromPlayer();//listo :D
+        //Debug.Log("Cartas del jugador deshabilitadas por el Hijo");
     }
     public override Vector3 GetRandomPointInsideBox(BoxCollider box)
     {

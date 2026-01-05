@@ -36,6 +36,29 @@ public class CardInventory : MonoBehaviour
             Debug.Log(card.card.CardName);
         }
     }
+  public void RemoveAllCards()
+{
+    attackCards = FilterStack(attackCards);
+    defenseCards = FilterStack(defenseCards);
+    utilityCards = FilterStack(utilityCards);
+
+    GetComponent<CardUser>().ClearAllCards();
+}
+
+private Stack<CardObject> FilterStack(Stack<CardObject> original)
+{
+    Stack<CardObject> result = new Stack<CardObject>();
+
+    foreach (var card in original)
+    {
+        if (card.card.cardId == -1)
+            result.Push(card);
+        else
+            card.Discard();
+    }
+
+    return result;
+}
     public void AddCard(CardObject pCard)
     {
         try

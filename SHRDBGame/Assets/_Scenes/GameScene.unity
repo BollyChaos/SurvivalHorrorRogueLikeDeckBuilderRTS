@@ -83807,6 +83807,7 @@ MonoBehaviour:
   - {fileID: 1707617620}
   - {fileID: 1687294763}
   - {fileID: 1986874622}
+  cardDropPrefab: {fileID: 7723569488581496489, guid: 12f9340b5eed37445b189c545dbbc120, type: 3}
 --- !u!65 &1828150230
 BoxCollider:
   m_ObjectHideFlags: 0

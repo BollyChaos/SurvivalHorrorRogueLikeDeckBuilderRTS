@@ -20,8 +20,8 @@ public class DayUnlockDoor : MonoBehaviour, IDoorUnlocker
     {
         if (isNight)
         {
-            nDaysToUnlock--;
-            if (nDaysToUnlock <= 0)
+            //nDaysToUnlock--;
+            if (nDaysToUnlock <= LevelManager.Instance.CurrentNigh)
             {
                 UnlockDoor();
                 LevelManager.Instance.onNightStateChanged.RemoveListener(CheckDayToUnlock);

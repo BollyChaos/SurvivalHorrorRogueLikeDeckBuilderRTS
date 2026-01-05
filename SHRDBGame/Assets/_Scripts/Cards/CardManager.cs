@@ -59,11 +59,15 @@ public class CardManager : ASingleton<CardManager>,IManager
     {
         return GetComponent<CardShuffler>().GetRandomCard();
     }
+    public CardsSO GiveCardByName(string cardName)
+    {
+        return GetComponent<CardShuffler>().GetCardByName(cardName);
+    }
     public void OnStartCardSelection()
     {
         GetComponent<CardShuffler>().nCardsToGive = startingCards;
         List<CardsSO> cardsReceived = GetComponent<CardShuffler>().ShuffleCards();
-Debug.Log($"[{name}]Empezando selección de cartas");
+        Debug.Log($"[{name}]Empezando selección de cartas");
         UIManager.Instance?.BuildCards(cardsReceived);
 
     }
@@ -104,6 +108,11 @@ Debug.Log($"[{name}]Empezando selección de cartas");
     public void GiveCardsToPlayer(List<CardObject> cards)
     {
         FindAnyObjectByType<CardInventory>().AddCards(cards);
+    }
+    [ContextMenu("Remove All Cards From Player")]
+    public void RemoveAllCardsFromPlayer()
+    {
+        FindAnyObjectByType<CardInventory>().RemoveAllCards();
     }
     public void SaveData()
     {

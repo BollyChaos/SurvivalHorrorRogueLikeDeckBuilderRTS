@@ -28,8 +28,8 @@ public class CardUser : MonoBehaviour
     {
         set
         {
-            previousCardType=currentCardType;
-            currentCardType=value;
+            previousCardType = currentCardType;
+            currentCardType = value;
         }
     }
     public bool HasAnyCards
@@ -103,16 +103,16 @@ public class CardUser : MonoBehaviour
     {
         bool canUseButtons = SettingsManager.Instance.GetValue<bool>("UseButtons");
         PlayerInput input = InputManager.Instance.Input;
-            if (canUseButtons)
-            {
-                UnSuscribeNavigationInput(input);
-                ReadButtonsInput(input);
-            }
-            else
-            {
-                UnSuscribeButtonsInput(input);
-                ReadNavigationInput(input);
-            }
+        if (canUseButtons)
+        {
+            UnSuscribeNavigationInput(input);
+            ReadButtonsInput(input);
+        }
+        else
+        {
+            UnSuscribeButtonsInput(input);
+            ReadNavigationInput(input);
+        }
     }
     private void ReadButtonsInput(PlayerInput input)
     {
@@ -286,7 +286,7 @@ public class CardUser : MonoBehaviour
     }
     public void ReadInputCardMobile()
     {
-        cardPressed=true;
+        cardPressed = true;
     }
 
     #endregion
@@ -360,7 +360,7 @@ public class CardUser : MonoBehaviour
     {
         if (cardPressed)
         {
-cardPressed=false;
+            cardPressed = false;
 
             if (canUseCard)
             {
@@ -403,6 +403,37 @@ cardPressed=false;
         canUseCard = false;
         yield return new WaitForSeconds(cardCooldown);
         canUseCard = true;
+    }
+    public void ClearAllCards()
+    {
+        if (AttackCard != null)
+        {
+            if (AttackCard.card.cardId != -1)
+            {
+                GetComponent<CardInventory>().AddCard(AttackCard);
+               AttackCard.Discard();
+                AttackCard = null;
+            }
+        }
+        if (DefenseCard != null)
+        {
+            if (DefenseCard.card.cardId != -1)
+            {
+                GetComponent<CardInventory>().AddCard(DefenseCard);
+                DefenseCard.Discard();
+                DefenseCard = null;
+            }
+        }
+        if (UtilityCard != null)
+        {
+            if (UtilityCard.card.cardId != -1)
+            {
+                GetComponent<CardInventory>().AddCard(UtilityCard);
+                UtilityCard.Discard();
+                UtilityCard = null;
+            }
+
+        }
     }
     public void OnEndGame()
     {

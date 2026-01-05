@@ -162,7 +162,7 @@ public class GameEventsManager : ASingleton<GameEventsManager>, IManager
                 UIManager.Instance.ShowGameEventForAWhile("Va a aparecer salud en la sala: " + rooms[nRoom].roomName + " durante " + timeToDestroy);
                 break;
             case GameEvent.HEALTHRAIN:
-                Debug.Log("Va a aparecer dinero en la sala " + rooms[nRoom].roomName + " durante " + timeToDestroy);
+                Debug.Log("Va a aparecer salud en la sala " + rooms[nRoom].roomName + " durante " + timeToDestroy);
                 UIManager.Instance.ShowGameEventForAWhile("Va a aparecer dinero en la sala: " + rooms[nRoom].roomName + " durante " + timeToDestroy);
 
                 break;

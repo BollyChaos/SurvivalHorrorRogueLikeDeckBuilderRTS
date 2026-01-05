@@ -137,6 +137,10 @@ public class LevelManager : ASingleton<LevelManager>, IManager
     public void OnStartGame()
     {
         currentNight = 1;
+        if(GameManager.Instance.DebugGame)
+        {
+            currentNight = GameManager.Instance.startingNight;
+        }
         nightTimer = 0f;
         totalCardsUsed = 0; 
         totalEnemiesKilled = 0;

@@ -13,6 +13,8 @@ public class CardDrop : MonoBehaviour, IInteractable
     [SerializeField] private GameObject cardMesh;
     [SerializeField] private GameObject cardParticles;
     [SerializeField] private GameObject cardBoughtEffect;
+    public bool RandomCardOnStart = true;
+    public string CardNameOnStart = "Cuchillo";
 
     private bool isInteractable = false;
     public bool IsInteractable { get => isInteractable; set => isInteractable = value; }
@@ -35,7 +37,10 @@ public class CardDrop : MonoBehaviour, IInteractable
 
         cardObject = instantiatedCardUI.GetComponent<CardObject>();
         instantiatedCardUI.SetActive(false);
-        cardObject.card = CardManager.Instance.GiveRandomCard();
+        if (RandomCardOnStart)
+            cardObject.card = CardManager.Instance.GiveRandomCard();
+        else
+            cardObject.card = CardManager.Instance.GiveCardByName(CardNameOnStart);
 
         if (cardObject.card != null)
             cardObject.BuildCard();
