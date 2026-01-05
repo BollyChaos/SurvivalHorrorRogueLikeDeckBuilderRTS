@@ -75,7 +75,7 @@ public class EnemyCombat : MonoBehaviour
         {
             enemyController.RecordAttack();
         }
-        
+
         //  Iniciar el efecto de color al recibir daño
         if (renderers != null)
         {
@@ -85,7 +85,10 @@ public class EnemyCombat : MonoBehaviour
         if (!stats.IsAlive())
         {
             if (enemyController != null)
-                gameObject.GetComponent<EnemyController>().ShootDrops();
+            {
+                enemyController.ShootDrops();
+                enemyController.HijoDeath();
+            }
 
             LevelManager.Instance.AddEnemyKill();
             gameObject.SetActive(false);

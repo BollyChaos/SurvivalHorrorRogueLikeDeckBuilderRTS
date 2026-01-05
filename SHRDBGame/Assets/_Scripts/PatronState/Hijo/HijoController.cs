@@ -246,6 +246,15 @@ public class HijoController : EnemyController
         return canRangeAttack && attacksRecieved > 0;
     }
 
+    public override void HijoDeath()
+    {
+        LevelManager.Instance.NextNight();
+    }
+
+    public override void DisableCards()
+    {
+        //Aqui implementas lo de las cartas Adri, tienes la referencia a player, no se si necesitas algo más
+    }
     public override Vector3 GetRandomPointInsideBox(BoxCollider box)
     {
         Vector3 center = box.bounds.center;

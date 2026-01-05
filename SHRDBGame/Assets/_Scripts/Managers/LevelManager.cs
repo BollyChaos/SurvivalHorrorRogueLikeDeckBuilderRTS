@@ -31,7 +31,7 @@ public class LevelManager : ASingleton<LevelManager>, IManager
     {
         if (!isNightActive) return;
         nightTimer += Time.deltaTime;
-        if (nightTimer >= nightDuration)
+        if (nightTimer >= nightDuration && currentNight <5)
         {
             EndNight();
         }
@@ -72,7 +72,7 @@ public class LevelManager : ASingleton<LevelManager>, IManager
         else
         {
             Debug.Log("All nights completed!");
-            WinGame();
+            StartCoroutine(WinGame());
             // Aquí puedes agregar la lógica para cuando se completen todas las noches
         }
     }
@@ -88,10 +88,11 @@ public class LevelManager : ASingleton<LevelManager>, IManager
         //Desactivar enemigos
         EnemyManager.Instance.StopEnemies();
     }
-    public void WinGame()
+    public IEnumerator WinGame()
     {
         Debug.Log("Fin de la partida");
         AddWinCount();
+        yield return new WaitForSeconds(0.5f);
         InputManager.Instance.SwitchMapToUI();
         //llamar al uimanager tambien
 
@@ -117,7 +118,7 @@ public class LevelManager : ASingleton<LevelManager>, IManager
     public void AddWinCount()
     {
         //Llamar al game manager para que aumente el contador de victorias
-        GameManager.Instance.SetValue<float>("NWins", GameManager.Instance.GetValue<float>("NWins") + 1);
+        //GameManager.Instance.SetValue<float>("NWins", GameManager.Instance.GetValue<float>("NWins") + 1);
     }   
     #region MANAGERLOGIC
     public void LoadData()

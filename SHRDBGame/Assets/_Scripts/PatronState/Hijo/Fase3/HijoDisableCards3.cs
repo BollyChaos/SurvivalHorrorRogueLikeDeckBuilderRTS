@@ -54,6 +54,7 @@ public class HijoDisableCards3 : AEnemyState
         _agent.isStopped = true;
 
         // Aquí va la lógica para deshabilitar las cartas del jugador ADRIAN :)
+        enemy.DisableCards();
 
         yield return new WaitForSeconds(0.1f);
     

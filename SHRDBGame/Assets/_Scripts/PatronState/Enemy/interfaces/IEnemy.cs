@@ -60,6 +60,8 @@ namespace State.Interfaces
         public void FireAttack();
         public void MeteorAttackPlayer();
         public void SpearAttackPlayer();
+        public void HijoDeath();
+        public void DisableCards();
         public Vector3 GetRandomPointInsideBox(BoxCollider box);
     }
 }

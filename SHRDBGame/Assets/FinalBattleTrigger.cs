@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,9 @@ public class FinalBattleTrigger : MonoBehaviour
     private bool playerInRoom;
     private LevelManager levelManager;
 
+    [SerializeField]
+    GameObject cardDropPrefab;
+    
     public void Start()
     {
         levelManager = FindAnyObjectByType<LevelManager>();
@@ -25,6 +29,7 @@ public class FinalBattleTrigger : MonoBehaviour
                 if(levelManager.CurrentNigh >= 5)
                 {
                     CerrarPuertas();
+                    SpawnCard();
                 }
             }
         }
@@ -70,5 +75,20 @@ public class FinalBattleTrigger : MonoBehaviour
     public bool IsPlayerInRoom()
     {
         return playerInRoom;
+    }
+
+    private void SpawnCard()
+    {
+        InstantiateCard(cardDropPrefab, 1);
+    }
+
+    private void InstantiateCard(GameObject prefab, int nDrops)
+    {
+        Vector3 spawnPos = new Vector3(3.6400001f,0,120.779999f);
+            spawnPos += Vector3.up * 8;
+            GameObject prefabInstantiated = Instantiate(prefab, transform);
+            prefabInstantiated.transform.localPosition = spawnPos;
+            prefabInstantiated.transform.localEulerAngles = new Vector3(0, 90, 0);
+
     }
 }
