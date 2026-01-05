@@ -2759,7 +2759,7 @@ MonoBehaviour:
   startingDebugScene: 2
   SkipPhase: 0
   SkipCardSelectionPhase: 0
-  startingNight: 5
+  startingNight: 1
   MakeNightsShorter: 0
 --- !u!4 &277794896
 Transform:
