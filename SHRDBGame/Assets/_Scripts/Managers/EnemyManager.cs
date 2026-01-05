@@ -16,6 +16,9 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
     [SerializeField]
     private GameObject _hijaPrefab;
     private GameObject _hija;
+    [SerializeField]
+    private GameObject _hijoPrefab;
+    private GameObject _hijo;
 
     [SerializeField]
     private Spawner vecinosSpawner;
@@ -38,6 +41,8 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
     private int _nPadres = 2;
     public IManager.GameStartMode StartMode => IManager.GameStartMode.NORMAL;
 
+    [SerializeField] LevelManager levelManager;
+
     public void LoadData()
     {
     }
@@ -56,6 +61,7 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
         vecinosSpawner = FindAnyObjectByType<Spawner>();
         vecinosSpawner.NVecinos = _nVecinos;
         vecinosSpawner.TimeBetweenSpawns = spawnRate;
+        levelManager = FindAnyObjectByType<LevelManager>();
     }
     void CreateEnemies()
     {
@@ -152,11 +158,57 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
         }
 
     }
+    void CreateHijo()
+    {
+        _hijo = Instantiate(_hijoPrefab, transform);
+        _hijo.SetActive(true);
+        var agent = _hijo.GetComponent<NavMeshAgent>();
+        agent.Warp(new Vector3(36.5999985f,0,117.949997f));
+    }
     public void InitEnemies()
     {
-        vecinosSpawner.CanSpawnEnemies = true;
-        CreateEnemies();
+            if (levelManager.CurrentNigh >= 5)
+            {
+                vecinosSpawner.CanSpawnEnemies = false;
+                CreateHijo();
+                DesactivarOtrosEnemigos();
+            }
+            else
+            {
+                vecinosSpawner.CanSpawnEnemies = true;
+                CreateEnemies();
+            }
+
     }
+
+    private void DesactivarOtrosEnemigos()
+    {
+        if (_abuelo != null)
+        {
+            Destroy(_abuelo);
+        }
+        if (_hija != null)
+        {
+            Destroy(_hija);
+        }
+        if (_tios.Count > 0)
+        {
+            foreach (var tio in _tios)
+            {
+                Destroy(tio);
+            }
+            _tios.Clear();
+        }
+        if (_padres.Count > 0)
+        {
+            foreach (var padre in _padres)
+            {
+                Destroy(padre);
+            }
+            _padres.Clear();
+        }
+    }
+
     public void StopEnemies()
     {
 

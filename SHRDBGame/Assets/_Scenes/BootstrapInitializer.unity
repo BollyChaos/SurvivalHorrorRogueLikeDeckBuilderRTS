@@ -2309,6 +2309,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _abueloPrefab: {fileID: 2405132392736585338, guid: 31456fbe6a2b7a14e8b888d6b35c6d0d, type: 3}
   _hijaPrefab: {fileID: 7739205641307531646, guid: c791c191480819e4690184b5a8a7a57e, type: 3}
+  _hijoPrefab: {fileID: 9154958614366342760, guid: 8999a9da950ac4e768dbf963c2203617, type: 3}
   vecinosSpawner: {fileID: 0}
   _nVecinos: 20
   _tioPrefab: {fileID: 6823851821172519275, guid: 07e45468502ca82498ad4c1a97e98b51, type: 3}
@@ -2317,6 +2318,7 @@ MonoBehaviour:
   _padrePrefab: {fileID: 2879473705699620044, guid: a43e529740815484db449b1a446e7748, type: 3}
   _padres: []
   _nPadres: 2
+  levelManager: {fileID: 1038115673}
 --- !u!4 &253484922
 Transform:
   m_ObjectHideFlags: 0
@@ -27921,6 +27923,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: KnifeCardPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 4322329117238892473, guid: f14ecf0b85f4a484087a9e798557ce7d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5473566771039430183, guid: f14ecf0b85f4a484087a9e798557ce7d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -28227,6 +28233,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TeleportPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 3684225442428115163, guid: b99978b215068e1428496b3ed0cfd73c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4749602612855166479, guid: b99978b215068e1428496b3ed0cfd73c, type: 3}
       propertyPath: looping
       value: 0
@@ -28319,6 +28329,10 @@ PrefabInstance:
     - target: {fileID: 7320806799341754823, guid: 65df9b3cacaa8c74f9e87c2157a08dc6, type: 3}
       propertyPath: m_Name
       value: WildFirePrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 7320806799341754823, guid: 65df9b3cacaa8c74f9e87c2157a08dc6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -28443,6 +28457,10 @@ PrefabInstance:
     - target: {fileID: 5739555362021033927, guid: 183fed213e535dc429fb98d5837f0d76, type: 3}
       propertyPath: m_Name
       value: AxeCardPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 5739555362021033927, guid: 183fed213e535dc429fb98d5837f0d76, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7177234752786844783, guid: 183fed213e535dc429fb98d5837f0d76, type: 3}
       propertyPath: m_LocalPosition.x
@@ -28862,6 +28880,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TeleportSpawnPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 7338011473345381751, guid: 26e8607cfc104fe47a945f486036c2fa, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8447640034943580350, guid: 26e8607cfc104fe47a945f486036c2fa, type: 3}
       propertyPath: playOnAwake
       value: 0
@@ -29009,6 +29031,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Charge slash blue
       objectReference: {fileID: 0}
+    - target: {fileID: 5103051026754857832, guid: 634c98a39981590449a99227ab916548, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -29076,6 +29102,10 @@ PrefabInstance:
     - target: {fileID: 5029730495597709895, guid: 3505e923bb1bf4e45806edfea746fe06, type: 3}
       propertyPath: m_Name
       value: FreeCardPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 5029730495597709895, guid: 3505e923bb1bf4e45806edfea746fe06, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8768062047641050971, guid: 3505e923bb1bf4e45806edfea746fe06, type: 3}
       propertyPath: m_LocalPosition.x

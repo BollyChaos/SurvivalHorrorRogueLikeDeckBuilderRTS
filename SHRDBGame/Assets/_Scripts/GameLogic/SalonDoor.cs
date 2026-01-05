@@ -25,7 +25,10 @@ public class SalonDoor : DoubleDoor
         {
             FirstTimeOpen = true;
             HijaController hija = FindObjectOfType<HijaController>();
-            hija.SetSalonAbierto(FirstTimeOpen);
+            if (hija != null)
+            {
+                hija.SetSalonAbierto(FirstTimeOpen);
+            }
         }
     }
     public void OnReset()

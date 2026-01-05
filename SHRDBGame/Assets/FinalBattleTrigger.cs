@@ -1,50 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class RoomTrigger : MonoBehaviour
+public class FinalBattleTrigger : MonoBehaviour
 {
-    [SerializeField]
-    public string roomName;
-    [SerializeField]
-    LayerMask interactorLayer;
+
     public List<Door> door;
     private bool playerInRoom;
+    private LevelManager levelManager;
 
-    [SerializeField] private ASoundPlayer soundPlayer;
-    [SerializeField] private int soundIndex = 0;
+    public void Start()
+    {
+        levelManager = FindAnyObjectByType<LevelManager>();
+    }
+
     void OnTriggerEnter(Collider other)
     {
-        if (((1 << other.gameObject.layer) & interactorLayer) != 0)
-        {
-            UIManager.Instance.ShowRoomText(roomName);
-        }
-
         if (other.CompareTag("Player"))
         {
             playerInRoom = true;
 
-            if (soundPlayer != null)
-                soundPlayer.PlayLoop(soundIndex);
-            
-
+            if(levelManager != null)
+            {
+                if(levelManager.CurrentNigh >= 5)
+                {
+                    CerrarPuertas();
+                }
+            }
         }
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (((1 << other.gameObject.layer) & interactorLayer) != 0)
-        {
-            UIManager.Instance.HideRoomText(roomName);
-        }
 
         if (other.CompareTag("Player"))
         {
             playerInRoom = false;
-
-            if (soundPlayer != null)
-                soundPlayer.StopLoop();
         }
     }
 

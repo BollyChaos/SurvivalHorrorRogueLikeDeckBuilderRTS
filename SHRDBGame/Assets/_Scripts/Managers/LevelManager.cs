@@ -39,7 +39,7 @@ public class LevelManager : ASingleton<LevelManager>, IManager
 
     public void StartNight()
     {
-        if (currentNight >=4)
+        if (currentNight >=3)
         {
             //activar salon abierto en el spawner
             Spawner spawner = FindAnyObjectByType<Spawner>();

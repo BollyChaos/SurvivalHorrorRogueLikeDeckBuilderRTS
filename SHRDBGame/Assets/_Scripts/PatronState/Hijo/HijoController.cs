@@ -39,6 +39,7 @@ public class HijoController : EnemyController
         _currentHealth = GetComponent<EnemyCombat>().stats.CurrentHealth;
         _maxHealth = GetComponent<EnemyCombat>().stats.MaxHealth;
         flashbangLightPrefab.SetActive(false);
+        roomTrigger = GameObject.Find("Salon").GetComponent<RoomTrigger>();
         boxCollider = roomTrigger.GetComponent<BoxCollider>();
         _player = GameObject.FindGameObjectWithTag("Player");
         _animator = GetComponentInChildren<Animator>();
@@ -48,7 +49,6 @@ public class HijoController : EnemyController
     {
         if(_animator != null)
         {
-            Debug.Log("Velocity: " + GetAgent().velocity.magnitude);
             if (GetAgent().velocity.magnitude < 0.1f)
             {
                 _animator.speed = 0f;
