@@ -191,10 +191,6 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
         {
             Destroy(_hija);
         }
-        if(_hijo != null)
-        {
-            Destroy(_hijo);
-        }
         if (_tios.Count > 0)
         {
             foreach (var tio in _tios)
@@ -221,8 +217,15 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
         {
 
             _abuelo.SetActive(false);
-            _hija.SetActive(false);
 
+        }
+        if(_hija != null)
+        {
+            _hija.SetActive(false);
+        }
+        if(_hijo != null)
+        {
+            Destroy(_hijo);
         }
         foreach (var tio in _tios)
         {
