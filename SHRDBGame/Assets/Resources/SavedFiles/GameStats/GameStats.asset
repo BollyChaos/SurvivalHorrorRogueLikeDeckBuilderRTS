@@ -18,59 +18,59 @@ MonoBehaviour:
     - name: NTimesWon
       type: 1
       value:
-        rid: 9179061911027449963
+        rid: 9179062279947681792
     - name: NTimesDied
       type: 1
       value:
-        rid: 9179061911027449964
+        rid: 9179062279947681793
     - name: NCardsUsed
       type: 1
       value:
-        rid: 9179061911027449966
+        rid: 9179062279947681794
     - name: NEnemiesKilled
       type: 1
       value:
-        rid: 9179061911027449967
+        rid: 9179062279947681795
     - name: GivenTeddyBear
       type: 0
       value:
-        rid: 9179061911027449965
+        rid: 9179062279947681796
     - name: EnteredSecretRoom
       type: 0
       value:
-        rid: 9179061911027449984
+        rid: 9179062279947681797
     - name: FlashLightSeconds
       type: 1
       value:
-        rid: 9179061911027450003
+        rid: 9179062279947681798
   references:
     version: 2
     RefIds:
-    - rid: 9179061911027449963
+    - rid: 9179062279947681792
       type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
       data:
         value: 0
-    - rid: 9179061911027449964
+    - rid: 9179062279947681793
       type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
       data:
         value: 0
-    - rid: 9179061911027449965
+    - rid: 9179062279947681794
+      type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
+      data:
+        value: 0
+    - rid: 9179062279947681795
+      type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
+      data:
+        value: 0
+    - rid: 9179062279947681796
       type: {class: BoolSettingValue, ns: , asm: Assembly-CSharp}
       data:
         value: 0
-    - rid: 9179061911027449966
-      type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
-      data:
-        value: 0
-    - rid: 9179061911027449967
-      type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
-      data:
-        value: 0
-    - rid: 9179061911027449984
+    - rid: 9179062279947681797
       type: {class: BoolSettingValue, ns: , asm: Assembly-CSharp}
       data:
         value: 0
-    - rid: 9179061911027450003
+    - rid: 9179062279947681798
       type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
       data:
         value: 0
