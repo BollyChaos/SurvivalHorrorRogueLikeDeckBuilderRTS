@@ -255,7 +255,17 @@ public class HijoController : EnemyController
     {
         //Aqui implementas lo de las cartas Adri, tienes la referencia a player, no se si necesitas algo más
         CardManager.Instance.RemoveAllCardsFromPlayer();//listo :D
+        ShutDownLights();
         //Debug.Log("Cartas del jugador deshabilitadas por el Hijo");
+    }
+    private void ShutDownLights()
+    {
+        List<Light> sceneLights = new List<Light>(FindObjectsOfType<Light>());
+        UIManager.Instance.ShowGameEventForAWhile("Luces fuera");
+        foreach (var light in sceneLights)
+        {
+            light.gameObject.SetActive(false);
+        }
     }
     public override Vector3 GetRandomPointInsideBox(BoxCollider box)
     {
