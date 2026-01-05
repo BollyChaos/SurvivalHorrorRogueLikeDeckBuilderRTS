@@ -191,6 +191,10 @@ public class EnemyManager : ASingleton<EnemyManager>, IManager
         {
             Destroy(_hija);
         }
+        if(_hijo != null)
+        {
+            Destroy(_hijo);
+        }
         if (_tios.Count > 0)
         {
             foreach (var tio in _tios)
