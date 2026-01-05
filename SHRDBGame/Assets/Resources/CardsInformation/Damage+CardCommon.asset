@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d4318f981197974aab869ef415c76c7, type: 3}
   m_Name: Damage+CardCommon
   m_EditorClassIdentifier: 
-  cardId: 3
+  cardId: 4
   cardName: "Da\xF1o+"
   description: "Aumenta tu da\xF1o"
   nUses: 3

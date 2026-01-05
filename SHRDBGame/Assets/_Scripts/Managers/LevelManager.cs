@@ -118,7 +118,7 @@ public class LevelManager : ASingleton<LevelManager>, IManager
     public void AddWinCount()
     {
         //Llamar al game manager para que aumente el contador de victorias
-        //GameManager.Instance.SetValue<float>("NWins", GameManager.Instance.GetValue<float>("NWins") + 1);
+        GameManager.Instance.SetValue<float>("NTimesWon", GameManager.Instance.GetValue<float>("NTimesWon") + 1);
     }   
     #region MANAGERLOGIC
     public void LoadData()
