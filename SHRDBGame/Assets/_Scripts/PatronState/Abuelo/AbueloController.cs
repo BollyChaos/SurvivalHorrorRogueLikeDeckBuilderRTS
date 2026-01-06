@@ -60,6 +60,13 @@ public class AbueloController : EnemyController
             attackSound = GetComponent<ASoundPlayer>();
     }
 
+    public override void ShootDrops()
+    {
+        base.ShootDrops();
+        base.ShootDrops();
+        base.ShootDrops();
+    }
+
     #region Waypoints
     public override Transform GetCurrentWaypoint()
     {

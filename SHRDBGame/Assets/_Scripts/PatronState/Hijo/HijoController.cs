@@ -81,6 +81,14 @@ public class HijoController : EnemyController
 
         }
     }
+    public override void ShootDrops()
+    {
+        base.ShootDrops();
+        base.ShootDrops();
+        base.ShootDrops();
+        base.ShootDrops();
+    }
+
     private IEnumerator PhaseTwo()
     {
         Debug.Log("Entering Phase Two");

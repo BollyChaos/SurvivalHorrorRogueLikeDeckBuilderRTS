@@ -48,6 +48,12 @@ public class TioController : EnemyController
 
     }
 
+    public override void ShootDrops()
+    {
+        base.ShootDrops();
+        base.ShootDrops();
+    }
+
     #region sonidos IA
 
     public void OnSoundHeard(Vector3 soundPosition)

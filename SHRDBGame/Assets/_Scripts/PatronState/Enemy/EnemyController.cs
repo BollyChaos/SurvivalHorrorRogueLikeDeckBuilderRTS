@@ -171,7 +171,7 @@ public class EnemyController : MonoBehaviour, IEnemy
     }
     #endregion
     #region Drop 
-    public void ShootDrops()
+    public virtual void ShootDrops()
     {
         int nDropsMoney = Random.Range(1,2);
         int nDropsHealth = Random.Range(1,2);

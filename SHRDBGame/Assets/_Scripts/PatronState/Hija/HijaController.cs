@@ -55,6 +55,13 @@ public class HijaController : EnemyController
 
     void Start() { }
 
+    public override void ShootDrops()
+    {
+        base.ShootDrops();
+        base.ShootDrops();
+        base.ShootDrops();
+    }
+    
     #region salon
     public override void SetSalonAbierto(bool estado)
     {
