@@ -404,8 +404,6 @@ MonoBehaviour:
     attackMultiplier: 1
     speedMultiplier: 1
   damageCooldown: 1
-  hitStopDuration: 0.1
-  slowTimeScale: 0.1
   damageColorDuration: 0.25
 --- !u!82 &1364838510643626488
 AudioSource:
@@ -569,7 +567,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 10
+  m_Radius: 8
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4275818888259844618
 MonoBehaviour:

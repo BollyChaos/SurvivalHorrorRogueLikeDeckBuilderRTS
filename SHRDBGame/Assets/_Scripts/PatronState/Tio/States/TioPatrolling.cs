@@ -21,10 +21,13 @@ public class TioPatrolling : AEnemyState
         _destination = _currentTransform.position;
 
         //Debug.Log("Entering Patrol State");
-        _hasDestination = false;
         patrolSpeed = enemy.GetPatrolSpeed();
         _agent = enemy.GetNavMeshAgent();
         _agent.speed = patrolSpeed;
+        _agent.ResetPath();
+
+        _hasDestination = false;
+        
     }
 
     public override void Exit()
@@ -43,7 +46,6 @@ public class TioPatrolling : AEnemyState
         {
             // Forzar un nuevo destino seguro
             _hasDestination = false;
-            enemy.GetAgent().SetDestination(_currentTransform.position);
         }
         if (enemy.PlayerAtSight() != null) //Si detecta al jugador
         {
@@ -53,51 +55,32 @@ public class TioPatrolling : AEnemyState
         else
         {
             //Comportamiento de patrulla
-            if (!_hasDestination || (_destination - _currentTransform.position).magnitude < 0.5f)
+            if (!_hasDestination || _agent.remainingDistance < 0.5f)
             {
                 Vector3 point;
-                bool found = RandomPoint(_currentTransform.position, 15f, out point);
-                if (found)
+                if (RandomPoint(_currentTransform.position, 15f, out point))
                 {
                     _destination = point;
                     _hasDestination = true;
+                    _agent.SetDestination(_destination);
                 }
-            }
-            else
-            {
-                //Vector3 direction = (_destination - _currentTransform.position).normalized;
-                enemy.MoveToNavMesh(_destination, patrolSpeed);
             }
         }
     }
     private bool RandomPoint(Vector3 center, float range, out Vector3 result)
+{
+    for (int i = 0; i < 30; i++)
     {
-        result = Vector3.zero;
+        Vector3 randomPoint = center + Random.insideUnitSphere * range;
 
-        // 1. Obtener el área actual
-        if (!NavMesh.SamplePosition(center, out NavMeshHit currentHit, 1.0f, NavMesh.AllAreas))
-            return false;
-
-        int currentArea = currentHit.mask;
-
-        // 2. intentar encontrar un punto de la misma área
-        for (int i = 0; i < 30; i++)   // 30 intentos de seguridad
+        if (NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, 2f, NavMesh.AllAreas))
         {
-            Vector3 randomPoint = center + Random.insideUnitSphere * range;
-
-            if (NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, 1.0f, NavMesh.AllAreas))
-            {
-                // Evitar bordes → comprobar diferencia
-                float edgeDistance = Vector3.Distance(hit.position, randomPoint);
-
-                if (edgeDistance < 0.6f) // 0.6f = margen de seguridad
-                {
-                    result = hit.position;
-                    return true;
-                }
-            }
+            result = hit.position;
+            return true;
         }
-
-        return false;
     }
+
+    result = center;
+    return false;
+}
 }
