@@ -70,7 +70,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 2405132392736585338}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.65
   m_Speed: 5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -103,6 +103,7 @@ MonoBehaviour:
     attackMultiplier: 1
     speedMultiplier: 1
   damageCooldown: 1
+  damageColorDuration: 0.25
 --- !u!82 &8473300662511041170
 AudioSource:
   m_ObjectHideFlags: 0

@@ -110,7 +110,7 @@ public class Door : MonoBehaviour, IInteractable
         {
             foreach (var obs in obstacle)
             {
-                obs.carving = !isOpen;
+                //obs.carving = !isOpen;
             }
         }
     }

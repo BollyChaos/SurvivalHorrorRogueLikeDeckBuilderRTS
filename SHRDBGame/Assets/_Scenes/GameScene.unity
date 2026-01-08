@@ -87934,10 +87934,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PuertaHabitacionInvitados
       objectReference: {fileID: 0}
-    - target: {fileID: 7156361133301809708, guid: fd9ab94c9730a0e40ae666e569da9b68, type: 3}
-      propertyPath: isLocked
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7494780699656678371, guid: fd9ab94c9730a0e40ae666e569da9b68, type: 3}
       propertyPath: m_LocalPosition.x
       value: 38.47
