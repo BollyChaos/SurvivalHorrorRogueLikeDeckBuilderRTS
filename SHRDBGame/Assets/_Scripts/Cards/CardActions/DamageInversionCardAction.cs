@@ -2,13 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageInversionCardAction : MonoBehaviour, ICardAction
+public class DamageInversionCardAction : ACardAction
 {
     private enum InversionType { HEALONDAMAGE, REFLECTDAMAGE }
     [SerializeField] private InversionType inversionType;
-
-    public Transform PlayerTransform { get => playerTransform; set => playerTransform = value; }
-    private Transform playerTransform;
 
     [Header("Particles")]
     [SerializeField] private GameObject buffParticles;
@@ -24,29 +21,37 @@ public class DamageInversionCardAction : MonoBehaviour, ICardAction
             buffParticles.SetActive(false);
     }
 
-    public void ExecuteCardAction(CardObject cardObj)
+    public override void ExecuteCardAction(CardObject cardObj)
     {
         switch (inversionType)
         {
             case InversionType.HEALONDAMAGE:
-                playerTransform.GetComponent<PlayerCombat>().HealOnDamage = true;
+                PlayerTransform.GetComponent<PlayerCombat>().HealOnDamage = true;
 
                 if (buffSoundPlayer != null)
                     buffSoundPlayer.PlaySound(healOnDamageSoundIndex);
                 break;
 
             case InversionType.REFLECTDAMAGE:
-                playerTransform.GetComponent<PlayerCombat>().ReflectDamage = true;
+                PlayerTransform.GetComponent<PlayerCombat>().ReflectDamage = true;
 
                 if (buffSoundPlayer != null)
                     buffSoundPlayer.PlaySound(reflectSoundIndex);
                 break;
         }
 
-        GameObject buffP = Instantiate(buffParticles, playerTransform.position, Quaternion.identity);
+        GameObject buffP = Instantiate(buffParticles, PlayerTransform.position, Quaternion.identity);
         buffP.SetActive(true);
-        buffP.transform.SetParent(playerTransform);
+        buffP.transform.SetParent(PlayerTransform);
 
         cardObj.UsingCard = false;
+        Destroy(buffP,6);
+        //Release();
     }
+
+    public override void ResetCardAction()
+    {
+    }
+
+
 }

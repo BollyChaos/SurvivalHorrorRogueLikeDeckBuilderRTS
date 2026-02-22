@@ -4,13 +4,11 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(ASoundPlayer))]
-public class BuffCardAction : MonoBehaviour, ICardAction
+public class BuffCardAction : ACardAction
 {
     private enum BuffType { Speed, Damage, Invencibility }
 
-    public Transform PlayerTransform { get => playerTransform; set => playerTransform = value; }
     [SerializeField] BuffType buffType;
-    [SerializeField] private Transform playerTransform;
 
     [SerializeField] private GameObject particles;
     [SerializeField] private float buffTime = 5f;
@@ -25,12 +23,13 @@ public class BuffCardAction : MonoBehaviour, ICardAction
         soundPlayer = GetComponent<ASoundPlayer>();
     }
 
-    public void ExecuteCardAction(CardObject cardObj)
+    public override void ExecuteCardAction(CardObject cardObj)
     {
         buffTimeCounter += buffTime;
         HasUsedBuff = true;
 
-        GameObject bp = Instantiate(particles, playerTransform);
+        GameObject bp = Instantiate(particles, PlayerTransform);
+        
         bp.SetActive(true);
         bp.GetComponent<ParticleSystem>().Play();
 
@@ -38,9 +37,9 @@ public class BuffCardAction : MonoBehaviour, ICardAction
         {
             case BuffType.Speed:
                 float speedPercentage = 1 + (2 + (int)cardObj.card.cardRarity) * 0.1f;
-                playerTransform.GetComponent<PlayerCombat>().stats.ChangeSpeedMultiplier(speedPercentage);
+                PlayerTransform.GetComponent<PlayerCombat>().stats.ChangeSpeedMultiplier(speedPercentage);
 
-                FootstepPlayer fp = playerTransform.GetComponent<FootstepPlayer>();
+                FootstepPlayer fp = PlayerTransform.GetComponent<FootstepPlayer>();
                 if (fp != null) fp.boostActive = true;
 
                 if (soundPlayer != null)
@@ -49,14 +48,14 @@ public class BuffCardAction : MonoBehaviour, ICardAction
 
             case BuffType.Damage:
                 float damagePercentage = 1 + (2 + (int)cardObj.card.cardRarity) * 0.1f;
-                playerTransform.GetComponent<PlayerCombat>().stats.AttackMultiplier = damagePercentage;
+                PlayerTransform.GetComponent<PlayerCombat>().stats.AttackMultiplier = damagePercentage;
 
                 if (soundPlayer != null)
                     soundPlayer.PlayRandomSound();
                 break;
 
             case BuffType.Invencibility:
-                playerTransform.GetComponent<PlayerCombat>().stats.Invencibility = true;
+                PlayerTransform.GetComponent<PlayerCombat>().stats.Invencibility = true;
 
                 if (soundPlayer != null)
                     soundPlayer.PlayRandomSound();
@@ -80,19 +79,24 @@ public class BuffCardAction : MonoBehaviour, ICardAction
             switch (buffType)
             {
                 case BuffType.Speed:
-                    playerTransform.GetComponent<PlayerCombat>().stats.ChangeSpeedMultiplier(1f);
-                    FootstepPlayer fp = playerTransform.GetComponent<FootstepPlayer>();
+                    PlayerTransform.GetComponent<PlayerCombat>().stats.ChangeSpeedMultiplier(1f);
+                    FootstepPlayer fp = PlayerTransform.GetComponent<FootstepPlayer>();
                     if (fp != null) fp.boostActive = false;
                     break;
 
                 case BuffType.Damage:
-                    playerTransform.GetComponent<PlayerCombat>().stats.AttackMultiplier = 1f;
+                    PlayerTransform.GetComponent<PlayerCombat>().stats.AttackMultiplier = 1f;
                     break;
 
                 case BuffType.Invencibility:
-                    playerTransform.GetComponent<PlayerCombat>().stats.Invencibility = false;
+                    PlayerTransform.GetComponent<PlayerCombat>().stats.Invencibility = false;
                     break;
             }
         }
+    }
+
+    public override void ResetCardAction()
+    {
+        
     }
 }

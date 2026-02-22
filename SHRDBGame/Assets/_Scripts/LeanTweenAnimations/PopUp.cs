@@ -8,6 +8,7 @@ public class PopUp : MonoBehaviour
     [SerializeField] private float riseHeight = 0.5f;
     [SerializeField] private float riseDuration = 0.8f;
     [SerializeField] private bool activateOnEnable = true;
+    
     private Vector3 initialScale;
     private Vector3 initialPosition;
     private Quaternion initialRotation;
@@ -32,8 +33,7 @@ public class PopUp : MonoBehaviour
         LeanTween.cancel(gameObject);
         isAnimatingOut = false;
 
-        // Reset de estado inicial
-        transform.localScale = Vector3.zero;
+       
         transform.position = initialPosition;
         transform.rotation = initialRotation;
 

@@ -2,22 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletCardAction : MonoBehaviour, ICardAction
+public class BulletCardAction : ACardAction
 {
     private enum TypeOfGun { Gun, Shotgun }
 
-    [SerializeField] GameObject bulletPrefab;
-    [SerializeField] public Transform playerTransform;
+   
+
     [SerializeField] private TypeOfGun typeOfGun;
 
     [Header("Gun Settings")]
+    [SerializeField] float damage = 100;
     [SerializeField] float spreadAngle = 60f;
     [SerializeField] int bulletsCount = 4;
 
-    Transform ICardAction.PlayerTransform { get => playerTransform; set => playerTransform = value; }
 
-    public void ExecuteCardAction(CardObject cardObj)
+    public override void ExecuteCardAction(CardObject cardObj)
     {
+
         switch (typeOfGun)
         {
             case TypeOfGun.Gun:
@@ -36,16 +37,22 @@ public class BulletCardAction : MonoBehaviour, ICardAction
         // Sonido de disparo
         GetComponent<ASoundPlayer>().PlayRandomSound();
 
-        GameObject bPrefab = Instantiate(bulletPrefab, playerTransform.position + playerTransform.forward * 2, playerTransform.rotation);
+        GameObject bPrefab = ObjectPoolManager.Instance.Get("BulletCardPrefab");
+
         bPrefab.SetActive(true);
+        bPrefab.transform.position = PlayerTransform.position + PlayerTransform.forward * 2f;
+        bPrefab.transform.rotation = PlayerTransform.rotation;
+        float totalDamage = damage * PlayerTransform.GetComponent<ACombat>().stats.AttackMultiplier;
+        bPrefab.GetComponent<PrefabDamage>().Initialize(totalDamage, "Enemy",true);
 
         ParticleSystem ps = bPrefab.GetComponent<ParticleSystem>();
         if (ps != null) ps.Play();
 
-        var cam = playerTransform.parent.GetComponent<CameraController>();
+        var cam = PlayerTransform.parent.GetComponent<CameraController>();
         if (cam != null) cam.Shake(0.4f, 2, 2);
 
-        Destroy(ps.gameObject, 5);
+        DelayedActions.Do(bPrefab.GetComponent<PoolableObject>().Release, duration, this);
+        // Destroy(ps,10);
     }
 
     private void ShootShotgun()
@@ -56,17 +63,30 @@ public class BulletCardAction : MonoBehaviour, ICardAction
         for (int i = 0; i < bulletsCount; i++)
         {
             float angle = -spreadAngle / 2 + (spreadAngle / (bulletsCount - 1)) * i;
-            Quaternion rotation = Quaternion.Euler(playerTransform.eulerAngles + new Vector3(0, angle, 0));
-            GameObject bPrefab = Instantiate(bulletPrefab, playerTransform.position + playerTransform.forward * 2, rotation);
+            Quaternion rotation = Quaternion.Euler(PlayerTransform.eulerAngles + new Vector3(0, angle, 0));
+            GameObject bPrefab = ObjectPoolManager.Instance.Get("BulletCardPrefab");
+
             bPrefab.SetActive(true);
+            bPrefab.transform.position = PlayerTransform.position + PlayerTransform.forward * 2f;
+            bPrefab.transform.rotation = rotation;
+            float totalDamage = damage * PlayerTransform.GetComponent<ACombat>().stats.AttackMultiplier ;
+
+            bPrefab.GetComponent<PrefabDamage>().Initialize(totalDamage, "Enemy",true);
 
             ParticleSystem ps = bPrefab.GetComponent<ParticleSystem>();
             if (ps != null) ps.Play();
 
-            var cam = playerTransform.parent.GetComponent<CameraController>();
+            var cam = PlayerTransform.parent.GetComponent<CameraController>();
             if (cam != null) cam.Shake(0.5f, 4, 4);
 
-            Destroy(ps.gameObject, 5);
+            DelayedActions.Do(bPrefab.GetComponent<PoolableObject>().Release, duration, this);
         }
+        //DelayedActions.Do(Release,5,this);
+    }
+
+
+
+    public override void ResetCardAction()
+    {
     }
 }

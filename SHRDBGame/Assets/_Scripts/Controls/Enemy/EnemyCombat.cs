@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyCombat : MonoBehaviour
+public class EnemyCombat : ACombat
 {
-    public Stats stats;
 
     public float damageCooldown = 1f;
     private float lastAttackTime = 0f;
@@ -68,7 +67,7 @@ public class EnemyCombat : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float amount)
+    public override void TakeDamage(float amount)
     {
         stats.TakeDamage(amount);
         if (enemyController != null && enemyController.CanReciveAttacks())

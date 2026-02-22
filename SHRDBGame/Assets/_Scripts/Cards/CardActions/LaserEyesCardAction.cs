@@ -4,11 +4,8 @@ using UnityEngine;
 
 [RequireComponent(typeof(ASoundPlayer))]
 [RequireComponent(typeof(AudioSource))]
-public class LaserEyesCardAction : MonoBehaviour, ICardAction
+public class LaserEyesCardAction : ACardAction
 {
-    private Transform playerTransform;
-    public Transform PlayerTransform { get => playerTransform; set => playerTransform = value; }
-
     [SerializeField] private GameObject laserEyesPrefab;
 
     [Header("Audio")]
@@ -20,7 +17,7 @@ public class LaserEyesCardAction : MonoBehaviour, ICardAction
             laserSound = GetComponent<ASoundPlayer>();
     }
 
-    public void ExecuteCardAction(CardObject cardObj)
+    public override void ExecuteCardAction(CardObject cardObj)
     {
         laserSound?.PlaySound(0);
 
@@ -32,11 +29,11 @@ public class LaserEyesCardAction : MonoBehaviour, ICardAction
     {
         GameObject laserEyesLeft = Instantiate(
             laserEyesPrefab,
-            playerTransform.position + playerTransform.forward * 1 + playerTransform.right * 0.3f,
-            playerTransform.rotation
+            PlayerTransform.position + PlayerTransform.forward * 1 + PlayerTransform.right * 0.3f,
+            PlayerTransform.rotation
         );
 
-        laserEyesLeft.transform.parent = playerTransform;
+        laserEyesLeft.transform.parent = PlayerTransform;
         laserEyesLeft.SetActive(true);
 
         ParticleSystem ps = laserEyesLeft.GetComponent<ParticleSystem>();
@@ -44,21 +41,28 @@ public class LaserEyesCardAction : MonoBehaviour, ICardAction
 
         GameObject laserEyesRight = Instantiate(
             laserEyesPrefab,
-            playerTransform.position + playerTransform.forward * 1 - playerTransform.right * 0.3f,
-            playerTransform.rotation
+            PlayerTransform.position + PlayerTransform.forward * 1 - PlayerTransform.right * 0.3f,
+            PlayerTransform.rotation
         );
 
-        laserEyesRight.transform.parent = playerTransform;
+        laserEyesRight.transform.parent = PlayerTransform;
         laserEyesRight.SetActive(true);
 
         ParticleSystem psr = laserEyesRight.GetComponent<ParticleSystem>();
         if (psr != null) psr.Play();
 
-        var cam = playerTransform.parent.GetComponent<CameraController>();
+        var cam = PlayerTransform.parent.GetComponent<CameraController>();
         if (cam != null)
             cam.Shake(0.4f, 2, 5);
 
         Destroy(ps.gameObject, 5);
         Destroy(psr.gameObject, 5);
     }
+
+    public override void ResetCardAction()
+    {
+      
+    }
+
+
 }

@@ -11,8 +11,8 @@ public class PhraseSO : ScriptableObject
     {
         ALEX,
         ELEANOR,
-        SON,
-        DAUGHTER,
+        HIJO,
+        HIJA,
         NARRATOR
     }
     [SerializeField] public Speaker speaker;

@@ -9,7 +9,7 @@ namespace Managers
 {
     public class GameSceneManager : ASingleton<GameSceneManager>, IManager
     {
-        public enum SceneIds { BOOTSTRAP, MAINMENUSCENE, GAMESCENE, PRUEBAENEMIGOS, PRUEBATIENDA }
+        public enum SceneIds { BOOTSTRAP, MAINMENUSCENE, GAMESCENE, TESTSCENE, PRUEBATIENDA }
         public IManager.GameStartMode StartMode => IManager.GameStartMode.NORMAL;
         [Header("Scene to start")]
         [SerializeField] public SceneIds StartingScene = SceneIds.MAINMENUSCENE;

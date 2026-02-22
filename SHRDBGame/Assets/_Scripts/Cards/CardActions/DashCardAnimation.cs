@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(ASoundPlayer))]
-public class DashCardAnimation : MonoBehaviour, ICardAction
+public class DashCardAnimation : ACardAction
 {
+    //TODO: para de destruir cosas macho
     [Header("Dash Settings")]
     [SerializeField] private float dashForce = 15f;
     [SerializeField] private float dashDuration = 0.2f;
@@ -22,8 +23,6 @@ public class DashCardAnimation : MonoBehaviour, ICardAction
     private ASoundPlayer soundPlayer;
     private PlayerCombat playerCombat;
 
-    public Transform PlayerTransform { get => playerTransform; set => playerTransform = value; }
-    private Transform playerTransform;
 
     void Start()
     {
@@ -33,10 +32,10 @@ public class DashCardAnimation : MonoBehaviour, ICardAction
             dashParticles.SetActive(false);
     }
 
-    public void ExecuteCardAction(CardObject cardObj)
+    public override void ExecuteCardAction(CardObject cardObj)
     {
-        rb = playerTransform.GetComponent<Rigidbody>();
-        playerCombat = playerTransform.GetComponent<PlayerCombat>();
+        rb = PlayerTransform.GetComponent<Rigidbody>();
+        playerCombat = PlayerTransform.GetComponent<PlayerCombat>();
 
         if (dashSpeedCurve == null || dashSpeedCurve.length == 0)
         {
@@ -58,8 +57,8 @@ public class DashCardAnimation : MonoBehaviour, ICardAction
         GameObject dp = null;
         if (dashParticles != null)
         {
-            dp = Instantiate(dashParticles, playerTransform.position, playerTransform.rotation);
-            dp.transform.SetParent(playerTransform);
+            dp = Instantiate(dashParticles, PlayerTransform.position, PlayerTransform.rotation);
+            dp.transform.SetParent(PlayerTransform);
             dp.SetActive(true);
         }
 
@@ -71,7 +70,7 @@ public class DashCardAnimation : MonoBehaviour, ICardAction
         rb.velocity = Vector3.zero;
         rb.useGravity = false;
 
-        rb.AddForce(playerTransform.forward * dashForce, ForceMode.Impulse);
+        rb.AddForce(PlayerTransform.forward * dashForce, ForceMode.Impulse);
 
         rb.velocity = Vector3.zero;
         rb.useGravity = true;
@@ -81,4 +80,10 @@ public class DashCardAnimation : MonoBehaviour, ICardAction
         if (dp != null) Destroy(dp.gameObject);
         canDash = true;
     }
+
+    public override void ResetCardAction()
+    {
+    }
+
+
 }

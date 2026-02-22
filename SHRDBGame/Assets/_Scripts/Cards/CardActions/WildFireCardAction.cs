@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WildFireCardAction : MonoBehaviour, ICardAction
+public class WildFireCardAction : ACardAction
 {
     [SerializeField] GameObject wildFirePrefab;
     [SerializeField] int nWildFires = 5;
@@ -11,10 +11,6 @@ public class WildFireCardAction : MonoBehaviour, ICardAction
 
     [Header("Audio")]
     [SerializeField] private ASoundPlayer soundPlayer;
-
-    private Transform playerTransform;
-    public Transform PlayerTransform { get => playerTransform; set => playerTransform = value; }
-
     private List<GameObject> activeFires = new List<GameObject>();
 
     void Start()
@@ -22,7 +18,7 @@ public class WildFireCardAction : MonoBehaviour, ICardAction
         wildFirePrefab.SetActive(false);
     }
 
-    public void ExecuteCardAction(CardObject cardObj)
+    public override void ExecuteCardAction(CardObject cardObj)
     {
         SpawnAround();
         cardObj.UsingCard = false;
@@ -35,7 +31,7 @@ public class WildFireCardAction : MonoBehaviour, ICardAction
 
     public void SpawnAround()
     {
-        Vector3 center = playerTransform.position;
+        Vector3 center = PlayerTransform.position;
 
         for (int i = 0; i < nWildFires; i++)
         {
@@ -47,10 +43,10 @@ public class WildFireCardAction : MonoBehaviour, ICardAction
             );
 
             GameObject wildFire = Instantiate(wildFirePrefab, pos + Vector3.up, Quaternion.identity);
-            wildFire.transform.SetParent(playerTransform);
+            wildFire.transform.SetParent(PlayerTransform);
             wildFire.SetActive(true);
 
-            wildFire.GetComponent<Orbit>().InitOrbit(playerTransform, radius, speed);
+            wildFire.GetComponent<Orbit>().InitOrbit(PlayerTransform, radius, speed);
 
             activeFires.Add(wildFire);
 
@@ -72,6 +68,11 @@ public class WildFireCardAction : MonoBehaviour, ICardAction
         {
             soundPlayer.StopLoop();
         }
+    }
+
+    public override void ResetCardAction()
+    {
+       
     }
 }
 

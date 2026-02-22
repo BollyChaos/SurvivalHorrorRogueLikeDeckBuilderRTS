@@ -3,25 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(ASoundPlayer))]
-public class TrapCardAction : MonoBehaviour, ICardAction
+public class TrapCardAction : ACardAction
 {
-    [SerializeField] Transform playerTransform;
     [SerializeField] GameObject spikeTrapPrefab;
 
     private ASoundPlayer soundPlayer;
-
-    public Transform PlayerTransform { get => playerTransform; set => playerTransform = value; }
 
     void Start()
     {
         soundPlayer = GetComponent<ASoundPlayer>();
     }
 
-    public void ExecuteCardAction(CardObject cardObj)
+    public override void ExecuteCardAction(CardObject cardObj)
     {
         GameObject trap = Instantiate(
             spikeTrapPrefab,
-            playerTransform.position + 0.25f * Vector3.down,
+            PlayerTransform.position + 0.25f * Vector3.down,
             Quaternion.identity
         );
 
@@ -32,4 +29,10 @@ public class TrapCardAction : MonoBehaviour, ICardAction
 
         cardObj.UsingCard = false;
     }
+
+    public override void ResetCardAction()
+    {
+       
+    }
+
 }

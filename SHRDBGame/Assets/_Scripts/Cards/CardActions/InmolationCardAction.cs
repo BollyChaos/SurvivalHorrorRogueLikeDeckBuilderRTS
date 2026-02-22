@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(ASoundPlayer))]
-public class InmolationCardAction : MonoBehaviour, ICardAction
+public class InmolationCardAction : ACardAction
 {
-    public Transform PlayerTransform { get => playerTransform; set => playerTransform = value; }
-    private Transform playerTransform;
-
     [SerializeField]
     private GameObject ExplosionPrefab;
 
@@ -20,10 +17,10 @@ public class InmolationCardAction : MonoBehaviour, ICardAction
         soundPlayer = GetComponent<ASoundPlayer>();
     }
 
-    public void ExecuteCardAction(CardObject cardObj)
+    public override void ExecuteCardAction(CardObject cardObj)
     {
 
-        GameObject ep = Instantiate(ExplosionPrefab, playerTransform.position, Quaternion.identity);
+        GameObject ep = Instantiate(ExplosionPrefab, PlayerTransform.position, Quaternion.identity);
         ep.SetActive(true);
 
 
@@ -46,9 +43,14 @@ public class InmolationCardAction : MonoBehaviour, ICardAction
 
     IEnumerator PlayCameraShake()
     {
-        playerTransform.parent.GetComponent<CameraController>().Shake(1, 8, 8);
+        PlayerTransform.parent.GetComponent<CameraController>().Shake(1, 8, 8);
 
         yield return new WaitForSeconds(1f);
-        playerTransform.parent.GetComponent<CameraController>().Shake(.5f, 18, 18);
+        PlayerTransform.parent.GetComponent<CameraController>().Shake(.5f, 18, 18);
+    }
+
+    public override void ResetCardAction()
+    {
+       
     }
 }

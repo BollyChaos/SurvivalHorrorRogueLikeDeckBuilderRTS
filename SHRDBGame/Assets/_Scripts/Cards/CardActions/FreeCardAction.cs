@@ -2,13 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FreeCardAction : MonoBehaviour, ICardAction
+public class FreeCardAction : ACardAction
 {
     [Header("Particles")]
     [SerializeField] GameObject freeCardPE;
-
-    private Transform playerTransform;
-    public Transform PlayerTransform { get => playerTransform; set => playerTransform = value; }
 
     [Header("Audio")]
     [SerializeField] private ASoundPlayer freeCardSoundPlayer;
@@ -20,18 +17,24 @@ public class FreeCardAction : MonoBehaviour, ICardAction
             freeCardPE.SetActive(false);
     }
 
-    public void ExecuteCardAction(CardObject cardObj)
+    public override void ExecuteCardAction(CardObject cardObj)
     {
-        freeCardPE.SetActive(false);
-        freeCardPE.SetActive(true);
+        var ps = Instantiate(freeCardPE, PlayerTransform);
+        ps.SetActive(true);
+        //freeCardPE.transform.position = PlayerTransform.position;
 
-        freeCardPE.transform.position = playerTransform.position;
-
-        playerTransform.GetComponent<Economy>().NexPurchaseIsFree();
+        PlayerTransform.GetComponent<Economy>().NexPurchaseIsFree();
 
         if (freeCardSoundPlayer != null)
             freeCardSoundPlayer.PlaySound(freeCardSoundIndex);
 
         cardObj.UsingCard = false;
+        Destroy(ps, 6);
     }
+
+    public override void ResetCardAction()
+    {
+
+    }
+
 }

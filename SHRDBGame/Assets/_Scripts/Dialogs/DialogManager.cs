@@ -156,8 +156,8 @@ public void InterruptDialog()
     public void OnStartGame()
     {
         dialogCanvas.gameObject.SetActive(true);
-        PlayDialogRequest("LetterDialog");
-        onEndDialog.AddListener(UIManager.Instance.HideBeginningImage);
+        //PlayDialogRequest("LetterDialog");
+       
     }
 
     public void LoadData()

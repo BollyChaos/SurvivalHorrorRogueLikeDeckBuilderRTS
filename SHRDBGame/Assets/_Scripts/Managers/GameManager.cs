@@ -120,9 +120,13 @@ namespace Managers
                     InputManager.Instance.SwitchMapToUI();
                     break;
                 case (int)SceneIds.GAMESCENE:
+                case(int)SceneIds.TESTSCENE:
                     gameState = GameState.INGAME;
                     OnStartGame();
                     break;
+                // case(int)SceneIds.PRUEBAENEMIGOS:
+                // InputManager.Instance.SwitchMapToPlayer();
+                //     break;
             }
         }
         public void RestartGame()
@@ -269,9 +273,17 @@ namespace Managers
             {
                 Debug.Log("Trigger tutorial activado");
             });
+              GameObject.Find("LetterDialog").GetComponent<TriggerEvent>().onTriggerEnterEvent.AddListener(() =>
+            {
+                UIManager.Instance.ShowBeginningImage();
+                DialogManager.Instance.PlayDialogRequest("LetterDialog");
+                DialogManager.Instance.onEndDialog.AddListener(UIManager.Instance.HideBeginningImage);
+
+            });
             GameObject.Find("StartingDialog").GetComponent<TriggerEvent>().onTriggerEnterEvent.AddListener(() =>
                 {
                     DialogManager.Instance.PlayDialogRequest("EnteringMansion");
+
                 }
             );
             GameObject.Find("SalaSecreta").GetComponent<TriggerEvent>().onTriggerEnterEvent.AddListener(() =>

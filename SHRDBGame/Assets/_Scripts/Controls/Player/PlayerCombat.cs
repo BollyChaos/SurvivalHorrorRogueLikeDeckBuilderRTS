@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PlayerCombat : MonoBehaviour
+public class PlayerCombat : ACombat
 {
-    public Stats stats;
     private bool godStatus = false;
     private bool unlimitedDamage = false;
     private bool healOnDamage = false;
@@ -43,7 +42,7 @@ public class PlayerCombat : MonoBehaviour
         stats.MaxHealth = SettingsManager.Instance.GetValue<float>("PlayerHealth");
     }
 
-    public void TakeDamage(float amount)
+    public override void TakeDamage(float amount)
     {
         if (godStatus || alreadyDied) return;
 

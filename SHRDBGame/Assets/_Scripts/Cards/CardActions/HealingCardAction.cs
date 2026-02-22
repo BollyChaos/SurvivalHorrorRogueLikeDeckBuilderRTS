@@ -2,31 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealingCardAction : MonoBehaviour, ICardAction
+public class HealingCardAction : ACardAction
 {
-    public Transform PlayerTransform { get => playerTransform; set => playerTransform = value; }
-    [SerializeField] private Transform playerTransform;
+
     [SerializeField] private GameObject healParticles;
 
-    // [SerializeField] private AudioClip healSound; sigues sin hacerme caso
-    // [SerializeField, Range(0f, 1f)] private float healSoundVolume = 1f;
 
-    // private AudioSource audioSource;
-
-    // private void Awake()
-    // {
-    //     audioSource = GetComponent<AudioSource>();
-    //     if (audioSource == null)
-    //     {
-    //         audioSource = gameObject.AddComponent<AudioSource>();
-    //         audioSource.playOnAwake = false;
-    //         audioSource.spatialBlend = 0f; // 2D
-    //     }
-    // }
-
-    public void ExecuteCardAction(CardObject cardObj)
+    public override void ExecuteCardAction(CardObject cardObj)
     {
-        GameObject hp = Instantiate(healParticles, playerTransform);
+        GameObject hp = Instantiate(healParticles, PlayerTransform);
         hp.SetActive(true);
         hp.GetComponent<ParticleSystem>().Play();
 
@@ -36,9 +20,14 @@ public class HealingCardAction : MonoBehaviour, ICardAction
 
         //20%,30% y 40%???
         float healPercentage = (2 + (int)cardObj.card.cardRarity) * 0.1f;
-        float healAmmount = playerTransform.GetComponent<PlayerCombat>().stats.MaxHealth * healPercentage;
-        playerTransform.GetComponent<PlayerCombat>().Heal(healAmmount);
+        float healAmmount = PlayerTransform.GetComponent<PlayerCombat>().stats.MaxHealth * healPercentage;
+        PlayerTransform.GetComponent<PlayerCombat>().Heal(healAmmount);
         cardObj.UsingCard = false;
-        Destroy(hp, 6f);
+       //DelayedActions.Do(Release,6f,this);
+    }
+
+    public override void ResetCardAction()
+    {
+      
     }
 }

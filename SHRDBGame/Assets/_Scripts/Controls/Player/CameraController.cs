@@ -40,7 +40,7 @@ public void TestShake()
     public void Shake(float duration, float amplitude = -1f, float frequency = -1f)
     {
         if (!canShake) return;
-        Debug.Log("Me llaman");
+//        Debug.Log("Me llaman");
         if (amplitude < 0) amplitude = defaultAmplitude;
         if (frequency < 0) frequency = defaultFrequency;
 

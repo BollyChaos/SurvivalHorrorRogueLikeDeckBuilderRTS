@@ -18113,6 +18113,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1928583463}
+  - {fileID: 1545402258}
   - {fileID: 1780572269}
   - {fileID: 1481683557}
   m_Father: {fileID: 0}
@@ -74151,6 +74152,89 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5543be2ed1a192744b97aad3a061bcc6, type: 3}
   m_PrefabInstance: {fileID: 1541327093}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1545402257
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1545402258}
+  - component: {fileID: 1545402260}
+  - component: {fileID: 1545402259}
+  m_Layer: 0
+  m_Name: LetterDialog
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1545402258
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1545402257}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.18, z: -49.64}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 295343934}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1545402259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1545402257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f066dfda1406ad47a94d916cfd1e08f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onTriggerEnterEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  targetTag: Player
+  destroyOnTrigger: 0
+--- !u!65 &1545402260
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1545402257}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 13.824375, y: 1, z: 4.8019047}
+  m_Center: {x: 0.6572094, y: 0, z: -3.407443}
 --- !u!1001 &1548379138
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -92378,7 +92462,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1428162338369521504, guid: 9c070b9c405d3eb449b4ecd6c761c063, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.0000038146973
       objectReference: {fileID: 0}
     - target: {fileID: 1428162338369521504, guid: 9c070b9c405d3eb449b4ecd6c761c063, type: 3}
       propertyPath: m_LocalRotation.w
@@ -92465,8 +92549,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3698138930196107545, guid: 9c070b9c405d3eb449b4ecd6c761c063, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 20.999998
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698138930196107545, guid: 9c070b9c405d3eb449b4ecd6c761c063, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.0000019073486
+      value: 0.0000038146973
       objectReference: {fileID: 0}
     - target: {fileID: 3862176302886994372, guid: 9c070b9c405d3eb449b4ecd6c761c063, type: 3}
       propertyPath: m_Radius
@@ -92503,6 +92591,10 @@ PrefabInstance:
     - target: {fileID: 7449366427174835169, guid: 9c070b9c405d3eb449b4ecd6c761c063, type: 3}
       propertyPath: m_ScreenX
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7449366427174835169, guid: 9c070b9c405d3eb449b4ecd6c761c063, type: 3}
+      propertyPath: m_ScreenY
+      value: 0.5000001
       objectReference: {fileID: 0}
     - target: {fileID: 7449366427174835169, guid: 9c070b9c405d3eb449b4ecd6c761c063, type: 3}
       propertyPath: m_LookaheadTime

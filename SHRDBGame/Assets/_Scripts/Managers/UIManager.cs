@@ -238,6 +238,10 @@ public class UIManager : ASingleton<UIManager>, IManager
     }
     #endregion
     #region PLAYERUI
+    public void ShowBeginningImage()
+    {
+        begginingImage.SetActive(true);
+    }
     public void HideBeginningImage()
     {
         //begginingImage.gameObject.SetActive(false);
@@ -806,7 +810,7 @@ public class UIManager : ASingleton<UIManager>, IManager
         Debug.Log($"[{name}]Empezando juego");
         PauseMenu?.SetActive(false);
         PlayerHUD?.SetActive(true);
-        begginingImage?.SetActive(true);
+        //begginingImage?.SetActive(true);//mejor tenerlo como secuencia???
         begginingImage.GetComponent<CanvasGroup>().alpha = 1f;
         //fijar la camara en offscreenindicator
         FindAnyObjectByType<OffScreenIndicator>().SetCamera(FindAnyObjectByType<CameraController>().PlayerCamera);
