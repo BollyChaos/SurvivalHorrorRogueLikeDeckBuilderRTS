@@ -85,6 +85,15 @@ public class GameObjectPool : MonoBehaviour
         }
 
         instance.SetActive(false);
+         if(parentTransform != null)
+        {
+            instance.transform.SetParent(parentTransform);
+            
+        }
+        else
+        {
+            instance.transform.SetParent(transform);
+        }
         entry.pool.Enqueue(instance);
     }
 }

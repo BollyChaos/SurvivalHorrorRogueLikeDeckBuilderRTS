@@ -67,7 +67,7 @@ public class PrefabDamage : MonoBehaviour
         {
 
             GameObject popUpText = ObjectPoolManager.Instance.Get("PopUpText");
-            popUpText.GetComponent<DamagePopup>().Play((int)damage, other.transform, other.transform.localPosition + Vector3.up * 2);
+            popUpText.GetComponent<DamagePopup>().Play((int)damage, other.transform.position + Vector3.up * 2);
             damageableObject.TakeDamage(damage);
 
             // Reproduce sonido de impacto

@@ -2597,7 +2597,7 @@ MonoBehaviour:
   DebugPlatform: 0
   debugGamePlatform: 2
   ChangeInitalScene: 1
-  startingDebugScene: 2
+  startingDebugScene: 3
   SkipPhase: 0
   SkipCardSelectionPhase: 0
   startingNight: 1

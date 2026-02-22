@@ -11,7 +11,7 @@ public class DamagePopup : MonoBehaviour, IPoolableObject
     [SerializeField] float floatY = 1.5f;
     [SerializeField] float duration = 0.8f;
     [SerializeField] float scaleMul = 1.1f;
-    [SerializeField]float randomRadius=3.2f;
+    [SerializeField] float randomRadius = 3.2f;
     [SerializeField] AnimationCurve ease = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
     [Header("Color")]
@@ -34,22 +34,20 @@ public class DamagePopup : MonoBehaviour, IPoolableObject
     [ContextMenu("Play Animation")]
     public void PlayTest()
     {
-        Play(50, transform, Vector3.zero);
+        Play(50, Vector3.zero);
     }
-    public void Play(
-        int damage,
-        Transform parent,
-        Vector3 localPosition)
+    public void Play(int damage, Vector3 localPosition, Transform parent = null)
     {
 
         // parent primero
-        transform.SetParent(parent, false);
+        if (parent != null)
+            transform.SetParent(parent, true);
 
         // posición local
-         // Reset de estado inicial
+        // Reset de estado inicial
         transform.localScale = Vector3.zero;
-        Vector3 random=new Vector3(Mathf.Cos(Random.Range(0,2*Mathf.PI)),0,Mathf.Sin(Random.Range(0,2*Mathf.PI)))*randomRadius;
-        transform.localPosition = localPosition+random;
+        Vector3 random = new Vector3(Mathf.Cos(Random.Range(0, 2 * Mathf.PI)), 0, Mathf.Sin(Random.Range(0, 2 * Mathf.PI))) * randomRadius;
+        transform.localPosition = localPosition + random;
         startLocalPos = localPosition;
 
         // texto
