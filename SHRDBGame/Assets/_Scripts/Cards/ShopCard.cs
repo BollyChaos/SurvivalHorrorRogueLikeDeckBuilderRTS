@@ -63,9 +63,14 @@ public class ShopCard : MonoBehaviour, IInteractable
             lockItem = true;
 
             cardParticles.GetComponent<ParticleSystem>().Stop();
-            UIManager.Instance.PassWorldPosToUI(instantiatedCardUI, instantiatedCardUI.transform.parent.GetComponent<Canvas>());
+
             cardMesh.GetComponent<IdleFloatAndRotate>().enabled = false;
+            instantiatedCardUI.GetComponent<PopUp>().DeActivateAnimation();
+            Destroy(instantiatedCardUI.GetComponent<PopUp>());
             cardMesh.SetActive(false);
+
+            UIManager.Instance.PassWorldPosToUI(instantiatedCardUI, instantiatedCardUI.transform.parent.GetComponent<Canvas>());
+            
             cardBoughtEffect.GetComponent<ParticleSystem>().Play();
 
             if (cardObject != null)

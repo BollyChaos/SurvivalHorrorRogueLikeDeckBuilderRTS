@@ -79,16 +79,19 @@ public class BuffCardAction : ACardAction
             switch (buffType)
             {
                 case BuffType.Speed:
-                    PlayerTransform.GetComponent<PlayerCombat>().stats.ChangeSpeedMultiplier(1f);
+                if(PlayerTransform==null)return;
+                    PlayerTransform?.GetComponent<PlayerCombat>().stats.ChangeSpeedMultiplier(1f);
                     FootstepPlayer fp = PlayerTransform.GetComponent<FootstepPlayer>();
                     if (fp != null) fp.boostActive = false;
                     break;
 
                 case BuffType.Damage:
+                if(PlayerTransform)
                     PlayerTransform.GetComponent<PlayerCombat>().stats.AttackMultiplier = 1f;
                     break;
 
                 case BuffType.Invencibility:
+                if(PlayerTransform)
                     PlayerTransform.GetComponent<PlayerCombat>().stats.Invencibility = false;
                     break;
             }

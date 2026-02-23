@@ -127,8 +127,9 @@ public class UIManager : ASingleton<UIManager>, IManager
 
             EmparentCard(path, card.gameObject);
 
-            card.GetComponent<SelectableUICard>().MoveToCurve(card.transform.parent.position);
-            card.GetComponent<SelectableUICard>().Scale(2f);
+            card.GetComponent<CardAnimation>().InitTransform(card.transform.parent.position, Vector3.one * 2, Quaternion.identity.eulerAngles);
+            card.GetComponent<CardAnimation>().ApplyScale();
+            card.GetComponent<CardAnimation>().MoveToCurve(card.GetComponent<RectTransform>(), card.transform.parent.position);
         }
         foreach (var card in UICards)//poner delante las seleccionadas
         {
@@ -156,10 +157,15 @@ public class UIManager : ASingleton<UIManager>, IManager
 
 
         //decirle al CardManager que cartas va a usar el jugador, una de cada tipo
+
         CardManager.Instance.GiveCardToPlayer(FindLastCard("CardsDisplay/LeftCard"));
         CardManager.Instance.GiveCardToPlayer(FindLastCard("CardsDisplay/CenterCard"));
         CardManager.Instance.GiveCardToPlayer(FindLastCard("CardsDisplay/RightCard"));
-        //
+        //aqui no hay nada que mirar...
+        UICards.Remove(FindLastCard("CardsDisplay/LeftCard"));
+        UICards.Remove(FindLastCard("CardsDisplay/CenterCard"));
+        UICards.Remove(FindLastCard("CardsDisplay/RightCard"));
+
         CardManager.Instance.GiveCardsToPlayer(UICards);
 
         //ceder el control del jugador 
@@ -197,13 +203,16 @@ public class UIManager : ASingleton<UIManager>, IManager
         }
         card.transform.SetAsFirstSibling();
 
+        card.GetComponent<CardAnimation>().InitTransform(card.transform.parent.position, Vector3.one * 2, Quaternion.identity.eulerAngles);
+        card.GetComponent<CardAnimation>().ApplyScale();
         card.GetComponent<CardAnimation>().MoveToCurve(card.GetComponent<RectTransform>(), card.transform.parent.position);
-        //Debug.Log("Moviendo carta a pos UI:" + card.transform.parent.position);
 
-        //    card.GetComponent<CardAnimation>().Scale(card.GetComponent<RectTransform>(), 2f);
-        card.GetComponent<CardAnimation>().initialScale = new Vector3(2, 2, 2);
-        card.transform.localScale = card.GetComponent<CardAnimation>().initialScale;
-        card.GetComponent<CardAnimation>().RotateXValue(card.GetComponent<RectTransform>(), 0f);
+        // card.GetComponent<CardAnimation>().initialScale = new Vector3(2, 2, 2);
+
+        // card.transform.localScale = card.GetComponent<CardAnimation>().initialScale;
+
+        //por que??
+        //card.GetComponent<CardAnimation>().RotateXValue(card.GetComponent<RectTransform>(), 0f);
     }
     void EmparentCard(string objectName, GameObject objectToMove, int siblingIndex = -1)
     {

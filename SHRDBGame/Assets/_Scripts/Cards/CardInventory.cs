@@ -51,7 +51,7 @@ private Stack<CardObject> FilterStack(Stack<CardObject> original)
 
     foreach (var card in original)
     {
-        if (card.card.cardId == -1)
+        if (card.card.cardId == -1)//el cuchillo infinito, esto se va a cambiar mas adelante
             result.Push(card);
         else
             card.Discard();
@@ -96,10 +96,11 @@ private Stack<CardObject> FilterStack(Stack<CardObject> original)
                     }
                     break;
             }
+            Debug.Log("[CardInventory]Me ha llegado la carta:"+pCard.card.name);
         }
         catch (Exception e)
         {
-            Debug.LogError("La carta que me ha llegado es null: " + pCard == null);
+            Debug.LogError("[CardInventory]La carta que me ha llegado es null: " + pCard == null);
             Debug.LogError(e.Message);
         }
 
@@ -149,7 +150,7 @@ private Stack<CardObject> FilterStack(Stack<CardObject> original)
         while (aux.Count > 0)
             targetStack.Push(aux.Pop());
 
-        // 4️⃣ (Opcional) Si el jugador no tiene carta de ese tipo, darle una
+        // 4️(Opcional) Si el jugador no tiene carta de ese tipo, darle una
         var cardUser = GetComponent<CardUser>();
         switch (lCard.card.cardType)
         {
@@ -197,7 +198,7 @@ private Stack<CardObject> FilterStack(Stack<CardObject> original)
             if (card.transform.GetSiblingIndex() != parent.childCount - 1)
                 card.transform.SetAsLastSibling();
         }
-
+    Debug.Log("[CardInventory]Dando carta al jugador: "+card.card.CardName);
         return card;
     }
     public void OnEndGame()

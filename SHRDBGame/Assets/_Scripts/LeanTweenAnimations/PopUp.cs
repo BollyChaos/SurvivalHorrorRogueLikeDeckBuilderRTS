@@ -8,7 +8,7 @@ public class PopUp : MonoBehaviour
     [SerializeField] private float riseHeight = 0.5f;
     [SerializeField] private float riseDuration = 0.8f;
     [SerializeField] private bool activateOnEnable = true;
-    
+
     private Vector3 initialScale;
     private Vector3 initialPosition;
     private Quaternion initialRotation;
@@ -29,11 +29,9 @@ public class PopUp : MonoBehaviour
     }
     void ActivateAnimation()
     {
-         // Cancelar cualquier animación previa de salida
-        LeanTween.cancel(gameObject);
-        isAnimatingOut = false;
+        // Cancelar cualquier animación previa de salida
+        DeActivateAnimation();
 
-       
         transform.position = initialPosition;
         transform.rotation = initialRotation;
 
@@ -47,7 +45,12 @@ public class PopUp : MonoBehaviour
         LeanTween.moveY(gameObject, initialPosition.y + riseHeight, riseDuration)
             .setEaseOutSine();
     }
+    public void DeActivateAnimation()
+    {
+        LeanTween.cancel(gameObject);
+        isAnimatingOut = false;
 
+    }
     void OnDisable()
     {
         if (isAnimatingOut) return;

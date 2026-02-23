@@ -14,6 +14,8 @@ public class CardUser : MonoBehaviour
     CardObject DefenseCard;
     [SerializeField]
     CardObject UtilityCard;
+    [SerializeField]
+    CardInventory cardInventory;
 
     [SerializeField]
     private bool cardPressed = false;
@@ -76,6 +78,7 @@ public class CardUser : MonoBehaviour
     {
         AnimateCard();
         LookForInput();
+        cardInventory = GetComponent<CardInventory>();
     }
     public void LookForInput()
     {
@@ -216,10 +219,19 @@ public class CardUser : MonoBehaviour
         else if (scroll < 0)
             cardIndex = (cardIndex - 1 < 0) ? 3 - 1 : cardIndex - 1;
         currentCardType = (CardType)cardIndex;
-        //Animacion
-
-
-        // Debug.Log($"�ndice actual: {cardIndex}");
+        
+        if (!HasAttackCards && currentCardType == CardType.Attack)
+        {
+            currentCardType = CardType.Defense;
+        }
+        else if (!HasDefenseCards && currentCardType == CardType.Defense)//si hay cartas pero no de ataque saltar a la siguiente
+        {
+            currentCardType = CardType.Utility;
+        }
+        else if (!HasUtilityCards && currentCardType == CardType.Utility)//si hay cartas pero no de ataque saltar a la siguiente
+        {
+            currentCardType = CardType.Attack;
+        }
     }
     private void AnimateCard()
     {
@@ -236,43 +248,20 @@ public class CardUser : MonoBehaviour
         {
             case CardType.Attack:
                 if (AttackCard != null)
-                    AttackCard?.GetComponent<CardAnimation>().ScaleAndRotateZValue(AttackCard?.GetComponent<RectTransform>(), 2f, 3f, 5f);
-
-
+                    AttackCard?.GetComponent<CardAnimation>().DisplayAnimation(AttackCard?.GetComponent<RectTransform>(), 2f, 3f, 5f);
                 break;
 
             case CardType.Defense:
                 if (DefenseCard != null)
-                    DefenseCard?.GetComponent<CardAnimation>().ScaleAndRotateZValue(DefenseCard?.GetComponent<RectTransform>(), 2f, 3f, 5f);
+                    DefenseCard?.GetComponent<CardAnimation>().DisplayAnimation(DefenseCard?.GetComponent<RectTransform>(), 2f, 3f, 5f);
                 break;
 
             case CardType.Utility:
                 if (UtilityCard != null)
-                    UtilityCard?.GetComponent<CardAnimation>().ScaleAndRotateZValue(UtilityCard?.GetComponent<RectTransform>(), 2f, 3f, 5f);
+                    UtilityCard?.GetComponent<CardAnimation>().DisplayAnimation(UtilityCard?.GetComponent<RectTransform>(), 2f, 3f, 5f);
                 break;
         }
-        // if (cardToUse.GetComponent<SelectableUICard>().wiggleTween == null)
-        // {
 
-        //     for (int i = 0; i < 3; i++)
-        //     {
-        //         var cardAnim = cardToUse.GetComponent<SelectableUICard>();
-
-        //         if (i == cardIndex)
-        //         {
-        //             // Iniciar animaci�n si no est� ya activa
-        //             if (cardAnim.wiggleTween == null)
-        //                 cardAnim.StartIdle();
-        //         }
-        //         else
-        //         {
-        //             // Detener animaci�n en los dem�s
-        //             if (cardAnim.wiggleTween != null)
-        //                 cardAnim.StopIdle();
-        //         }
-        //     }
-
-        // }
     }
     private void ReadInputCard(InputAction.CallbackContext context)
     {
@@ -291,62 +280,84 @@ public class CardUser : MonoBehaviour
 
     #endregion
 
+    void TryFillCardAttack()
+    {
+        if (HasAttackCards) return;
+
+        AttackCard = cardInventory.GiveCard(CardType.Attack);
+        if (AttackCard != null)
+        {
+            Debug.Log("Recibiendo Carta");
+
+            AnimateCard();
+        }
+        else
+        {
+            Debug.Log("Recibiendo Carta nula");
+        }
+
+
+    }
+    void TryFillCardDefense()
+    {
+        if (HasDefenseCards) return;
+
+
+        DefenseCard = cardInventory.GiveCard(CardType.Defense);
+        if (DefenseCard != null)
+        {
+            Debug.Log("Recibiendo Carta");
+            AnimateCard();
+
+        }
+        else
+        {
+            Debug.Log("Recibiendo Carta nula");
+        }
+
+    }
+    void TryFillCardUtility()
+    {
+        if (HasUtilityCards) return;
+
+        UtilityCard = cardInventory.GiveCard(CardType.Utility);
+        if (UtilityCard != null)
+        {
+            Debug.Log("Recibiendo Carta");
+            AnimateCard();
+
+        }
+        else
+        {
+            Debug.Log("Recibiendo Carta");
+
+        }
+
+
+    }
+    void FillCardGaps()
+    {
+        if (!HasAnyCards) return;
+
+        if (!HasAttackCards && currentCardType == CardType.Attack)
+        {
+            currentCardType = CardType.Defense;
+            AnimateCard();
+        }
+        else if (!HasDefenseCards && currentCardType == CardType.Defense)//si hay cartas pero no de ataque saltar a la siguiente
+        {
+            currentCardType = CardType.Utility;
+            AnimateCard();
+        }
+        else if (!HasUtilityCards && currentCardType == CardType.Utility)//si hay cartas pero no de ataque saltar a la siguiente
+        {
+            currentCardType = CardType.Attack;
+            AnimateCard();
+        }
+
+    }
     private void Update()
     {
-        //for (int i = 0; i < cardPressed.Length; i++)
-        //{
-        //    if (cardPressed[i] && playerCards.Count > i && playerCards[i] != null)
-        //    {
-        //        playerCards[i].UseCard();//ojo, esto se va a llamar muchas veces, algunas cartas funcionan manteniendo pulsado(usar enumerator) otras no(un solo uso)
-
-        //    }
-        //}
-        //Creo que lo mejor para evitar errores es pedir cartas si no hay durante update
-        if (!HasAttackCards)
-        {
-            AttackCard = GetComponent<CardInventory>().GiveCard(CardType.Attack);
-            if (AttackCard != null)
-            {
-                AnimateCard();
-            }
-            else if (HasAnyCards && !HasAttackCards && currentCardType == CardType.Attack)//si hay cartas pero no de ataque saltar a la siguiente
-            {
-                currentCardType = CardType.Defense;
-                AnimateCard();
-            }
-
-
-
-        }
-        if (!HasDefenseCards)
-        {
-            DefenseCard = GetComponent<CardInventory>().GiveCard(CardType.Defense);
-            if (DefenseCard != null)
-            {
-                AnimateCard();
-
-            }
-            else if (HasAnyCards && !HasDefenseCards && currentCardType == CardType.Defense)//si hay cartas pero no de ataque saltar a la siguiente
-            {
-                currentCardType = CardType.Utility;
-                AnimateCard();
-            }
-        }
-        if (!HasUtilityCards)
-        {
-            UtilityCard = GetComponent<CardInventory>().GiveCard(CardType.Utility);
-            if (UtilityCard != null)
-            {
-                AnimateCard();
-
-            }
-            else if (HasAnyCards && !HasUtilityCards && currentCardType == CardType.Utility)//si hay cartas pero no de ataque saltar a la siguiente
-            {
-                currentCardType = CardType.Attack;
-                AnimateCard();
-            }
-
-        }
 
         HandleCardPressed();
         if (previousCardType != currentCardType)
@@ -364,31 +375,59 @@ public class CardUser : MonoBehaviour
 
             if (canUseCard)
             {
-
-
                 switch (currentCardType)
                 {
                     case CardType.Attack:
 
                         if (HasAttackCards)
-                            AttackCard?.UseCard();
-
+                        {
+                            if (AttackCard.CardNUses <= 1)
+                            {
+                                AttackCard.UseCard();
+                                AttackCard = null;
+                                TryFillCardAttack();
+                            }
+                            else
+                                AttackCard.UseCard();
+                        }
 
                         break;
 
                     case CardType.Defense:
                         if (HasDefenseCards)
-                            DefenseCard?.UseCard();
-
-
+                        {
+                            if (DefenseCard.CardNUses <= 1)
+                            {
+                                DefenseCard.UseCard();
+                                DefenseCard = null;
+                                TryFillCardDefense();
+                            }
+                            else
+                                DefenseCard.UseCard();
+                        }
 
                         break;
 
                     case CardType.Utility:
                         if (HasUtilityCards)
-                            UtilityCard?.UseCard();
+                        {
+                            if (UtilityCard.CardNUses <= 1)
+                            {
+                                UtilityCard.UseCard();
+                                UtilityCard = null;
+                                TryFillCardUtility();
+                            }
+                            else
+                                UtilityCard.UseCard();
+                        }
                         break;
                 }
+
+
+
+                //Pasar a otra carta
+                FillCardGaps();
+
 
                 StartCoroutine(ActivateCardCooldown());
 
@@ -401,7 +440,10 @@ public class CardUser : MonoBehaviour
     private IEnumerator ActivateCardCooldown()
     {
         canUseCard = false;
+
+
         yield return new WaitForSeconds(cardCooldown);
+
         canUseCard = true;
     }
     public void ClearAllCards()
@@ -411,7 +453,7 @@ public class CardUser : MonoBehaviour
             if (AttackCard.card.cardId != -1)
             {
                 GetComponent<CardInventory>().AddCard(AttackCard);
-               AttackCard.Discard();
+                AttackCard.Discard();
                 AttackCard = null;
             }
         }

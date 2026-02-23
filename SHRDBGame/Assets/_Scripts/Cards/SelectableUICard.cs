@@ -9,6 +9,7 @@ using UnityEngine.UI;
 
 public class SelectableUICard : Toggle
 {
+    //TODO: COMPATIBLE CON MANDO
     public enum CardPhase { SELECTION, INGAME }
     [SerializeField]
     private CardPhase cardPhase = CardPhase.SELECTION;
@@ -80,6 +81,8 @@ public class SelectableUICard : Toggle
     }
     public override void OnPointerClick(PointerEventData eventData)
     {
+       if (eventData.button != PointerEventData.InputButton.Left)
+        return;
         if (!interactable) return;
         switch (cardPhase)
         {
@@ -131,76 +134,76 @@ public class SelectableUICard : Toggle
         LeanTween.move(rectTransform.gameObject, rectTransform.position + new Vector3(0f, upDown * offsetY, 0f), 0.3f)
                  .setEase(LeanTweenType.easeInOutQuad);
     }
-    public void MoveToCurve(Vector3 targetPosition)
-    {
-        // Posición inicial
+    // public void MoveToCurve(Vector3 targetPosition)
+    // {
+    //     // Posición inicial
 
-        RectTransform rectTransform = GetComponent<RectTransform>();
+    //     RectTransform rectTransform = GetComponent<RectTransform>();
 
-        Vector3 startPos = rectTransform.position;
+    //     Vector3 startPos = rectTransform.position;
 
-        // Creamos puntos intermedios para la curva
-        Vector3 midPoint1 = startPos + new Vector3(UnityEngine.Random.Range(-curveAmplitude, curveAmplitude),
-                                                   UnityEngine.Random.Range(-curveAmplitude, curveAmplitude), 0f);
-        Vector3 midPoint2 = startPos + new Vector3(UnityEngine.Random.Range(-curveAmplitude, curveAmplitude),
-                                                   UnityEngine.Random.Range(-curveAmplitude, curveAmplitude), 0f);
+    //     // Creamos puntos intermedios para la curva
+    //     Vector3 midPoint1 = startPos + new Vector3(UnityEngine.Random.Range(-curveAmplitude, curveAmplitude),
+    //                                                UnityEngine.Random.Range(-curveAmplitude, curveAmplitude), 0f);
+    //     Vector3 midPoint2 = startPos + new Vector3(UnityEngine.Random.Range(-curveAmplitude, curveAmplitude),
+    //                                                UnityEngine.Random.Range(-curveAmplitude, curveAmplitude), 0f);
 
-        // Creamos el path
-        Vector3[] path = new Vector3[] { startPos, midPoint1, midPoint2, targetPosition };
+    //     // Creamos el path
+    //     Vector3[] path = new Vector3[] { startPos, midPoint1, midPoint2, targetPosition };
 
-        // Movemos con la curva generada
-        LeanTween.move(rectTransform.gameObject, path, duration)
-                 .setEase(LeanTweenType.easeInOutSine);
-    }
-    public void MoveTo(Vector3 targetPosition)
-    {
-        RectTransform rectTransform = GetComponent<RectTransform>();
-        LeanTween.move(rectTransform.gameObject, targetPosition, duration)
-                .setEase(LeanTweenType.easeInOutCubic);
-    }
-    public void Scale(float scale)
-    {
-        RectTransform rectTransform = GetComponent<RectTransform>();
-        LeanTween.scale(rectTransform.gameObject, new Vector3(scale, scale), duration)
-                 .setEase(LeanTweenType.easeOutBack);
-    }
-    public void StartIdle()
-    {
-        // Mueve hacia arriba primero
-        RectTransform rectTransform = GetComponent<RectTransform>();
-        originalPos = rectTransform.localPosition;
+    //     // Movemos con la curva generada
+    //     LeanTween.move(rectTransform.gameObject, path, duration)
+    //              .setEase(LeanTweenType.easeInOutSine);
+    // }
+    // public void MoveTo(Vector3 targetPosition)
+    // {
+    //     RectTransform rectTransform = GetComponent<RectTransform>();
+    //     LeanTween.move(rectTransform.gameObject, targetPosition, duration)
+    //             .setEase(LeanTweenType.easeInOutCubic);
+    // }
+    // public void Scale(float scale)
+    // {
+    //     RectTransform rectTransform = GetComponent<RectTransform>();
+    //     LeanTween.scale(rectTransform.gameObject, new Vector3(scale, scale), duration)
+    //              .setEase(LeanTweenType.easeOutBack);
+    // }
+    // public void StartIdle()
+    // {
+    //     // Mueve hacia arriba primero
+    //     RectTransform rectTransform = GetComponent<RectTransform>();
+    //     originalPos = rectTransform.localPosition;
 
-        MoveOffsetY(2);
-        StartWiggle(2);
-    }
+    //     MoveOffsetY(2);
+    //     StartWiggle(2);
+    // }
 
-    private void StartWiggle(float baseY)
-    {
-        RectTransform rectTransform = GetComponent<RectTransform>();
+    // private void StartWiggle(float baseY)
+    // {
+    //     RectTransform rectTransform = GetComponent<RectTransform>();
 
-        wiggleTween = LeanTween.moveLocalY(rectTransform.gameObject, baseY + wiggleAmount, wiggleSpeed)
-                               .setEase(LeanTweenType.easeInOutSine)
-                               .setLoopPingPong(-1);
-    }
+    //     wiggleTween = LeanTween.moveLocalY(rectTransform.gameObject, baseY + wiggleAmount, wiggleSpeed)
+    //                            .setEase(LeanTweenType.easeInOutSine)
+    //                            .setLoopPingPong(-1);
+    // }
 
-    public void StopIdle()
-    {
-        // Cancelar wiggle
-        if (wiggleTween != null)
-        {
-            LeanTween.cancel(wiggleTween.id);
-            wiggleTween = null;
-            MoveToOriginalPos();
-            Debug.Log("Cancelando");
-        }
+    // public void StopIdle()
+    // {
+    //     // Cancelar wiggle
+    //     if (wiggleTween != null)
+    //     {
+    //         LeanTween.cancel(wiggleTween.id);
+    //         wiggleTween = null;
+    //         MoveToOriginalPos();
+    //         Debug.Log("Cancelando");
+    //     }
 
 
-    }
+    // }
 
-    private void MoveToOriginalPos()
-    {
-        MoveTo(transform.parent.position);
-    }
+    // private void MoveToOriginalPos()
+    // {
+    //     MoveTo(transform.parent.position);
+    // }
 
     #endregion
 }

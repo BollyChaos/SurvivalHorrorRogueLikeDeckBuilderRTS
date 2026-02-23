@@ -4,7 +4,7 @@ using Character.Controls;
 
 public class CardDrop : MonoBehaviour, IInteractable
 {
-   
+
     [SerializeField] private CardObject cardObject;
 
     [Header("Visuals")]
@@ -53,13 +53,16 @@ public class CardDrop : MonoBehaviour, IInteractable
     {
 
 
-        if (isInteractable&&cardObject.card!=null)
+        if (isInteractable && cardObject.card != null)
         {
-            isInteractable=false;
+            isInteractable = false;
             Debug.Log($"[{name}] Card Picked!");
-
+            instantiatedCardUI.GetComponent<PopUp>().DeActivateAnimation();
+            Destroy(instantiatedCardUI.GetComponent<PopUp>());
             cardParticles.GetComponent<ParticleSystem>().Stop();
+            
             UIManager.Instance.PassWorldPosToUI(instantiatedCardUI, instantiatedCardUI.transform.parent.GetComponent<Canvas>());
+
             cardMesh.GetComponent<IdleFloatAndRotate>().enabled = false;
             cardMesh.SetActive(false);
             cardBoughtEffect.GetComponent<ParticleSystem>().Play();
@@ -67,10 +70,10 @@ public class CardDrop : MonoBehaviour, IInteractable
             if (cardObject != null)
                 CardManager.Instance.GiveLateCardToPlayer(cardObject);
 
-         Destroy(gameObject);
+            Destroy(gameObject);
 
         }
-       
+
     }
     void OnCollisionEnter(Collision collision)
     {
@@ -90,13 +93,14 @@ public class CardDrop : MonoBehaviour, IInteractable
     public void SetInteractable(bool value)
     {
         isInteractable = value;
-        
+
 
         if (instantiatedCardUI != null)
         {
-            if (value){
+            if (value)
+            {
                 instantiatedCardUI.SetActive(true);
-                }
+            }
             else
                 instantiatedCardUI.GetComponent<PopUp>().Hide();
 
@@ -106,7 +110,7 @@ public class CardDrop : MonoBehaviour, IInteractable
 
     public string GetInteractionText()
     {
-       
+
         return $"Presiona E para coger la carta";
     }
 }

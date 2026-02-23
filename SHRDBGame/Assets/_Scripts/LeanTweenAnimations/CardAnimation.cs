@@ -7,14 +7,39 @@ public class CardAnimation : MonoBehaviour
     [Header("Curve Movement Settings")]
     [SerializeField] private float duration = 1f;
     [SerializeField] private float curveAmplitude = 50f;
-    public Vector3 initialScale;
-    private Vector3 initialRotation;
+    [Header("Default transform"), Tooltip("Transform returns to these values after completing animations")]
+    [SerializeField] Vector3 initialPosition;
+
+    [SerializeField] Vector3 initialScale;
+    [SerializeField] Vector3 initialRotation;
     private LTDescr moveTweenId;
     private LTDescr scaleTweenId;
     private LTDescr rotateTweenId;
 
     private LTDescr scaleTweenIdDisplayAnim;
     private LTDescr rotateTweenIdDisplayAnim;
+    //Constructor de las animaciones
+    public void InitTransform(Vector3 initPos, Vector3 initScale, Vector3 initRotation)
+    {
+        initialPosition = initPos;
+        initialScale = initScale;
+        initialRotation = initRotation;
+    }
+    public void ApplyScale()
+    {
+        RectTransform rectTransform = GetComponent<RectTransform>();
+        rectTransform.localScale = initialScale;
+    }
+
+    public void ResetTransform()
+    {
+        RectTransform rectTransform = GetComponent<RectTransform>();
+        rectTransform.position = initialPosition;//IMPORTANTE, PARA LA POSICION SE TRABAJA CON COORDENADAS DEL MUNDO,NO LAS LOCALES
+        ApplyScale();
+        rectTransform.localEulerAngles = initialRotation;
+
+    }
+    //Solo mover moveTweenId
 
     public void MoveToCurve(RectTransform rectTransform, Vector3 targetPosition)
     {
@@ -33,29 +58,43 @@ public class CardAnimation : MonoBehaviour
         Vector3[] path = new Vector3[] { startPos, midPoint1, midPoint2, targetPosition };
 
         // Movemos con la curva generada
-       moveTweenId= LeanTween.move(rectTransform.gameObject, path, duration)
-                 .setEase(LeanTweenType.easeInOutSine).setOnComplete(() =>
+        moveTweenId =
+
+        LeanTween.rotateX(rectTransform.gameObject, 0, duration / 3)
+                 .setEase(LeanTweenType.easeInOutCubic).setOnComplete(() =>
                  {
-                     moveTweenId = null;
-                     rectTransform.position = targetPosition;
+                     LeanTween.move(rectTransform.gameObject, path, duration)
+                                       .setEase(LeanTweenType.easeInOutSine).setOnComplete(() =>
+                                       {
+                                           moveTweenId = null;
+                                           ResetTransform();
+                                       });
                  });
     }
+    public void DisplayAnimation(RectTransform rectTransform, float initScale, float scale, float degrees)
+    {
+        ScaleAndRotateZValue(rectTransform, initScale, scale, degrees);
+    }
+
     public void Scale(RectTransform rectTransform, float scale)
     {
         scaleTweenId = LeanTween.scale(rectTransform.gameObject, new Vector3(scale, scale), duration)
                  .setEase(LeanTweenType.easeOutBack);
     }
-    public void RotateXValue(RectTransform rectTransform, float degrees)
+    private void RotateXValue(RectTransform rectTransform, float degrees)
     {
-        LeanTween.rotateX(rectTransform.gameObject, degrees, duration)
-                 .setEase(LeanTweenType.easeInOutCubic);
-        rectTransform.localRotation = Quaternion.Euler(0f, rectTransform.localEulerAngles.y, rectTransform.localEulerAngles.z);
+        LeanTween.rotateX(rectTransform.gameObject, degrees, duration / 3)
+                 .setEase(LeanTweenType.easeInOutCubic).setOnComplete(() =>
+                 {
+                     moveTweenId = null;
+                     ResetTransform();
+                 });
+
 
     }
     public void ScaleAndRotateZValue(RectTransform rectTransform, float initScale, float scale, float degrees)
     {
-        initialRotation = rectTransform.localEulerAngles;
-        initialScale = new Vector3(initScale, initScale, initScale);
+      
 
         scaleTweenIdDisplayAnim = LeanTween.scale(rectTransform.gameObject, new Vector3(scale, scale), duration)
                  .setEase(LeanTweenType.easeOutBack).setLoopPingPong();
@@ -65,6 +104,8 @@ public class CardAnimation : MonoBehaviour
     }
     public void CancelDisplayAnimations(RectTransform rectTransform)
     {
+        if (moveTweenId != null) { //Debug.Log("No se puede interrumpir lo siento"); 
+        return; }//si todavia se esta moviendo la carta hacia el HUD no interrumpir
         if (scaleTweenIdDisplayAnim != null)
         {
             LeanTween.cancel(scaleTweenIdDisplayAnim.id);
@@ -75,14 +116,8 @@ public class CardAnimation : MonoBehaviour
             LeanTween.cancel(rotateTweenIdDisplayAnim.id);
             rotateTweenIdDisplayAnim = null;
         }
-        if (initialRotation != null)
-        {
-            rectTransform.localEulerAngles = initialRotation;
-        }
-        if (initialScale != null)
-        {
-            rectTransform.localScale = initialScale;
-        }
+        LeanTween.cancel(gameObject);
+        ResetTransform();
     }
     public void CancelAnimations(RectTransform rectTransform)
     {
@@ -104,7 +139,7 @@ public class CardAnimation : MonoBehaviour
         {
             rectTransform.localScale = initialScale;
         }
-        if( moveTweenId != null)
+        if (moveTweenId != null)
         {
             LeanTween.cancel(moveTweenId.id);
             moveTweenId = null;
