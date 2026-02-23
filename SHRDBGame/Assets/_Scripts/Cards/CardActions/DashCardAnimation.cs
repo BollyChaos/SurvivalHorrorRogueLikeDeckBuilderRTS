@@ -8,7 +8,7 @@ public class DashCardAnimation : ACardAction
     //TODO: para de destruir cosas macho
     [Header("Dash Settings")]
     [SerializeField] private float dashForce = 15f;
-    [SerializeField] private float dashDuration = 0.2f;
+    //[SerializeField] private float dashDuration = 0.2f;
     [SerializeField] private float dashCooldown = 1f;
     [SerializeField] private AnimationCurve dashSpeedCurve;
     [SerializeField] private GameObject dashParticles;
@@ -17,7 +17,6 @@ public class DashCardAnimation : ACardAction
     [SerializeField] private float invincibilityDuration = 1f;
 
     private Rigidbody rb;
-    private bool canDash = true;
     private Vector3 dashDirection;
 
     private ASoundPlayer soundPlayer;
@@ -52,7 +51,6 @@ public class DashCardAnimation : ACardAction
 
     private IEnumerator DoDash()
     {
-        canDash = false;
 
         GameObject dp = null;
         if (dashParticles != null)
@@ -78,7 +76,6 @@ public class DashCardAnimation : ACardAction
         yield return new WaitForSeconds(dashCooldown);
 
         if (dp != null) Destroy(dp.gameObject);
-        canDash = true;
     }
 
     public override void ResetCardAction()

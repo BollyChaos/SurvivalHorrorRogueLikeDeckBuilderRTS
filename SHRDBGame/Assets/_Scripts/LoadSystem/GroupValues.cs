@@ -179,7 +179,9 @@ public abstract class SettingValue
 
 }
 [Serializable]
+#pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
 public class BoolSettingValue : SettingValue
+#pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
 {
     [SerializeField]
     public bool value;
@@ -203,7 +205,9 @@ public class BoolSettingValue : SettingValue
 }
 
 [Serializable]
+#pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
 public class FloatSettingValue : SettingValue
+#pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
 {
     [SerializeField]
     public float value;
@@ -227,7 +231,9 @@ public class FloatSettingValue : SettingValue
 }
 
 [Serializable]
+#pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
 public class StringSettingValue : SettingValue
+#pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
 {
     [SerializeField]
     public string value;
@@ -251,7 +257,9 @@ public class StringSettingValue : SettingValue
     
 }
 [Serializable]
+#pragma warning disable CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
 public class SettingEntry
+#pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
 {
     public string name;
     public VALUE_TYPE type;

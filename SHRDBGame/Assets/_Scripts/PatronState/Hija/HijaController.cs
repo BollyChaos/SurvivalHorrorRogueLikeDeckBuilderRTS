@@ -36,7 +36,7 @@ public class HijaController : EnemyController
     [SerializeField] private ASoundPlayer soundPlayer;
     private bool enfadoSoundPlayed = false;
 
-    public void Awake()
+    protected override void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
         base.Awake();
@@ -46,7 +46,7 @@ public class HijaController : EnemyController
         if (soundPlayer == null)
             soundPlayer = GetComponent<ASoundPlayer>();
     }
-    private void Update()
+    protected override void Update()
     {
         _animator.SetFloat("Speed", GetAgent().velocity.magnitude);
         base.Update();
@@ -187,7 +187,7 @@ public class HijaController : EnemyController
     }
     #endregion
 
-    public void OnReset()
+    public override void OnReset()
     {
         _player = GameObject.FindGameObjectWithTag("Player");
         talkable = true;

@@ -28,7 +28,7 @@ public class VecinoController : EnemyController
     [Header("Ataque")]
     [SerializeField] GameObject slashPrefab;
     private float damage = 20f;
-    private float health = 100f;
+   // private float health = 100f;
 
     private IObjectPool<VecinoController> enemyPool;
 
@@ -37,7 +37,7 @@ public class VecinoController : EnemyController
         enemyPool = pool;
     }
 
-    private void Awake()
+    protected override void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
         SetChaseSpeed(7);
@@ -59,7 +59,7 @@ public class VecinoController : EnemyController
         if (attackSound == null)
             attackSound = GetComponent<ASoundPlayer>();
     }
-    private void Update()
+    protected override void Update()
     {
         _animator.SetFloat("Speed", GetAgent().velocity.magnitude);
         base.Update();

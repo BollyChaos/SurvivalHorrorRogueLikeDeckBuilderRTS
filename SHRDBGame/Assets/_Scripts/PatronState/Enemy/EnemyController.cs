@@ -14,7 +14,7 @@ public class EnemyController : MonoBehaviour, IEnemy
     //atributos
     private IState currentState;
     private GameObject playerAtSight;
-    private int distanceToChase = 10;
+   // private int distanceToChase = 10;
     private int chaseSpeed = 5;
     private int patrolSpeed = 2;
     private NavMeshAgent _agent;
@@ -31,7 +31,7 @@ public class EnemyController : MonoBehaviour, IEnemy
 
 
     //Metodos
-    protected void Awake()
+    protected virtual void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
         //SetState(new Patrol(this));
@@ -85,7 +85,7 @@ public class EnemyController : MonoBehaviour, IEnemy
     #endregion
 
     #region update y fixedupdate
-    protected void Update()
+    protected virtual void Update()
     {
         currentState?.Update();
     }
@@ -190,7 +190,7 @@ public class EnemyController : MonoBehaviour, IEnemy
     }
     #endregion
 
-    public void OnReset()
+    public virtual void OnReset()
     {
         // Reiniciar cualquier estado o variable necesaria para el enemigo
         _agent = GetComponent<NavMeshAgent>();

@@ -21,7 +21,7 @@ public class AbueloController : EnemyController
     [SerializeField] private ASoundPlayer attackSound;
     [SerializeField] private int attackSoundIndex = 0;
 
-    private void Awake()
+    protected override void Awake()
     {
         base.Awake();
     }
@@ -53,7 +53,7 @@ public class AbueloController : EnemyController
         lastHeardSoundPosition = null;
         currentWaypointIndex = 0;
 
-        // ❗ Vuelve al estado base
+        //  Vuelve al estado base
         SetState(new AbueloPatrolling(this));
 
         if (attackSound == null)
@@ -139,7 +139,7 @@ public class AbueloController : EnemyController
         Destroy(sPrefab, 1f);
     }
     #endregion
-    public void OnReset()
+    public override void OnReset()
     {
         Transform waypointsContainer = GameObject.Find("WaypointsAbuelo").transform;
         waypoints.Clear();

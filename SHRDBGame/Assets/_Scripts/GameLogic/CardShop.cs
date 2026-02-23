@@ -23,6 +23,7 @@ public class CardShop : MonoBehaviour
         else
         {
             ShowShop();
+            if(canSpawnDrops)
             ShootDrops();
         }
     }

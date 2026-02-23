@@ -36,29 +36,29 @@ public class CardInventory : MonoBehaviour
             Debug.Log(card.card.CardName);
         }
     }
-  public void RemoveAllCards()
-{
-    attackCards = FilterStack(attackCards);
-    defenseCards = FilterStack(defenseCards);
-    utilityCards = FilterStack(utilityCards);
-
-    GetComponent<CardUser>().ClearAllCards();
-}
-
-private Stack<CardObject> FilterStack(Stack<CardObject> original)
-{
-    Stack<CardObject> result = new Stack<CardObject>();
-
-    foreach (var card in original)
+    public void RemoveAllCards()
     {
-        if (card.card.cardId == -1)//el cuchillo infinito, esto se va a cambiar mas adelante
-            result.Push(card);
-        else
-            card.Discard();
+        attackCards = FilterStack(attackCards);
+        defenseCards = FilterStack(defenseCards);
+        utilityCards = FilterStack(utilityCards);
+
+        GetComponent<CardUser>().ClearAllCards();
     }
 
-    return result;
-}
+    private Stack<CardObject> FilterStack(Stack<CardObject> original)
+    {
+        Stack<CardObject> result = new Stack<CardObject>();
+
+        foreach (var card in original)
+        {
+            if (card.card.cardId == -1)//el cuchillo infinito, esto se va a cambiar mas adelante
+                result.Push(card);
+            else
+                card.Discard();
+        }
+
+        return result;
+    }
     public void AddCard(CardObject pCard)
     {
         try
@@ -96,7 +96,7 @@ private Stack<CardObject> FilterStack(Stack<CardObject> original)
                     }
                     break;
             }
-            Debug.Log("[CardInventory]Me ha llegado la carta:"+pCard.card.name);
+            //            Debug.Log("[CardInventory]Me ha llegado la carta:"+pCard.card.name);
         }
         catch (Exception e)
         {
@@ -198,7 +198,7 @@ private Stack<CardObject> FilterStack(Stack<CardObject> original)
             if (card.transform.GetSiblingIndex() != parent.childCount - 1)
                 card.transform.SetAsLastSibling();
         }
-    Debug.Log("[CardInventory]Dando carta al jugador: "+card.card.CardName);
+        //Debug.Log("[CardInventory]Dando carta al jugador: "+card.card.CardName);
         return card;
     }
     public void OnEndGame()

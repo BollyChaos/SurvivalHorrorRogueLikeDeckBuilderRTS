@@ -30,7 +30,7 @@ public class HijoController : EnemyController
     private bool canRangeAttack = true;
     [SerializeField] private float rangeAttackCooldown = 1.5f;
     private Animator _animator;
-    private void Awake()
+    protected override void Awake()
     {
         base.Awake();
     }
@@ -45,7 +45,7 @@ public class HijoController : EnemyController
         _animator = GetComponentInChildren<Animator>();
         SetState(new HijoIdle(this));
     }
-    void Update()
+    protected override void Update()
     {
         if(_animator != null)
         {

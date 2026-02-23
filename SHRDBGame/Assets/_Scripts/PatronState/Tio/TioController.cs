@@ -21,7 +21,7 @@ public class TioController : EnemyController
     private float damage = 30f;
     private float health = 200f;
 
-    private void Awake()
+    protected override void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
         SetChaseSpeed(12);
@@ -30,7 +30,7 @@ public class TioController : EnemyController
         base.Awake();
         SetState(new TioPatrolling(this));
     }
-    private void Update()
+    protected override void Update()
     {
         _animator.SetFloat("Speed", GetAgent().velocity.magnitude);
         if(GetComponent<Animator>() != null)
@@ -128,7 +128,7 @@ public class TioController : EnemyController
 
     #endregion
 
-    public void OnReset()
+    public override void OnReset()
     {
         base.OnReset();
         SetState(new TioPatrolling(this));

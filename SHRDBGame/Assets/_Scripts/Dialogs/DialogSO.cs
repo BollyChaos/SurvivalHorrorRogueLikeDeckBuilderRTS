@@ -9,9 +9,9 @@ public class DialogSO : ScriptableObject
     public string ConvName;
    [ExposedScriptableObject]
    public List<PhraseSO> phrases;
-   int idxPhrase = 0;
+//    int idxPhrase = 0;
    
-   bool isFinished=false;
+//    bool isFinished=false;
 
     public IEnumerator NextPhrase()
     {
@@ -30,8 +30,8 @@ public class DialogSO : ScriptableObject
         {
             phrase.Reset();
         }
-        idxPhrase = 0;
-        isFinished= false;  
+        // idxPhrase = 0;
+        // isFinished= false;  
         phrases.GetEnumerator().Dispose();
     }
 }

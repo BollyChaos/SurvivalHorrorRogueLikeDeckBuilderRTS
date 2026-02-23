@@ -173,6 +173,7 @@ public void InterruptDialog()
 
     public void OnEndGame()
     {
+        OnEndDialog();
     }
 
     public void OnEnd()
