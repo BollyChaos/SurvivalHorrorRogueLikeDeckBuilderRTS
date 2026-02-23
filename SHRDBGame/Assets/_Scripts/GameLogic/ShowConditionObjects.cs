@@ -20,15 +20,15 @@ void Awake()
         {
            conditionObjects[0].SetActive(true);
         }
-        if(GameManager.Instance.GetValue<float>("NCardsUsed")>=20)
+        if(GameManager.Instance.GetValue<int>("NCardsUsed")>=20)
         {
               conditionObjects[1].SetActive(true);
         }
-        if(GameManager.Instance.GetValue<float>("NTimesWon")>=1)
+        if(GameManager.Instance.GetValue<int>("NTimesWon")>=1)
         {
           conditionObjects[2].SetActive(true);
         }
-        if(GameManager.Instance.GetValue<float>("NEnemiesKilled")>=10)
+        if(GameManager.Instance.GetValue<int>("NEnemiesKilled")>=10)
         {
           conditionObjects[3].SetActive(true);
         }

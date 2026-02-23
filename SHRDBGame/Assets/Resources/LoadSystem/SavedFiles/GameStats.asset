@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27fbb81b894665b42a48be1cedf8e846, type: 3}
+  m_Name: GameStats
+  m_EditorClassIdentifier: 
+  fields:
+  - fieldName: GameStats
+    entries:
+    - name: NTimesWon
+      type: 4
+      value:
+        rid: 3917340566480225153
+    - name: NTimesDied
+      type: 4
+      value:
+        rid: 3917340566480225154
+    - name: NCardsUsed
+      type: 4
+      value:
+        rid: 3917340566480225155
+    - name: NEnemiesKilled
+      type: 4
+      value:
+        rid: 3917340566480225156
+    - name: GivenTeddyBear
+      type: 0
+      value:
+        rid: 3917340566480225157
+    - name: EnteredSecretRoom
+      type: 0
+      value:
+        rid: 3917340566480225158
+    - name: FlashLightSeconds
+      type: 1
+      value:
+        rid: 3917340566480225159
+  references:
+    version: 2
+    RefIds:
+    - rid: 3917340566480225153
+      type: {class: IntSettingValue, ns: , asm: Assembly-CSharp}
+      data:
+        value: 0
+    - rid: 3917340566480225154
+      type: {class: IntSettingValue, ns: , asm: Assembly-CSharp}
+      data:
+        value: 0
+    - rid: 3917340566480225155
+      type: {class: IntSettingValue, ns: , asm: Assembly-CSharp}
+      data:
+        value: 0
+    - rid: 3917340566480225156
+      type: {class: IntSettingValue, ns: , asm: Assembly-CSharp}
+      data:
+        value: 0
+    - rid: 3917340566480225157
+      type: {class: BoolSettingValue, ns: , asm: Assembly-CSharp}
+      data:
+        value: 0
+    - rid: 3917340566480225158
+      type: {class: BoolSettingValue, ns: , asm: Assembly-CSharp}
+      data:
+        value: 0
+    - rid: 3917340566480225159
+      type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
+      data:
+        value: 48.616234

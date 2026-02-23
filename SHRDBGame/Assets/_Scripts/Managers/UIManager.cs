@@ -522,49 +522,44 @@ public class UIManager : ASingleton<UIManager>, IManager
             foreach (var element in uiElements)
             {
                 element.Init();
-                switch (element.DataType)
-                {
-                    case VALUE_TYPE.BOOL:
-                        element.Subscribe<bool>(ChangeTemporalData);
-                        break;
-                    case VALUE_TYPE.FLOAT:
-                        element.Subscribe<float>(ChangeTemporalData);
-                        break;
-                    case VALUE_TYPE.STRING:
-                        element.Subscribe<string>(ChangeTemporalData);
-                        break;
-                }
+                element.OnValueChange(SetUIValues);
             }
         }
     }
-    public void ChangeBoolTemporalData(string uiName, bool value)
+    // public void ChangeBoolTemporalData(string uiName, bool value)
+    // {
+    //     ChangeTemporalData<bool>(uiName, value);
+    // }
+    // public void ChangeTemporalData<T>(string uiName, T value)
+    // {
+    //     //var dataValue= FindAnyObjectByType<Character.Settings.Settings>().GetValue<T>(uiName);
+    //     //Debug.Log("[UIManager]Cambiando el valor en " + uiName + " : " + value);//ya sabemos que funciona
+    //     //Decir a settings que cambie valor y aplique(pero de momento no guarda)
+    //     PauseMenu.transform.Find("TabCanvas/SaveText/SaveImage").GetComponent<Image>().color = Color.red;
+    //     SettingsManager.Instance.SetValue<T>(uiName, value);
+    //     isSettingsCanvasDirty = true;
+    // }
+public void SetUIValues()
     {
-        ChangeTemporalData<bool>(uiName, value);
+         foreach (var ui in uiElements)
+            ui.SetValues();
+        isSettingsCanvasDirty=true;
     }
-    public void ChangeTemporalData<T>(string uiName, T value)
-    {
-        //var dataValue= FindAnyObjectByType<Character.Settings.Settings>().GetValue<T>(uiName);
-        //Debug.Log("[UIManager]Cambiando el valor en " + uiName + " : " + value);//ya sabemos que funciona
-        //Decir a settings que cambie valor y aplique(pero de momento no guarda)
-        PauseMenu.transform.Find("TabCanvas/SaveText/SaveImage").GetComponent<Image>().color = Color.red;
-        SettingsManager.Instance.SetValue<T>(uiName, value);
-        isSettingsCanvasDirty = true;
-    }
-
     public void SaveTemporalData()
     {//Guardar los cambios (avisar a settingsmanager)
-        if (!isSettingsCanvasDirty) return;
-        SettingsManager.Instance.SaveData();
+       if(isSettingsCanvasDirty)
+            SettingsManager.Instance.SaveData();
+        isSettingsCanvasDirty=false;
+
         //PauseMenu.transform.Find("TabCanvas/SaveText/SaveImage").GetComponent<Image>().color = Color.green; descartado, no me terminaba de convencer
 
-        isSettingsCanvasDirty = false;
     }
-    public void DiscardTemporalData()
-    {//Descartar los cambios(que settingsmanager haga un load de lo viejo en ALoader y avise de los cambios realizados)
-        if (!isSettingsCanvasDirty) return;
-        SettingsManager.Instance.LoadData();
-        isSettingsCanvasDirty = false;
-    }
+    // public void DiscardTemporalData()
+    // {//Descartar los cambios(que settingsmanager haga un load de lo viejo en ALoader y avise de los cambios realizados)
+    //     if (!isSettingsCanvasDirty) return;
+    //     SettingsManager.Instance.LoadData();
+    //     isSettingsCanvasDirty = false;
+    // }
     public void SetDialog()
     {
         previousInGameState = inGameStates;
@@ -738,36 +733,7 @@ public class UIManager : ASingleton<UIManager>, IManager
     #region ManagerLogic
     public void LoadData()
     {
-        //Buscar al settingsManager para que me de lo que necesito en los uiElements
-        foreach (var element in uiElements)
-        {
-            switch (element.GetComponent<UISettingsElement>().DataType)
-            {
-                case VALUE_TYPE.BOOL:
-                    //Debug.Log("[CanvasManager] Poniendo valor de "+element.name+" a "+settingsValues.GetValue<bool>(element.name));
-                    element.GetComponent<Toggle>().isOn = SettingsManager.Instance.GetValue<bool>(element.name);
-                    break;
-                case VALUE_TYPE.FLOAT:
-                    element.GetComponent<Slider>().value = SettingsManager.Instance.GetValue<float>(element.name);
-                    break;
-                case VALUE_TYPE.STRING:
 
-                    // string[] parts = settingsValues.GetValue<string>(element.name).Split("::");
-                    // string[] actionName=null;
-
-                    // if(parts.Length>=3)
-                    //     actionName = parts[2].Split("/");//parts 2 es el binding path<Keyboard>/W por ejemplo
-
-                    // string actionValue = null;
-
-                    // if (actionName.Length > 0)                                         
-                    //     actionValue= actionName[1];
-                    // if(actionValue!=null)
-                    //     element.GetComponent<RebindActionUI>().bindingText.text = actionValue;
-
-                    break;
-            }
-        }
     }
 
 

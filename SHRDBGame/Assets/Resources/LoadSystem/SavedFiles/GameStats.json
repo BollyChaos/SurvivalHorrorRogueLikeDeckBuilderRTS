@@ -1,0 +1,140 @@
+{
+    "fields": [
+        {
+            "fieldName": "GameStats",
+            "entries": [
+                {
+                    "name": "NTimesWon",
+                    "type": 4,
+                    "value": {
+                        "rid": 1000
+                    }
+                },
+                {
+                    "name": "NTimesDied",
+                    "type": 4,
+                    "value": {
+                        "rid": 1001
+                    }
+                },
+                {
+                    "name": "NCardsUsed",
+                    "type": 4,
+                    "value": {
+                        "rid": 1002
+                    }
+                },
+                {
+                    "name": "NEnemiesKilled",
+                    "type": 4,
+                    "value": {
+                        "rid": 1003
+                    }
+                },
+                {
+                    "name": "GivenTeddyBear",
+                    "type": 0,
+                    "value": {
+                        "rid": 1004
+                    }
+                },
+                {
+                    "name": "EnteredSecretRoom",
+                    "type": 0,
+                    "value": {
+                        "rid": 1005
+                    }
+                },
+                {
+                    "name": "FlashLightSeconds",
+                    "type": 1,
+                    "value": {
+                        "rid": 1006
+                    }
+                }
+            ]
+        }
+    ],
+    "references": {
+        "version": 2,
+        "RefIds": [
+            {
+                "rid": 1000,
+                "type": {
+                    "class": "IntSettingValue",
+                    "ns": "",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "value": 0
+                }
+            },
+            {
+                "rid": 1001,
+                "type": {
+                    "class": "IntSettingValue",
+                    "ns": "",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "value": 0
+                }
+            },
+            {
+                "rid": 1002,
+                "type": {
+                    "class": "IntSettingValue",
+                    "ns": "",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "value": 0
+                }
+            },
+            {
+                "rid": 1003,
+                "type": {
+                    "class": "IntSettingValue",
+                    "ns": "",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "value": 0
+                }
+            },
+            {
+                "rid": 1004,
+                "type": {
+                    "class": "BoolSettingValue",
+                    "ns": "",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "value": false
+                }
+            },
+            {
+                "rid": 1005,
+                "type": {
+                    "class": "BoolSettingValue",
+                    "ns": "",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "value": false
+                }
+            },
+            {
+                "rid": 1006,
+                "type": {
+                    "class": "FloatSettingValue",
+                    "ns": "",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "value": 0.0
+                }
+            }
+        ]
+    }
+}

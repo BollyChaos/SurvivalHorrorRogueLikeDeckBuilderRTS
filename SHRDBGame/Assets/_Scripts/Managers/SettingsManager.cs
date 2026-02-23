@@ -6,7 +6,7 @@ using Patterns.Singleton;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class SettingsManager : ASingleton<SettingsManager>, IManager, ILoaderUser
+public class SettingsManager : ASingleton<SettingsManager>, IManager, ISettingsContainer
 {
     public IManager.GameStartMode StartMode => IManager.GameStartMode.FIRST;
     [SerializeField, ExposedScriptableObject]
@@ -18,7 +18,7 @@ public class SettingsManager : ASingleton<SettingsManager>, IManager, ILoaderUse
         Debug.Log($"[{name}] Han habido cambios");
         onSettingsChange.Invoke();
     }
-    public void  SetValue<T>(string name,T value)//cambia de valor y aplica(pero no se guarda)
+    public void SetValue<T>(string name, T value)//cambia de valor y aplica(pero no se guarda)
     {
         if (settingsValues == null) return;
         settingsValues.SetValue<T>(name, value);
@@ -28,36 +28,43 @@ public class SettingsManager : ASingleton<SettingsManager>, IManager, ILoaderUse
     {
         return settingsValues.GetValue<T>(name);
     }
-   public void StartManager()
+    public void StartManager()
     {
         Debug.Log($"[{name}]Inciando...");
         LoadData();
     }
     public void OnStartGame()
     {
-        
+
     }
     [ContextMenu("Cargar archivos")]
     public void LoadData()
     {
-        settingsValues = GetComponent<ALoader>().LoadValues();
+        settingsValues = GetComponent<LoaderMono>().LoadValues();
         OnValuesChange();
     }
     [ContextMenu("Guardar archivos")]
     public void SaveData()
     {
-        GetComponent<ALoader>().SaveValues(settingsValues);
+        GetComponent<LoaderMono>().SaveData(settingsValues);
     }
 
-    
-     public void OnEnd()
+
+    public void OnEnd()
     {
         SaveData();
     }
 
     public void OnEndGame()
     {
-        SaveData();   
+        SaveData();
+    }
+
+
+
+    public void SubscribeToSettingsChange(Action onChange)
+    {
+        onSettingsChange.AddListener(onChange.Invoke);
     }
 
     #endregion

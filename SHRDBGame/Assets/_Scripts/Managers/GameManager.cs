@@ -161,25 +161,25 @@ namespace Managers
         public void SetValue<T>(string key, T value)
         {
            
-            GetComponent<ALoader>().SetValue<T>(key, value);
+            GetComponent<LoaderMono>().SetValue<T>(key, value);
         }
         public T GetValue<T>(string key)
         {
            
-            return GetComponent<ALoader>().GetValue<T>(key);
+            return GetComponent<LoaderMono>().GetValue<T>(key);
         }
         [ContextMenu("Reset to default values")]
         public void ResetToDefaultValues()
         {
-            GetComponent<ALoader>().ResetDefaultValues();
+            GetComponent<LoaderMono>().ResetData();
         }
     public void SaveData()
         {
-            GetComponent<ALoader>().SaveValues();
+            GetComponent<LoaderMono>().SaveData();
         }
         public void LoadData()
         {
-            GetComponent<ALoader>().LoadValues();
+            GetComponent<LoaderMono>().LoadValues();
         }
 
         public void OnEnd()

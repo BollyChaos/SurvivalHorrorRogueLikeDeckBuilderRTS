@@ -1,0 +1,188 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27fbb81b894665b42a48be1cedf8e846, type: 3}
+  m_Name: Settings
+  m_EditorClassIdentifier: 
+  fields:
+  - fieldName: Controls
+    entries:
+    - name: UseButtons
+      type: 0
+      value:
+        rid: 3917340566480224939
+  - fieldName: ViewPort
+    entries:
+    - name: Brightness
+      type: 1
+      value:
+        rid: 3917340566480224940
+    - name: Contrast
+      type: 1
+      value:
+        rid: 3917340566480224941
+    - name: LightIntensity
+      type: 1
+      value:
+        rid: 3917340566480224942
+    - name: FlashLightIntensity
+      type: 1
+      value:
+        rid: 3917340566480224943
+  - fieldName: Sound
+    entries:
+    - name: Mute
+      type: 0
+      value:
+        rid: 3917340566480224944
+    - name: MasterVolume
+      type: 1
+      value:
+        rid: 3917340566480224945
+    - name: MusicVolume
+      type: 1
+      value:
+        rid: 3917340566480224946
+    - name: SFXVolume
+      type: 1
+      value:
+        rid: 3917340566480224947
+    - name: InterfaceVolume
+      type: 1
+      value:
+        rid: 3917340566480224948
+  - fieldName: Game
+    entries:
+    - name: Invincible
+      type: 0
+      value:
+        rid: 3917340566480224949
+    - name: UnlimitedMoney
+      type: 0
+      value:
+        rid: 3917340566480224950
+    - name: PlayerHealth
+      type: 1
+      value:
+        rid: 3917340566480224951
+    - name: PlayerSpeed
+      type: 1
+      value:
+        rid: 3917340566480224952
+    - name: EnemyAgresivity
+      type: 1
+      value:
+        rid: 3917340566480224953
+    - name: UnlimitedDamage
+      type: 0
+      value:
+        rid: 3917340566480224954
+    - name: StartingCards
+      type: 1
+      value:
+        rid: 3917340566480224955
+  - fieldName: Accesibility
+    entries:
+    - name: CameraShake
+      type: 0
+      value:
+        rid: 3917340566480224956
+    - name: InterfaceSize
+      type: 1
+      value:
+        rid: 3917340566480224957
+    - name: DialogSize
+      type: 1
+      value:
+        rid: 3917340566480224958
+  references:
+    version: 2
+    RefIds:
+    - rid: 3917340566480224939
+      type: {class: BoolSettingValue, ns: , asm: Assembly-CSharp}
+      data:
+        value: 0
+    - rid: 3917340566480224940
+      type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
+      data:
+        value: 0
+    - rid: 3917340566480224941
+      type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
+      data:
+        value: 0
+    - rid: 3917340566480224942
+      type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
+      data:
+        value: 0
+    - rid: 3917340566480224943
+      type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
+      data:
+        value: 0
+    - rid: 3917340566480224944
+      type: {class: BoolSettingValue, ns: , asm: Assembly-CSharp}
+      data:
+        value: 0
+    - rid: 3917340566480224945
+      type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
+      data:
+        value: 0.5
+    - rid: 3917340566480224946
+      type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
+      data:
+        value: 0.5
+    - rid: 3917340566480224947
+      type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
+      data:
+        value: 0.5
+    - rid: 3917340566480224948
+      type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
+      data:
+        value: 0.5
+    - rid: 3917340566480224949
+      type: {class: BoolSettingValue, ns: , asm: Assembly-CSharp}
+      data:
+        value: 0
+    - rid: 3917340566480224950
+      type: {class: BoolSettingValue, ns: , asm: Assembly-CSharp}
+      data:
+        value: 0
+    - rid: 3917340566480224951
+      type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
+      data:
+        value: 100
+    - rid: 3917340566480224952
+      type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
+      data:
+        value: 10
+    - rid: 3917340566480224953
+      type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
+      data:
+        value: 0
+    - rid: 3917340566480224954
+      type: {class: BoolSettingValue, ns: , asm: Assembly-CSharp}
+      data:
+        value: 0
+    - rid: 3917340566480224955
+      type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
+      data:
+        value: 8
+    - rid: 3917340566480224956
+      type: {class: BoolSettingValue, ns: , asm: Assembly-CSharp}
+      data:
+        value: 1
+    - rid: 3917340566480224957
+      type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
+      data:
+        value: 0
+    - rid: 3917340566480224958
+      type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
+      data:
+        value: 0
