@@ -53,6 +53,46 @@
                     }
                 }
             ]
+        },
+        {
+            "fieldName": "NightContext",
+            "entries": [
+                {
+                    "name": "PlayerHealth",
+                    "type": 1,
+                    "value": {
+                        "rid": 1007
+                    }
+                },
+                {
+                    "name": "CurrentNight",
+                    "type": 4,
+                    "value": {
+                        "rid": 1008
+                    }
+                },
+                {
+                    "name": "CurrentCards",
+                    "type": 7,
+                    "value": {
+                        "rid": 1009
+                    }
+                },
+                {
+                    "name": "CurrentCardsUses",
+                    "type": 7,
+                    "value": {
+                        "rid": 1010
+                    }
+                },
+                {
+                    "name": "LoadContext",
+                    "type": 0,
+                    "value": {
+                        "rid": 1011
+                    }
+                }
+            ]
         }
     ],
     "references": {
@@ -88,7 +128,7 @@
                     "asm": "Assembly-CSharp"
                 },
                 "data": {
-                    "value": 0
+                    "value": 26
                 }
             },
             {
@@ -99,7 +139,7 @@
                     "asm": "Assembly-CSharp"
                 },
                 "data": {
-                    "value": 0
+                    "value": 8
                 }
             },
             {
@@ -132,7 +172,62 @@
                     "asm": "Assembly-CSharp"
                 },
                 "data": {
+                    "value": 237.4328155517578
+                }
+            },
+            {
+                "rid": 1007,
+                "type": {
+                    "class": "FloatSettingValue",
+                    "ns": "",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
                     "value": 0.0
+                }
+            },
+            {
+                "rid": 1008,
+                "type": {
+                    "class": "IntSettingValue",
+                    "ns": "",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "value": 0
+                }
+            },
+            {
+                "rid": 1009,
+                "type": {
+                    "class": "StringSettingValue",
+                    "ns": "",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "value": ""
+                }
+            },
+            {
+                "rid": 1010,
+                "type": {
+                    "class": "StringSettingValue",
+                    "ns": "",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "value": ""
+                }
+            },
+            {
+                "rid": 1011,
+                "type": {
+                    "class": "BoolSettingValue",
+                    "ns": "",
+                    "asm": "Assembly-CSharp"
+                },
+                "data": {
+                    "value": false
                 }
             }
         ]

@@ -18,59 +18,59 @@ MonoBehaviour:
     - name: NTimesWon
       type: 4
       value:
-        rid: 3917340580540317949
+        rid: 3917340582603129133
     - name: NTimesDied
       type: 4
       value:
-        rid: 3917340580540317950
+        rid: 3917340582603129134
     - name: NCardsUsed
       type: 4
       value:
-        rid: 3917340580540317951
+        rid: 3917340582603129135
     - name: NEnemiesKilled
       type: 4
       value:
-        rid: 3917340580540317952
+        rid: 3917340582603129136
     - name: GivenTeddyBear
       type: 0
       value:
-        rid: 3917340580540317953
+        rid: 3917340582603129137
     - name: EnteredSecretRoom
       type: 0
       value:
-        rid: 3917340580540317954
+        rid: 3917340582603129138
     - name: FlashLightSeconds
       type: 1
       value:
-        rid: 3917340580540317955
+        rid: 3917340582603129139
   references:
     version: 2
     RefIds:
-    - rid: 3917340580540317949
+    - rid: 3917340582603129133
       type: {class: IntSettingValue, ns: , asm: Assembly-CSharp}
       data:
         value: 0
-    - rid: 3917340580540317950
+    - rid: 3917340582603129134
       type: {class: IntSettingValue, ns: , asm: Assembly-CSharp}
       data:
         value: 0
-    - rid: 3917340580540317951
+    - rid: 3917340582603129135
       type: {class: IntSettingValue, ns: , asm: Assembly-CSharp}
       data:
-        value: 3
-    - rid: 3917340580540317952
+        value: 6
+    - rid: 3917340582603129136
       type: {class: IntSettingValue, ns: , asm: Assembly-CSharp}
       data:
         value: 0
-    - rid: 3917340580540317953
+    - rid: 3917340582603129137
       type: {class: BoolSettingValue, ns: , asm: Assembly-CSharp}
       data:
         value: 0
-    - rid: 3917340580540317954
+    - rid: 3917340582603129138
       type: {class: BoolSettingValue, ns: , asm: Assembly-CSharp}
       data:
         value: 0
-    - rid: 3917340580540317955
+    - rid: 3917340582603129139
       type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
       data:
-        value: 97.27517
+        value: 138.40482

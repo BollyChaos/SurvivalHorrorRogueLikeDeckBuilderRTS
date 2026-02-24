@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfe99d5be4acef9429c780b25610f846, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  duration: 5
   laserEyesPrefab: {fileID: 2181442567882540360, guid: 908d880110911d54bb773f5552b7dc75, type: 3}
   laserSound: {fileID: 5524084963998811152}
 --- !u!82 &5150000855690136557

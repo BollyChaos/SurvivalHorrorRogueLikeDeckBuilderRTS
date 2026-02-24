@@ -2600,8 +2600,8 @@ MonoBehaviour:
   DebugGame: 1
   DebugPlatform: 0
   debugGamePlatform: 2
-  ChangeInitalScene: 0
-  startingDebugScene: 2
+  ChangeInitalScene: 1
+  startingDebugScene: 3
   SkipPhase: 0
   SkipCardSelectionPhase: 0
   startingNight: 1
@@ -12208,8 +12208,8 @@ MonoBehaviour:
   - {fileID: 9548963650303098, guid: 8aef092bfd66f534c8616d7e1ea7ebf8, type: 3}
   - {fileID: 6767260608181803094, guid: 010527154c4ae514a8dc3dd3ec4d8018, type: 3}
   - {fileID: 7694558625838135972, guid: 131b9c00baf1b7346946c06183cc5d0e, type: 3}
-  debug: 0
-  cardToUseAlways: "AbsorberDa\xF1o"
+  debug: 1
+  cardToUseAlways: OjosLaser
 --- !u!114 &1077143939
 MonoBehaviour:
   m_ObjectHideFlags: 0
