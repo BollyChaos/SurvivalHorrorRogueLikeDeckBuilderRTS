@@ -1,27 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(ASoundPlayer))]
 public class InmolationCardAction : ACardAction
 {
-    [SerializeField]
-    private GameObject ExplosionPrefab;
-
 
     private ASoundPlayer soundPlayer;
 
     void Start()
     {
-        ExplosionPrefab.SetActive(false);
         soundPlayer = GetComponent<ASoundPlayer>();
     }
 
     public override void ExecuteCardAction(CardObject cardObj)
     {
 
-        GameObject ep = Instantiate(ExplosionPrefab, PlayerTransform.position, Quaternion.identity);
+        GameObject ep = ObjectPoolManager.Instance.Get("InmolationCardPrefab");
+
         ep.SetActive(true);
+        ep.transform.position = PlayerTransform.position;
 
 
         if (soundPlayer != null)
@@ -38,7 +37,7 @@ public class InmolationCardAction : ACardAction
         StartCoroutine(PlayCameraShake());
 
         cardObj.UsingCard = false;
-        Destroy(ep, 5f);
+        DelayedActions.Do(() => ep.SetActive(false), duration, this);
     }
 
     IEnumerator PlayCameraShake()
@@ -51,6 +50,6 @@ public class InmolationCardAction : ACardAction
 
     public override void ResetCardAction()
     {
-       
+
     }
 }

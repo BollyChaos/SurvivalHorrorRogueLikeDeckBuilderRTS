@@ -46,7 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a910f184166efe4fa6411d52c7eb189, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  duration: 7
   healParticles: {fileID: 434902549195800187, guid: 398933f67a857b34e88a47c459b9ca5c, type: 3}
+  hp: {fileID: 0}
 --- !u!82 &2475464662308163223
 AudioSource:
   m_ObjectHideFlags: 0

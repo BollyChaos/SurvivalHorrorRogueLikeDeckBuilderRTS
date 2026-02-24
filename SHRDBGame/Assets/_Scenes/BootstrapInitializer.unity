@@ -2600,7 +2600,7 @@ MonoBehaviour:
   DebugGame: 1
   DebugPlatform: 0
   debugGamePlatform: 2
-  ChangeInitalScene: 1
+  ChangeInitalScene: 0
   startingDebugScene: 2
   SkipPhase: 0
   SkipCardSelectionPhase: 0
@@ -17110,7 +17110,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1458407708}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9c707928b77d51e42b9f426d5fb79936, type: 3}
   m_Name: 
@@ -22886,13 +22886,15 @@ MonoBehaviour:
   parentTransform: {fileID: 1982339130}
   pools:
   - prefab: {fileID: 4728035575616890473, guid: d1aed69f22ba20d448d7683109191eea, type: 3}
-    prewarmCount: 0
+    prewarmCount: 1
   - prefab: {fileID: 4322329117238892473, guid: f14ecf0b85f4a484087a9e798557ce7d, type: 3}
     prewarmCount: 0
   - prefab: {fileID: 5739555362021033927, guid: 183fed213e535dc429fb98d5837f0d76, type: 3}
     prewarmCount: 0
   - prefab: {fileID: 3469342555321442635, guid: cb0146b12eb2908478b48edd6f85518b, type: 3}
     prewarmCount: 4
+  - prefab: {fileID: 6688336199676993398, guid: efd028d2bb76ef24cab90569513c2059, type: 3}
+    prewarmCount: 0
 --- !u!114 &1982339129
 MonoBehaviour:
   m_ObjectHideFlags: 0

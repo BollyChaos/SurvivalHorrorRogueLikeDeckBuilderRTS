@@ -46,9 +46,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f9ab1bde474c9549b63f3d24eeda86a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 0.5
+  duration: 12
   buffType: 1
   particles: {fileID: 4412356807755664667, guid: 0fe7ea4a32a084a46b0537bcbf252821, type: 3}
+  bp: {fileID: 0}
   buffTime: 10
 --- !u!82 &7529142413187425981
 AudioSource:

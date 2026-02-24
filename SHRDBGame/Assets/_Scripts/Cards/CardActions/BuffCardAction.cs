@@ -11,6 +11,7 @@ public class BuffCardAction : ACardAction
     [SerializeField] BuffType buffType;
 
     [SerializeField] private GameObject particles;
+    [ReadOnly][SerializeField] GameObject bp;
     [SerializeField] private float buffTime = 5f;
 
     private bool HasUsedBuff = false;
@@ -28,8 +29,9 @@ public class BuffCardAction : ACardAction
         buffTimeCounter += buffTime;
         HasUsedBuff = true;
 
-        GameObject bp = Instantiate(particles, PlayerTransform);
-        
+        if (bp == null)
+            bp = Instantiate(particles, PlayerTransform);
+
         bp.SetActive(true);
         bp.GetComponent<ParticleSystem>().Play();
 
@@ -63,7 +65,7 @@ public class BuffCardAction : ACardAction
         }
 
         cardObj.UsingCard = false;
-        Destroy(bp, 6f);
+       DelayedActions.Do(()=>bp.SetActive(false),duration,this);
     }
 
     private void Update()
@@ -79,20 +81,20 @@ public class BuffCardAction : ACardAction
             switch (buffType)
             {
                 case BuffType.Speed:
-                if(PlayerTransform==null)return;
+                    if (PlayerTransform == null) return;
                     PlayerTransform?.GetComponent<PlayerCombat>().stats.ChangeSpeedMultiplier(1f);
                     FootstepPlayer fp = PlayerTransform.GetComponent<FootstepPlayer>();
                     if (fp != null) fp.boostActive = false;
                     break;
 
                 case BuffType.Damage:
-                if(PlayerTransform)
-                    PlayerTransform.GetComponent<PlayerCombat>().stats.AttackMultiplier = 1f;
+                    if (PlayerTransform)
+                        PlayerTransform.GetComponent<PlayerCombat>().stats.AttackMultiplier = 1f;
                     break;
 
                 case BuffType.Invencibility:
-                if(PlayerTransform)
-                    PlayerTransform.GetComponent<PlayerCombat>().stats.Invencibility = false;
+                    if (PlayerTransform)
+                        PlayerTransform.GetComponent<PlayerCombat>().stats.Invencibility = false;
                     break;
             }
         }
@@ -100,6 +102,6 @@ public class BuffCardAction : ACardAction
 
     public override void ResetCardAction()
     {
-        
+
     }
 }

@@ -102,23 +102,23 @@ public class LevelManager : ASingleton<LevelManager>, IManager
     {
         //Llamar al game manager para que aumente el contador de cartas usadas
         totalCardsUsed++;
-        GameManager.Instance.SetValue<float>("NCardsUsed",GameManager.Instance.GetValue<float>("NCardsUsed")+1);
+        GameManager.Instance.SetValue<int>("NCardsUsed",GameManager.Instance.GetValue<int>("NCardsUsed")+1);
     }
     public void AddEnemyKill()
     {
         //Llamar al game manager para que aumente el contador de enemigos eliminados
         totalEnemiesKilled++;
-        GameManager.Instance.SetValue<float>("NEnemiesKilled", GameManager.Instance.GetValue<float>("NEnemiesKilled") + 1);
+        GameManager.Instance.SetValue<int>("NEnemiesKilled", GameManager.Instance.GetValue<int>("NEnemiesKilled") + 1);
     }
     public void AddDeathCount()
     {
         //Llamar al game manager para que aumente el contador de muertes
-        GameManager.Instance.SetValue<float>("NTimesDied", GameManager.Instance.GetValue<float>("NTimesDied") + 1);
+        GameManager.Instance.SetValue<int>("NTimesDied", GameManager.Instance.GetValue<int>("NTimesDied") + 1);
     }
     public void AddWinCount()
     {
         //Llamar al game manager para que aumente el contador de victorias
-        GameManager.Instance.SetValue<float>("NTimesWon", GameManager.Instance.GetValue<float>("NTimesWon") + 1);
+        GameManager.Instance.SetValue<int>("NTimesWon", GameManager.Instance.GetValue<int>("NTimesWon") + 1);
     }   
     #region MANAGERLOGIC
     public void LoadData()
