@@ -57,7 +57,6 @@ namespace Managers
         void Start()
         {
 
-
             gamePlatform = GetPlatform();
             //primero logica debug
             if (DebugGame)
@@ -165,8 +164,10 @@ namespace Managers
         }
         public T GetValue<T>(string key)
         {
-           
-            return GetComponent<LoaderMono>().GetValue<T>(key);
+               T value=GetComponent<LoaderMono>().GetValue<T>(key);
+           Debug.Log("Me piden para "+key+":"+value.GetType());
+        
+            return value;
         }
         [ContextMenu("Reset to default values")]
         public void ResetToDefaultValues()

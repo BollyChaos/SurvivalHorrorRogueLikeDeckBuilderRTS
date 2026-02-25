@@ -42,18 +42,24 @@ public class WildFireCardAction : ACardAction
                 center.z + Mathf.Sin(angle) * radius
             );
 
-            GameObject wildFire = Instantiate(wildFirePrefab, pos + Vector3.up, Quaternion.identity);
-            wildFire.transform.SetParent(PlayerTransform);
+            GameObject wildFire = ObjectPoolManager.Instance.Get("WildFirePrefab",PlayerTransform);
+
+            // Instantiate(wildFirePrefab, pos + Vector3.up, Quaternion.identity);
+
+            // wildFire.transform.SetParent(PlayerTransform);
+            wildFire.transform.position=pos+Vector3.up;
+            wildFire.transform.rotation=Quaternion.identity;
             wildFire.SetActive(true);
 
             wildFire.GetComponent<Orbit>().InitOrbit(PlayerTransform, radius, speed);
 
             activeFires.Add(wildFire);
 
-            WildFireInstance wf = wildFire.AddComponent<WildFireInstance>();
-            wf.Init(this, wildFire);
+            // WildFireInstance wf = wildFire.AddComponent<WildFireInstance>();
+            // wf.Init(this, wildFire);
 
-            Destroy(wildFire, 20f);
+           // Destroy(wildFire, 20f);
+           DelayedActions.Do(wildFire.GetComponent<IPoolableObject>().Release,duration,this);
         }
     }
 
@@ -76,20 +82,20 @@ public class WildFireCardAction : ACardAction
     }
 }
 
-public class WildFireInstance : MonoBehaviour
-{
-    private WildFireCardAction parent;
-    private GameObject self;
+// public class WildFireInstance : MonoBehaviour Edu no programes mas
+// {
+//     private WildFireCardAction parent;
+//     private GameObject self;
 
-    public void Init(WildFireCardAction parentAction, GameObject selfObj)
-    {
-        parent = parentAction;
-        self = selfObj;
-    }
+//     public void Init(WildFireCardAction parentAction, GameObject selfObj)
+//     {
+//         parent = parentAction;
+//         self = selfObj;
+//     }
 
-    private void OnDestroy()
-    {
-        if (parent != null)
-            parent.NotifyFireDestroyed(self);
-    }
-}
+//     private void OnDestroy()
+//     {
+//         if (parent != null)
+//             parent.NotifyFireDestroyed(self);
+//     }
+// }

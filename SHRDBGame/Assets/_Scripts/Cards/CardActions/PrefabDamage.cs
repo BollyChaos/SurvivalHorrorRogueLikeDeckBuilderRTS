@@ -6,9 +6,9 @@ public class PrefabDamage : MonoBehaviour
 {
     [SerializeField] private float damage;
     public float Damage => damage;
-    [SerializeField] private string targetTag;
+    [SerializeField] protected string targetTag;
 
-    [SerializeField] LayerMask layerMaskIgnore;
+    [SerializeField] protected LayerMask layerMaskIgnore;
     private ASoundPlayer soundPlayer;
 
     public string TargetTag => targetTag;
@@ -30,19 +30,19 @@ public class PrefabDamage : MonoBehaviour
         particleCollision = ptCol;
         Initialize(dmg, tag);
     }
-    private void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         //if (other.gameObject.layer == LayerMask.NameToLayer("EnemyVision")) { return; }
         if ((layerMaskIgnore.value & (1 << other.gameObject.layer)) != 0)//esto hace lo mismo y mas y ya no harcodea cosas
             return;
         if (other.CompareTag(targetTag))
         {
-            Debug.Log("He encontrado un " + targetTag);
+            //Debug.Log("He encontrado un " + targetTag);
             AttackOther(other.gameObject);
 
         }
     }
-    private void OnParticleCollision(GameObject other)
+    protected virtual void OnParticleCollision(GameObject other)
     {
         if (particleCollision)
 
@@ -50,14 +50,14 @@ public class PrefabDamage : MonoBehaviour
             if (other.CompareTag(targetTag))
             {
                 //lo que habia antes era una porqueria,Victor no vuelvas a programar xd, cambiar a clase generica combat
-                Debug.Log("He encontrado un " + targetTag);
+               // Debug.Log("He encontrado un " + targetTag);
                 particleCollision = false;
                 AttackOther(other);
 
 
             }
     }
-    void AttackOther(GameObject other)
+   protected void AttackOther(GameObject other)
     {
         ACombat damageableObject = other.GetComponent<ACombat>();
         if (damageableObject == null)

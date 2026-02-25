@@ -18,59 +18,77 @@ MonoBehaviour:
     - name: NTimesWon
       type: 4
       value:
-        rid: 3917340582603129133
+        rid: 3917340608539394066
     - name: NTimesDied
       type: 4
       value:
-        rid: 3917340582603129134
+        rid: 3917340608539394067
     - name: NCardsUsed
       type: 4
       value:
-        rid: 3917340582603129135
+        rid: 3917340608539394068
     - name: NEnemiesKilled
       type: 4
       value:
-        rid: 3917340582603129136
+        rid: 3917340608539394069
     - name: GivenTeddyBear
       type: 0
       value:
-        rid: 3917340582603129137
+        rid: 3917340608539394070
     - name: EnteredSecretRoom
       type: 0
       value:
-        rid: 3917340582603129138
+        rid: 3917340608539394071
     - name: FlashLightSeconds
       type: 1
       value:
-        rid: 3917340582603129139
+        rid: 3917340608539394072
+  - fieldName: GameContext
+    entries:
+    - name: ShoulLoad
+      type: 0
+      value:
+        rid: 3917340608539394073
+    - name: PlayerCards
+      type: 7
+      value:
+        rid: 3917340608539394074
   references:
     version: 2
     RefIds:
-    - rid: 3917340582603129133
+    - rid: 3917340608539394066
       type: {class: IntSettingValue, ns: , asm: Assembly-CSharp}
       data:
         value: 0
-    - rid: 3917340582603129134
+    - rid: 3917340608539394067
       type: {class: IntSettingValue, ns: , asm: Assembly-CSharp}
       data:
         value: 0
-    - rid: 3917340582603129135
+    - rid: 3917340608539394068
       type: {class: IntSettingValue, ns: , asm: Assembly-CSharp}
       data:
-        value: 6
-    - rid: 3917340582603129136
+        value: 14
+    - rid: 3917340608539394069
       type: {class: IntSettingValue, ns: , asm: Assembly-CSharp}
       data:
         value: 0
-    - rid: 3917340582603129137
+    - rid: 3917340608539394070
       type: {class: BoolSettingValue, ns: , asm: Assembly-CSharp}
       data:
         value: 0
-    - rid: 3917340582603129138
+    - rid: 3917340608539394071
       type: {class: BoolSettingValue, ns: , asm: Assembly-CSharp}
       data:
         value: 0
-    - rid: 3917340582603129139
+    - rid: 3917340608539394072
       type: {class: FloatSettingValue, ns: , asm: Assembly-CSharp}
       data:
-        value: 138.40482
+        value: 145.00235
+    - rid: 3917340608539394073
+      type: {class: BoolSettingValue, ns: , asm: Assembly-CSharp}
+      data:
+        value: 0
+    - rid: 3917340608539394074
+      type: {class: StringSettingValue, ns: , asm: Assembly-CSharp}
+      data:
+        value: 

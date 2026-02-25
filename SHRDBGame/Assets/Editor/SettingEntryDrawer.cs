@@ -49,6 +49,13 @@ public class SettingEntryDrawer : PropertyDrawer
                 VALUE_TYPE.BOOL => new BoolSettingValue(),
                 VALUE_TYPE.FLOAT => new FloatSettingValue(),
                 VALUE_TYPE.STRING => new StringSettingValue(),
+                VALUE_TYPE.INT => new IntSettingValue(),
+                VALUE_TYPE.DOUBLE => new DoubleSettingValue(),
+                VALUE_TYPE.LONG => new LongSettingValue(),
+                VALUE_TYPE.SHORT => new ShortSettingValue(),
+                VALUE_TYPE.BYTE => new ByteSettingValue(),
+                VALUE_TYPE.VECTOR2 => new Vector2SettingValue(),
+
                 _ => null
             };
 
@@ -69,4 +76,3 @@ public class SettingEntryDrawer : PropertyDrawer
     }
 }
 
-public enum VALUE_TYPE { BOOL, FLOAT, STRING }

@@ -4843,10 +4843,10 @@ GameObject:
   - component: {fileID: 1705378460463613898}
   - component: {fileID: 3417841688582085099}
   - component: {fileID: 8003762280261539865}
-  - component: {fileID: 502862297453407277}
   - component: {fileID: 1538580778859452851}
   - component: {fileID: -7032548430451620150}
   - component: {fileID: 6901531627636548879}
+  - component: {fileID: -2385937850214473424}
   m_Layer: 0
   m_Name: WildFirePrefab
   m_TagString: Untagged
@@ -9777,24 +9777,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioClips: []
   pitchVariation: 0.1
---- !u!114 &502862297453407277
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7320806799341754823}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26c4cb41c994eea4bb0faaf36a3931ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 35
-  targetTag: Enemy
-  layerMaskIgnore:
-    serializedVersion: 2
-    m_Bits: 128
-  particleCollision: 0
 --- !u!135 &1538580778859452851
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -9843,3 +9825,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 192dcf4159107b64691f97d2d0822f85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-2385937850214473424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7320806799341754823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 652edd3e2586b684dacb2da20f0b204b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 35
+  targetTag: Enemy
+  layerMaskIgnore:
+    serializedVersion: 2
+    m_Bits: 128
+  particleCollision: 1
+  GoBackToPoolAfterCollision: 1

@@ -6,7 +6,7 @@ using System.IO;
 using System.Reflection;
 using UnityEngine;
 using System.Collections.Generic;
-public class GroupValuesBuildProcessor : IPreprocessBuildWithReport
+public class GroupValuesBuildProcessor //: IPreprocessBuildWithReport
 {
     const string DEFAULT_FOLDER = "Assets/Resources/LoadSystem/SavedFiles/Default";
 
@@ -31,42 +31,41 @@ public class GroupValuesBuildProcessor : IPreprocessBuildWithReport
         return dict;
     }
 
-    public void OnPreprocessBuild(BuildReport report)
-    {
-        Debug.Log("=== GroupValues Pre-Build Reset ===");
+    // public void OnPreprocessBuild(BuildReport report)
+    // {
+    //     Debug.Log("=== GroupValues Pre-Build Reset ===");
 
-        var all = GroupValuesRegistry.GetAll();
-        var defaultLookup = BuildDefaultLookup();
+    //     var all = GroupValuesRegistry.GetAll();
+    //     var defaultLookup = BuildDefaultLookup();
 
-        foreach (var gv in all)
-        {
-            string path = AssetDatabase.GetAssetPath(gv);
+    //     foreach (var gv in all)
+    //     {
+    //         string path = AssetDatabase.GetAssetPath(gv);
 
-            // ❗ saltar los que están dentro de Default
-            if (IsInDefaultFolder(path))
-                continue;
+    //         if (IsInDefaultFolder(path))
+    //             continue;
 
-            if (defaultLookup.TryGetValue(gv.name, out var defaultGV))
-            {
-                CopyValues(defaultGV, gv);
-            }
-            else
-            {
-                gv.ResetToDefaults();
-            }
+    //         if (defaultLookup.TryGetValue(gv.name, out var defaultGV))
+    //         {
+    //             CopyValues(defaultGV, gv);
+    //         }
+    //         else
+    //         {
+    //             gv.ResetToDefaults();
+    //         }
 
-            EditorUtility.SetDirty(gv);
-            ApplyJsonForGroupValues(gv);
-        }
+    //         EditorUtility.SetDirty(gv);
+    //         ApplyJsonForGroupValues(gv);
+    //     }
 
-        AssetDatabase.SaveAssets();
-        AssetDatabase.Refresh();
+    //     AssetDatabase.SaveAssets();
+    //     AssetDatabase.Refresh();
 
-        PlayerPrefs.DeleteAll();
-        PlayerPrefs.Save();
+    //     PlayerPrefs.DeleteAll();
+    //     PlayerPrefs.Save();
 
-        Debug.Log("GroupValues processed with Default overrides");
-    }
+    //     Debug.Log("GroupValues processed with Default overrides");
+    // }
 
     static void ApplyJsonForGroupValues(GroupValues gv)
     {
@@ -75,11 +74,7 @@ public class GroupValuesBuildProcessor : IPreprocessBuildWithReport
         string name = Path.GetFileNameWithoutExtension(assetPath);
 
         loader.ChangeAssetName(name);
-
-        typeof(ALoader)
-            .GetField("values", BindingFlags.NonPublic | BindingFlags.Instance)
-            .SetValue(loader, gv);
-
+        loader.SaveValues(gv);
         loader.SaveValues();
     }
     static bool IsInDefaultFolder(string assetPath)

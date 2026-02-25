@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a2cd50a1cb356a4ca8e28b44a15d9ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  duration: 20
   wildFirePrefab: {fileID: 7320806799341754823, guid: 65df9b3cacaa8c74f9e87c2157a08dc6, type: 3}
   nWildFires: 5
   radius: 4

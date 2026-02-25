@@ -2636,7 +2636,7 @@ MonoBehaviour:
   loader:
     soPath: Assets/Resources/LoadSystem/SavedFiles/
     soName: GameStats.asset
-    jsonFileName: Game.json
+    jsonFileName: GameStats.json
     values: {fileID: 0}
 --- !u!1 &291003571
 GameObject:
@@ -12209,7 +12209,7 @@ MonoBehaviour:
   - {fileID: 6767260608181803094, guid: 010527154c4ae514a8dc3dd3ec4d8018, type: 3}
   - {fileID: 7694558625838135972, guid: 131b9c00baf1b7346946c06183cc5d0e, type: 3}
   debug: 1
-  cardToUseAlways: OjosLaser
+  cardToUseAlways: FuegosFatuos
 --- !u!114 &1077143939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15131,7 +15131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51b232c56a186134babbd1021f32deba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartingScene: 3
+  StartingScene: 1
   fadeToBlackScreen: {fileID: 2004903526}
   fadeDuration: 2
 --- !u!1 &1297079359
@@ -22894,6 +22894,8 @@ MonoBehaviour:
   - prefab: {fileID: 3469342555321442635, guid: cb0146b12eb2908478b48edd6f85518b, type: 3}
     prewarmCount: 4
   - prefab: {fileID: 6688336199676993398, guid: efd028d2bb76ef24cab90569513c2059, type: 3}
+    prewarmCount: 0
+  - prefab: {fileID: 7320806799341754823, guid: 65df9b3cacaa8c74f9e87c2157a08dc6, type: 3}
     prewarmCount: 0
 --- !u!114 &1982339129
 MonoBehaviour:

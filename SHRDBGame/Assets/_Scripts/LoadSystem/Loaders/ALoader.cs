@@ -11,6 +11,9 @@ using UnityEditor;
 [Serializable]
 public class ALoader
 {
+    //TODO: Unificar nombre so y nombre json(para evitar problemas)
+    //Autobuscar directorio segun el so
+    
     [Header("SO Path")]
     [SerializeField] protected string soPath = "Assets/Resources/LoadSystem/SavedFiles/";
 
