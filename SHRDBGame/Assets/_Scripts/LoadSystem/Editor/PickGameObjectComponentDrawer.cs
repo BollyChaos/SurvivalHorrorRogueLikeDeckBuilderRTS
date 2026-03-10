@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 
@@ -36,7 +37,7 @@ public class PickGameObjectComponentDrawer : PropertyDrawer
             for (int i = 0; i < components.Length; i++)
                 componentNames[i] = components[i].GetType().Name;
 
-            // Validar índice
+            // Validar ï¿½ndice
             if (selectedIndexProp.intValue < 0 || selectedIndexProp.intValue >= components.Length)
                 selectedIndexProp.intValue = 0;
 
@@ -52,3 +53,4 @@ public class PickGameObjectComponentDrawer : PropertyDrawer
     }
 }
 
+#endif

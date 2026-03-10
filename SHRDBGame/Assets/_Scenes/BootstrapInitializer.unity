@@ -2600,7 +2600,7 @@ MonoBehaviour:
   DebugGame: 1
   DebugPlatform: 0
   debugGamePlatform: 2
-  ChangeInitalScene: 1
+  ChangeInitalScene: 0
   startingDebugScene: 3
   SkipPhase: 0
   SkipCardSelectionPhase: 0
@@ -2635,9 +2635,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loader:
     soPath: Assets/Resources/LoadSystem/SavedFiles/
-    soName: GameStats.asset
-    jsonFileName: GameStats.json
-    values: {fileID: 0}
+    baseName: GameStats
+    encryptionMethod: 1
+    password: Fkm3jd7eKuLxHAJz6ev9Myxv4MRi56bA1t3Au1i5bN8=
+    values: {fileID: 11400000, guid: f1272e6ff141630458e0f85822dd3e9a, type: 2}
 --- !u!1 &291003571
 GameObject:
   m_ObjectHideFlags: 0
@@ -24411,9 +24412,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loader:
     soPath: Assets/Resources/LoadSystem/SavedFiles/
-    soName: Settings.asset
-    jsonFileName: Settings.json
-    values: {fileID: 0}
+    baseName: Settings
+    encryptionMethod: 1
+    password: Fkm3jd7eKuLxHAJz6ev9Myxv4MRi56bA1t3Au1i5bN8=
+    values: {fileID: 11400000, guid: d92aef1a5dbb1cd41b5bf18bef37785e, type: 2}
 --- !u!1 &2129473883
 GameObject:
   m_ObjectHideFlags: 0

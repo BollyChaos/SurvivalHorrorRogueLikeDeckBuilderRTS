@@ -165,7 +165,7 @@ namespace Managers
         public T GetValue<T>(string key)
         {
                T value=GetComponent<LoaderMono>().GetValue<T>(key);
-           Debug.Log("Me piden para "+key+":"+value.GetType());
+           //Debug.Log("Me piden para "+key+":"+value.GetType());
         
             return value;
         }

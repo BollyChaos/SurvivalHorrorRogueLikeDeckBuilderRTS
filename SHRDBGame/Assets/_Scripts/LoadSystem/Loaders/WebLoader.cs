@@ -43,7 +43,7 @@ public class WebLoader : ALoader
     // ----------------------------------------------------------------------
     // JSON SAVE override → guarda en PlayerPrefs
     // ----------------------------------------------------------------------
-    protected override void SaveToJsonFile()
+    protected override void SaveToJsonFile(string path=null,SerializableGroupSettings sgs=null)
     {
 #if UNITY_WEBGL && !UNITY_EDITOR
         SerializableGroupSettings sgs = new SerializableGroupSettings();

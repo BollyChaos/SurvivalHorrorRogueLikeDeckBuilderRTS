@@ -19,5 +19,18 @@ public static class GroupValuesRegistry
         }
         return list;
     }
+    public static List<GroupValuesTemplate> GetAllTemplates()
+    {
+        var guids = AssetDatabase.FindAssets("t:GroupValuesTemplate");
+        var list = new List<GroupValuesTemplate>();
+
+
+        foreach (var g in guids)
+        {
+            var path = AssetDatabase.GUIDToAssetPath(g);
+            list.Add(AssetDatabase.LoadAssetAtPath<GroupValuesTemplate>(path));
+        }
+        return list;
+    }
 }
 #endif

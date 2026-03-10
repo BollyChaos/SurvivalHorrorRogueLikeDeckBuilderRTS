@@ -4,7 +4,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.InputSystem;
+
 
 using UnityEngine.UI;
 using UnityEngine.UIElements.Experimental;
@@ -73,7 +73,7 @@ namespace Character.Settings
             .FirstOrDefault();
             if (container != null)
             {
-                Debug.Log("Encontrado cambiando valores");
+                //Debug.Log("Encontrado cambiando valores");
                 //container.SubscribeToSettingsChange(LoadData);
                 LoadData();
             }

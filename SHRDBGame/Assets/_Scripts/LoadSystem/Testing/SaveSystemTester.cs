@@ -1,5 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+#if UNITY_EDITOR
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class SaveSystemTester : MonoBehaviour
@@ -56,4 +56,23 @@ public class SaveSystemTester : MonoBehaviour
         }
 
     }
+    [Button("Test asyncrounous save")]
+    public async Task TestAsyncSave()
+    {
+        await loader.SaveValuesAsync();
+        Debug.Log("[SaveSystemTester]Valores guardados");
+    }
+    [Button("Test asyncrounous load")]
+    public async Task TestAsyncLoad()
+    {
+        var gv = await loader.LoadValuesAsync();
+        Debug.Log("[SaveSystemTester]Valores cargados" + gv.name);
+    }
+
+    [Button("AutoFindPath")]
+    public void autofindPath()
+    {
+        loader.AutoResolveFromResources();
+    }
 }
+#endif

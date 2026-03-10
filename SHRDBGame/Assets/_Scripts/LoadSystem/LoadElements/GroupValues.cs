@@ -18,7 +18,7 @@ public enum VALUE_TYPE
     STRING,
     BYTE,
 }
-[CreateAssetMenu(menuName = "ScriptableObject/GenericValues")]
+[CreateAssetMenu(menuName = "LoadSystem/GroupValues")]
 public partial class GroupValues : ScriptableObject
 {
 
@@ -231,6 +231,10 @@ public class SettingValue<T> : SettingValue
     public override bool Equals(object obj)
         => obj is SettingValue<T> other &&
            EqualityComparer<T>.Default.Equals(value, other.value);
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
+    }
 }
 #region SUBCLASSES
 [Serializable] public class BoolSettingValue : SettingValue<bool> { }
@@ -395,6 +399,10 @@ public class SettingEntry
         return name == other.name &&
                type == other.type &&
                Equals(value, other.value);
+    }
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
     }
 }
 

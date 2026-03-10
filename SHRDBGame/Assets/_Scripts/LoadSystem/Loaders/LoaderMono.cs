@@ -4,20 +4,40 @@ using UnityEngine;
 
 public class LoaderMono : MonoBehaviour
 {
-    [SerializeField] private ALoader loader=new();
+    [SerializeField] private ALoader loader = new();
 
-   //Load
-   [ContextMenu("Load Data")]
-   public void LoadData()
-   {
-      loader.LoadValues();
-    
-   }
-   public GroupValues LoadValues()
+    //     void Awake()
+    //     {
+    // #if UNITY_EDITOR
+    //         var settings = GroupValuesProjectSettings.instance;
+
+    //         loader.SetEncryption(
+    //             settings.encryptionMethod,
+    //             settings.passwordSalt
+    //         );
+    // #endif
+    //     }
+    //Load
+    // [Button("Get password")]
+    // public void getPassword()
+    // {
+    //     string pass=string.Empty;
+
+    //     Debug.Log(PasswordGenerator.Generate(pass));
+    // }
+    [ContextMenu("Load Data")]
+    [Button("Load Data")]
+    public void LoadData()
+    {
+        loader.LoadValues();
+
+    }
+    public GroupValues LoadValues()
     {
         return loader.LoadValues();
     }
-   //Save
+    //Save
+    [Button("Save Data")]
     [ContextMenu("Save Data")]
     public void SaveData()
     {
@@ -27,7 +47,8 @@ public class LoaderMono : MonoBehaviour
     {
         loader.SaveValues(values);
     }
-   //Reset
+    //Reset
+    [Button("Reset Data")]
     [ContextMenu("Reset Data")]
     public void ResetData()
     {
@@ -48,5 +69,23 @@ public class LoaderMono : MonoBehaviour
     public void SetValue<T>(string key, T value)
     {
         loader.SetValue(key, value);
+    }
+#if UNITY_EDITOR
+    [ContextMenu("AutoFindPathByName")]
+    [Button("AutoFindPathByName")]
+    public void AutoFindPath()
+    {
+        loader.AutoResolveFromResources();
+    }
+
+#endif
+    public void ApplyEncryptionSettings(EncryptionMethod encryptionMethod, string passwordSalt)
+    {
+
+        loader.SetEncrytionSettings(
+
+            encryptionMethod,
+            passwordSalt
+        );
     }
 }

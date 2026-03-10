@@ -6,13 +6,11 @@ using System.IO;
 using System.Reflection;
 using UnityEngine;
 using System.Collections.Generic;
-public class GroupValuesBuildProcessor //: IPreprocessBuildWithReport
+public class GroupValuesBuildProcessor : IPreprocessBuildWithReport
 {
-    const string DEFAULT_FOLDER = "Assets/Resources/LoadSystem/SavedFiles/Default";
-
     public int callbackOrder => 0;
     static ALoader loader = new ALoader();
-    static Dictionary<string, GroupValues> BuildDefaultLookup()
+    static Dictionary<string, GroupValues> GetGroupValues()
     {
         var dict = new Dictionary<string, GroupValues>();
 
@@ -20,81 +18,150 @@ public class GroupValuesBuildProcessor //: IPreprocessBuildWithReport
 
         foreach (var gv in all)
         {
-            string path = AssetDatabase.GetAssetPath(gv);
 
-            if (!IsInDefaultFolder(path))
-                continue;
+            dict[gv.name] = gv;
+        }
 
-            dict[gv.name] = gv; // clave por nombre
+        return dict;
+    }
+    static Dictionary<string, GroupValuesTemplate> GetTemplates()
+    {
+        var dict = new Dictionary<string, GroupValuesTemplate>();
+
+        var all = GroupValuesRegistry.GetAllTemplates();
+
+        foreach (var gv in all)
+        {
+
+            dict[gv.name] = gv;
         }
 
         return dict;
     }
 
-    // public void OnPreprocessBuild(BuildReport report)
-    // {
-    //     Debug.Log("=== GroupValues Pre-Build Reset ===");
-
-    //     var all = GroupValuesRegistry.GetAll();
-    //     var defaultLookup = BuildDefaultLookup();
-
-    //     foreach (var gv in all)
-    //     {
-    //         string path = AssetDatabase.GetAssetPath(gv);
-
-    //         if (IsInDefaultFolder(path))
-    //             continue;
-
-    //         if (defaultLookup.TryGetValue(gv.name, out var defaultGV))
-    //         {
-    //             CopyValues(defaultGV, gv);
-    //         }
-    //         else
-    //         {
-    //             gv.ResetToDefaults();
-    //         }
-
-    //         EditorUtility.SetDirty(gv);
-    //         ApplyJsonForGroupValues(gv);
-    //     }
-
-    //     AssetDatabase.SaveAssets();
-    //     AssetDatabase.Refresh();
-
-    //     PlayerPrefs.DeleteAll();
-    //     PlayerPrefs.Save();
-
-    //     Debug.Log("GroupValues processed with Default overrides");
-    // }
-
-    static void ApplyJsonForGroupValues(GroupValues gv)
+    /*
+    STEPS BEFORE MAKING BUILD
+    1. CHECK THAT EACH LOADERMONO COMPNT HAS THE RIGHT ENCRYPMTH AND PASS
+    2. ERASE ALL DATA FROM JSON OR EVEN PLAYER PREFS(DONT STORE PROYECT RELATED VALUES MADE ON TESTING)
+    3. GO FIRST TO CHECK TEMPLATES, STORE THEM ON A LIST
+    4. SET DEFAULT VALUES FROM TEMPLATES TO ITS CORRESPONDING REFERENCE
+    5. GET ALL GROUP VALUES THAT ARE NOT REFERENCES FROM ANOTHER TEMPLATE AND SET THEM TO DEFAULT VALUES
+    */
+    public void OnPreprocessBuild(BuildReport report)
     {
-        string assetPath = AssetDatabase.GetAssetPath(gv);
-        string folder = Path.GetDirectoryName(assetPath);
-        string name = Path.GetFileNameWithoutExtension(assetPath);
 
-        loader.ChangeAssetName(name);
-        loader.SaveValues(gv);
-        loader.SaveValues();
+        Debug.Log("[GroupValuesBuildProcessor] build preprocess started");
+
+        ApplyEncryptionSettings();
+
+        ClearTestingData();
+
+        var templates = GroupValuesRegistry.GetAllTemplates();
+
+        ApplyTemplateDefaults(templates);
+
+        ResetNonTemplateGroupValues(templates);
+
+        Debug.Log("[GroupValuesBuildProcessor] build preprocess finished");
+
+
     }
-    static bool IsInDefaultFolder(string assetPath)
+
+
+
+    void ApplyEncryptionSettings()
     {
-        return assetPath.Replace("\\", "/").StartsWith(DEFAULT_FOLDER);
+        loader.SetEncrytionSettings(GroupValuesProjectSettings.instance.encryptionMethod, GroupValuesProjectSettings.instance.passwordSalt);
+
+        var settings = GroupValuesProjectSettings.instance;
+
+        var loaders = Object.FindObjectsOfType<LoaderMono>(true);
+
+        foreach (var loader in loaders)
+        {
+            loader.ApplyEncryptionSettings(
+                settings.encryptionMethod,
+                settings.passwordSalt
+            );
+
+            EditorUtility.SetDirty(loader);
+        }
     }
-    static void CopyValues(GroupValues source, GroupValues target)
-{
-    
-    var flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
-
-    var fields = typeof(GroupValues).GetFields(flags);
-
-    foreach (var field in fields)
+    void ClearTestingData()
     {
-        if (field.IsStatic) continue;
+        PlayerPrefs.DeleteAll();
 
-        var value = field.GetValue(source);
-        field.SetValue(target, value);
     }
-}
+    void ApplyTemplateDefaults(List<GroupValuesTemplate> templates)
+    {
+
+        foreach (var template in templates)
+        {
+            if (template.groupValuesReference == null)
+            {
+
+                throw new BuildFailedException("[GroupValuesBuildProcessor]Template without reference detected");
+
+            }
+           Debug.Log(template.fields[0].entries[0].value);
+
+            loader.RemoveLoadedValues();
+
+
+            loader.ChangeAssetName(template.groupValuesReference.name);
+
+            loader.AutoResolveFromResources();
+
+
+
+            template.SetDefaultValuesInSO();
+            //save in persistentdata, because that is what the player will have stored
+         
+            SerializableGroupSettings sgs=new ();
+            if(template.fields==null)throw new BuildFailedException("[GroupValuesBuildProcessor]Template without fields detected");
+            sgs.CopyFrom(template.fields);
+
+
+            loader.SaveValuesInPersistentData(sgs);
+            loader.SaveValues(sgs);
+
+            EditorUtility.SetDirty(template.groupValuesReference);
+        }
+    }
+    private void ResetNonTemplateGroupValues(List<GroupValuesTemplate> templates)
+    {
+
+        var referenced = new HashSet<string>();
+
+        foreach (var template in templates)
+        {
+            if (template.groupValuesReference != null)
+                referenced.Add(template.groupValuesReference.name);
+        }
+
+        var groupValues = GroupValuesRegistry.GetAll();
+        foreach (var gv in groupValues)
+        {
+
+            if (gv == null)
+                throw new BuildFailedException("[GroupValuesBuildProcessor]GroupValue is null");
+
+            if (referenced.Contains(gv.name))//Already has set values
+                continue;
+
+            gv.ResetToDefaults();
+            loader.RemoveLoadedValues();
+            loader.SetGroupValues(gv);
+            loader.ChangeAssetName(gv.name);
+            loader.AutoResolveFromResources();
+
+            //save in persistentdata, because that is what the player will have stored
+            loader.SaveValuesInPersistentData();
+            loader.SaveValues();
+
+            EditorUtility.SetDirty(gv);
+        }
+    }
+
 }
 #endif

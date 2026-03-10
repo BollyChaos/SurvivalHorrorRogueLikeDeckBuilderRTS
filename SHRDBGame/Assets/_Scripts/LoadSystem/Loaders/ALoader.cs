@@ -2,38 +2,66 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using System;
+using System.Threading.Tasks;
+
+
 
 
 #if UNITY_EDITOR
 using UnityEditor;
+using UnityEditor.Build;
 #endif
 
 [Serializable]
 public class ALoader
 {
-    //TODO: Unificar nombre so y nombre json(para evitar problemas)
-    //Autobuscar directorio segun el so
-    
+
+
+#if UNITY_EDITOR
+
+
+    protected string resourcePath;
+
+    // [Header("Debug")]
+    // [SerializeField] protected bool debug = false;
+    // [ShowIf("debug")]
+    // [SerializeField] protected bool CreateUnEncryptedJsonCopy = true;
+
+
+#endif
+
     [Header("SO Path")]
     [SerializeField] protected string soPath = "Assets/Resources/LoadSystem/SavedFiles/";
+    [SerializeField] protected string baseName = "Game";
 
-    [SerializeField] protected string soName = "GroupValues.asset";
+    protected string soName => baseName + ".asset";
+    protected string jsonFileName => baseName + ".json";
+    [ReadOnly]
+    [SerializeField] EncryptionMethod encryptionMethod = EncryptionMethod.None;
+    [ReadOnly][SerializeField] string password = "";
 
-    [Header("JSON")]
-    [SerializeField] protected string jsonFileName = "GameAssets.json";
 
     [SerializeField]
     [ExposedScriptableObject]
     protected GroupValues values;
+    public void SetEncrytionSettings(EncryptionMethod eM, string passw)
+    {
+        encryptionMethod = eM;
+        password = passw;
+    }
     //summary>
     //Change the asset name for both SO and JSON, no extension needed
     ///</summary>
+
     public void ChangeAssetName(string newName)
     {
-        soName = newName + ".asset";
-        jsonFileName = newName + ".json";
+        baseName = newName;
     }
-
+    public string GetCurrentName()
+    {
+        return baseName;
+    }
+    #region MAINTHREAD
     // ---------------------------------------------------------------------------------------
     // LOAD
     // ---------------------------------------------------------------------------------------
@@ -68,10 +96,24 @@ public class ALoader
 #endif
         }
 
-        // Cargar valores desde JSON
-        LoadFromJsonFile();
+        if (encryptionMethod != EncryptionMethod.None)
+        {
+            var jsonText = JsonEncrypter.DecryptFromFile(GetJsonPath(), password, encryptionMethod);
+            //            Debug.Log(jsonText);
 
+            LoadFromJsonString(jsonText);
+        }
+        else
+            // Cargar valores desde JSON
+            LoadFromJsonFile();
+#if UNITY_EDITOR
+        EditorUtility.SetDirty(values);
+#endif
         return values.Clone();
+    }
+    public void SetGroupValues(GroupValues gv)
+    {
+        values=gv.Clone();
     }
     public void RemoveLoadedValues()
     {
@@ -99,29 +141,66 @@ public class ALoader
     [ContextMenu("Save Data")]
     public void SaveValues()
     {
-        if (values == null) return;
-        SaveToJsonFile();
-    }
+        if (values == null) { Debug.LogError("[Loader]No values to save"); return; }
+        // if (debug && CreateUnEncryptedJsonCopy)
+        //     SaveToJsonFile();
+        if (encryptionMethod != EncryptionMethod.None)
+            JsonEncrypter.EncryptToFile(GetJsonPath(), GetJsonString(), password, encryptionMethod);
+        else
+            SaveToJsonFile();
 
+    }
+    //shortcut for templates
+    public void SaveValues(SerializableGroupSettings sgs)
+    {
+        if (encryptionMethod != EncryptionMethod.None)
+            JsonEncrypter.EncryptToFile(GetJsonPath(), GetJsonString(sgs), password, encryptionMethod);
+        else
+            SaveToJsonFile();
+    }
+#if UNITY_EDITOR
+    //Used only by buildpreprocesor
+    public void SaveValuesInPersistentData()
+    {
+        if (values == null) { throw new BuildFailedException("[Loader]No values to save"); }
+
+        if (encryptionMethod != EncryptionMethod.None)
+            JsonEncrypter.EncryptToFile(Path.Combine(Application.persistentDataPath, jsonFileName), GetJsonString(), password, encryptionMethod);
+        else
+            SaveToJsonFile(Path.Combine(Application.persistentDataPath, jsonFileName));
+    }
+    public void SaveValuesInPersistentData(SerializableGroupSettings sgs)
+    {
+        if (sgs == null) { throw new BuildFailedException("[Loader]No values to save"); }
+
+        if (encryptionMethod != EncryptionMethod.None)
+            JsonEncrypter.EncryptToFile(Path.Combine(Application.persistentDataPath, jsonFileName), GetJsonString(sgs), password, encryptionMethod);
+        else
+            SaveToJsonFile(Path.Combine(Application.persistentDataPath, jsonFileName),sgs);
+    }
+#endif
     public void SaveValues(GroupValues valuesToSave = null)
     {
-        if(values==null && valuesToSave==null)
+        // if(valuesToSave==null) Debug.Log("[Loader] Saving current data");
+
+        if (values == null && valuesToSave == null)
         {
             Debug.LogWarning("[Loader] No values to save.");
             return;
         }
-        if (values != null)
+        if (valuesToSave != null)
         {
-            if (valuesToSave == null)
-                valuesToSave = values;
-            if (values.IsTheSame(valuesToSave))
-            {
-                Debug.Log("[Loader] The data introduced is the same as the current one. No changes made.");
-                return;
-            }
+            if (values != null)//If already had data compare before saving
+                if (values.IsTheSame(valuesToSave))
+                {
+                    Debug.Log("[Loader] The data introduced is the same as the current one. No changes made.");
+                    return;
+                }
+            values = valuesToSave.Clone();
+            SaveValues();
         }
-        values = valuesToSave.Clone();
-        SaveToJsonFile();
+        SaveValues();
+
     }
     public void ResetDefaultValues()
     {
@@ -152,21 +231,45 @@ public class ALoader
 
         sgs.ApplyTo(values);
     }
+    protected virtual void LoadFromJsonString(string jsonText)
+    {
 
+        SerializableGroupSettings sgs = new SerializableGroupSettings();
+        JsonUtility.FromJsonOverwrite(jsonText, sgs);
+
+        sgs.ApplyTo(values);
+    }
     // ---------------------------------------------------------------------------------------
     // JSON SAVE
     // ---------------------------------------------------------------------------------------
-    protected virtual void SaveToJsonFile()
+    protected virtual void SaveToJsonFile(string path = null,SerializableGroupSettings sgs=null)
     {
-        string path = GetJsonPath();
+        if (path == null)
+            path = GetJsonPath();
+        if(sgs==null)
+            sgs = new SerializableGroupSettings();
+        if(values!=null&&sgs==null)
+            sgs.CopyFrom(values);
+
+        string json = JsonUtility.ToJson(sgs, true);
+
+        File.WriteAllText(path, json);
+
+        Debug.Log("[SettingsSerializer] Saved in " + path);
+    }
+    protected virtual string GetJsonString()
+    {
 
         SerializableGroupSettings sgs = new SerializableGroupSettings();
         sgs.CopyFrom(values);
 
         string json = JsonUtility.ToJson(sgs, true);
-        File.WriteAllText(path, json);
-
-        Debug.Log("[SettingsSerializer] Saved in " + path);
+        return json;
+    }
+    protected virtual string GetJsonString(SerializableGroupSettings sgs)
+    {
+        string json=JsonUtility.ToJson(sgs,true);
+        return json;
     }
 
     // ---------------------------------------------------------------------------------------
@@ -240,8 +343,117 @@ public class ALoader
         if (values == null) return;
         values.ResetToDefaults();
     }
-}
+    //////////////////////////////////////////////////////////
+    /// 
+#if UNITY_EDITOR
+    // ruta dentro de Resources
+    public bool AutoResolveFromResources()
+    {
+        string[] guids = AssetDatabase.FindAssets($"t:GroupValues {baseName}");
 
+        foreach (var guid in guids)
+        {
+            string path = AssetDatabase.GUIDToAssetPath(guid);
+
+            // debe estar dentro de Resources
+            int resIndex = path.IndexOf("Resources/");
+            if (resIndex < 0) continue;
+
+            // cargar asset, not necessary
+            // var asset = AssetDatabase.LoadAssetAtPath<GroupValues>(path);
+            // if (asset == null) continue;
+
+            // values = asset;
+
+            // carpeta del SO
+            soPath = Path.GetDirectoryName(path).Replace("\\", "/") + "/";
+
+            // calcular resourcePath real
+            string insideResources = path.Substring(resIndex + "Resources/".Length);
+            resourcePath = Path.ChangeExtension(insideResources, null);
+
+            Debug.Log($"[ALoader] Auto-solved:");
+            Debug.Log($"SO Path: {soPath}");
+            Debug.Log($"Resources Path: {resourcePath}");
+
+            return true;
+        }
+
+        Debug.LogError($"[ALoader] No se encontró '{baseName}' dentro de Resources.");
+        return false;
+    }
+#endif
+    #endregion
+    #region TASKS
+
+    [HideInInspector]
+    private bool isSaving;
+
+    public async Task SaveValuesAsync(GroupValues valuesToSave = null)
+    {
+        if (isSaving) return;
+        isSaving = true;
+
+        try
+        {
+            if (values == null && valuesToSave == null)
+                return;
+
+            if (valuesToSave == null)
+                valuesToSave = values;
+
+            var clone = valuesToSave.Clone();
+
+            SerializableGroupSettings sgs = new();
+            sgs.CopyFrom(clone);
+
+            string json = JsonUtility.ToJson(sgs, true);
+            string path = GetJsonPath();
+
+            await Task.Run(() =>
+            {
+                File.WriteAllText(path, json);
+            });
+        }
+        finally
+        {
+            isSaving = false;
+        }
+    }
+    public async Task<GroupValues> LoadValuesAsync()
+    {
+        if (values == null)
+        {
+            Debug.LogError("[ALoader] No base values assigned.");
+            return null;
+        }
+
+        string path = GetJsonPath();
+
+        if (!File.Exists(path))
+        {
+            Debug.LogWarning("[ALoader] JSON not found. Creating default.");
+            CreateJsonFile(path);
+            return values.Clone();
+        }
+
+        // ---- BACKGROUND THREAD (IO only) ----
+        string json = await Task.Run(() =>
+        {
+            return File.ReadAllText(path);
+        });
+
+        // ---- MAIN THREAD ----
+        SerializableGroupSettings sgs = new();
+        JsonUtility.FromJsonOverwrite(json, sgs);
+
+        sgs.ApplyTo(values);
+
+        return values.Clone();
+    }
+    #endregion
+}
+#region WRAPPER
 // ---------------------------------------------------------------------------------------
 // SERIALIZABLE WRAPPER
 // ---------------------------------------------------------------------------------------
@@ -257,6 +469,14 @@ public class SerializableGroupSettings
             fields.Add(f.Clone());
         }
     }
+    public void CopyFrom(List<SettingField> otherFields)
+    {
+        fields.Clear();
+        foreach(var f in otherFields)
+        {
+            fields.Add(f.Clone());
+        }
+    }
 
     public void ApplyTo(GroupValues target)
     {
@@ -267,3 +487,4 @@ public class SerializableGroupSettings
         }
     }
 }
+#endregion

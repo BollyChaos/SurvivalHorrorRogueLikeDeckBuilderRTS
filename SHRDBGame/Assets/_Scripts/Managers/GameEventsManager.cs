@@ -7,8 +7,9 @@ using UnityEngine;
 
 public class GameEventsManager : ASingleton<GameEventsManager>, IManager
 {
+    //TODO:EVENTOS VARIADOS
     public IManager.GameStartMode StartMode => IManager.GameStartMode.NORMAL;
-    public enum GameEvent { NONE, LIGHTSOUT,/* ENEMIESAGRO, SPAWNMONSTERS, GOTORANDOMROOM,*/ MONEYRAIN, HEALTHRAIN, SPAWNCARD, }
+    public enum GameEvent { NONE, LIGHTSOUT,/*ALLCARDSARE, ENEMIESAGRO, SPAWNMONSTERS, GOTORANDOMROOM,*/ MONEYRAIN, HEALTHRAIN, SPAWNCARD, }
     [Header("Events")]
 
     [SerializeField]

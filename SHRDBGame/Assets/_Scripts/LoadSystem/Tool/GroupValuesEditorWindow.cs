@@ -5,11 +5,25 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 
+
 public class GroupValuesWindow : EditorWindow
 {
+    private enum EditorMode
+    {
+        GroupValues,
+        Template
+    }
+    private EditorMode currentMode = EditorMode.GroupValues;
+    //TODO: preparar para la encripcion y la copia a json
     ALoader loader = new ALoader();
     private List<GroupValues> allValues;
+    private List<GroupValuesTemplate> allValuesT;
     private int selectedIndex = -1;
+    private int selectedTemplateIndex = -1;
+    private GroupValuesTemplate selectedTemplate;
+
+    private GroupValuesTemplate workingCopyTemplate;
+    private GroupValuesTemplate originalCopyTemplate;
 
     private GroupValues selected;
     private GroupValues workingCopy;
@@ -25,26 +39,67 @@ public class GroupValuesWindow : EditorWindow
 
     void OnEnable()
     {
+        loader.SetEncrytionSettings(GroupValuesProjectSettings.instance.encryptionMethod, GroupValuesProjectSettings.instance.passwordSalt);
         RefreshRegistry();
     }
 
     void RefreshRegistry()
     {
         allValues = GroupValuesRegistry.GetAll();
+        allValuesT = GroupValuesRegistry.GetAllTemplates();
         Repaint();
     }
 
     void OnGUI()
     {
-        DrawRegistryPanel();
+        DrawModeSelector();
+        DrawProyectSettingsPanel();
+        switch (currentMode)
+        {
+            case EditorMode.GroupValues:
+                DrawRegistryPanel();
 
-        if (selected == null)
-            return;
+                if (selected != null)
+                {
+                    DrawToolbar();
+                    DrawEditor();
+                }
+                break;
 
-        DrawToolbar();
-        DrawEditor();
+            case EditorMode.Template:
+                DrawTemplatePanel();
+                if (selectedTemplate != null)
+                {
+                    DrawTemplateToolbar();
+                    DrawEditorTemplate();
+                }
+                break;
+        }
     }
+    //
+    //MODE
+    //
+    void DrawModeSelector()
+    {
+        currentMode = (EditorMode)GUILayout.Toolbar(
+            (int)currentMode,
+            new string[] { "GroupValues", "Templates" });
+        switch (currentMode)
+        {
+            case EditorMode.GroupValues:
+            
+                // selectedTemplate = null;
+                // selectedTemplateIndex = -1;
+                SelectTemplate(selectedTemplate);
+                break;
+            case EditorMode.Template:
 
+                // selected = null;
+                // selectedIndex = -1;
+                Select(selected);
+                break;
+        }
+    }
     // =========================================================
     // REGISTRY PANEL
     // =========================================================
@@ -80,6 +135,141 @@ public class GroupValuesWindow : EditorWindow
         EditorGUILayout.Space(10);
         EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
     }
+    void DrawTemplatePanel()
+    {
+        EditorGUILayout.LabelField("TEMPLATES REGISTRY", EditorStyles.boldLabel);
+
+        if (GUILayout.Button("Refresh List"))
+            RefreshRegistry();
+        string[] names = allValuesT.ConvertAll(t => t.name).ToArray();
+        int newIndex = EditorGUILayout.Popup("Selected Template", selectedTemplateIndex, names);
+        if (newIndex != selectedTemplateIndex && newIndex >= 0)
+        {
+            selectedTemplateIndex = newIndex;
+            SelectTemplate(allValuesT[selectedTemplateIndex]);
+        }
+        EditorGUILayout.BeginHorizontal();
+        if (GUILayout.Button("Create Template"))
+            CreateNewGroupValuesTemplate();
+
+        if (selected != null && GUILayout.Button("Delete Selected"))
+            DeleteSelectedTemplate();
+        if (GUILayout.Button("Reset All"))
+            ResetAllGroupValuesTemplatesAndApply();
+        EditorGUILayout.EndHorizontal();
+        if (allValuesT.Count == 0) return;
+
+
+
+        if (selectedTemplate != null)
+        {
+            EditorGUILayout.Space(5);
+            EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+            EditorGUILayout.BeginHorizontal();
+            EditorGUI.BeginChangeCheck();
+
+            var newRef = (GroupValues)EditorGUILayout.ObjectField(
+                "Reference",
+                workingCopyTemplate.groupValuesReference,
+                typeof(GroupValues),
+                false
+            );
+
+            if (EditorGUI.EndChangeCheck())
+            {
+                if (newRef != null && IsReferenceAlreadyUsed(newRef, workingCopyTemplate))
+                {
+                    EditorUtility.DisplayDialog(
+                        "Reference already used",
+                        "Another template is already using this GroupValues reference.",
+                        "Ok"
+                    );
+                }
+                else
+                {
+                    selectedTemplate.groupValuesReference = newRef;
+                    workingCopyTemplate.groupValuesReference = newRef;
+
+                    selectedTemplate.SetDefaultValuesInTemplate();
+                    workingCopyTemplate.SetDefaultValuesInTemplate();
+
+                    EditorUtility.SetDirty(workingCopyTemplate);
+                }
+            }
+            if (GUILayout.Button("Template from Group Values"))
+            {
+                selectedTemplate.SetDefaultValuesInTemplate();
+                workingCopyTemplate.SetDefaultValuesInTemplate();
+            }
+
+            if (GUILayout.Button("Template to Group Values"))
+            {
+                selectedTemplate.SetDefaultValuesInSO();
+                workingCopyTemplate.SetDefaultValuesInSO();
+            }
+
+            EditorGUILayout.EndHorizontal();
+        }
+
+        EditorGUILayout.Space(5);
+        EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+    }
+    bool IsReferenceAlreadyUsed(GroupValues reference, GroupValuesTemplate currentTemplate)
+    {
+        var guids = AssetDatabase.FindAssets("t:GroupValuesTemplate");
+
+        foreach (var guid in guids)
+        {
+            var path = AssetDatabase.GUIDToAssetPath(guid);
+            var template = AssetDatabase.LoadAssetAtPath<GroupValuesTemplate>(path);
+
+            if (template == currentTemplate)
+                continue;
+
+            if (template.groupValuesReference == reference)
+                return true;
+        }
+
+        return false;
+    }
+    void DrawTemplateToolbar()
+    {
+        if (selectedTemplate == null || selectedTemplate.groupValuesReference == null)
+            return;
+
+        GUILayout.BeginHorizontal();
+
+
+
+        if (GUILayout.Button("Apply"))
+        {
+            ApplyTemplate();
+        }
+
+        if (GUILayout.Button("Undo"))
+        {
+            workingCopyTemplate = originalCopyTemplate.Clone();
+            Debug.Log("Undo changes in template working copy");
+        }
+
+        if (GUILayout.Button("Reset To Defaults"))
+        {
+            selectedTemplate.SetDefaultValuesInSO();
+            workingCopyTemplate = selectedTemplate.Clone();
+            originalCopyTemplate = selectedTemplate.Clone();
+            Debug.Log("Reset template SO to defaults: " + selectedTemplate.groupValuesReference.name);
+        }
+
+        GUILayout.EndHorizontal();
+    }
+
+    void DrawProyectSettingsPanel()
+    {
+        if (GUILayout.Button("Open Project Settings"))
+        {
+            SettingsService.OpenProjectSettings("Project/Load System");
+        }
+    }
     void ResetAllGroupValuesAndApply()
     {
         if (!EditorUtility.DisplayDialog(
@@ -97,6 +287,27 @@ public class GroupValuesWindow : EditorWindow
 
             // Rebuild JSON
             ApplyJsonForGroupValues(gv);
+        }
+
+        AssetDatabase.SaveAssets();
+        Debug.Log("All GroupValues reset and JSON regenerated");
+    }
+    void ResetAllGroupValuesTemplatesAndApply()
+    {
+        if (!EditorUtility.DisplayDialog(
+            "Reset ALL GroupValuesTemplates",
+            "This will reset ALL GroupValues to defaults as written in all templates.",
+            "Yes", "Cancel"))
+            return;
+
+        var all = GroupValuesRegistry.GetAllTemplates();
+
+        foreach (var gv in all)
+        {
+            gv.SetDefaultValuesInSO();
+            EditorUtility.SetDirty(gv);
+
+
         }
 
         AssetDatabase.SaveAssets();
@@ -124,7 +335,15 @@ public class GroupValuesWindow : EditorWindow
         originalCopy = gv.Clone();
         workingCopy = gv.Clone();
     }
-
+    void SelectTemplate(GroupValuesTemplate template)
+    {
+        selectedTemplate = template;
+        if (template.groupValuesReference != null)
+        {
+            originalCopyTemplate = template.Clone();
+            workingCopyTemplate = template.Clone();
+        }
+    }
     // =========================================================
     // TOOLBAR
     // =========================================================
@@ -148,6 +367,7 @@ public class GroupValuesWindow : EditorWindow
         GUILayout.EndHorizontal();
     }
 
+
     // =========================================================
     // EDITOR UI
     // =========================================================
@@ -163,7 +383,7 @@ public class GroupValuesWindow : EditorWindow
 
             // Field header
             EditorGUILayout.BeginHorizontal();
-            field.fieldName = EditorGUILayout.TextField("Field Name", field.fieldName);
+            field.fieldName = EditorGUILayout.TextField("FIELD", field.fieldName);
 
             GUI.backgroundColor = Color.red;
             if (GUILayout.Button("X", GUILayout.Width(20)))
@@ -197,6 +417,38 @@ public class GroupValuesWindow : EditorWindow
                 fieldName = "NewField"
             });
         }
+
+        EditorGUILayout.EndScrollView();
+    }
+    void DrawEditorTemplate()
+    {
+        scroll = EditorGUILayout.BeginScrollView(scroll);
+
+        for (int i = 0; i < workingCopyTemplate.fields.Count; i++)
+        {
+            var field = workingCopyTemplate.fields[i];
+
+            EditorGUILayout.BeginVertical("box");
+
+            // Field header
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField(field.fieldName, GUILayout.Width(150));
+
+            GUI.backgroundColor = Color.red;
+
+            GUI.backgroundColor = Color.white;
+            EditorGUILayout.EndHorizontal();
+
+            // Entries
+            for (int j = 0; j < field.entries.Count; j++)
+            {
+                DrawEntryTemplate(field, j);
+            }
+
+            EditorGUILayout.EndVertical();
+            EditorGUILayout.Space();
+        }
+
 
         EditorGUILayout.EndScrollView();
     }
@@ -234,6 +486,39 @@ public class GroupValuesWindow : EditorWindow
 
         EditorGUILayout.EndHorizontal();
 
+    }
+    void DrawEntryTemplate(SettingField field, int index)
+    {
+        var entry = field.entries[index];
+        if (field.entries.Exists(x => x != entry && x.name == entry.name))
+            EditorGUILayout.HelpBox("Duplicate key!", MessageType.Error);
+
+
+        EditorGUILayout.BeginHorizontal();
+
+        EditorGUILayout.LabelField(entry.name, GUILayout.Width(150));
+
+        // Type selector
+        var newType = (VALUE_TYPE)EditorGUILayout.EnumPopup(entry.type, GUILayout.Width(80));
+        if (newType != entry.type)
+        {
+            entry.type = newType;
+            entry.value = SettingValueFactory.Create(newType); // recreate value
+        }
+
+        DrawEntryValue(entry);
+
+        GUI.backgroundColor = Color.red;
+        // if (GUILayout.Button("X", GUILayout.Width(20)))
+        // {
+        //     field.entries.RemoveAt(index);
+        //     GUI.backgroundColor = Color.white;
+        //     EditorGUILayout.EndHorizontal();
+        //     return;
+        // }
+        GUI.backgroundColor = Color.white;
+
+        EditorGUILayout.EndHorizontal();
     }
     void DrawEntryValue(SettingEntry entry)
     {
@@ -300,49 +585,6 @@ public class GroupValuesWindow : EditorWindow
 
     }
 
-    // 
-
-    // {
-    //     var all = GroupValuesRegistry.GetAll();
-
-    //     foreach (var gv in all)
-    //     {
-    //         if (gv == selected)
-    //             continue;
-
-    //         bool changed = false;
-
-    //         foreach (var field in workingCopy.fields)
-    //         {
-    //             var targetField = gv.fields.Find(f => f.fieldName == field.fieldName);
-    //             if (targetField == null)
-    //             {
-    //                 gv.fields.Add(field.Clone());
-    //                 changed = true;
-    //                 continue;
-    //             }
-
-    //             // Propagate entries
-    //             foreach (var entry in field.entries)
-    //             {
-    //                 var targetEntry = targetField.entries.Find(e => e.name == entry.name);
-    //                 if (targetEntry == null)
-    //                 {
-    //                     targetField.entries.Add(entry.Clone());
-    //                     changed = true;
-    //                 }
-    //             }
-    //         }
-
-    //         if (changed)
-    //         {
-    //             EditorUtility.SetDirty(gv);
-    //         }
-    //     }
-
-    //     AssetDatabase.SaveAssets();
-    //     Debug.Log("Schema propagated to all GroupValues");
-    // }
 
     // =========================================================
     // APPLY / UNDO
@@ -362,6 +604,7 @@ public class GroupValuesWindow : EditorWindow
         AssetDatabase.SaveAssets();
 
         Debug.Log("GroupValues duplicated: " + newPath);
+        selected = copy;
     }
 
     void Apply()
@@ -375,26 +618,24 @@ public class GroupValuesWindow : EditorWindow
         SaveJsonForAsset(selected);
 
         originalCopy = selected.Clone();
-        Debug.Log("Applied changes + JSON updated");
+        //Debug.Log("Applied changes to:" + selected.name + " + JSON updated");
     }
+    void ApplyTemplate()
+    {
+        selectedTemplate.CopyFrom(workingCopyTemplate);
+
+        EditorUtility.SetDirty(selectedTemplate);
+        AssetDatabase.SaveAssets();
+
+        originalCopyTemplate = selectedTemplate.Clone();
+    }
+
     void SaveJsonForAsset(GroupValues asset)
     {
-        string assetPath = AssetDatabase.GetAssetPath(asset);
-        string folder = Path.GetDirectoryName(assetPath);
-        string name = Path.GetFileNameWithoutExtension(assetPath);
+        loader.ChangeAssetName(asset.name);
 
-        loader.ChangeAssetName(name);
-
-        // // Override path
-        // typeof(ALoader).GetField("soPath", 
-        //     System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-        //     ?.SetValue(loader, folder + "/");
-
-        // // Set values manually
-        // typeof(ALoader).GetField("values", 
-        //     System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-        //     ?.SetValue(loader, asset);
-
+        loader.AutoResolveFromResources();//already has path
+                                          //        Debug.Log(asset.name);
         loader.SaveValues(asset);
     }
 
@@ -417,6 +658,7 @@ public class GroupValuesWindow : EditorWindow
             "Save GroupValues"
         );
 
+
         if (string.IsNullOrEmpty(path))
             return;
 
@@ -426,7 +668,25 @@ public class GroupValuesWindow : EditorWindow
 
         RefreshRegistry();
     }
+    void CreateNewGroupValuesTemplate()
+    {
+        string path = EditorUtility.SaveFilePanelInProject(
+          "Create GroupValuesTemplate",
+          "NewGroupValuesTemplate",
+          "asset",
+          "Save GroupValuesTempalte"
+      );
 
+
+        if (string.IsNullOrEmpty(path))
+            return;
+
+        var gvT = ScriptableObject.CreateInstance<GroupValuesTemplate>();
+        AssetDatabase.CreateAsset(gvT, path);
+        AssetDatabase.SaveAssets();
+
+        RefreshRegistry();
+    }
     void DeleteSelected()
     {
         if (!EditorUtility.DisplayDialog("Delete GroupValues?",
@@ -442,6 +702,24 @@ public class GroupValuesWindow : EditorWindow
         workingCopy = null;
         originalCopy = null;
         selectedIndex = -1;
+
+        RefreshRegistry();
+    }
+    void DeleteSelectedTemplate()
+    {
+        if (!EditorUtility.DisplayDialog("Delete GroupValues?",
+           $"Delete {selected.name}?\nThis cannot be undone.",
+           "Yes", "Cancel"))
+            return;
+
+        string path = AssetDatabase.GetAssetPath(selectedTemplate);
+        AssetDatabase.DeleteAsset(path);
+        AssetDatabase.SaveAssets();
+
+        selectedTemplate = null;
+        workingCopyTemplate = null;
+        originalCopyTemplate = null;
+        selectedTemplateIndex = -1;
 
         RefreshRegistry();
     }

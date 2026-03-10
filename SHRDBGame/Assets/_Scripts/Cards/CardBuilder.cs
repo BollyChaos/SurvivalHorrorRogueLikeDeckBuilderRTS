@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class CardBuilder : MonoBehaviour
 {
+    
     [Header("Materials")]
     [Header("ComonCards")]
     [SerializeField]

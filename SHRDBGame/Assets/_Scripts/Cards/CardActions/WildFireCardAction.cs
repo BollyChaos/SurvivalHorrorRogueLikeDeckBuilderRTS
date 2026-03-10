@@ -5,6 +5,7 @@ using UnityEngine;
 public class WildFireCardAction : ACardAction
 {
     [SerializeField] GameObject wildFirePrefab;
+    
     [SerializeField] int nWildFires = 5;
     [SerializeField] float radius;
     [SerializeField] float speed = 2f;

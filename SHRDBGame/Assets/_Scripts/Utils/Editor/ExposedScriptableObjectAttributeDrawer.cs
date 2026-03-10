@@ -1,7 +1,8 @@
+
+
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
-
-
 // Custom Property Drawer para el atributo
 [CustomPropertyDrawer(typeof(ExposedScriptableObjectAttribute))]
 public class ExposedScriptableObjectAttributeDrawer : PropertyDrawer
@@ -19,7 +20,7 @@ public class ExposedScriptableObjectAttributeDrawer : PropertyDrawer
             // Dibujar la flecha desplegable (foldout)
             property.isExpanded = EditorGUI.Foldout(position, property.isExpanded, GUIContent.none);
 
-            // Si está expandido, dibujar el inspector del ScriptableObject
+            // Si estï¿½ expandido, dibujar el inspector del ScriptableObject
             if (property.isExpanded)
             {
                 EditorGUI.indentLevel++;
@@ -39,3 +40,4 @@ public class ExposedScriptableObjectAttributeDrawer : PropertyDrawer
         }
     }
 }
+#endif
