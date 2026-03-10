@@ -18,19 +18,19 @@ MonoBehaviour:
     - name: NewEntry_0
       type: 4
       value:
-        rid: 7221127504272032048
+        rid: 7221127512394856964
     - name: NewEntry_1
       type: 4
       value:
-        rid: 7221127504272032049
+        rid: 7221127512394856965
   references:
     version: 2
     RefIds:
-    - rid: 7221127504272032048
+    - rid: 7221127512394856964
       type: {class: IntSettingValue, ns: , asm: LoadSystem}
       data:
         value: 0
-    - rid: 7221127504272032049
+    - rid: 7221127512394856965
       type: {class: IntSettingValue, ns: , asm: LoadSystem}
       data:
         value: 0

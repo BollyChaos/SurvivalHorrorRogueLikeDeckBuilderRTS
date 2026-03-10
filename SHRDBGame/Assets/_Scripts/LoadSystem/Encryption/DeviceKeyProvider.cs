@@ -5,6 +5,7 @@ using UnityEngine;
 
 public static class DeviceKeyProvider
 {
+    
     public const int KEY_SIZE = 32;
 
     static string KeyPath =>

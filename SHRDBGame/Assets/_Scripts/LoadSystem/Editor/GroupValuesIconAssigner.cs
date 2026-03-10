@@ -4,7 +4,7 @@ using UnityEditor;
 using System.Linq;
 
 
-public class GroupValuesIconAssigner : AssetPostprocessor
+internal class GroupValuesIconAssigner : AssetPostprocessor
 {
 
     const string Key = "GroupValuesIconsAssigned";

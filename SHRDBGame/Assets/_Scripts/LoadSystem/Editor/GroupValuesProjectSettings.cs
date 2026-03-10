@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [FilePath("ProjectSettings/GroupValuesProjectSettings.asset", FilePathAttribute.Location.ProjectFolder)]
-class GroupValuesProjectSettings : ScriptableSingleton<GroupValuesProjectSettings>
+internal class GroupValuesProjectSettings : ScriptableSingleton<GroupValuesProjectSettings>
 {
 
     public EncryptionMethod encryptionMethod = EncryptionMethod.None;

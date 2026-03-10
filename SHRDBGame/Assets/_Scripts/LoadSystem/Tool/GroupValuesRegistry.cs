@@ -6,6 +6,7 @@ using System.Collections.Generic;
 
 public static class GroupValuesRegistry
 {
+    
     public static List<GroupValues> GetAll()
     {
         var guids = AssetDatabase.FindAssets("t:GroupValues");

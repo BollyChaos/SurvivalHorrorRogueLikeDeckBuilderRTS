@@ -6,7 +6,7 @@ using System.IO;
 using System.Reflection;
 using UnityEngine;
 using System.Collections.Generic;
-public class GroupValuesBuildProcessor : IPreprocessBuildWithReport
+internal class GroupValuesBuildProcessor : IPreprocessBuildWithReport
 {
     public int callbackOrder => 0;
     static ALoader loader = new ALoader();

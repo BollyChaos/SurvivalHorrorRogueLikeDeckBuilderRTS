@@ -6,7 +6,7 @@ using System.IO;
 using System.Reflection;
 
 
-public class GroupValuesWindow : EditorWindow
+internal class GroupValuesWindow : EditorWindow
 {
     private enum EditorMode
     {
@@ -61,7 +61,8 @@ public class GroupValuesWindow : EditorWindow
 
                 if (selected != null)
                 {
-                    DrawToolbar();
+                    if (!showTemplateValues)
+                        DrawToolbar();
                     DrawEditor();
                 }
                 break;
@@ -71,6 +72,7 @@ public class GroupValuesWindow : EditorWindow
                 if (selectedTemplate != null)
                 {
                     DrawTemplateToolbar();
+
                     DrawEditorTemplate();
                 }
                 break;
@@ -87,7 +89,7 @@ public class GroupValuesWindow : EditorWindow
         switch (currentMode)
         {
             case EditorMode.GroupValues:
-            
+
                 // selectedTemplate = null;
                 // selectedTemplateIndex = -1;
                 SelectTemplate(selectedTemplate);
@@ -131,7 +133,17 @@ public class GroupValuesWindow : EditorWindow
             ResetAllGroupValuesAndApply();
 
         EditorGUILayout.EndHorizontal();
+        bool isReferenced = allValuesT.Exists(t => t.groupValuesReference == selected);
 
+        // Solo mostrar toggle si es referencia de algún template
+
+        if (isReferenced)
+        {
+            showTemplateValues = EditorGUILayout.ToggleLeft(
+                "View Template Values",
+                showTemplateValues
+            );
+        }
         EditorGUILayout.Space(10);
         EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
     }
@@ -151,6 +163,7 @@ public class GroupValuesWindow : EditorWindow
         EditorGUILayout.BeginHorizontal();
         if (GUILayout.Button("Create Template"))
             CreateNewGroupValuesTemplate();
+
 
         if (selected != null && GUILayout.Button("Delete Selected"))
             DeleteSelectedTemplate();
@@ -331,17 +344,23 @@ public class GroupValuesWindow : EditorWindow
 
     void Select(GroupValues gv)
     {
-        selected = gv;
-        originalCopy = gv.Clone();
-        workingCopy = gv.Clone();
+        if (gv != null)
+        {
+            selected = gv;
+            originalCopy = gv.Clone();
+            workingCopy = gv.Clone();
+        }
     }
     void SelectTemplate(GroupValuesTemplate template)
     {
-        selectedTemplate = template;
-        if (template.groupValuesReference != null)
+        if (template != null)
         {
-            originalCopyTemplate = template.Clone();
-            workingCopyTemplate = template.Clone();
+            selectedTemplate = template;
+            if (template.groupValuesReference != null)
+            {
+                originalCopyTemplate = template.Clone();
+                workingCopyTemplate = template.Clone();
+            }
         }
     }
     // =========================================================
@@ -371,22 +390,75 @@ public class GroupValuesWindow : EditorWindow
     // =========================================================
     // EDITOR UI
     // =========================================================
+    // void DrawEditor()
+    // {
+    //     scroll = EditorGUILayout.BeginScrollView(scroll);
+
+    //     for (int i = 0; i < workingCopy.fields.Count; i++)
+    //     {
+    //         var field = workingCopy.fields[i];
+
+    //         EditorGUILayout.BeginVertical("box");
+
+    //         // Field header
+    //         EditorGUILayout.BeginHorizontal();
+    //         field.fieldName = EditorGUILayout.TextField("FIELD", field.fieldName);
+
+    //         GUI.backgroundColor = Color.red;
+    //         if (GUILayout.Button("X", GUILayout.Width(20)))
+    //         {
+    //             workingCopy.fields.RemoveAt(i);
+    //             GUI.backgroundColor = Color.white;
+    //             break;
+    //         }
+    //         GUI.backgroundColor = Color.white;
+    //         EditorGUILayout.EndHorizontal();
+
+    //         // Entries
+    //         for (int j = 0; j < field.entries.Count; j++)
+    //         {
+    //             DrawEntry(field, j);
+    //         }
+
+    //         if (GUILayout.Button("+ Add Entry"))
+    //         {
+    //             AddEntry(field);
+    //         }
+
+    //         EditorGUILayout.EndVertical();
+    //         EditorGUILayout.Space();
+    //     }
+
+    //     if (GUILayout.Button("+ Add Field"))
+    //     {
+    //         workingCopy.fields.Add(new SettingField()
+    //         {
+    //             fieldName = "NewField"
+    //         });
+    //     }
+
+    //     EditorGUILayout.EndScrollView();
+    // }
+    bool showTemplateValues = false;
     void DrawEditor()
     {
         scroll = EditorGUILayout.BeginScrollView(scroll);
 
-        for (int i = 0; i < workingCopy.fields.Count; i++)
+
+
+        //var displayCopy = showTemplateValues ? GetTemplateForSelected(selected)?.Clone() : workingCopyTemplate;
+        List<SettingField> fieldsDisplay = showTemplateValues ? GetTemplateForSelected(selected)?.Clone().fields : workingCopy.fields;
+        for (int i = 0; i < fieldsDisplay.Count; i++)
         {
-            var field = workingCopy.fields[i];
+            var field = fieldsDisplay[i];
 
             EditorGUILayout.BeginVertical("box");
 
-            // Field header
             EditorGUILayout.BeginHorizontal();
-            field.fieldName = EditorGUILayout.TextField("FIELD", field.fieldName);
+            field.fieldName = EditorGUILayout.TextField("Field Name", field.fieldName);
 
             GUI.backgroundColor = Color.red;
-            if (GUILayout.Button("X", GUILayout.Width(20)))
+            if (!showTemplateValues && GUILayout.Button("X", GUILayout.Width(20)))
             {
                 workingCopy.fields.RemoveAt(i);
                 GUI.backgroundColor = Color.white;
@@ -398,10 +470,10 @@ public class GroupValuesWindow : EditorWindow
             // Entries
             for (int j = 0; j < field.entries.Count; j++)
             {
-                DrawEntry(field, j);
+                DrawEntry(field, j, showTemplateValues); // adaptado para deshabilitar edición si es template
             }
 
-            if (GUILayout.Button("+ Add Entry"))
+            if (!showTemplateValues && GUILayout.Button("+ Add Entry"))
             {
                 AddEntry(field);
             }
@@ -410,15 +482,52 @@ public class GroupValuesWindow : EditorWindow
             EditorGUILayout.Space();
         }
 
-        if (GUILayout.Button("+ Add Field"))
+        if (!showTemplateValues && GUILayout.Button("+ Add Field"))
         {
-            workingCopy.fields.Add(new SettingField()
-            {
-                fieldName = "NewField"
-            });
+            workingCopy.fields.Add(new SettingField() { fieldName = "NewField" });
         }
 
         EditorGUILayout.EndScrollView();
+    }
+
+    // Devuelve el template que referencia al GroupValues seleccionado
+    GroupValuesTemplate GetTemplateForSelected(GroupValues gv)
+    {
+        return allValuesT.Find(t => t.groupValuesReference == gv);
+    }
+
+    // Adaptar DrawEntry para que solo sea editable si no estás viendo los valores del template
+    void DrawEntry(SettingField field, int index, bool readOnly)
+    {
+        var entry = field.entries[index];
+        EditorGUILayout.BeginHorizontal();
+
+        EditorGUI.BeginDisabledGroup(readOnly);
+        entry.name = EditorGUILayout.TextField(entry.name, GUILayout.Width(150));
+
+        var newType = (VALUE_TYPE)EditorGUILayout.EnumPopup(entry.type, GUILayout.Width(80));
+        if (newType != entry.type)
+        {
+            entry.type = newType;
+            entry.value = SettingValueFactory.Create(newType);
+        }
+
+        DrawEntryValue(entry);
+        if (!readOnly)
+        {
+            GUI.backgroundColor = Color.red;
+            if (GUILayout.Button("X", GUILayout.Width(20)))
+            {
+                field.entries.RemoveAt(index);
+                GUI.backgroundColor = Color.white;
+                EditorGUILayout.EndHorizontal();
+                return;
+            }
+            GUI.backgroundColor = Color.white;
+        }
+        EditorGUI.EndDisabledGroup();
+
+        EditorGUILayout.EndHorizontal();
     }
     void DrawEditorTemplate()
     {
@@ -459,6 +568,8 @@ public class GroupValuesWindow : EditorWindow
         if (field.entries.Exists(x => x != entry && x.name == entry.name))
             EditorGUILayout.HelpBox("Duplicate key!", MessageType.Error);
 
+        Color originalColor = GUI.backgroundColor;
+        GUI.backgroundColor = (index % 2 == 0) ? originalColor : originalColor * 0.65f;
 
         EditorGUILayout.BeginHorizontal();
 
@@ -472,20 +583,20 @@ public class GroupValuesWindow : EditorWindow
             entry.value = SettingValueFactory.Create(newType); // recreate value
         }
 
+        EditorGUILayout.Space(20);
         DrawEntryValue(entry);
 
         GUI.backgroundColor = Color.red;
         if (GUILayout.Button("X", GUILayout.Width(20)))
         {
             field.entries.RemoveAt(index);
-            GUI.backgroundColor = Color.white;
+            GUI.backgroundColor = originalColor;
             EditorGUILayout.EndHorizontal();
             return;
         }
-        GUI.backgroundColor = Color.white;
 
+        GUI.backgroundColor = originalColor; // restaurar el color
         EditorGUILayout.EndHorizontal();
-
     }
     void DrawEntryTemplate(SettingField field, int index)
     {
@@ -493,6 +604,9 @@ public class GroupValuesWindow : EditorWindow
         if (field.entries.Exists(x => x != entry && x.name == entry.name))
             EditorGUILayout.HelpBox("Duplicate key!", MessageType.Error);
 
+
+        Color originalColor = GUI.backgroundColor;
+        GUI.backgroundColor = (index % 2 == 0) ? originalColor : originalColor * 0.65f;
 
         EditorGUILayout.BeginHorizontal();
 
@@ -505,17 +619,10 @@ public class GroupValuesWindow : EditorWindow
             entry.type = newType;
             entry.value = SettingValueFactory.Create(newType); // recreate value
         }
-
+        EditorGUILayout.Space(20);
         DrawEntryValue(entry);
 
-        GUI.backgroundColor = Color.red;
-        // if (GUILayout.Button("X", GUILayout.Width(20)))
-        // {
-        //     field.entries.RemoveAt(index);
-        //     GUI.backgroundColor = Color.white;
-        //     EditorGUILayout.EndHorizontal();
-        //     return;
-        // }
+
         GUI.backgroundColor = Color.white;
 
         EditorGUILayout.EndHorizontal();

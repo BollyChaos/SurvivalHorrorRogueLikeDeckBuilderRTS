@@ -18,171 +18,171 @@ MonoBehaviour:
     - name: UseButtons
       type: 0
       value:
-        rid: 7221127504272032028
+        rid: 7221127521572749356
   - fieldName: ViewPort
     entries:
     - name: Brightness
       type: 1
       value:
-        rid: 7221127504272032029
+        rid: 7221127521572749357
     - name: Contrast
       type: 1
       value:
-        rid: 7221127504272032030
+        rid: 7221127521572749358
     - name: LightIntensity
       type: 1
       value:
-        rid: 7221127504272032031
+        rid: 7221127521572749359
     - name: FlashLightIntensity
       type: 1
       value:
-        rid: 7221127504272032032
+        rid: 7221127521572749360
   - fieldName: Sound
     entries:
     - name: Mute
       type: 0
       value:
-        rid: 7221127504272032033
+        rid: 7221127521572749361
     - name: MasterVolume
       type: 1
       value:
-        rid: 7221127504272032034
+        rid: 7221127521572749362
     - name: MusicVolume
       type: 1
       value:
-        rid: 7221127504272032035
+        rid: 7221127521572749363
     - name: SFXVolume
       type: 1
       value:
-        rid: 7221127504272032036
+        rid: 7221127521572749364
     - name: InterfaceVolume
       type: 1
       value:
-        rid: 7221127504272032037
+        rid: 7221127521572749365
   - fieldName: Game
     entries:
     - name: Invincible
       type: 0
       value:
-        rid: 7221127504272032038
+        rid: 7221127521572749366
     - name: UnlimitedMoney
       type: 0
       value:
-        rid: 7221127504272032039
+        rid: 7221127521572749367
     - name: PlayerHealth
       type: 1
       value:
-        rid: 7221127504272032040
+        rid: 7221127521572749368
     - name: PlayerSpeed
       type: 1
       value:
-        rid: 7221127504272032041
+        rid: 7221127521572749369
     - name: EnemyAgresivity
       type: 1
       value:
-        rid: 7221127504272032042
+        rid: 7221127521572749370
     - name: UnlimitedDamage
       type: 0
       value:
-        rid: 7221127504272032043
+        rid: 7221127521572749371
     - name: StartingCards
       type: 1
       value:
-        rid: 7221127504272032044
+        rid: 7221127521572749372
   - fieldName: Accesibility
     entries:
     - name: CameraShake
       type: 0
       value:
-        rid: 7221127504272032045
+        rid: 7221127521572749373
     - name: InterfaceSize
       type: 1
       value:
-        rid: 7221127504272032046
+        rid: 7221127521572749374
     - name: DialogSize
       type: 1
       value:
-        rid: 7221127504272032047
+        rid: 7221127521572749375
   references:
     version: 2
     RefIds:
-    - rid: 7221127504272032028
+    - rid: 7221127521572749356
       type: {class: BoolSettingValue, ns: , asm: LoadSystem}
       data:
         value: 0
-    - rid: 7221127504272032029
+    - rid: 7221127521572749357
       type: {class: FloatSettingValue, ns: , asm: LoadSystem}
       data:
         value: 0.5
-    - rid: 7221127504272032030
+    - rid: 7221127521572749358
       type: {class: FloatSettingValue, ns: , asm: LoadSystem}
       data:
         value: 0.5
-    - rid: 7221127504272032031
+    - rid: 7221127521572749359
       type: {class: FloatSettingValue, ns: , asm: LoadSystem}
       data:
         value: 5
-    - rid: 7221127504272032032
+    - rid: 7221127521572749360
       type: {class: FloatSettingValue, ns: , asm: LoadSystem}
       data:
         value: 5
-    - rid: 7221127504272032033
+    - rid: 7221127521572749361
       type: {class: BoolSettingValue, ns: , asm: LoadSystem}
       data:
         value: 0
-    - rid: 7221127504272032034
+    - rid: 7221127521572749362
       type: {class: FloatSettingValue, ns: , asm: LoadSystem}
       data:
         value: 0.8
-    - rid: 7221127504272032035
+    - rid: 7221127521572749363
       type: {class: FloatSettingValue, ns: , asm: LoadSystem}
       data:
         value: 1
-    - rid: 7221127504272032036
+    - rid: 7221127521572749364
       type: {class: FloatSettingValue, ns: , asm: LoadSystem}
       data:
         value: 1
-    - rid: 7221127504272032037
+    - rid: 7221127521572749365
       type: {class: FloatSettingValue, ns: , asm: LoadSystem}
       data:
         value: 1
-    - rid: 7221127504272032038
+    - rid: 7221127521572749366
       type: {class: BoolSettingValue, ns: , asm: LoadSystem}
       data:
         value: 0
-    - rid: 7221127504272032039
+    - rid: 7221127521572749367
       type: {class: BoolSettingValue, ns: , asm: LoadSystem}
       data:
         value: 0
-    - rid: 7221127504272032040
+    - rid: 7221127521572749368
       type: {class: FloatSettingValue, ns: , asm: LoadSystem}
       data:
         value: 100
-    - rid: 7221127504272032041
+    - rid: 7221127521572749369
       type: {class: FloatSettingValue, ns: , asm: LoadSystem}
       data:
         value: 10
-    - rid: 7221127504272032042
+    - rid: 7221127521572749370
       type: {class: FloatSettingValue, ns: , asm: LoadSystem}
       data:
         value: 0
-    - rid: 7221127504272032043
+    - rid: 7221127521572749371
       type: {class: BoolSettingValue, ns: , asm: LoadSystem}
       data:
         value: 0
-    - rid: 7221127504272032044
+    - rid: 7221127521572749372
       type: {class: FloatSettingValue, ns: , asm: LoadSystem}
       data:
-        value: 0
-    - rid: 7221127504272032045
+        value: 8
+    - rid: 7221127521572749373
       type: {class: BoolSettingValue, ns: , asm: LoadSystem}
       data:
-        value: 0
-    - rid: 7221127504272032046
+        value: 1
+    - rid: 7221127521572749374
       type: {class: FloatSettingValue, ns: , asm: LoadSystem}
       data:
         value: 0
-    - rid: 7221127504272032047
+    - rid: 7221127521572749375
       type: {class: FloatSettingValue, ns: , asm: LoadSystem}
       data:
         value: 0

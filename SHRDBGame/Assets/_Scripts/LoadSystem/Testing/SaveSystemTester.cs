@@ -74,5 +74,6 @@ public class SaveSystemTester : MonoBehaviour
     {
         loader.AutoResolveFromResources();
     }
+    
 }
 #endif
