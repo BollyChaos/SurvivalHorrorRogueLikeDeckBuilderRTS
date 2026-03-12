@@ -251,21 +251,7 @@ public class SettingValue<T> : SettingValue
 #endregion
 public static class SettingValueFactory
 {
-    // public static SettingValue Create(VALUE_TYPE type) a Unity no le gustan los genericos en el inspector
-    // {
-    //     return type switch
-    //     {
-    //         VALUE_TYPE.BOOL => new SettingValue<bool>(),
-    //         VALUE_TYPE.INT => new SettingValue<int>(),
-    //         VALUE_TYPE.FLOAT => new SettingValue<float>(),
-    //         VALUE_TYPE.DOUBLE => new SettingValue<double>(),
-    //         VALUE_TYPE.LONG => new SettingValue<long>(),
-    //         VALUE_TYPE.SHORT => new SettingValue<short>(),
-    //         VALUE_TYPE.BYTE => new SettingValue<byte>(),
-    //         VALUE_TYPE.STRING => new SettingValue<string>(),
-    //         _ => throw new NotSupportedException()
-    //     };
-    // }
+    //Unity prefers predefined clases instead of T generics
     public static SettingValue Create(VALUE_TYPE t)
     {
         return t switch
@@ -282,7 +268,35 @@ public static class SettingValueFactory
             _ => throw new NotSupportedException()
         };
     }
+    public static SettingValue CreateFromString(VALUE_TYPE type, string value)
+    {
+        var settingValue = Create(type);
 
+        object parsed = type switch
+        {
+            VALUE_TYPE.BOOL => bool.Parse(value),
+            VALUE_TYPE.INT => int.Parse(value),
+            VALUE_TYPE.FLOAT => float.Parse(value, System.Globalization.CultureInfo.InvariantCulture),
+            VALUE_TYPE.DOUBLE => double.Parse(value, System.Globalization.CultureInfo.InvariantCulture),
+            VALUE_TYPE.LONG => long.Parse(value),
+            VALUE_TYPE.SHORT => short.Parse(value),
+            VALUE_TYPE.BYTE => byte.Parse(value),
+            VALUE_TYPE.STRING => value,
+            VALUE_TYPE.VECTOR2 => ParseVector2(value),
+            _ => throw new NotSupportedException()
+        };
+
+        settingValue.SetValue(parsed);
+        return settingValue;
+    }
+    static Vector2 ParseVector2(string value)
+    {
+        var parts = value.Split(',');
+        return new Vector2(
+            float.Parse(parts[0], System.Globalization.CultureInfo.InvariantCulture),
+            float.Parse(parts[1], System.Globalization.CultureInfo.InvariantCulture)
+        );
+    }
     public static VALUE_TYPE GetEnum(Type t)
     {
         if (t == typeof(bool)) return VALUE_TYPE.BOOL;
@@ -403,6 +417,11 @@ public class SettingEntry
     public override int GetHashCode()
     {
         return base.GetHashCode();
+    }
+
+    public void ConvertStringToValue(string valueString)
+    {
+        value = SettingValueFactory.CreateFromString(type,valueString);
     }
 }
 

@@ -31,7 +31,7 @@ internal class GroupValuesWindow : EditorWindow
 
     private Vector2 scroll;
 
-    [MenuItem("Tools/Group Values Window")]
+    [MenuItem("Tools/LoadSystem/Group Values Editor", priority = 0)]
     public static void Open()
     {
         GetWindow<GroupValuesWindow>("GroupValues");
@@ -687,7 +687,7 @@ internal class GroupValuesWindow : EditorWindow
         e.value = SettingValueFactory.Create(e.type);
 
         field.entries.Add(e);
-        Apply();
+        //Apply();
 
 
     }

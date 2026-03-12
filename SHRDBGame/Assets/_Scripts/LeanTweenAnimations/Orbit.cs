@@ -21,6 +21,8 @@ public void InitOrbit(Transform trg,float rd,float spd)
 
     void Update()
     {
+        if(target==null){gameObject.SetActive(false); return;}
+
         angle += speed * Time.deltaTime;
 
         float radius = initialOffset.magnitude;

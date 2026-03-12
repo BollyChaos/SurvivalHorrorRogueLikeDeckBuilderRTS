@@ -3,6 +3,8 @@ using System.IO;
 using UnityEngine;
 using System;
 using System.Threading.Tasks;
+using UnityEditor.Playables;
+
 
 
 
@@ -113,7 +115,7 @@ public class ALoader
     }
     public void SetGroupValues(GroupValues gv)
     {
-        values=gv.Clone();
+        values = gv.Clone();
     }
     public void RemoveLoadedValues()
     {
@@ -176,7 +178,7 @@ public class ALoader
         if (encryptionMethod != EncryptionMethod.None)
             JsonEncrypter.EncryptToFile(Path.Combine(Application.persistentDataPath, jsonFileName), GetJsonString(sgs), password, encryptionMethod);
         else
-            SaveToJsonFile(Path.Combine(Application.persistentDataPath, jsonFileName),sgs);
+            SaveToJsonFile(Path.Combine(Application.persistentDataPath, jsonFileName), sgs);
     }
 #endif
     public void SaveValues(GroupValues valuesToSave = null)
@@ -242,13 +244,13 @@ public class ALoader
     // ---------------------------------------------------------------------------------------
     // JSON SAVE
     // ---------------------------------------------------------------------------------------
-    protected virtual void SaveToJsonFile(string path = null,SerializableGroupSettings sgs=null)
+    protected virtual void SaveToJsonFile(string path = null, SerializableGroupSettings sgs = null)
     {
         if (path == null)
             path = GetJsonPath();
-        if(sgs==null)
+        if (sgs == null)
             sgs = new SerializableGroupSettings();
-        if(values!=null&&sgs==null)
+        if (values != null && sgs == null)
             sgs.CopyFrom(values);
 
         string json = JsonUtility.ToJson(sgs, true);
@@ -268,7 +270,7 @@ public class ALoader
     }
     protected virtual string GetJsonString(SerializableGroupSettings sgs)
     {
-        string json=JsonUtility.ToJson(sgs,true);
+        string json = JsonUtility.ToJson(sgs, true);
         return json;
     }
 
@@ -317,14 +319,18 @@ public class ALoader
 
     internal void SetValue<T>(string key, T value)
     {
+        float start = Time.realtimeSinceStartup;
         if (values == null) return;
         values.SetValue(key, value);
+        float end = Time.realtimeSinceStartup;
+        Debug.Log("SetValue took: " + ((end - start) * 1000f) + " ms");
 #if UNITY_EDITOR
-        EditorUtility.SetDirty(values);
+
         // Debug.Log("[ALoader] IsDirty: " + EditorUtility.IsDirty(values));
-        UnityEditor.SceneView.RepaintAll();
-        UnityEditorInternal.InternalEditorUtility.RepaintAllViews();
-        AssetDatabase.SaveAssets();
+        // UnityEditor.SceneView.RepaintAll();
+        // UnityEditorInternal.InternalEditorUtility.RepaintAllViews();
+
+        EditorUtility.SetDirty(values);
 
 #endif
     }
@@ -472,7 +478,7 @@ public class SerializableGroupSettings
     public void CopyFrom(List<SettingField> otherFields)
     {
         fields.Clear();
-        foreach(var f in otherFields)
+        foreach (var f in otherFields)
         {
             fields.Add(f.Clone());
         }
@@ -487,4 +493,134 @@ public class SerializableGroupSettings
         }
     }
 }
+#region XML_SERIALIZATION
+public class SerializableGroupValuesXML
+{
+    public List<SerializableField> fields = new();
+    public SerializableGroupValuesXML() { }
+    public SerializableGroupValuesXML(List<SerializableField> fs)
+    {
+        fields = fs;
+    }
+
+    public void CopyFrom(GroupValues settings)
+    {
+        fields.Clear();
+
+        foreach (var f in settings.fields)
+        {
+            SettingField fieldClone = f.Clone();
+            List<SerializableEntry> entriesField = new();
+
+            foreach (var e in fieldClone.entries)
+            {
+                SettingEntry entryClone = e.Clone();
+                SerializableEntry entry = new SerializableEntry(entryClone.name, entryClone.type, entryClone.value.GetValue().ToString());
+                entriesField.Add(entry);
+
+            }
+            SerializableField fieldToAdd = new SerializableField(fieldClone.fieldName, entriesField);
+
+            fields.Add(fieldToAdd);
+        }
+    }
+    public void CopyFrom(List<SettingField> otherFields)
+    {
+        fields.Clear();
+
+        foreach (var f in otherFields)
+        {
+            SettingField fieldClone = f.Clone();
+            List<SerializableEntry> entriesField = new();
+
+            foreach (var e in fieldClone.entries)
+            {
+                SettingEntry entryClone = e.Clone();
+                SerializableEntry entry = new SerializableEntry(entryClone.name, entryClone.type, entryClone.value.ToString());
+                entriesField.Add(entry);
+
+            }
+            SerializableField fieldToAdd = new SerializableField(fieldClone.fieldName, entriesField);
+
+            fields.Add(fieldToAdd);
+        }
+    }
+    public SerializableGroupValuesXML Clone()
+    {
+        var flds = new List<SerializableField>();
+        foreach (var field in fields)
+        {
+            flds.Add(field.Clone());
+        }
+        return new SerializableGroupValuesXML(flds);
+    }
+
+    public void ApplyTo(GroupValues target)
+    {
+        target.fields.Clear();
+        foreach (var f in fields)
+        {
+            var ents = f.Clone();
+
+
+            List<SettingEntry> fieldGV = new();
+
+            foreach (var val in ents.entries)
+            {
+                var valuetoassign = val.Clone();
+                SettingEntry sV = new();
+                sV.name = val.key;
+                sV.type = val.type;
+                sV.ConvertStringToValue(val.value);
+
+                fieldGV.Add(sV);
+
+            }
+            SettingField sFGV = new();
+            sFGV.entries = fieldGV;
+            target.fields.Add(sFGV);
+        }
+    }
+}
+[Serializable]
+public class SerializableField
+{
+    public string name;
+    public List<SerializableEntry> entries = new();
+    public SerializableField() { }
+    public SerializableField(string n, List<SerializableEntry> ents)
+    {
+        name = n;
+        entries = ents;
+    }
+    public SerializableField Clone()
+    {
+        var ents = new List<SerializableEntry>();
+        foreach (var value in entries)
+        {
+            ents.Add(value.Clone());
+        }
+        return new SerializableField(name, ents);
+    }
+}
+
+[Serializable]
+public class SerializableEntry
+{
+    public string key;
+    public VALUE_TYPE type;
+    public string value;
+    public SerializableEntry() { }
+    public SerializableEntry(string k, VALUE_TYPE t, string v)
+    {
+        key = k;
+        type = t;
+        value = v;
+    }
+    public SerializableEntry Clone()
+    {
+        return new SerializableEntry(key, type, (string)value.Clone());
+    }
+}
+#endregion
 #endregion
