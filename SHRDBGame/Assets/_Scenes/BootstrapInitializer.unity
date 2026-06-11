@@ -2636,7 +2636,7 @@ MonoBehaviour:
   loader:
     soPath: Assets/Resources/LoadSystem/SavedFiles/
     baseName: GameStats
-    encryptionMethod: 1
+    encryptionMethod: 3
     password: Fkm3jd7eKuLxHAJz6ev9Myxv4MRi56bA1t3Au1i5bN8=
     values: {fileID: 11400000, guid: f1272e6ff141630458e0f85822dd3e9a, type: 2}
 --- !u!1 &291003571
@@ -24413,7 +24413,7 @@ MonoBehaviour:
   loader:
     soPath: Assets/Resources/LoadSystem/SavedFiles/
     baseName: Settings
-    encryptionMethod: 1
+    encryptionMethod: 3
     password: Fkm3jd7eKuLxHAJz6ev9Myxv4MRi56bA1t3Au1i5bN8=
     values: {fileID: 11400000, guid: d92aef1a5dbb1cd41b5bf18bef37785e, type: 2}
 --- !u!1 &2129473883

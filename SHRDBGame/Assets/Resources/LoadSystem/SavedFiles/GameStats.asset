@@ -18,77 +18,77 @@ MonoBehaviour:
     - name: NTimesWon
       type: 4
       value:
-        rid: 7221127559446265885
+        rid: 7221127583008293036
     - name: NTimesDied
       type: 4
       value:
-        rid: 7221127559446265886
+        rid: 7221127583008293037
     - name: NCardsUsed
       type: 4
       value:
-        rid: 7221127559446265887
+        rid: 7221127583008293038
     - name: NEnemiesKilled
       type: 4
       value:
-        rid: 7221127559446265888
+        rid: 7221127583008293039
     - name: GivenTeddyBear
       type: 0
       value:
-        rid: 7221127559446265889
+        rid: 7221127583008293040
     - name: EnteredSecretRoom
       type: 0
       value:
-        rid: 7221127559446265890
+        rid: 7221127583008293041
     - name: FlashLightSeconds
       type: 1
       value:
-        rid: 7221127559446265891
+        rid: 7221127583008293042
   - fieldName: GameContext
     entries:
     - name: ShoulLoad
       type: 0
       value:
-        rid: 7221127559446265892
+        rid: 7221127583008293043
     - name: PlayerCards
       type: 7
       value:
-        rid: 7221127559446265893
+        rid: 7221127583008293044
   references:
     version: 2
     RefIds:
-    - rid: 7221127559446265885
+    - rid: 7221127583008293036
       type: {class: IntSettingValue, ns: , asm: LoadSystem}
       data:
         value: 0
-    - rid: 7221127559446265886
+    - rid: 7221127583008293037
+      type: {class: IntSettingValue, ns: , asm: LoadSystem}
+      data:
+        value: 77
+    - rid: 7221127583008293038
       type: {class: IntSettingValue, ns: , asm: LoadSystem}
       data:
         value: 0
-    - rid: 7221127559446265887
+    - rid: 7221127583008293039
       type: {class: IntSettingValue, ns: , asm: LoadSystem}
       data:
-        value: 24
-    - rid: 7221127559446265888
-      type: {class: IntSettingValue, ns: , asm: LoadSystem}
-      data:
-        value: 3
-    - rid: 7221127559446265889
+        value: 0
+    - rid: 7221127583008293040
       type: {class: BoolSettingValue, ns: , asm: LoadSystem}
       data:
         value: 0
-    - rid: 7221127559446265890
+    - rid: 7221127583008293041
       type: {class: BoolSettingValue, ns: , asm: LoadSystem}
       data:
         value: 0
-    - rid: 7221127559446265891
+    - rid: 7221127583008293042
       type: {class: FloatSettingValue, ns: , asm: LoadSystem}
       data:
-        value: 114.63213
-    - rid: 7221127559446265892
+        value: 0
+    - rid: 7221127583008293043
       type: {class: BoolSettingValue, ns: , asm: LoadSystem}
       data:
         value: 0
-    - rid: 7221127559446265893
+    - rid: 7221127583008293044
       type: {class: StringSettingValue, ns: , asm: LoadSystem}
       data:
         value: 

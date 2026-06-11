@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4c86e3bdb4d2f7478f663be153e95a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  encryptionMethod: 1
+  useTemplates: 1
+  encryptionMethod: 3
   passwordSalt: Fkm3jd7eKuLxHAJz6ev9Myxv4MRi56bA1t3Au1i5bN8=

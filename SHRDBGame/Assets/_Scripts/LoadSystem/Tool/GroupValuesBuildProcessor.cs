@@ -58,7 +58,8 @@ internal class GroupValuesBuildProcessor : IPreprocessBuildWithReport
 
         var templates = GroupValuesRegistry.GetAllTemplates();
 
-        ApplyTemplateDefaults(templates);
+        if(GroupValuesProjectSettings.instance.useTemplates)
+            ApplyTemplateDefaults(templates);
 
         ResetNonTemplateGroupValues(templates);
 

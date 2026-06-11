@@ -1,0 +1,340 @@
+{
+    "fields": [
+        {
+            "fieldName": "Introduction",
+            "entries": [
+                {
+                    "name": "1 About the tool",
+                    "type": 7,
+                    "value": {
+                        "rid": 1000
+                    }
+                },
+                {
+                    "name": "1.1 What can I store?",
+                    "type": 7,
+                    "value": {
+                        "rid": 1001
+                    }
+                },
+                {
+                    "name": "1.2 What con I use it for?",
+                    "type": 7,
+                    "value": {
+                        "rid": 1002
+                    }
+                }
+            ]
+        },
+        {
+            "fieldName": "Group Values",
+            "entries": [
+                {
+                    "name": "How to use it",
+                    "type": 7,
+                    "value": {
+                        "rid": 1003
+                    }
+                },
+                {
+                    "name": "Structure",
+                    "type": 7,
+                    "value": {
+                        "rid": 1004
+                    }
+                },
+                {
+                    "name": "GetValue<T>",
+                    "type": 7,
+                    "value": {
+                        "rid": 1005
+                    }
+                },
+                {
+                    "name": "Exeptions in GetValue<T>",
+                    "type": 7,
+                    "value": {
+                        "rid": 1006
+                    }
+                },
+                {
+                    "name": "SetValue<T>",
+                    "type": 7,
+                    "value": {
+                        "rid": 1007
+                    }
+                },
+                {
+                    "name": "Exceptions in SetValue<T>",
+                    "type": 7,
+                    "value": {
+                        "rid": 1008
+                    }
+                },
+                {
+                    "name": "Optimizations",
+                    "type": 7,
+                    "value": {
+                        "rid": 1009
+                    }
+                },
+                {
+                    "name": "DataPersistance",
+                    "type": 7,
+                    "value": {
+                        "rid": 1010
+                    }
+                }
+            ]
+        },
+        {
+            "fieldName": "Group Values Template",
+            "entries": [
+                {
+                    "name": "How to use it",
+                    "type": 7,
+                    "value": {
+                        "rid": 1011
+                    }
+                },
+                {
+                    "name": "Group Values Editor",
+                    "type": 7,
+                    "value": {
+                        "rid": 1012
+                    }
+                }
+            ]
+        },
+        {
+            "fieldName": "Loaders",
+            "entries": [
+                {
+                    "name": "Export",
+                    "type": 7,
+                    "value": {
+                        "rid": 1013
+                    }
+                },
+                {
+                    "name": "Import",
+                    "type": 7,
+                    "value": {
+                        "rid": 1014
+                    }
+                }
+            ]
+        },
+        {
+            "fieldName": "Import/Export",
+            "entries": [
+                {
+                    "name": "Export",
+                    "type": 7,
+                    "value": {
+                        "rid": 1015
+                    }
+                },
+                {
+                    "name": "Import",
+                    "type": 7,
+                    "value": {
+                        "rid": 1016
+                    }
+                }
+            ]
+        }
+    ],
+    "references": {
+        "version": 2,
+        "RefIds": [
+            {
+                "rid": 1000,
+                "type": {
+                    "class": "StringSettingValue",
+                    "ns": "",
+                    "asm": "LoadSystem"
+                },
+                "data": {
+                    "value": "Welcome to the load system tool. A tool which will allow you to save data without using PlayerPrefs. It's flexible and can store a lot of serialized types."
+                }
+            },
+            {
+                "rid": 1001,
+                "type": {
+                    "class": "StringSettingValue",
+                    "ns": "",
+                    "asm": "LoadSystem"
+                },
+                "data": {
+                    "value": "Basically every type. The tool can store in a defined generic structured all primitives(int, bool, char, byte,etc)"
+                }
+            },
+            {
+                "rid": 1002,
+                "type": {
+                    "class": "StringSettingValue",
+                    "ns": "",
+                    "asm": "LoadSystem"
+                },
+                "data": {
+                    "value": "For everything ! Your game data can be stored in group values. Your settings data can be stored too. It allows you to store all your game related data. \nIn fact this documentation is stored in GroupValues!\nHave fun!"
+                }
+            },
+            {
+                "rid": 1003,
+                "type": {
+                    "class": "StringSettingValue",
+                    "ns": "",
+                    "asm": "LoadSystem"
+                },
+                "data": {
+                    "value": "Group values has a lot of diferent uses and cases. Most of all is an scriptable object in which you can store almost any type of value. In scripts you can set and get diferent values that you can store later as persistent data."
+                }
+            },
+            {
+                "rid": 1004,
+                "type": {
+                    "class": "StringSettingValue",
+                    "ns": "",
+                    "asm": "LoadSystem"
+                },
+                "data": {
+                    "value": "Although GroupValues is a flexible SO in which you can store anything it comes structured. The smallest element is called entry, in which you can store a value. All entries are defined within a field. All fields are confined in the GroupValue. That way you can store values in a certain area inside the SO.\n\nGroupValues\n-Field\n---Entry\n\nExample:\n\nSettings\n-SoundSettings\n--Mute(bool)\n--MasterVolume(float)"
+                }
+            },
+            {
+                "rid": 1005,
+                "type": {
+                    "class": "StringSettingValue",
+                    "ns": "",
+                    "asm": "LoadSystem"
+                },
+                "data": {
+                    "value": "When you want to get a certain type of value you will ask for the name of value that has the same type. So for example, if you want an int value with name \"speed\" to your variable topSpeed the correct way to write is:\nGroupValues myValues;\nint topSpeed=myValues.GetValue<int>(\"speed\");\n"
+                }
+            },
+            {
+                "rid": 1006,
+                "type": {
+                    "class": "StringSettingValue",
+                    "ns": "",
+                    "asm": "LoadSystem"
+                },
+                "data": {
+                    "value": "If the key does not exist it will throw an error. This is important to know because it can crash the game. It will also throw an error if an invalid cast is provided."
+                }
+            },
+            {
+                "rid": 1007,
+                "type": {
+                    "class": "StringSettingValue",
+                    "ns": "",
+                    "asm": "LoadSystem"
+                },
+                "data": {
+                    "value": "In the same way you can get a value out of the class you can store it as well in the scriptable object. Following the same example if you want it to asign a value and then store it the correct way to do it is:\nGroupValues myValues;\nint topSpeed=2;\nmyValues.SetSpeed<int>(\"speed\",topSpeed);"
+                }
+            },
+            {
+                "rid": 1008,
+                "type": {
+                    "class": "StringSettingValue",
+                    "ns": "",
+                    "asm": "LoadSystem"
+                },
+                "data": {
+                    "value": "If the key does not exist it will throw an error. This is important to know because it can crash the game. It will also throw an error if an invalid cast is provided."
+                }
+            },
+            {
+                "rid": 1009,
+                "type": {
+                    "class": "StringSettingValue",
+                    "ns": "",
+                    "asm": "LoadSystem"
+                },
+                "data": {
+                    "value": "If you know the name of the field in which the value is stored you can write GetValue<T>(fieldName,key) and SetValue<T>(fieldName,key,value). It is way faster."
+                }
+            },
+            {
+                "rid": 1010,
+                "type": {
+                    "class": "StringSettingValue",
+                    "ns": "",
+                    "asm": "LoadSystem"
+                },
+                "data": {
+                    "value": "It is very important for the user to know that this methods store the values inside the SO(Scriptable Object) but it does not mean persistance in your data stored. For more information read Loaders"
+                }
+            },
+            {
+                "rid": 1011,
+                "type": {
+                    "class": "StringSettingValue",
+                    "ns": "",
+                    "asm": "LoadSystem"
+                },
+                "data": {
+                    "value": "Templates are your Group Values readonly data. When building your game the preprocessor will set your data to default values. But what if you want certain entries with a different value?"
+                }
+            },
+            {
+                "rid": 1012,
+                "type": {
+                    "class": "StringSettingValue",
+                    "ns": "",
+                    "asm": "LoadSystem"
+                },
+                "data": {
+                    "value": ""
+                }
+            },
+            {
+                "rid": 1013,
+                "type": {
+                    "class": "StringSettingValue",
+                    "ns": "",
+                    "asm": "LoadSystem"
+                },
+                "data": {
+                    "value": ""
+                }
+            },
+            {
+                "rid": 1014,
+                "type": {
+                    "class": "StringSettingValue",
+                    "ns": "",
+                    "asm": "LoadSystem"
+                },
+                "data": {
+                    "value": ""
+                }
+            },
+            {
+                "rid": 1015,
+                "type": {
+                    "class": "StringSettingValue",
+                    "ns": "",
+                    "asm": "LoadSystem"
+                },
+                "data": {
+                    "value": ""
+                }
+            },
+            {
+                "rid": 1016,
+                "type": {
+                    "class": "StringSettingValue",
+                    "ns": "",
+                    "asm": "LoadSystem"
+                },
+                "data": {
+                    "value": ""
+                }
+            }
+        ]
+    }
+}

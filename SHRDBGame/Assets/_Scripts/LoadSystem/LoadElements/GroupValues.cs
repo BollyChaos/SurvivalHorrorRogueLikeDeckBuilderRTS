@@ -69,28 +69,28 @@ public partial class GroupValues : ScriptableObject
                     string actual = rawValue != null ? rawValue.GetType().Name : "null";
 
                     throw new InvalidCastException(
-                        $"Error de cast en GetValue: se intentó convertir de '{actual}' a '{wanted}' para la clave '{name}'.",
+                        $"Cast error in GetValue: tried to convert '{actual}' to '{wanted}' for key '{name}'.",
                         ex);
                 }
             }
         }
 
         throw new KeyNotFoundException(
-            $"No se encontró ningún valor con el nombre '{name}' en los campos.");
+            $"Did not find any value with key '{name}' in fields.");
     }
 
 
 
-    public object GetValue(string name)
-    {
-        foreach (var field in fields)
-        {
-            var entry = field.entries.Find(e => e.name == name);
-            if (entry != null)
-                return entry.value.GetValue();
-        }
-        throw new KeyNotFoundException($"No se encontr� ning�n valor con el nombre '{name}' en los campos.");
-    }
+    // public object GetValue(string name)
+    // {
+    //     foreach (var field in fields)
+    //     {
+    //         var entry = field.entries.Find(e => e.name == name);
+    //         if (entry != null)
+    //             return entry.value.GetValue();
+    //     }
+    //     throw new KeyNotFoundException($"No se encontr� ning�n valor con el nombre '{name}' en los campos.");
+    // }
     public void SetValue<T>(string field, string name, T newValue)
     {
 
@@ -224,6 +224,9 @@ public class SettingValue<T> : SettingValue
     public override SettingValue Clone()
     {
         var clone = SettingValueFactory.Create(GetValueType());
+        // object newValue=new object();
+        // newValue = (T)Convert.ChangeType(newValue, typeof(T));
+        // clone.SetValue(newValue);
         clone.SetValue(value);
         return clone;
     }
@@ -399,6 +402,7 @@ public class SettingEntry
 
     public SettingEntry Clone()
     {
+        
         return new SettingEntry
         {
             name = name,

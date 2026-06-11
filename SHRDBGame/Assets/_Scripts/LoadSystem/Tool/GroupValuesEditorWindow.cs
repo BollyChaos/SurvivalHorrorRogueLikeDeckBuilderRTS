@@ -23,11 +23,11 @@ internal class GroupValuesWindow : EditorWindow
     private GroupValuesTemplate selectedTemplate;
 
     private GroupValuesTemplate workingCopyTemplate;
-    private GroupValuesTemplate originalCopyTemplate;
+    //private GroupValuesTemplate originalCopyTemplate;
 
     private GroupValues selected;
     private GroupValues workingCopy;
-    private GroupValues originalCopy;
+    //private GroupValues originalCopy;
 
     private Vector2 scroll;
 
@@ -120,6 +120,7 @@ internal class GroupValuesWindow : EditorWindow
         {
             selectedIndex = newIndex;
             Select(allValues[selectedIndex]);
+
         }
 
         EditorGUILayout.BeginHorizontal();
@@ -211,14 +212,28 @@ internal class GroupValuesWindow : EditorWindow
             }
             if (GUILayout.Button("Template from Group Values"))
             {
+                Undo.RecordObject(selectedTemplate, "Set default values in template");
+                Undo.RecordObject(workingCopyTemplate, "Set default values in template");
+
                 selectedTemplate.SetDefaultValuesInTemplate();
                 workingCopyTemplate.SetDefaultValuesInTemplate();
+
+                EditorUtility.SetDirty(selectedTemplate);
+                EditorUtility.SetDirty(workingCopyTemplate);
+                AssetDatabase.SaveAssets();
             }
 
             if (GUILayout.Button("Template to Group Values"))
             {
+                Undo.RecordObject(selectedTemplate, "Set default values in template");
+                Undo.RecordObject(workingCopyTemplate, "Set default values in template");
+
                 selectedTemplate.SetDefaultValuesInSO();
                 workingCopyTemplate.SetDefaultValuesInSO();
+
+                EditorUtility.SetDirty(selectedTemplate);
+                EditorUtility.SetDirty(workingCopyTemplate);
+                AssetDatabase.SaveAssets();
             }
 
             EditorGUILayout.EndHorizontal();
@@ -259,18 +274,21 @@ internal class GroupValuesWindow : EditorWindow
             ApplyTemplate();
         }
 
-        if (GUILayout.Button("Undo"))
-        {
-            workingCopyTemplate = originalCopyTemplate.Clone();
-            Debug.Log("Undo changes in template working copy");
-        }
+    
 
         if (GUILayout.Button("Reset To Defaults"))
         {
+            Undo.RecordObject(selectedTemplate, "Reset to Defaults");
+            Undo.RecordObject(workingCopyTemplate, "Reset to Defaults");
+
             selectedTemplate.SetDefaultValuesInSO();
             workingCopyTemplate = selectedTemplate.Clone();
-            originalCopyTemplate = selectedTemplate.Clone();
+           // originalCopyTemplate = selectedTemplate.Clone();
             Debug.Log("Reset template SO to defaults: " + selectedTemplate.groupValuesReference.name);
+
+            EditorUtility.SetDirty(selectedTemplate);
+            EditorUtility.SetDirty(workingCopyTemplate);
+            AssetDatabase.SaveAssets();
         }
 
         GUILayout.EndHorizontal();
@@ -347,7 +365,7 @@ internal class GroupValuesWindow : EditorWindow
         if (gv != null)
         {
             selected = gv;
-            originalCopy = gv.Clone();
+            //  originalCopy = gv.Clone();
             workingCopy = gv.Clone();
         }
     }
@@ -358,7 +376,7 @@ internal class GroupValuesWindow : EditorWindow
             selectedTemplate = template;
             if (template.groupValuesReference != null)
             {
-                originalCopyTemplate = template.Clone();
+               // originalCopyTemplate = template.Clone();
                 workingCopyTemplate = template.Clone();
             }
         }
@@ -377,11 +395,16 @@ internal class GroupValuesWindow : EditorWindow
         if (GUILayout.Button("Apply"))
             Apply();
 
-        if (GUILayout.Button("Undo"))
-            Undo();
+        // if (GUILayout.Button("Undo"))
+        //     Undo();
 
         if (GUILayout.Button("Reset To Defaults"))
+        {
+            Undo.RecordObject(workingCopy, "Reset to Defaults");
             workingCopy.ResetToDefaults();
+            EditorUtility.SetDirty(workingCopy);
+            AssetDatabase.SaveAssets();
+        }
 
         GUILayout.EndHorizontal();
     }
@@ -460,7 +483,10 @@ internal class GroupValuesWindow : EditorWindow
             GUI.backgroundColor = Color.red;
             if (!showTemplateValues && GUILayout.Button("X", GUILayout.Width(20)))
             {
+                Undo.RecordObject(workingCopy, "Delete Entry");
                 workingCopy.fields.RemoveAt(i);
+                EditorUtility.SetDirty(workingCopy);
+                AssetDatabase.SaveAssets();
                 GUI.backgroundColor = Color.white;
                 break;
             }
@@ -484,7 +510,11 @@ internal class GroupValuesWindow : EditorWindow
 
         if (!showTemplateValues && GUILayout.Button("+ Add Field"))
         {
+            Undo.RecordObject(workingCopy, "Add field");
             workingCopy.fields.Add(new SettingField() { fieldName = "NewField" });
+            EditorUtility.SetDirty(workingCopy);
+            AssetDatabase.SaveAssets();
+
         }
 
         EditorGUILayout.EndScrollView();
@@ -518,9 +548,12 @@ internal class GroupValuesWindow : EditorWindow
             GUI.backgroundColor = Color.red;
             if (GUILayout.Button("X", GUILayout.Width(20)))
             {
+                Undo.RecordObject(workingCopy, "Delete Entry");
                 field.entries.RemoveAt(index);
                 GUI.backgroundColor = Color.white;
                 EditorGUILayout.EndHorizontal();
+                EditorUtility.SetDirty(workingCopy);
+                AssetDatabase.SaveAssets();
                 return;
             }
             GUI.backgroundColor = Color.white;
@@ -562,42 +595,42 @@ internal class GroupValuesWindow : EditorWindow
         EditorGUILayout.EndScrollView();
     }
 
-    void DrawEntry(SettingField field, int index)
-    {
-        var entry = field.entries[index];
-        if (field.entries.Exists(x => x != entry && x.name == entry.name))
-            EditorGUILayout.HelpBox("Duplicate key!", MessageType.Error);
+    // void DrawEntry(SettingField field, int index)
+    // {
+    //     var entry = field.entries[index];
+    //     if (field.entries.Exists(x => x != entry && x.name == entry.name))
+    //         EditorGUILayout.HelpBox("Duplicate key!", MessageType.Error);
 
-        Color originalColor = GUI.backgroundColor;
-        GUI.backgroundColor = (index % 2 == 0) ? originalColor : originalColor * 0.65f;
+    //     Color originalColor = GUI.backgroundColor;
+    //     GUI.backgroundColor = (index % 2 == 0) ? originalColor : originalColor * 0.65f;
 
-        EditorGUILayout.BeginHorizontal();
+    //     EditorGUILayout.BeginHorizontal();
 
-        entry.name = EditorGUILayout.TextField(entry.name, GUILayout.Width(150));
+    //     entry.name = EditorGUILayout.TextField(entry.name, GUILayout.Width(150));
 
-        // Type selector
-        var newType = (VALUE_TYPE)EditorGUILayout.EnumPopup(entry.type, GUILayout.Width(80));
-        if (newType != entry.type)
-        {
-            entry.type = newType;
-            entry.value = SettingValueFactory.Create(newType); // recreate value
-        }
+    //     // Type selector
+    //     var newType = (VALUE_TYPE)EditorGUILayout.EnumPopup(entry.type, GUILayout.Width(80));
+    //     if (newType != entry.type)
+    //     {
+    //         entry.type = newType;
+    //         entry.value = SettingValueFactory.Create(newType); // recreate value
+    //     }
 
-        EditorGUILayout.Space(20);
-        DrawEntryValue(entry);
+    //     EditorGUILayout.Space(20);
+    //     DrawEntryValue(entry);
 
-        GUI.backgroundColor = Color.red;
-        if (GUILayout.Button("X", GUILayout.Width(20)))
-        {
-            field.entries.RemoveAt(index);
-            GUI.backgroundColor = originalColor;
-            EditorGUILayout.EndHorizontal();
-            return;
-        }
+    //     GUI.backgroundColor = Color.red;
+    //     if (GUILayout.Button("X", GUILayout.Width(20)))
+    //     {
+    //         field.entries.RemoveAt(index);
+    //         GUI.backgroundColor = originalColor;
+    //         EditorGUILayout.EndHorizontal();
+    //         return;
+    //     }
 
-        GUI.backgroundColor = originalColor; // restaurar el color
-        EditorGUILayout.EndHorizontal();
-    }
+    //     GUI.backgroundColor = originalColor; // restaurar el color
+    //     EditorGUILayout.EndHorizontal();
+    // }
     void DrawEntryTemplate(SettingField field, int index)
     {
         var entry = field.entries[index];
@@ -680,6 +713,7 @@ internal class GroupValuesWindow : EditorWindow
 
     void AddEntry(SettingField field)
     {
+        Undo.RecordObject(workingCopy, "Add Entry");
         var e = new SettingEntry();
         e.name = "NewEntry_" + field.entries.Count;
 
@@ -687,6 +721,9 @@ internal class GroupValuesWindow : EditorWindow
         e.value = SettingValueFactory.Create(e.type);
 
         field.entries.Add(e);
+
+        EditorUtility.SetDirty(workingCopy);
+        AssetDatabase.SaveAssets();
         //Apply();
 
 
@@ -724,7 +761,7 @@ internal class GroupValuesWindow : EditorWindow
         // Guardar JSON con ALoader
         SaveJsonForAsset(selected);
 
-        originalCopy = selected.Clone();
+        //originalCopy = selected.Clone();
         //Debug.Log("Applied changes to:" + selected.name + " + JSON updated");
     }
     void ApplyTemplate()
@@ -734,7 +771,7 @@ internal class GroupValuesWindow : EditorWindow
         EditorUtility.SetDirty(selectedTemplate);
         AssetDatabase.SaveAssets();
 
-        originalCopyTemplate = selectedTemplate.Clone();
+       // originalCopyTemplate = selectedTemplate.Clone();
     }
 
     void SaveJsonForAsset(GroupValues asset)
@@ -747,17 +784,18 @@ internal class GroupValuesWindow : EditorWindow
     }
 
 
-    void Undo()
-    {
-        workingCopy = originalCopy.Clone();
-        Debug.Log("Undo changes");
-    }
+    // void Undo()
+    // {
+    //    // workingCopy = originalCopy.Clone();
+    //     Debug.Log("Undo changes");
+    // }
 
     // =========================================================
     // CREATE / DELETE
     // =========================================================
     void CreateNewGroupValues()
     {
+
         string path = EditorUtility.SaveFilePanelInProject(
             "Create GroupValues",
             "NewGroupValues",
@@ -807,7 +845,7 @@ internal class GroupValuesWindow : EditorWindow
 
         selected = null;
         workingCopy = null;
-        originalCopy = null;
+        // originalCopy = null;
         selectedIndex = -1;
 
         RefreshRegistry();
@@ -825,7 +863,6 @@ internal class GroupValuesWindow : EditorWindow
 
         selectedTemplate = null;
         workingCopyTemplate = null;
-        originalCopyTemplate = null;
         selectedTemplateIndex = -1;
 
         RefreshRegistry();

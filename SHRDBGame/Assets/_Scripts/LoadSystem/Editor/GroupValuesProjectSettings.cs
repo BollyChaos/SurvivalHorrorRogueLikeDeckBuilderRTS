@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 [FilePath("ProjectSettings/GroupValuesProjectSettings.asset", FilePathAttribute.Location.ProjectFolder)]
 internal class GroupValuesProjectSettings : ScriptableSingleton<GroupValuesProjectSettings>
 {
-
+    public bool useTemplates;
     public EncryptionMethod encryptionMethod = EncryptionMethod.None;
     public string passwordSalt;
     void OnEnable()

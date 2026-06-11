@@ -23,6 +23,10 @@ MonoBehaviour:
       type: 4
       value:
         rid: 7221127512394856965
+    - name: gagagaga
+      type: 4
+      value:
+        rid: 7221127512394856965
   references:
     version: 2
     RefIds:
@@ -33,4 +37,4 @@ MonoBehaviour:
     - rid: 7221127512394856965
       type: {class: IntSettingValue, ns: , asm: LoadSystem}
       data:
-        value: 0
+        value: 22

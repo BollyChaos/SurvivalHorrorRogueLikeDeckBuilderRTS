@@ -78,12 +78,12 @@ public class ALoader
 
             if (!File.Exists(soFullPath))
             {
-                Debug.LogWarning("No existe el archivo SO en: " + soFullPath);
+                Debug.LogWarning("File does not exist in: " + soFullPath);
             }
             values = AssetDatabase.LoadAssetAtPath<GroupValues>(soFullPath);
             if (values == null)
             {
-                Debug.LogError("No se han encontrado los valores en: " + soFullPath);
+                Debug.LogError("No values found in: " + soFullPath);
             }
 #else
             // En build los ScriptableObjects NO se pueden cargar desde Assets
@@ -92,7 +92,7 @@ public class ALoader
             values = Resources.Load<GroupValues>(Path.Combine(GetPathFromResources(soPath),resourceName));
              if (values == null)
         {
-            Debug.LogError("[Loader] No se pudo cargar el SO base en :"+resourceName);
+            Debug.LogError("[Loader] Could not load SO base in :"+resourceName);
             return null;
         }
 #endif
@@ -385,7 +385,7 @@ public class ALoader
             return true;
         }
 
-        Debug.LogError($"[ALoader] No se encontró '{baseName}' dentro de Resources.");
+        Debug.LogError($"[ALoader] Could not find '{baseName}' inside Resources.");
         return false;
     }
 #endif
