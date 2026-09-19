@@ -18,23 +18,27 @@ MonoBehaviour:
     - name: NewEntry_0
       type: 4
       value:
-        rid: 7221127512394856964
+        rid: 7657973567947276288
     - name: NewEntry_1
       type: 4
       value:
-        rid: 7221127512394856965
+        rid: 7657973567947276289
     - name: gagagaga
       type: 4
       value:
-        rid: 7221127512394856965
+        rid: 7657973567947276290
   references:
     version: 2
     RefIds:
-    - rid: 7221127512394856964
+    - rid: 7657973567947276288
       type: {class: IntSettingValue, ns: , asm: LoadSystem}
       data:
         value: 0
-    - rid: 7221127512394856965
+    - rid: 7657973567947276289
       type: {class: IntSettingValue, ns: , asm: LoadSystem}
       data:
-        value: 22
+        value: 0
+    - rid: 7657973567947276290
+      type: {class: IntSettingValue, ns: , asm: LoadSystem}
+      data:
+        value: 0

@@ -180,7 +180,7 @@ namespace Managers
         }
         public void LoadData()
         {
-            GetComponent<LoaderMono>().LoadValues();
+            GetComponent<LoaderMono>().LoadData();
         }
 
         public void OnEnd()

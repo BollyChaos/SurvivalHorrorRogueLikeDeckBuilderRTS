@@ -100,10 +100,19 @@ public class ALoader
 
         if (encryptionMethod != EncryptionMethod.None)
         {
-            var jsonText = JsonEncrypter.DecryptFromFile(GetJsonPath(), password, encryptionMethod);
-            //            Debug.Log(jsonText);
+            string jsonPath = GetJsonPath();
+            if (!File.Exists(jsonPath))
+            {
+                Debug.LogWarning("[Loader] Encrypted JSON doesn't exist in: " + jsonPath);
+                JsonEncrypter.EncryptToFile(jsonPath, GetJsonString(), password, encryptionMethod);
+            }
+            else
+            {
+                var jsonText = JsonEncrypter.DecryptFromFile(jsonPath, password, encryptionMethod);
+                //            Debug.Log(jsonText);
 
-            LoadFromJsonString(jsonText);
+                LoadFromJsonString(jsonText);
+            }
         }
         else
             // Cargar valores desde JSON
